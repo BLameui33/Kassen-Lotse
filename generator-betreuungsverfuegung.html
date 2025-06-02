@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Generator für Betreuungsverfügung</title>
+  <meta name="description" content="Erstellen Sie eine individuelle Betreuungsverfügung, um Wünsche für eine eventuell notwendige gerichtliche Betreuung festzulegen.">
+  <meta name="keywords" content="Betreuungsverfügung, Generator, Vorsorge, Betreuung, Gericht, rechtliche Betreuung">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="betreuungsverfuegung_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .checkbox-group label { font-weight: normal; display: block; margin-top: 0.5rem;}
+    .checkbox-group input[type="checkbox"] { width: auto; margin-right: 8px; vertical-align: middle;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+     .sub-details { display: none; margin-left: 10px; border-left: 2px solid #eee; padding-left: 10px; margin-top:0.5rem;}
+
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Betreuungsverfügung erstellen</h1>
+  <p class="info-box">
+    Mit einer Betreuungsverfügung können Sie Wünsche äußern, wer vom Betreuungsgericht als Ihr rechtlicher Betreuer bestellt werden soll, falls dies einmal notwendig wird und Sie keine (umfassende) Vorsorgevollmacht haben. Sie können auch festlegen, wer nicht Betreuer werden soll.
+    Weitere Informationen finden Sie auf unserer <a href="info-vollmachten.html">Info-Seite zu Vollmachten & Verfügungen</a>.
+  </p>
+
+  <form id="betreuungsverfuegungForm">
+    <fieldset>
+      <legend>1. Angaben zur Person, die die Verfügung erstellt</legend>
+      <label for="personName">Vor- und Nachname:</label>
+      <input type="text" id="personName" required>
+      <label for="personGeburtsdatum">Geburtsdatum:</label>
+      <input type="date" id="personGeburtsdatum" required>
+      <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
+      <textarea id="personAdresse" rows="3" required></textarea>
+      <label for="personTelefon">Telefon (optional):</label>
+      <input type="text" id="personTelefon">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Vorgeschlagene Betreuerperson(en)</legend>
+      <p class="info-box">Benennen Sie hier die Person(en), die Sie sich als Betreuer wünschen. Sie können auch eine Reihenfolge festlegen.</p>
+      
+      <div id="wunschbetreuer1">
+        <h3 style="font-size:1.1em; margin-top:0;">Gewünschte Betreuerperson 1:</h3>
+        <label for="wb1Name">Vor- und Nachname:</label>
+        <input type="text" id="wb1Name" required>
+        <label for="wb1Geburtsdatum">Geburtsdatum:</label>
+        <input type="date" id="wb1Geburtsdatum">
+        <label for="wb1Adresse">Anschrift:</label>
+        <textarea id="wb1Adresse" rows="3"></textarea>
+        <label for="wb1Telefon">Telefon (optional):</label>
+        <input type="text" id="wb1Telefon">
+        <label for="wb1Verhaeltnis">Verhältnis zu Ihnen (optional):</label>
+        <input type="text" id="wb1Verhaeltnis" placeholder="z.B. Ehepartner, Kind, Freund">
+      </div>
+
+      <div id="wunschbetreuer2Wrapper" class="sub-details" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
+        <h3 style="font-size:1.1em; margin-top:0;">Gewünschte Betreuerperson 2 (optional, ggf. als Ersatz):</h3>
+        <label for="wb2Name">Vor- und Nachname:</label>
+        <input type="text" id="wb2Name">
+        <label for="wb2Geburtsdatum">Geburtsdatum:</label>
+        <input type="date" id="wb2Geburtsdatum">
+        <label for="wb2Adresse">Anschrift:</label>
+        <textarea id="wb2Adresse" rows="3"></textarea>
+        <label for="wb2Telefon">Telefon (optional):</label>
+        <input type="text" id="wb2Telefon">
+        <label for="wb2Verhaeltnis">Verhältnis zu Ihnen (optional):</label>
+        <input type="text" id="wb2Verhaeltnis">
+      </div>
+      <button type="button" id="addWunschbetreuerBtn" style="margin-top:1rem; background-color: #5cb85c; color:white;">Weitere gewünschte Betreuerperson hinzufügen</button>
+      <button type="button" id="removeWunschbetreuerBtn" class="button-secondary" style="display:none; margin-top:1rem;">Zweite gewünschte Betreuerperson entfernen</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Abgelehnte Betreuerperson(en) (optional)</legend>
+      <label for="abgelehnteBetreuer">Person(en), die auf keinen Fall als Betreuer bestellt werden sollen: <small>(Name, ggf. kurze Begründung, warum diese Person nicht geeignet ist)</small></label>
+      <textarea id="abgelehnteBetreuer" rows="3" placeholder="z.B. Max Mustermann, weil ..."></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Wünsche zur Durchführung der Betreuung</legend>
+      <label for="wuenscheLebensgestaltung">Wünsche zur Lebensgestaltung: <small>(z.B. Wo möchten Sie wohnen? Welche Gewohnheiten sind Ihnen wichtig?)</small></label>
+      <textarea id="wuenscheLebensgestaltung" rows="4" placeholder="z.B. Ich möchte so lange wie möglich in meiner eigenen Wohnung bleiben. / Mir ist mein wöchentlicher Kirchenbesuch wichtig."></textarea>
+      
+      <label for="wuenscheVermoegenssorge">Wünsche zur Vermögenssorge: <small>(z.B. Bestimmte Geldanlagen sollen erhalten bleiben, Schenkungen an bestimmte Personen)</small></label>
+      <textarea id="wuenscheVermoegenssorge" rows="3" placeholder="z.B. Mein Sparbuch bei der Musterbank soll nicht aufgelöst werden. / Meine Enkel sollen weiterhin ihr monatliches Taschengeld erhalten."></textarea>
+
+      <label for="wuenscheGesundheitssorge">Wünsche zur Gesundheitssorge: <small>(Ergänzend zu einer Patientenverfügung oder falls keine vorhanden ist. Betrifft nicht Entscheidungen über Leben und Tod, sondern z.B. Präferenzen für Ärzte, Therapien)</small></label>
+      <textarea id="wuenscheGesundheitssorge" rows="3" placeholder="z.B. Ich möchte weiterhin von Dr. Hausmann behandelt werden. / Ich lehne alternative Heilmethoden ab."></textarea>
+      
+      <label for="wuenscheAufgabenkreise">Sollen bestimmte Aufgabenkreise für den Betreuer besonders hervorgehoben oder ausgeschlossen werden?</label>
+      <textarea id="wuenscheAufgabenkreise" rows="3" placeholder="z.B. Die Betreuung soll sich insbesondere auf die Gesundheitssorge konzentrieren. / Die Vermögenssorge soll nur eingeschränkt erfolgen."></textarea>
+    </fieldset>
+    
+    <fieldset>
+      <legend>5. Ergänzung zu Vorsorgevollmacht / Patientenverfügung (falls vorhanden)</legend>
+      <label for="infoVorsorgevollmacht">Haben Sie bereits eine Vorsorgevollmacht erstellt?</label>
+      <select id="infoVorsorgevollmacht">
+        <option value="nein" selected>Nein</option>
+        <option value="ja_umfassend">Ja, eine umfassende</option>
+        <option value="ja_teilweise">Ja, aber nur für bestimmte Bereiche</option>
+      </select>
+      <div id="detailsVorsorgevollmacht" class="sub-details">
+        <label for="infoVollmachtWo">Wo wird die Vorsorgevollmacht aufbewahrt / Wer weiß davon?</label>
+        <input type="text" id="infoVollmachtWo" placeholder="z.B. Bei meinem Sohn Max, im Zentralen Vorsorgeregister">
+      </div>
+
+      <label for="infoPatientenverfuegung">Haben Sie bereits eine Patientenverfügung erstellt?</label>
+      <select id="infoPatientenverfuegung">
+        <option value="nein" selected>Nein</option>
+        <option value="ja">Ja</option>
+      </select>
+       <div id="detailsPatientenverfuegung" class="sub-details">
+        <label for="infoPatientenverfuegungWo">Wo wird die Patientenverfügung aufbewahrt / Wer weiß davon?</label>
+        <input type="text" id="infoPatientenverfuegungWo" placeholder="z.B. Bei meinem Hausarzt, Kopie bei meiner Tochter">
+      </div>
+      <p class="info-box"><small>Hinweis: Eine Vorsorgevollmacht geht einer gesetzlichen Betreuung in den von ihr umfassten Bereichen vor. Diese Betreuungsverfügung greift also vorrangig dann, wenn keine oder keine ausreichende Vorsorgevollmacht besteht.</small></p>
+    </fieldset>
+
+    <fieldset>
+        <legend>6. Schlussbemerkungen</legend>
+        <label><input type="checkbox" id="eigenhaendigUnterschreibenBV" required> Ich werde dieses Dokument nach dem Ausdrucken eigenhändig unterschreiben und mit Ort und Datum versehen.</label>
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnBetreuungsV" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnBetreuungsV" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Betreuungsverfügung-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupBetreuungsV" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnBetreuungsV" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-vollmachten.html">Infos Vollmachten & Verfügungen</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

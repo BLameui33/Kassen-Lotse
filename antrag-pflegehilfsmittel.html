@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antrag auf Pflegehilfsmittel</title>
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf zum Verbrauch bestimmte Pflegehilfsmittel (Pauschale) und/oder technische Pflegehilfsmittel bei Ihrer Pflegekasse.">
+  <meta name="keywords" content="Antrag, Pflegehilfsmittel, Pflegekasse, §40 SGB XI, Pauschale, technische Hilfsmittel, Pflegegrad">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="pflegehilfsmittel_antrag_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], input[type="number"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .checkbox-group label, .radio-group label { font-weight: normal; display: block; margin-right: 15px; margin-top: 0.5rem;}
+    .checkbox-group input[type="checkbox"], .radio-group input[type="radio"] { width: auto; margin-right: 5px; vertical-align: middle;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .sub-details { display: none; margin-top: 1rem; padding-top:1rem; border-top: 1px dashed #eee;}
+    .sub-details-active { display: block; } /* Hilfsklasse für JS, um required zu steuern */
+
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Antrag auf Pflegehilfsmittel</h1>
+  <p class="info-box">
+    Mit diesem Formular können Sie die Kostenübernahme für zum Verbrauch bestimmte Pflegehilfsmittel (Pauschale) und/oder für ein technisches Pflegehilfsmittel bei Ihrer Pflegekasse beantragen.
+    Weitere Informationen finden Sie auf unserer <a href="info-pflegehilfsmittel.html">Info-Seite zu Pflegehilfsmitteln</a>.
+  </p>
+
+  <form id="pflegehilfsmittelAntragForm">
+    <fieldset>
+      <legend>1. Angaben zur pflegebedürftigen Person</legend>
+      <label for="vpName">Vor- und Nachname:</label>
+      <input type="text" id="vpName" required>
+      <label for="vpGeburt">Geburtsdatum:</label>
+      <input type="date" id="vpGeburt" required>
+      <label for="vpAdresse">Vollständige Adresse:</label>
+      <textarea id="vpAdresse" rows="3" required></textarea>
+      <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
+      <input type="text" id="vpNummer" required>
+      <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad (falls bekannt):</label>
+      <select id="vpPflegegrad">
+          <option value="">Kein Pflegegrad / Noch nicht bekannt</option>
+          <option value="Pflegegrad 1">Pflegegrad 1</option>
+          <option value="Pflegegrad 2">Pflegegrad 2</option>
+          <option value="Pflegegrad 3">Pflegegrad 3</option>
+          <option value="Pflegegrad 4">Pflegegrad 4</option>
+          <option value="Pflegegrad 5">Pflegegrad 5</option>
+      </select>
+      <label for="vpTelefon">Telefonnummer (für Rückfragen, optional):</label>
+      <input type="text" id="vpTelefon">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Antragsteller:in (falls abweichend)</legend>
+      <label for="antragstellerIdentischPflegeHM">Wird der Antrag von der pflegebedürftigen Person selbst gestellt?</label>
+      <select id="antragstellerIdentischPflegeHM">
+          <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
+          <option value="nein">Nein, von einer anderen Person</option>
+      </select>
+      <div id="antragstellerDetailsPflegeHM" class="sub-details">
+          <label for="asNamePflegeHM">Vor- und Nachname des/der Antragsteller:in:</label>
+          <input type="text" id="asNamePflegeHM">
+          <label for="asVerhaeltnisPflegeHM">Verhältnis zur pflegebedürftigen Person:</label>
+          <input type="text" id="asVerhaeltnisPflegeHM" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
+          <label><input type="checkbox" id="asVollmachtPflegeHM"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zur Pflegekasse</legend>
+      <label for="kasseName">Name der Pflegekasse:</label>
+      <input type="text" id="kasseName" required>
+      <label for="kasseAdresse">Vollständige Adresse der Pflegekasse:</label>
+      <textarea id="kasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Art des Antrags auf Pflegehilfsmittel</legend>
+      <p class="info-box">Welche Art von Pflegehilfsmitteln beantragen Sie? Mehrfachauswahl ist möglich.</p>
+      <div class="checkbox-group">
+          <label><input type="checkbox" id="antragArtPauschale" name="antragArt" value="Pauschale Verbrauch"> Antrag auf die Pauschale für zum Verbrauch bestimmte Pflegehilfsmittel (ca. 40€/Monat)</label>
+          <label><input type="checkbox" id="antragArtTechnisch" name="antragArt" value="Technisches Hilfsmittel"> Antrag auf ein technisches Pflegehilfsmittel</label>
+      </div>
+
+      <div id="detailsPauschale" class="sub-details">
+          <p><strong>Für die Pauschale für zum Verbrauch bestimmte Pflegehilfsmittel:</strong></p>
+          <label for="lieferantPauschale">Bevorzugter Lieferant oder Art der Versorgung (optional): <small>(z.B. Name der Apotheke/Sanitätshaus, Wunsch nach monatlicher Box)</small></label>
+          <input type="text" id="lieferantPauschale" placeholder="z.B. Muster-Sanitätshaus, monatliche Lieferung per Post">
+          <p><small>Hinweis: Die Pflegekasse genehmigt in der Regel die Pauschale. Die Abwicklung erfolgt dann oft direkt über Vertragspartner der Kasse.</small></p>
+      </div>
+
+      <div id="detailsTechnischesHilfsmittel" class="sub-details">
+          <p><strong>Für das technische Pflegehilfsmittel:</strong> <small>(Wenn Sie mehrere unterschiedliche technische Hilfsmittel benötigen, füllen Sie bitte für jedes ein eigenes Antragsformular aus oder fügen eine separate Liste bei.)</small></p>
+          <label for="bezeichnungTechnischesHilfsmittel">Genaue Bezeichnung des technischen Hilfsmittels:</label>
+          <input type="text" id="bezeichnungTechnischesHilfsmittel" placeholder="z.B. Pflegebett, Rollator, Toilettenstuhl">
+          <label for="hilfsmittelnummerTechnisch">Hilfsmittelpositionsnummer (HMV-Nr., falls bekannt):</label>
+          <input type="text" id="hilfsmittelnummerTechnisch">
+          <label for="begruendungTechnischesHilfsmittel">Kurze Begründung der Notwendigkeit für dieses technische Hilfsmittel: <small>(Warum wird es benötigt? Welche Einschränkungen bestehen?)</small></label>
+          <textarea id="begruendungTechnischesHilfsmittel" rows="4" placeholder="z.B. Zur Erleichterung des Aufstehens und zur Sturzprophylaxe. / Um die tägliche Körperpflege im Sitzen zu ermöglichen."></textarea>
+          <label for="arztEmpfehlungTechnischesHilfsmittel">Liegt eine ärztliche Empfehlung oder Verordnung vor? <small>(Wenn ja, bitte nennen Sie den Arzt und das Datum oder fügen Sie diese bei.)</small></label>
+          <textarea id="arztEmpfehlungTechnischesHilfsmittel" rows="2" placeholder="z.B. Empfehlung von Dr. Mustermann vom TT.MM.JJJJ (liegt bei)."></textarea>
+      </div>
+    </fieldset>
+    
+    <fieldset>
+        <legend>5. Beizufügende Anlagen (optional)</legend>
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="anlageAerztlicheUnterlagenPHM" name="anlagenPflegehilfsmittel" value="Ärztliche Unterlagen/Empfehlungen (insb. für technische Hilfsmittel)"> Ärztliche Unterlagen/Empfehlungen (insb. für technische Hilfsmittel)</label>
+            <label><input type="checkbox" id="anlageKostenvoranschlagPHM" name="anlagenPflegehilfsmittel" value="Kostenvoranschlag (für technische Hilfsmittel, falls vorhanden)"> Kostenvoranschlag (für technische Hilfsmittel, falls vorhanden)</label>
+            <label><input type="checkbox" id="anlageVollmachtPHM" name="anlagenPflegehilfsmittel" value="Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)</label>
+        </div>
+        <label for="anlageSonstigesPHM">Sonstige Anlagen:</label>
+        <input type="text" id="anlageSonstigesPHM">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnPflegeHM" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnPflegeHM" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Antrags-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupPflegeHM" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnPflegeHM" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-pflegehilfsmittel.html">Infos Pflegehilfsmittel</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

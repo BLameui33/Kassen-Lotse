@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antrag: Feststellung Behinderung / Schwerbehindertenausweis</title>
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Feststellung einer Behinderung (GdB und Merkzeichen) und Ausstellung eines Schwerbehindertenausweises.">
+  <meta name="keywords" content="Antrag, Schwerbehindertenausweis, GdB, Merkzeichen, Versorgungsamt, Behinderung, SGB IX">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="em-rente_antrag_script.js"></script> <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], input[type="email"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .checkbox-group label, .radio-group label { font-weight: normal; display: block; margin-top: 0.5rem;}
+    .checkbox-group input[type="checkbox"], .radio-group input[type="radio"] { width: auto; margin-right: 8px; vertical-align: middle;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .warning-box { background-color: #fcf8e3; border-left: 5px solid #f0ad4e; padding: 15px; margin: 1.5rem 0; border-radius: 5px; }
+    .sub-details { display: none; margin-left: 10px; border-left: 2px solid #eee; padding-left: 10px; margin-top:0.5rem;}
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Unterstützung für Ihren Antrag auf Erwerbsminderungsrente</h1>
+  <p class="info-box">
+    Dieses Formular hilft Ihnen, die notwendigen Informationen für Ihren Antrag auf Erwerbsminderungsrente (EM-Rente) zusammenzustellen. Das generierte PDF dient als detailliertes Begleitschreiben oder als Grundlage für das Ausfüllen des offiziellen Antragsformulars der Deutschen Rentenversicherung.
+    Lesen Sie bitte auch unsere <a href="info-em-rente.html">Informationen zur EM-Rente</a>.
+  </p>
+
+  <form id="emRenteAntragForm">
+    <fieldset>
+      <legend>1. Persönliche Angaben der versicherten Person</legend>
+      <label for="personName">Vor- und Nachname:</label>
+      <input type="text" id="personName" required>
+      <label for="personGeburtsname">Geburtsname (falls abweichend):</label>
+      <input type="text" id="personGeburtsname">
+      <label for="personGeburt">Geburtsdatum:</label>
+      <input type="date" id="personGeburt" required>
+      <label for="personGeburtsort">Geburtsort:</label>
+      <input type="text" id="personGeburtsort" required>
+      <label for="personGeschlecht">Geschlecht:</label>
+      <select id="personGeschlecht" required>
+        <option value="">Bitte wählen...</option>
+        <option value="männlich">männlich</option>
+        <option value="weiblich">weiblich</option>
+        <option value="divers">divers</option>
+        <option value="keine Angabe">keine Angabe</option>
+      </select>
+      <label for="personStaatsangehoerigkeit">Staatsangehörigkeit:</label>
+      <input type="text" id="personStaatsangehoerigkeit" required>
+      <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
+      <textarea id="personAdresse" rows="3" required></textarea>
+      <label for="personTelefon">Telefonnummer (tagsüber erreichbar):</label>
+      <input type="text" id="personTelefon">
+      <label for="personEmail">E-Mail-Adresse (optional):</label>
+      <input type="email" id="personEmail">
+      <label for="personKrankenkasse">Aktuelle Krankenkasse:</label>
+      <input type="text" id="personKrankenkasse" required>
+      <label for="personRvNummer">Rentenversicherungsnummer:</label>
+      <input type="text" id="personRvNummer" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Angaben zum zuständigen Rentenversicherungsträger</legend>
+      <label for="rvTraegerName">Name des Rentenversicherungsträgers: <small>(z.B. Deutsche Rentenversicherung Bund, Deutsche Rentenversicherung [Region], Knappschaft-Bahn-See)</small></label>
+      <input type="text" id="rvTraegerName" value="Deutsche Rentenversicherung" required>
+      <label for="rvTraegerStrasse">Straße und Hausnummer:</label>
+      <input type="text" id="rvTraegerStrasse" required placeholder="z.B. Ruhrstraße 2">
+      <label for="rvTraegerPlzOrt">Postleitzahl und Ort:</label>
+      <input type="text" id="rvTraegerPlzOrt" required placeholder="z.B. 10709 Berlin">
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Antragsteller:in (falls abweichend von oben genannter Person)</legend> <label for="antragstellerIdentischEMR">Wird der Antrag von der oben genannten Person selbst gestellt?</label>
+      <select id="antragstellerIdentischEMR">
+          <option value="ja" selected>Ja</option>
+          <option value="nein">Nein, von einer anderen Person/Einrichtung</option>
+      </select>
+      <div id="antragstellerDetailsEMR" class="sub-details">
+          <label for="asNameEMR">Name des/der Antragsteller:in / Bezeichnung der Einrichtung:</label>
+          <input type="text" id="asNameEMR">
+          <label for="asAdresseEMR">Vollständige Adresse des/der Antragsteller:in:</label>
+          <textarea id="asAdresseEMR" rows="3"></textarea>
+          <label for="asVerhaeltnisEMR">Verhältnis zur Person bzw. Funktion:</label>
+          <input type="text" id="asVerhaeltnisEMR" placeholder="z.B. Mutter, Gesetzl. Betreuer, Pflegedienst">
+          <label for="asTelefonEMR">Telefonnummer des/der Antragsteller:in:</label> <input type="text" id="asTelefonEMR">
+          <label><input type="checkbox" id="asVollmachtEMR"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+      </div>
+    </fieldset>
+    
+    <fieldset>
+      <legend>4. Angaben zur Erwerbsminderung</legend> <label for="beginnErwerbsminderung">Seit wann fühlen Sie sich erwerbsgemindert bzw. können Ihre letzte Tätigkeit nicht mehr ausüben? (ca. Datum)</label>
+      <input type="date" id="beginnErwerbsminderung" required>
+      <label for="letzteTaetigkeit">Letzte ausgeübte Tätigkeit / Beruf:</label>
+      <input type="text" id="letzteTaetigkeit" required>
+      <label for="stundenProTagMoeglich">Wie viele Stunden pro Tag können Sie Ihrer Einschätzung nach noch irgendeiner beruflichen Tätigkeit auf dem allgemeinen Arbeitsmarkt nachgehen?</label>
+      <select id="stundenProTagMoeglich" required>
+        <option value="">Bitte wählen...</option>
+        <option value="Weniger als 3 Stunden">Weniger als 3 Stunden (entspricht voller Erwerbsminderung)</option>
+        <option value="3 bis unter 6 Stunden">3 bis unter 6 Stunden (entspricht teilweiser Erwerbsminderung)</option>
+        <option value="6 Stunden und mehr">6 Stunden und mehr</option>
+      </select>
+      <label for="auswirkungenAlltagBeruf">Detaillierte Beschreibung der gesundheitlichen Einschränkungen und deren Auswirkungen auf Alltag und Berufs(fähigkeit): <small>(Welche Tätigkeiten fallen Ihnen schwer oder sind unmöglich? Wie äußern sich die Beschwerden? Welche Hilfsmittel nutzen Sie bereits?)</small></label>
+      <textarea id="auswirkungenAlltagBeruf" rows="8" required placeholder="Schildern Sie konkret, wie sich Ihre Erkrankungen auswirken. Beispiel: Aufgrund meiner starken Rückenschmerzen kann ich nicht länger als 30 Minuten sitzen oder stehen..."></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Gesundheitsstörungen und ärztliche Behandlung</legend> <p class="info-box">Führen Sie hier alle Gesundheitsstörungen auf, die zur Erwerbsminderung beitragen. Nennen Sie auch die behandelnden Ärzte/Einrichtungen der letzten Jahre. Aussagekräftige medizinische Unterlagen sind entscheidend!</p>
+      <div class="gesundheitsstoerung-block">
+        <label for="gesundheit1_bezeichnung">Bezeichnung der Gesundheitsstörung 1:</label>
+        <input type="text" id="gesundheit1_bezeichnung" required>
+        <label for="gesundheit1_arzt">Behandelnde/r Arzt/Ärztin oder Einrichtung für Störung 1 (Name, Fachrichtung, Ort):</label>
+        <input type="text" id="gesundheit1_arzt" required placeholder="Dr. Max Mustermann, Orthopäde, Musterstadt">
+        <label for="gesundheit1_behandlung_seit">In Behandlung seit (ca. Monat/Jahr):</label>
+        <input type="text" id="gesundheit1_behandlung_seit" placeholder="z.B. 03/2020">
+      </div>
+      <div class="gesundheitsstoerung-block" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
+        <label for="gesundheit2_bezeichnung">Bezeichnung der Gesundheitsstörung 2 (optional):</label>
+        <input type="text" id="gesundheit2_bezeichnung">
+        <label for="gesundheit2_arzt">Behandelnde/r Arzt/Ärztin oder Einrichtung für Störung 2:</label>
+        <input type="text" id="gesundheit2_arzt">
+        <label for="gesundheit2_behandlung_seit">In Behandlung seit (ca. Monat/Jahr):</label>
+        <input type="text" id="gesundheit2_behandlung_seit">
+      </div>
+       <div class="gesundheitsstoerung-block" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
+        <label for="gesundheit3_bezeichnung">Bezeichnung der Gesundheitsstörung 3 (optional):</label>
+        <input type="text" id="gesundheit3_bezeichnung">
+        <label for="gesundheit3_arzt">Behandelnde/r Arzt/Ärztin oder Einrichtung für Störung 3:</label>
+        <input type="text" id="gesundheit3_arzt">
+        <label for="gesundheit3_behandlung_seit">In Behandlung seit (ca. Monat/Jahr):</label>
+        <input type="text" id="gesundheit3_behandlung_seit">
+      </div>
+      <label for="krankenhausaufenthalte">Krankenhausaufenthalte der letzten Jahre (Klinik, Zeitraum, Grund - optional):</label>
+      <textarea id="krankenhausaufenthalte" rows="3" placeholder="z.B. Musterklinik, 01.02.22-15.02.22, OP XY; Rehaklinik Sonneschein, 03/23-04/23, Zustand nach XY"></textarea>
+      <label for="rehamassnahmen">Teilgenommene Rehabilitationsmaßnahmen (Einrichtung, Zeitraum, Ergebnis - optional):</label>
+      <textarea id="rehamassnahmen" rows="3"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. Angaben zur beruflichen Situation</legend> <label for="beruflicherWerdegang">Kurzer beruflicher Werdegang / erlernte Berufe:</label>
+      <textarea id="beruflicherWerdegang" rows="3" required placeholder="z.B. Ausbildung als..., Tätigkeit als... von...bis..."></textarea>
+      <label for="aktuelleBeschaeftigung">Aktuelle Beschäftigungssituation:</label>
+      <select id="aktuelleBeschaeftigung">
+        <option value="ungekuendigt_beschaeftigt">Ungekündigt beschäftigt (derzeit arbeitsunfähig)</option>
+        <option value="arbeitssuchend_gemeldet">Arbeitssuchend gemeldet</option>
+        <option value="selbststaendig">Selbstständig (ggf. Tätigkeit ruht)</option>
+        <option value="nicht_erwerbstaetig">Nicht erwerbstätig (z.B. Hausfrau/-mann)</option>
+        <option value="sonstiges">Sonstiges</option>
+      </select>
+      <div id="aktuelleBeschaeftigungSonstigesDetails" class="sub-details">
+        <label for="aktuelleBeschaeftigungSonstigesText">Erläuterung zu "Sonstiges":</label>
+        <input type="text" id="aktuelleBeschaeftigungSonstigesText">
+      </div>
+    </fieldset>
+    
+    <fieldset>
+        <legend>7. Einverständniserklärungen und Anlagen</legend> <label><input type="checkbox" id="einverstaendnisAerzteEMR" required> Ich entbinde die von mir genannten Ärzte, Krankenhäuser, Reha-Einrichtungen und sonstigen Stellen von der Schweigepflicht gegenüber dem zuständigen Rentenversicherungsträger und den von ihm beauftragten ärztlichen Gutachtern.</label>
+        <label><input type="checkbox" id="einverstaendnisDatennutzungEMR" required> Ich bin damit einverstanden, dass der Rentenversicherungsträger die für die Entscheidung notwendigen Unterlagen bei den von mir genannten Stellen anfordert und meine Daten im Rahmen des Verfahrens verarbeitet werden.</label>
+        
+        <p style="margin-top:1.5rem;"><strong>Wichtige beizufügende Anlagen (in Kopie):</strong></p>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="anlagenEMR" value="Aktuelle und aussagekräftige Arztbriefe, Befundberichte, Gutachten zu allen relevanten Gesundheitsstörungen" checked> Aktuelle und aussagekräftige Arztbriefe, Befundberichte, Gutachten</label>
+            <label><input type="checkbox" name="anlagenEMR" value="Krankenhaus- und Reha-Entlassungsberichte der letzten Jahre"> Krankenhaus- und Reha-Entlassungsberichte der letzten Jahre</label>
+            <label><input type="checkbox" name="anlagenEMR" value="Liste aller aktuell eingenommenen Medikamente (Medikamentenplan)"> Medikamentenplan</label>
+            <label><input type="checkbox" id="asVollmachtEMR" name="anlagenEMR" value="Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)</label> </div>
+        <label for="anlageSonstigesEMR">Sonstige wichtige Anlagen (bitte auflisten):</label>
+        <input type="text" id="anlageSonstigesEMR">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnEMR" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnEMR" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Antragsunterstützung-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupEMR" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnEMR" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Ihr Projektname | <a href="index.html">Zurück zur Startseite</a> | <a href="info-em-rente.html">Infos EM-Rente</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+</body>
+</html>

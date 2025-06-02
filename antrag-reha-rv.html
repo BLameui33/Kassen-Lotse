@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antragsunterstützung Reha-Leistungen (Rentenversicherung)</title>
+  <meta name="description" content="Erstellen Sie ein detailliertes Begleitschreiben für Ihren Antrag auf medizinische oder berufliche Rehabilitation bei der Deutschen Rentenversicherung.">
+  <meta name="keywords" content="Antrag, Reha, Rehabilitation, Rentenversicherung, DRV, Begleitschreiben, medizinische Reha, berufliche Reha, LTA">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="reha-rv_antrag_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], input[type="email"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .checkbox-group label { font-weight: normal; display: block; margin-top: 0.5rem;}
+    .checkbox-group input[type="checkbox"] { width: auto; margin-right: 8px; vertical-align: middle;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .warning-box { background-color: #fcf8e3; border-left: 5px solid #f0ad4e; padding: 15px; margin: 1.5rem 0; border-radius: 5px; }
+    .sub-details { display: none; margin-left: 10px; border-left: 2px solid #eee; padding-left: 10px; margin-top:0.5rem;}
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Unterstützung für Ihren Reha-Antrag (Rentenversicherung)</h1>
+  <p class="info-box">
+    Dieses Formular hilft Ihnen, ein detailliertes Begleitschreiben für Ihren Antrag auf medizinische oder berufliche Rehabilitation bei der Deutschen Rentenversicherung zu erstellen. 
+    Füllen Sie die Felder sorgfältig aus, um Ihre Situation und Ihre Ziele für die Reha klar darzulegen.
+    Lesen Sie bitte auch unsere <a href="info-reha-rv.html">Informationen zu Reha-Leistungen der Rentenversicherung</a>.
+  </p>
+
+  <form id="rehaRvAntragForm">
+    <fieldset>
+      <legend>1. Persönliche Angaben der versicherten Person</legend>
+      <label for="personNameRehaRv">Vor- und Nachname:</label>
+      <input type="text" id="personNameRehaRv" required>
+      <label for="personGeburtsdatumRehaRv">Geburtsdatum:</label>
+      <input type="date" id="personGeburtsdatumRehaRv" required>
+      <label for="personAdresseRehaRv">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
+      <textarea id="personAdresseRehaRv" rows="3" required></textarea>
+      <label for="personRvNummerRehaRv">Rentenversicherungsnummer:</label>
+      <input type="text" id="personRvNummerRehaRv" required>
+      <label for="personTelefonRehaRv">Telefonnummer (tagsüber erreichbar):</label>
+      <input type="text" id="personTelefonRehaRv">
+      <label for="personEmailRehaRv">E-Mail-Adresse (optional):</label>
+      <input type="email" id="personEmailRehaRv">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Angaben zum zuständigen Rentenversicherungsträger</legend>
+      <label for="rvTraegerNameRehaRv">Name des Rentenversicherungsträgers: <small>(z.B. Deutsche Rentenversicherung Bund, Deutsche Rentenversicherung [Region])</small></label>
+      <input type="text" id="rvTraegerNameRehaRv" value="Deutsche Rentenversicherung" required>
+      <label for="rvTraegerStrasseRehaRv">Straße und Hausnummer:</label>
+      <input type="text" id="rvTraegerStrasseRehaRv" required placeholder="z.B. Ruhrstraße 2">
+      <label for="rvTraegerPlzOrtRehaRv">Postleitzahl und Ort:</label>
+      <input type="text" id="rvTraegerPlzOrtRehaRv" required placeholder="z.B. 10709 Berlin">
+    </fieldset>
+    
+    <fieldset>
+      <legend>3. Art der beantragten Rehabilitation</legend>
+      <label for="rehaArtRehaRv">Welche Art von Rehabilitation beantragen Sie primär?</label>
+      <select id="rehaArtRehaRv" required>
+        <option value="">Bitte wählen...</option>
+        <option value="medizinisch">Medizinische Rehabilitation</option>
+        <option value="beruflich">Berufliche Rehabilitation (Leistungen zur Teilhabe am Arbeitsleben - LTA)</option>
+        <option value="beides">Beides / Übergreifend (z.B. medizinische Reha mit anschließender beruflicher Orientierung)</option>
+      </select>
+      <label for="rehaGrundErkrankungRehaRv">Hauptsächliche Gesundheitsstörung(en), die die Reha erforderlich machen:</label>
+      <textarea id="rehaGrundErkrankungRehaRv" rows="3" required placeholder="z.B. Chronische Rückenschmerzen, Zustand nach Herzinfarkt, Depressionen, Arthrose im Knie"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Begründung der Notwendigkeit der Rehabilitation</legend>
+      <label for="auswirkungenGesundheitRehaRv">Wie wirken sich Ihre Gesundheitsstörungen auf Ihre Gesundheit und Leistungsfähigkeit aus? <small>(z.B. Schmerzen, Bewegungseinschränkungen, psychische Belastungen, Konzentrationsschwierigkeiten)</small></label>
+      <textarea id="auswirkungenGesundheitRehaRv" rows="5" required placeholder="Beschreiben Sie Ihre aktuellen Beschwerden und wie diese Sie im Alltag und ggf. im Beruf einschränken."></textarea>
+      
+      <label for="auswirkungenBerufRehaRv">Wie wirken sich Ihre Gesundheitsstörungen auf Ihre aktuelle oder zukünftige Erwerbsfähigkeit aus? <small>(Ist Ihre bisherige Tätigkeit gefährdet? Können Sie Ihren Beruf nicht mehr ausüben? Ist Ihre Erwerbsfähigkeit generell bedroht?)</small></label>
+      <textarea id="auswirkungenBerufRehaRv" rows="5" required placeholder="z.B. Ich kann meine Tätigkeit als [Beruf] aufgrund von [Einschränkung] nicht mehr oder nur noch unter Schmerzen ausüben. Ohne Reha droht der Verlust meines Arbeitsplatzes."></textarea>
+      
+      <label for="zieleRehaRehaRv">Welche konkreten Ziele verfolgen Sie mit der Rehabilitation? <small>(z.B. Schmerzlinderung, Wiederherstellung der Arbeitsfähigkeit für den bisherigen Beruf, berufliche Neuorientierung, Verbesserung der Alltagsbewältigung)</small></label>
+      <textarea id="zieleRehaRehaRv" rows="4" required placeholder="z.B. Ich möchte meine Schmerzen reduzieren, um wieder voll am Arbeitsleben teilnehmen zu können. / Ich benötige Unterstützung bei der Suche nach einer leidensgerechten Tätigkeit."></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Bisherige Behandlungen und Maßnahmen</legend>
+      <label for="behandelndeAerzteRehaRv">Behandelnde Ärzte/Therapeuten (Name, Fachrichtung, Ort), die die Reha befürworten oder einen entsprechenden Befundbericht erstellt haben:</label>
+      <textarea id="behandelndeAerzteRehaRv" rows="4" placeholder="z.B. Dr. Mustermann, Orthopäde, Musterstadt (Befundbericht vom TT.MM.JJJJ liegt bei); Dipl.-Psych. Beispiel, Psychotherapeut, Beispielort"></textarea>
+      <label for="bisherigeMassnahmenRehaRv">Welche medizinischen oder therapeutischen Maßnahmen wurden bisher durchgeführt? <small>(z.B. Operationen, Physiotherapie, Medikamente, ambulante Psychotherapie)</small></label>
+      <textarea id="bisherigeMassnahmenRehaRv" rows="4" placeholder="Kurze Auflistung der wichtigsten bisherigen Behandlungen."></textarea>
+      <label for="arbeitsunfaehigkeitRehaRv">Waren oder sind Sie aufgrund der genannten Gesundheitsstörungen arbeitsunfähig geschrieben? Wenn ja, seit wann und wie lange voraussichtlich?</label>
+      <textarea id="arbeitsunfaehigkeitRehaRv" rows="2" placeholder="z.B. Ja, seit dem TT.MM.JJJJ bis voraussichtlich TT.MM.JJJJ."></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. Angaben zur beruflichen Situation (falls relevant, insbesondere für LTA)</legend>
+      <label for="letzterBerufRehaRv">Letzter ausgeübter Beruf/Tätigkeit:</label>
+      <input type="text" id="letzterBerufRehaRv">
+      <label for="aktuellerArbeitgeberRehaRv">Aktueller Arbeitgeber (Name, Anschrift) / Status (arbeitssuchend, selbstständig etc.):</label>
+      <input type="text" id="aktuellerArbeitgeberRehaRv">
+       <label for="beruflichePlaeneRehaRv">Welche beruflichen Pläne oder Vorstellungen haben Sie für die Zeit nach der Rehabilitation?</label>
+      <textarea id="beruflichePlaeneRehaRv" rows="3" placeholder="z.B. Rückkehr an den bisherigen Arbeitsplatz, Umschulung in einen anderen Bereich, Aufnahme einer leidensgerechten Tätigkeit."></textarea>
+    </fieldset>
+    
+    <fieldset>
+        <legend>7. Einverständniserklärungen und Anlagen</legend>
+        <label><input type="checkbox" id="einverstaendnisAerzteRehaRv" required> Ich entbinde die von mir genannten Ärzte und Einrichtungen von der Schweigepflicht gegenüber dem Rentenversicherungsträger und den von ihm beauftragten Gutachtern, soweit dies für die Antragsprüfung erforderlich ist.</label>
+        <label><input type="checkbox" id="einverstaendnisDatenRehaRv" required> Ich bin damit einverstanden, dass der Rentenversicherungsträger meine Daten im Rahmen des Verfahrens verarbeitet.</label>
+        
+        <p style="margin-top:1.5rem;"><strong>Wichtige Anlagen, die dem offiziellen Antrag beigefügt werden sollten (in Kopie):</strong></p>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="anlagenRehaRv" value="Ärztlicher Befundbericht zur Notwendigkeit der Reha (vom behandelnden Arzt auszufüllen)" checked> Ärztlicher Befundbericht zur Notwendigkeit der Reha</label>
+            <label><input type="checkbox" name="anlagenRehaRv" value="Weitere aktuelle medizinische Unterlagen (Arztbriefe, Gutachten etc.)"> Weitere aktuelle medizinische Unterlagen</label>
+            <label><input type="checkbox" name="anlagenRehaRv" value="Ggf. Entlassungsberichte von früheren Krankenhaus- oder Reha-Aufenthalten"> Ggf. Entlassungsberichte von früheren Aufenthalten</label>
+        </div>
+        <label for="anlageSonstigesRehaRv">Sonstige wichtige Anlagen (bitte auflisten):</label>
+        <input type="text" id="anlageSonstigesRehaRv">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnRehaRv" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnRehaRv" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Begleitschreiben-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupRehaRv" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnRehaRv" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-reha-rv.html">Infos Reha (RV)</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antrag: Kostenübernahme nicht-gelistetes/Off-Label Medikament</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="medikamente_script.js"></script> <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444;}
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], input[type="number"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .warning-box { background-color: #fcf8e3; border-left: 5px solid #f0ad4e; padding: 15px; margin: 1.5rem 0; border-radius: 5px; }
+
+    /* Spenden-Pop-up */
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Antrag auf Kostenübernahme für ein nicht-gelistetes / Off-Label Medikament</h1>
+  <p class="info-box">
+    Füllen Sie dieses Formular sorgfältig aus. Eine Kostenübernahme für nicht-gelistete Medikamente oder Medikamente im Off-Label-Use ist an strenge Voraussetzungen geknüpft. Eine detaillierte ärztliche Stellungnahme ist entscheidend für den Erfolg Ihres Antrags.
+    Lesen Sie bitte auch unsere <a href="info-medikamente.html">Informationen zu diesem Thema</a>.
+  </p>
+
+  <form id="medikamentenAntragForm">
+    <fieldset>
+      <legend>1. Persönliche Angaben</legend>
+      <label for="name">Vor- und Nachname:</label>
+      <input type="text" id="name" required>
+      <label for="adresse">Ihre vollständige Adresse:</label>
+      <textarea id="adresse" rows="3" required></textarea>
+      <label for="geburt">Geburtsdatum:</label>
+      <input type="date" id="geburt" required>
+      <label for="nummer">Versichertennummer:</label>
+      <input type="text" id="nummer" required>
+      <label for="telefon">Telefonnummer (für Rückfragen, optional):</label>
+      <input type="text" id="telefon">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Angaben zur Krankenkasse</legend>
+      <label for="kasseName">Name der Krankenkasse:</label>
+      <input type="text" id="kasseName" required>
+      <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
+      <textarea id="kasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zum beantragten Medikament</legend>
+      <label for="medikamentName">Name des Medikaments: <small>(Handelsname und Wirkstoff, falls bekannt)</small></label>
+      <input type="text" id="medikamentName" required>
+      <label for="pzn">PZN (Pharmazentralnummer, falls bekannt):</label>
+      <input type="text" id="pzn">
+      <label for="dosierung">Geplante Dosierung und Darreichungsform:</label>
+      <input type="text" id="dosierung" required placeholder="z.B. 2x täglich 50mg Tabletten">
+      <label for="behandlungsdauer">Voraussichtliche Behandlungsdauer:</label>
+      <input type="text" id="behandlungsdauer" required placeholder="z.B. 6 Monate, dauerhaft">
+      <label for="geschaetzteKosten">Geschätzte Kosten pro Monat/Packung (falls bekannt):</label>
+      <input type="text" id="geschaetzteKosten" placeholder="z.B. ca. 300 EUR / Monat">
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Medizinische Angaben und Begründung</legend>
+      <label for="diagnose">Genaue Diagnose(n) der zu behandelnden Erkrankung:</label>
+      <textarea id="diagnose" rows="2" required></textarea>
+      <label for="schweregradErkrankung">Beschreibung des Schweregrads der Erkrankung: <small>(Ist sie lebensbedrohlich, oder die Lebensqualität auf Dauer nachhaltig beeinträchtigend?)</small></label>
+      <textarea id="schweregradErkrankung" rows="3" required></textarea>
+
+      <label for="arztName">Name des/der behandelnden Arztes/Ärztin (der/die die Notwendigkeit begründet):</label>
+      <input type="text" id="arztName" required>
+      <label for="arztFachrichtung">Fachrichtung des/der Arztes/Ärztin:</label>
+      <input type="text" id="arztFachrichtung" required>
+      <label for="arztAnschrift">Anschrift der Arztpraxis:</label>
+      <textarea id="arztAnschrift" rows="2" required></textarea>
+      <label for="datumAerztlicheStellungnahme">Datum der beigefügten (oder nachzureichenden) ausführlichen ärztlichen Stellungnahme:</label>
+      <input type="date" id="datumAerztlicheStellungnahme" required>
+      
+      <label for="bisherigeTherapien">Bisherige Behandlungsversuche und deren Ergebnis: <small>(Warum stehen allgemein anerkannte, dem medizinischen Standard entsprechende Behandlungen nicht (mehr) zur Verfügung?)</small></label>
+      <textarea id="bisherigeTherapien" rows="5" required placeholder="Auflistung der bisherigen Therapien, warum diese nicht erfolgreich waren, nicht vertragen wurden oder nicht geeignet sind."></textarea>
+      
+      <label for="begruendeteAussicht">Begründete Aussicht auf Erfolg mit dem beantragten Medikament: <small>(Welcher Nutzen wird erwartet? Gibt es Hinweise aus Studien oder Fachliteratur? Dies sollte primär aus der ärztlichen Stellungnahme hervorgehen, hier können Sie die Kernpunkte zusammenfassen.)</small></label>
+      <textarea id="begruendeteAussicht" rows="5" required placeholder="Zusammenfassung der erwarteten positiven Effekte, basierend auf ärztlicher Einschätzung."></textarea>
+    </fieldset>
+    
+    <fieldset>
+        <legend>5. Beizufügende Anlagen</legend>
+        <p class="info-box">Welche Unterlagen fügen Sie diesem Antrag bei? Eine detaillierte ärztliche Stellungnahme ist entscheidend!</p>
+        <label><input type="checkbox" name="anlagen_medikament" value="Ausführliche ärztliche Stellungnahme zur Notwendigkeit" checked required> Ausführliche ärztliche Stellungnahme zur Notwendigkeit</label>
+        <label><input type="checkbox" name="anlagen_medikament" value="Kopie des Rezepts für das Medikament (falls ausgestellt)"> Kopie des Rezepts für das Medikament (falls ausgestellt)</label>
+        <label><input type="checkbox" name="anlagen_medikament" value="Kostenvoranschlag der Apotheke (falls vorhanden)"> Kostenvoranschlag der Apotheke (falls vorhanden)</label>
+        <label><input type="checkbox" name="anlagen_medikament" value="Ggf. Kopien von relevanten Studienergebnissen/Fachliteratur"> Ggf. Kopien von relevanten Studienergebnissen/Fachliteratur</label>
+        <label for="anlage_sonstiges_medikament">Sonstige Anlagen (bitte auflisten):</label>
+        <input type="text" id="anlage_sonstiges_medikament" placeholder="z.B. frühere Arztbriefe, Befunde">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnMedikamente" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnMedikamente" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Antrags-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupMedikamente" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnMedikamente" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-medikamente.html">Infos Medikamentenantrag</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

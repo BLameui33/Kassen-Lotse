@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Widerspruch Kurzzeitpflege</title>
+  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen abgelehnten Antrag auf Kurzzeitpflege bei Ihrer Pflegekasse.">
+  <meta name="keywords" content="Widerspruch, Kurzzeitpflege, Pflegekasse, Ablehnung, §42 SGB XI, Kostenübernahme">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="kurzzeitpflege_widerspruch_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    #ergaenzendeArgumenteKZP {min-height: 100px;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+    .button-danger { background-color: #d9534f; color: white; }
+    .button-danger:hover { background-color: #c9302c; }
+
+    .info-box {
+      font-size: 0.9em; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left-width: 4px; border-left-style: solid;
+    }
+    .info-box.warning { background-color: #fcf8e3; border-left-color: #f0ad4e; }
+    .sub-details { display: none; margin-left: 20px; border-left: 2px solid #eee; padding-left: 15px; margin-top:0.5rem;}
+
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Widerspruch gegen Ablehnung/Kürzung der Kurzzeitpflege</h1>
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf Kurzzeitpflege abgelehnt oder die Kostenübernahme gekürzt? Hier können Sie einen Widerspruch erstellen.
+    Beachten Sie die Widerspruchsfrist! Lesen Sie auch unsere <a href="info-kurzzeitpflege.html">Informationen zur Kurzzeitpflege</a>.
+  </p>
+
+  <form id="widerspruchKurzzeitpflegeForm">
+    <fieldset>
+      <legend>1. Angaben zur pflegebedürftigen Person</legend>
+      <label for="vpName">Vor- und Nachname:</label>
+      <input type="text" id="vpName" required>
+      <label for="vpGeburt">Geburtsdatum:</label>
+      <input type="date" id="vpGeburt" required>
+      <label for="vpAdresse">Vollständige Adresse:</label>
+      <textarea id="vpAdresse" rows="3" required></textarea>
+      <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
+      <input type="text" id="vpNummer" required>
+      <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad (mind. PG 2 erforderlich):</label>
+      <select id="vpPflegegrad" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Pflegegrad 2">Pflegegrad 2</option>
+          <option value="Pflegegrad 3">Pflegegrad 3</option>
+          <option value="Pflegegrad 4">Pflegegrad 4</option>
+          <option value="Pflegegrad 5">Pflegegrad 5</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+      <label for="widerspruchfuehrerIdentischKZP">Wird der Widerspruch von der pflegebedürftigen Person selbst eingelegt?</label>
+      <select id="widerspruchfuehrerIdentischKZP">
+          <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
+          <option value="nein">Nein, von einer anderen Person</option>
+      </select>
+      <div id="widerspruchfuehrerDetailsKZP" class="sub-details">
+          <label for="wfNameKZP">Vor- und Nachname des/der Widerspruchsführer:in:</label>
+          <input type="text" id="wfNameKZP">
+          <label for="wfAdresseKZP">Vollständige Adresse des/der Widerspruchsführer:in:</label>
+          <textarea id="wfAdresseKZP" rows="3"></textarea>
+          <label for="wfVerhaeltnisKZP">Verhältnis zur pflegebedürftigen Person:</label>
+          <input type="text" id="wfVerhaeltnisKZP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
+          <label><input type="checkbox" id="wfVollmachtKZP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zur Pflegekasse</legend>
+      <label for="pflegekasseName">Name der Pflegekasse:</label>
+      <input type="text" id="pflegekasseName" required>
+      <label for="pflegekasseAdresse">Vollständige Adresse der Pflegekasse:</label>
+      <textarea id="pflegekasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Angaben zum abgelehnten Antrag auf Kurzzeitpflege</legend>
+      <label for="datumUrsprAntragKZP">Datum Ihres ursprünglichen Antrags auf Kurzzeitpflege:</label>
+      <input type="date" id="datumUrsprAntragKZP" required>
+      <label for="zeitraumAbgelehnteKZP">Beantragter/Abgelehnter Zeitraum der Kurzzeitpflege:</label>
+      <input type="text" id="zeitraumAbgelehnteKZP" required placeholder="z.B. 01.08.2025 - 15.08.2025">
+      <label for="einrichtungAbgelehnteKZP">Name der Kurzzeitpflegeeinrichtung (falls im Antrag genannt):</label>
+      <input type="text" id="einrichtungAbgelehnteKZP" placeholder="Name und Ort der Einrichtung">
+      <label for="datumAblehnungsbescheidKZP">Datum des Ablehnungs-/Kürzungsbescheids der Pflegekasse:</label>
+      <input type="date" id="datumAblehnungsbescheidKZP" required>
+      <label for="aktenzeichenKZP">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
+      <input type="text" id="aktenzeichenKZP">
+      <label for="hauptablehnungsgrundKZP">Hauptgrund/-gründe für die Ablehnung/Kürzung laut Pflegekasse: <small>(Fassen Sie die Kernaussage des Schreibens zusammen)</small></label>
+      <textarea id="hauptablehnungsgrundKZP" rows="3" required placeholder="z.B. Voraussetzungen nicht erfüllt; Kosten nicht im Rahmen; andere Versorgungsmöglichkeiten vorrangig."></textarea>
+    </fieldset>
+    
+    <fieldset>
+      <legend>5. Begründung Ihres Widerspruchs</legend>
+      <p class="info-box">Erläutern Sie hier detailliert, warum die Ablehnung/Kürzung Ihrer Ansicht nach nicht gerechtfertigt ist und die Kurzzeitpflege notwendig ist. Beziehen Sie sich auf die ärztliche Notwendigkeit, die Pflegesituation zu Hause oder die Notwendigkeit der Entlastung.</p>
+
+      <label for="argumentNotwendigkeitKZP">Darlegung der (weiterhin) bestehenden Notwendigkeit der Kurzzeitpflege: <small>(Warum ist die Kurzzeitpflege zwingend erforderlich? Welche Situation liegt vor – z.B. nach Krankenhaus, Krise, Entlastung der Pflegeperson? Was sagt ggf. der Arzt?)</small></label>
+      <textarea id="argumentNotwendigkeitKZP" rows="5" required placeholder="z.B. Nach dem Krankenhausaufenthalt ist eine sofortige Rückkehr nach Hause ohne professionelle Unterstützung nicht möglich. Die Kurzzeitpflege dient der Stabilisierung und Vorbereitung auf die häusliche Pflege."></textarea>
+
+      <label for="argumentKeineAlternativenKZP">Warum sind andere Versorgungsmöglichkeiten (z.B. Verhinderungspflege zu Hause, ambulante Dienste) nicht ausreichend oder aktuell nicht möglich? <small>(Falls die Kasse Alternativen vorschlägt.)</small></label>
+      <textarea id="argumentKeineAlternativenKZP" rows="4" placeholder="z.B. Eine Verhinderungspflege zu Hause kann den aktuellen intensiven Betreuungsbedarf nicht abdecken. / Ambulante Dienste sind kurzfristig nicht in dem benötigten Umfang verfügbar."></textarea>
+      
+      <label for="argumentKostenKombinationKZP">Argumente bezüglich der Kostenübernahme und ggf. der Kombination mit Verhinderungspflege: <small>(Wurde die Möglichkeit der Kombination mit ungenutzten Mitteln der Verhinderungspflege geprüft? Sind die geltend gemachten pflegebedingten Kosten im Rahmen?)</small></label>
+      <textarea id="argumentKostenKombinationKZP" rows="4" placeholder="z.B. Es bestehen noch ungenutzte Mittel aus der Verhinderungspflege, die für die Finanzierung der Kurzzeitpflege herangezogen werden können und sollen. / Die Kosten der Einrichtung für die pflegebedingten Aufwendungen entsprechen den Sätzen."></textarea>
+
+      <label for="ergaenzendeArgumenteKZP">Weitere/ergänzende Argumente und Erläuterungen zu den Ablehnungsgründen der Pflegekasse:</label>
+      <textarea id="ergaenzendeArgumenteKZP" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere wichtige Aspekte anführen."></textarea>
+    </fieldset>
+
+    <fieldset>
+        <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+        <label for="forderungWiderspruchKZP">Formulieren Sie klar Ihr Ziel:</label>
+        <textarea id="forderungWiderspruchKZP" rows="3" required placeholder="z.B. Ich beantrage die vollumfängliche Kostenübernahme für die Kurzzeitpflege im Zeitraum XY. / Ich beantrage die Anerkennung der Kombination mit Verhinderungspflegemitteln."></textarea>
+    </fieldset>
+
+     <fieldset>
+        <legend>7. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="anlagenKurzzeitpflegeWiderspruch" value="Kopie des angefochtenen Ablehnungsbescheids"> Kopie des angefochtenen Ablehnungsbescheids</label>
+            <label><input type="checkbox" name="anlagenKurzzeitpflegeWiderspruch" value="Kopie des ursprünglichen Antrags auf Kurzzeitpflege"> Kopie des ursprünglichen Antrags auf Kurzzeitpflege</label>
+            <label><input type="checkbox" name="anlagenKurzzeitpflegeWiderspruch" value="Ärztliche(s) Attest(e) / Stellungnahme(n) zur Notwendigkeit der Kurzzeitpflege"> Ärztliche(s) Attest(e) / Stellungnahme(n) zur Notwendigkeit</label>
+            <label><input type="checkbox" name="anlagenKurzzeitpflegeWiderspruch" value="Ggf. Krankenhaus-Entlassungsbericht"> Ggf. Krankenhaus-Entlassungsbericht</label>
+            <label><input type="checkbox" name="anlagenKurzzeitpflegeWiderspruch" value="Reservierungsbestätigung / Kostenvoranschlag der Kurzzeitpflegeeinrichtung"> Reservierungsbestätigung / Kostenvoranschlag der Einrichtung</label>
+            <label><input type="checkbox" id="anlageVollmachtKZPWiderspruch" name="anlagenKurzzeitpflegeWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
+        </div>
+        <label for="anlageSonstigesKZPWiderspruch">Sonstige Anlagen (bitte auflisten):</label>
+        <input type="text" id="anlageSonstigesKZPWiderspruch">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnWiderspruchKZP" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnWiderspruchKZP" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
+    </div>
+  </form>
+</div> <div id="spendenPopupWiderspruchKZP" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnWiderspruchKZP" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kurzzeitpflege.html">Infos Kurzzeitpflege</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

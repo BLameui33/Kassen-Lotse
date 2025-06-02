@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antrag auf Haushaltshilfe</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="haushaltshilfe_script.js"></script> <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444;}
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], input[type="number"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .sub-details { display: none; margin-left: 20px; border-left: 2px solid #eee; padding-left: 15px; margin-top:0.5rem;}
+
+    /* Spenden-Pop-up */
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Antrag auf Haushaltshilfe</h1>
+  <p class="info-box">
+    Füllen Sie dieses Formular aus, um Haushaltshilfe bei Ihrer Krankenkasse zu beantragen.
+    Eine ärztliche Bescheinigung über die Notwendigkeit ist in der Regel erforderlich.
+    Lesen Sie bitte auch unsere <a href="info-haushaltshilfe.html">Informationen zu diesem Thema</a>.
+  </p>
+
+  <form id="haushaltshilfeAntragForm">
+    <fieldset>
+      <legend>1. Persönliche Angaben der/des Versicherten</legend>
+      <label for="name">Vor- und Nachname:</label>
+      <input type="text" id="name" required>
+      <label for="adresse">Ihre vollständige Adresse:</label>
+      <textarea id="adresse" rows="3" required></textarea>
+      <label for="geburt">Geburtsdatum:</label>
+      <input type="date" id="geburt" required>
+      <label for="nummer">Versichertennummer:</label>
+      <input type="text" id="nummer" required>
+      <label for="telefon">Telefonnummer (für Rückfragen, optional):</label>
+      <input type="text" id="telefon">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Angaben zur Krankenkasse</legend>
+      <label for="kasseName">Name der Krankenkasse:</label>
+      <input type="text" id="kasseName" required>
+      <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
+      <textarea id="kasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Grund für den Antrag auf Haushaltshilfe</legend>
+      <label for="antragGrund">Ich beantrage Haushaltshilfe wegen:</label>
+      <select id="antragGrund" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Krankenhausaufenthalt">Krankenhausaufenthalt</option>
+          <option value="Ambulante Behandlung/Schwere Erkrankung zu Hause">Ambulante Behandlung/Schwere Erkrankung zu Hause</option>
+          <option value="Medizinische Rehabilitationsmaßnahme (Kur)">Medizinische Rehabilitationsmaßnahme (Kur)</option>
+          <option value="Schwangerschaftsbeschwerden/Entbindung">Schwangerschaftsbeschwerden/Entbindung</option>
+          <option value="Sonstiger Grund (bitte unten erläutern)">Sonstiger Grund</option>
+      </select>
+      <div id="grundDetailsKlinikKur" class="sub-details">
+          <label for="klinikKurName">Name und Ort der Klinik/Einrichtung:</label>
+          <input type="text" id="klinikKurName">
+          <label for="klinikKurZeitraumVon">Voraussichtlicher Zeitraum von:</label>
+          <input type="date" id="klinikKurZeitraumVon">
+          <label for="klinikKurZeitraumBis">Voraussichtlicher Zeitraum bis:</label>
+          <input type="date" id="klinikKurZeitraumBis">
+      </div>
+      <div id="grundDetailsKrankheitZuhause" class="sub-details">
+          <label for="krankheitBeschreibung">Kurze Beschreibung der Erkrankung/Situation:</label>
+          <textarea id="krankheitBeschreibung" rows="3"></textarea>
+      </div>
+       <div id="grundDetailsSonstiges" class="sub-details">
+          <label for="sonstigerGrundBeschreibung">Bitte erläutern Sie den sonstigen Grund:</label>
+          <textarea id="sonstigerGrundBeschreibung" rows="3"></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Angaben zur Haushaltssituation</legend>
+      <label for="kindImHaushalt">Lebt mindestens ein Kind unter 12 Jahren (oder ein behindertes, auf Hilfe angewiesenes Kind) im Haushalt, das betreut werden muss?</label>
+      <select id="kindImHaushalt" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Ja">Ja</option>
+          <option value="Nein">Nein</option>
+      </select>
+      <div id="kinderDetails" class="sub-details">
+          <label for="kinderNamenAlter">Namen und Geburtsdaten der zu betreuenden Kinder:</label>
+          <textarea id="kinderNamenAlter" rows="3" placeholder="z.B. Max (01.05.2018), Lisa (10.09.2020)"></textarea>
+      </div>
+      <label for="anderePersonImHaushalt">Kann eine andere im Haushalt lebende Person die Weiterführung des Haushalts und ggf. die Kinderbetreuung übernehmen?</label>
+      <select id="anderePersonImHaushalt" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Nein">Nein</option>
+          <option value="Ja, teilweise">Ja, teilweise</option>
+          <option value="Ja, vollständig">Ja, vollständig (ggf. kein Anspruch auf Haushaltshilfe)</option>
+      </select>
+      <div id="anderePersonBegruendung" class="sub-details">
+          <label for="warumNichtAnderePerson">Wenn Nein oder teilweise: Begründung, warum die Haushaltsführung/Betreuung nicht (vollständig) übernommen werden kann:</label>
+          <textarea id="warumNichtAnderePerson" rows="3" placeholder="z.B. Berufstätigkeit, eigene Erkrankung"></textarea>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Beantragter Zeitraum und Umfang der Haushaltshilfe</legend>
+      <label for="zeitraumVon">Haushaltshilfe benötigt von:</label>
+      <input type="date" id="zeitraumVon" required>
+      <label for="zeitraumBis">Haushaltshilfe benötigt bis:</label>
+      <input type="date" id="zeitraumBis" required>
+      <label for="stundenProTag">Benötigte Stunden pro Tag (ca.):</label>
+      <input type="number" id="stundenProTag" min="1" placeholder="z.B. 4" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. Durchführung der Haushaltshilfe</legend>
+      <label for="durchfuehrungPersonArt">Wer soll die Haushaltshilfe leisten?</label>
+      <select id="durchfuehrungPersonArt" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Selbstorganisierte Privatperson (nicht verwandt/verschwägert bis 2. Grad)">Selbstorganisierte Privatperson (nicht verwandt/verschwägert bis 2. Grad)</option>
+          <option value="Verwandte/r oder Verschwägerte/r (bis zum 2. Grad)">Verwandte/r oder Verschwägerte/r (bis zum 2. Grad)</option>
+          <option value="Professioneller Dienst (z.B. Sozialstation, Pflegedienst)">Professioneller Dienst (z.B. Sozialstation, Pflegedienst)</option>
+          <option value="Ich bitte um Vermittlung/Vorschläge durch die Krankenkasse">Ich bitte um Vermittlung/Vorschläge durch die Krankenkasse</option>
+      </select>
+      <div id="durchfuehrungPrivatpersonDetails" class="sub-details">
+          <label for="privatpersonName">Name der Privatperson:</label>
+          <input type="text" id="privatpersonName">
+          <label for="privatpersonVerwandtschaft">Verwandtschaftsverhältnis (falls zutreffend):</label>
+          <input type="text" id="privatpersonVerwandtschaft" placeholder="z.B. Nachbarin, Freundin, Tante 3. Grades">
+          <label for="privatpersonStundensatz">Ggf. beantragter Stundensatz/Aufwandsentschädigung: <small>(Klären Sie die Höhe mit Ihrer Kasse)</small></label>
+          <input type="number" id="privatpersonStundensatz" step="0.01" placeholder="z.B. 10.00">
+      </div>
+      <div id="durchfuehrungDienstDetails" class="sub-details">
+          <label for="dienstName">Name des Dienstes:</label>
+          <input type="text" id="dienstName">
+          <label for="dienstAnschrift">Anschrift des Dienstes:</label>
+          <textarea id="dienstAnschrift" rows="2"></textarea>
+          <label><input type="checkbox" id="dienstKostenvoranschlag"> Kostenvoranschlag des Dienstes liegt bei / wird nachgereicht</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>7. Ärztliche Bescheinigung</legend>
+      <label for="arztNameHaushaltshilfe">Name des Arztes/der Ärztin, der/die die Notwendigkeit bescheinigt:</label>
+      <input type="text" id="arztNameHaushaltshilfe" required>
+      <label for="datumAerztlicheBescheinigung">Datum der ärztlichen Bescheinigung:</label>
+      <input type="date" id="datumAerztlicheBescheinigung" required>
+      <p class="info-box">Eine detaillierte ärztliche Bescheinigung über die Notwendigkeit, den Umfang und die voraussichtliche Dauer der Haushaltshilfe ist dem Antrag beizufügen.</p>
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnHaushaltshilfe" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnHaushaltshilfe" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Antrags-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupHaushaltshilfe" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnHaushaltshilfe" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Ihr Projektname | <a href="index.html">Zurück zur Startseite</a> | <a href="info-haushaltshilfe.html">Infos Haushaltshilfe</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+</body>
+</html>

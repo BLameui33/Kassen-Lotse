@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antrag auf Kurzzeitpflege</title>
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Kostenübernahme für Kurzzeitpflege bei Ihrer Pflegekasse.">
+  <meta name="keywords" content="Antrag, Kurzzeitpflege, Pflegekasse, §42 SGB XI, Pflegeheim, Entlastung">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="kurzzeitpflege_antrag_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .checkbox-group label { font-weight: normal; display: block; margin-right: 15px; margin-top: 0.5rem;}
+    .checkbox-group input[type="checkbox"] { width: auto; margin-right: 5px; vertical-align: middle;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .sub-details { display: none; margin-left: 10px; border-left: 2px solid #eee; padding-left: 10px; margin-top:0.5rem;}
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Antrag auf Leistungen der Kurzzeitpflege</h1>
+  <p class="info-box">
+    Mit diesem Formular beantragen Sie Leistungen der Kurzzeitpflege bei Ihrer Pflegekasse gemäß § 42 SGB XI.
+    Es ist ratsam, diesen Antrag <strong>vor</strong> Beginn der Kurzzeitpflege einzureichen.
+    Lesen Sie bitte auch unsere <a href="info-kurzzeitpflege.html">Informationen zur Kurzzeitpflege</a>.
+  </p>
+
+  <form id="kurzzeitpflegeAntragForm">
+    <fieldset>
+      <legend>1. Angaben zur pflegebedürftigen Person</legend>
+      <label for="vpName">Vor- und Nachname:</label>
+      <input type="text" id="vpName" required>
+      <label for="vpGeburt">Geburtsdatum:</label>
+      <input type="date" id="vpGeburt" required>
+      <label for="vpAdresse">Vollständige Adresse:</label>
+      <textarea id="vpAdresse" rows="3" required></textarea>
+      <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
+      <input type="text" id="vpNummer" required>
+      <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad (mind. PG 2 erforderlich):</label>
+      <select id="vpPflegegrad" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Pflegegrad 2">Pflegegrad 2</option>
+          <option value="Pflegegrad 3">Pflegegrad 3</option>
+          <option value="Pflegegrad 4">Pflegegrad 4</option>
+          <option value="Pflegegrad 5">Pflegegrad 5</option>
+      </select>
+      <label for="vpTelefon">Telefonnummer (für Rückfragen, optional):</label>
+      <input type="text" id="vpTelefon">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Antragsteller:in (falls abweichend)</legend>
+      <label for="antragstellerIdentischKZP">Wird der Antrag von der pflegebedürftigen Person selbst gestellt?</label>
+      <select id="antragstellerIdentischKZP">
+          <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
+          <option value="nein">Nein, von einer anderen Person</option>
+      </select>
+      <div id="antragstellerDetailsKZP" class="sub-details">
+          <label for="asNameKZP">Vor- und Nachname des/der Antragsteller:in:</label>
+          <input type="text" id="asNameKZP">
+          <label for="asAdresseKZP">Vollständige Adresse des/der Antragsteller:in:</label>
+          <textarea id="asAdresseKZP" rows="3"></textarea>
+          <label for="asVerhaeltnisKZP">Verhältnis zur pflegebedürftigen Person:</label>
+          <input type="text" id="asVerhaeltnisKZP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
+          <label><input type="checkbox" id="asVollmachtKZP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zur Pflegekasse</legend>
+      <label for="kasseName">Name der Pflegekasse:</label>
+      <input type="text" id="kasseName" required>
+      <label for="kasseAdresse">Vollständige Adresse der Pflegekasse:</label>
+      <textarea id="kasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Grund für den Antrag auf Kurzzeitpflege</legend>
+      <label for="grundKurzzeitpflege">Hauptsächlicher Grund für die Notwendigkeit der Kurzzeitpflege:</label>
+      <select id="grundKurzzeitpflege" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Nach einem Krankenhausaufenthalt">Nach einem Krankenhausaufenthalt</option>
+          <option value="Zur vorübergehenden Entlastung der Pflegeperson(en)">Zur vorübergehenden Entlastung der Pflegeperson(en)</option>
+          <option value="Wegen einer Krisensituation in der häuslichen Pflege">Wegen einer Krisensituation in der häuslichen Pflege</option>
+          <option value="Zur Überbrückung bis zu einem Heimplatz/einer anderen Versorgung">Zur Überbrückung bis zu einem Heimplatz/einer anderen Versorgung</option>
+          <option value="Sonstiger Grund">Sonstiger Grund (bitte unten erläutern)</option>
+      </select>
+      <div id="grundKurzzeitpflegeSonstigesDetails" class="sub-details">
+        <label for="grundKurzzeitpflegeSonstigesText">Erläuterung zu "Sonstiger Grund":</label>
+        <textarea id="grundKurzzeitpflegeSonstigesText" rows="2"></textarea>
+      </div>
+      <label for="kurzbeschreibungSituationKZP">Kurze Beschreibung der aktuellen Situation, die Kurzzeitpflege erforderlich macht:</label>
+      <textarea id="kurzbeschreibungSituationKZP" rows="4" required placeholder="z.B. Nach Entlassung aus dem Krankenhaus [Name] am TT.MM.JJJJ ist die häusliche Pflege noch nicht ausreichend organisiert. / Die Hauptpflegeperson [Name] ist vom TT.MM.JJJJ bis TT.MM.JJJJ erkrankt/im Urlaub."></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Angaben zur geplanten Kurzzeitpflege</legend>
+      <label for="einrichtungNameKZP">Name der Kurzzeitpflegeeinrichtung:</label>
+      <input type="text" id="einrichtungNameKZP" required>
+      <label for="einrichtungAdresseKZP">Anschrift der Einrichtung:</label>
+      <textarea id="einrichtungAdresseKZP" rows="2" required></textarea>
+      <label for="zeitraumKurzzeitpflegeVon">Geplanter Beginn der Kurzzeitpflege:</label>
+      <input type="date" id="zeitraumKurzzeitpflegeVon" required>
+      <label for="zeitraumKurzzeitpflegeBis">Geplantes Ende der Kurzzeitpflege:</label>
+      <input type="date" id="zeitraumKurzzeitpflegeBis" required>
+      <label><input type="checkbox" id="platzReserviertKZP"> Ein Platz in der genannten Einrichtung ist für diesen Zeitraum bereits reserviert/zugesagt.</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. Kombination mit Verhinderungspflege (optional)</legend>
+      <label><input type="checkbox" id="kombiVerhinderungspflegeKZP"> Ich beantrage zusätzlich die Verwendung von noch nicht verbrauchten Mitteln der Verhinderungspflege (§ 39 SGB XI) zur Aufstockung der Leistungen für Kurzzeitpflege.</label>
+      <p class="info-box"><small>Hinweis: Wenn diese Option gewählt wird, kann der Leistungsbetrag für die pflegebedingten Aufwendungen der Kurzzeitpflege um bis zu 1.612 € (aus nicht genutzter Verhinderungspflege) erhöht werden. Die Pflegekasse prüft die Voraussetzungen.</small></p>
+    </fieldset>
+    
+    <fieldset>
+        <legend>7. Beizufügende Anlagen (optional)</legend>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="anlagenKurzzeitpflege" value="Ärztliche Bescheinigung über die Notwendigkeit der Kurzzeitpflege"> Ärztliche Bescheinigung über die Notwendigkeit der Kurzzeitpflege (falls vorhanden/gefordert)</label>
+            <label><input type="checkbox" name="anlagenKurzzeitpflege" value="Kopie des Krankenhaus-Entlassungsberichts (bei Anschluss-KZP)"> Kopie des Krankenhaus-Entlassungsberichts (bei Anschluss-KZP)</label>
+            <label><input type="checkbox" name="anlagenKurzzeitpflege" value="Reservierungsbestätigung der Kurzzeitpflegeeinrichtung"> Reservierungsbestätigung der Kurzzeitpflegeeinrichtung (falls vorhanden)</label>
+            <label><input type="checkbox" id="anlageVollmachtKZP" name="anlagenKurzzeitpflege" value="Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
+        </div>
+        <label for="anlageSonstigesKZP">Sonstige Anlagen:</label>
+        <input type="text" id="anlageSonstigesKZP">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnKurzzeitpflege" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnKurzzeitpflege" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Antrags-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupKurzzeitpflege" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnKurzzeitpflege" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kurzzeitpflege.html">Infos Kurzzeitpflege</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

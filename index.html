@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kassen-Lotse: Ihr kostenloser Generator für Anträge & Widersprüche (Krankenkasse, Pflege, Rente, Schwerbehinderung)</title>
+  
+  <meta name="description" content="Erstellen Sie mit Kassen-Lotse kostenlos und einfach Anträge und Widersprüche für Krankenversicherung, Pflegekasse, Rentenversicherung und Schwerbehindertenrecht. Formulare, Vorlagen und Unterstützung für Ihre Rechte.">
+  
+  <meta name="keywords" content="Antrag erstellen, Widerspruch Vorlage, Krankenkasse Formular, Pflegegrad Antrag, Erwerbsminderungsrente, Schwerbehindertenausweis, Kostenerstattung, Hilfsmittel, Fahrtkosten, Kur, Haushaltshilfe, Pflegehilfsmittel, Wohnraumanpassung, Verhinderungspflege, Kurzzeitpflege, Vollmacht Generator, Patientenverfügung, Betreuungsverfügung, Sozialrecht Hilfe, kostenlos, Generator, Vorlage, PDF">
+  
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Dein bestehendes CSS bleibt hier erhalten - ich nehme an, es ist das CSS
+       aus der index.html, die du mir zuletzt geschickt hast und die bereits
+       die Kategorien und das moderne Layout enthält. Ich füge unten nur ggf.
+       neue Klassen hinzu, falls für neue Abschnitte nötig. */
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      line-height: 1.7;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .page-container { /* Hatten wir von .content-wrapper umbenannt */
+        max-width: 800px;
+        margin: 2rem auto;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; /* Kann ggf. für Mobilgeräte angepasst werden */
+      margin-bottom: 1.5rem;
+      color: #222;
+      text-align: center;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+    h2 { 
+      font-size: 1.8rem; 
+      margin-top: 2.5rem;
+      margin-bottom: 1.2rem;
+      color: #1a5276; 
+      border-bottom: 2px solid #aed6f1;
+      padding-bottom: 0.6rem;
+    }
+    h3 { /* Für Unterüberschriften in den neuen Textblöcken */
+        font-size: 1.4rem;
+        color: #2c3e50;
+        margin-top: 2rem;
+        margin-bottom: 0.8rem;
+    }
+    .intro-text, .project-info, .privacy-info, .support-info { /* Vereinheitlichte Infobox-Stile */
+        font-size: 1.05em; /* Etwas kleiner als der alte .intro-text */
+        line-height: 1.8;
+        margin-bottom: 2rem;
+        padding: 1rem 1.5rem;
+        background-color: #eef7ff;
+        border-left: 5px solid #0070f3;
+        border-radius: 5px;
+    }
+    .category-section { margin-bottom: 2.5rem; }
+    .tool-list { list-style: none; padding-left: 0; }
+    .tool-list li {
+      margin-bottom: 0.8rem; padding: 0.75rem; background-color: #fdfefe;
+      border: 1px solid #e0e0e0; border-radius: 6px;
+      transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+    }
+    .tool-list li:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); transform: translateY(-2px); }
+    .tool-list li a { text-decoration: none; color: #0070f3; font-weight: 500; display: block; }
+    .tool-list li a:hover { text-decoration: underline; }
+    .tool-list li small { display: block; font-size: 0.85em; color: #666; margin-top: 0.2rem; }
+
+    .spendenhinweis { /* Bleibt wie es war, aber ggf. etwas prominenter */
+      background: #fff3cd; /* Etwas wärmer für Spenden */
+      border-left: 5px solid #ffc107; /* Helleres Gelb */
+      padding: 1.5rem;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem; /* Abstand nach unten */
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      text-align: center; /* Zentrierung des Inhalts */
+    }
+    .spendenhinweis h2 { 
+        font-size: 1.6rem !important; border-bottom: none !important;
+        margin-top: 0 !important; color: #555 !important; padding-bottom: 0 !important;
+        text-align: center; /* Überschrift auch zentrieren */
+    }
+    .spendenhinweis p {
+        text-align: center; /* Text auch zentrieren */
+        margin-bottom: 1.2rem;
+    }
+    .spendenhinweis form { margin-top: 1rem; }
+    .spendenhinweis input[type="submit"] {
+      background: #ffc107; border: none; padding: 0.9rem 2rem; font-weight: bold;
+      border-radius: 5px; color: #212529; cursor: pointer; font-size: 1.05em;
+      transition: background-color 0.2s ease-in-out;
+    }
+    .spendenhinweis input[type="submit"]:hover { background: #e0a800; }
+    
+    footer { /* Bleibt wie es war */
+      text-align: center; padding: 2rem 0; margin-top: 2rem;
+      font-size: 0.9em; color: #666;
+    }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; -webkit-hyphens: auto; -moz-hyphens: auto; -ms-hyphens: auto; hyphens: auto; }
+      h2 { font-size: 1.5rem; }
+      h3 { font-size: 1.3rem; }
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      .tool-list li { padding: 0.6rem; }
+      .intro-text, .project-info, .privacy-info, .support-info { font-size: 1em; padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container">
+    <h1>Kassen-Lotse: Ihr digitaler Helfer für Anträge & Widersprüche</h1>
+
+    <div class="project-info"> <h3>Willkommen bei Kassen-Lotse – Gemeinsam stark durch den Antragsdschungel!</h3>
+      <p>Sie stehen vor einem Berg von Formularen oder einem unverständlichen Bescheid von einer Behörde oder Versicherung? Kassen-Lotse ist Ihr kostenloser, digitaler Partner, der Sie dabei unterstützt, Anträge und Widersprüche im deutschen Sozialrecht einfach, verständlich und effektiv zu erstellen. Unser Ziel ist es, Ihnen zu Ihrem Recht zu verhelfen, ohne dass Sie sich in komplizierten Texten und Formularen verlieren.</p>
+      <p>Dieses Projekt wird kontinuierlich erweitert, um Ihnen für immer mehr Lebenslagen die passende Unterstützung zu bieten – von der Krankenversicherung über die Pflegekasse bis hin zum Schwerbehindertenrecht und Vorsorgedokumenten.</p>
+      <p><strong>Wie funktioniert Kassen-Lotse?</strong> Ganz einfach: Wählen Sie den gewünschten Bereich und das passende Thema aus. Unser Tool führt Sie dann Schritt für Schritt durch die notwendigen Angaben. Am Ende erhalten Sie ein fertig formuliertes PDF-Dokument, das Sie ausdrucken, unterschreiben und direkt bei der zuständigen Stelle einreichen können. Alle Ihre Daten bleiben dabei sicher in Ihrem Browser – es findet keine Speicherung oder Übertragung an uns oder Dritte statt.</p>
+    </div>
+
+    <div class="spendenhinweis">
+      <h2>💛 Unterstützen Sie Kassen-Lotse!</h2>
+      <p>Kassen-Lotse ist ein kostenloses und spendenbasiertes Projekt, das aus dem Wunsch entstanden ist, Menschen in schwierigen Situationen zu helfen. Wenn Ihnen dieses Tool eine wertvolle Unterstützung ist, können Sie mit einem kleinen Beitrag dazu beitragen, dass die Seite weiterentwickelt, aktuell gehalten und für noch mehr Menschen zugänglich gemacht werden kann. Jeder Beitrag zählt!</p>
+      <form action="https://www.paypal.com/donate" method="post" target="_blank">
+        <input type="hidden" name="business" value="info@kassen-lotse.de" /> 
+        <input type="hidden" name="charset" value="utf-8">
+        <input type="hidden" name="item_name" value="Unterstützung für das Projekt Kassen-Lotse" />
+        <input type="hidden" name="currency_code" value="EUR" />
+        <input type="submit" value="Jetzt mit PayPal unterstützen" />
+      </form>
+    </div>
+
+    <section id="krankenkasse" class="category-section">
+      <h2>🏥 Krankenversicherung</h2>
+      <ul class="tool-list">
+        <li>
+            <a href="info-kostenerstattung.html">Antrag & Widerspruch auf Kostenerstattung Psychotherapie</a>
+            <small>Erstellen Sie hier Ihren Antrag, wenn Sie einen privaten Therapieplatz selbst zahlen und die Kosten erstattet bekommen möchten.</small>
+        </li>
+        <li>
+            <a href="info-hilfsmittel.html">Hilfsmittel: Infos, Antrag & Widerspruch</a>
+            <small>Für die Beantragung von Rollstühlen, Prothesen, Hörgeräten etc. und den Widerspruch bei Ablehnung.</small>
+        </li>
+        <li>
+            <a href="info-fahrtkosten.html">Fahrtkostenerstattung: Infos, Antrag & Widerspruch</a>
+            <small>Für die Erstattung von Fahrten zu ärztlichen Behandlungen und den Widerspruch bei Ablehnung.</small>
+        </li>
+        <li>
+            <a href="info-medikamente.html">Nicht-gelistete Medikamente: Infos, Antrag & Widerspruch</a>
+            <small>Wenn spezielle Medikamente benötigt werden und bei Ablehnung der Kostenübernahme.</small>
+        </li>
+        <li>
+            <a href="info-haushaltshilfe.html">Haushaltshilfe: Infos, Antrag & Widerspruch</a>
+            <small>Bei schwerer Krankheit oder nach Krankenhausaufenthalten und für den Widerspruch.</small>
+        </li>
+        <li>
+            <a href="info-kur.html">Kur / Rehabilitation: Infos, Begleitschreiben & Widerspruch</a>
+            <small>Für medizinische Rehabilitationsmaßnahmen, Mutter/Vater-Kind-Kuren und den Widerspruch.</small>
+        </li>
+	 <li>
+            <a href="info-krankengeld.html">Krankengeld: Infos & Widerspruch</a>
+            <small>Informationen und Hilfe bei Problemen mit dem Krankengeld.</small>
+        </li>
+        <li>
+            <a href="info-haeusliche-krankenpflege.html">Häusliche Krankenpflege: Infos, Antrag & Widerspruch</a>
+            <small>Für medizinische Versorgung zu Hause und den Widerspruch bei Ablehnung.</small>
+        </li>
+        <li>
+            <a href="info-zahnersatz.html">Zahnersatz (Festzuschuss): Infos, Antrag & Widerspruch</a>
+            <small>Informationen zum Festzuschuss und Hilfe beim Widerspruch.</small>
+        </li>
+        <li>
+            <a href="info-widerspruch-allgemein.html">Allgemeiner Widerspruch Krankenversicherung</a>
+            <small>Eine allgemeine Vorlage für Widersprüche gegen Entscheidungen der Krankenkasse.</small>
+        </li>
+      </ul>
+    </section>
+
+    <section id="pflegekasse" class="category-section">
+      <h2>👴 Pflegeversicherung</h2>
+      <ul class="tool-list">
+        <li>
+            <a href="info-pflegegrad.html">Pflegegrad: Infos, Antrag & Widerspruch</a>
+            <small>Alles Wichtige zur Beantragung von Pflegeleistungen, der Pflegegrad-Einstufung und zum Widerspruch.</small>
+        </li>
+	    <li>
+            <a href="info-pflegehilfsmittel.html">Pflegehilfsmittel: Infos, Antrag & Widerspruch</a>
+            <small>Für zum Verbrauch bestimmte und technische Pflegehilfsmittel.</small>
+        </li>
+        <li>
+            <a href="info-wohnraumanpassung.html">Wohnraumanpassung: Infos, Antrag & Widerspruch</a>
+            <small>Zuschüsse für barrierefreies Wohnen und Hilfe beim Widerspruch.</small>
+        </li>
+        <li>
+            <a href="info-verhinderungspflege.html">Verhinderungspflege: Infos, Antrag & Widerspruch</a>
+            <small>Wenn die private Pflegeperson eine Vertretung benötigt.</small>
+        </li>
+        <li>
+            <a href="info-kurzzeitpflege.html">Kurzzeitpflege: Infos, Antrag & Widerspruch</a>
+            <small>Für die vorübergehende vollstationäre Pflege bei Bedarf.</small>
+        </li>
+        <li>
+            <a href="info-allgemein-pflegekasse.html">Allgemeine Anträge & Widersprüche Pflegekasse</a>
+            <small>Für sonstige Anliegen, Anträge oder Widersprüche an die Pflegekasse.</small>
+        </li>
+      </ul>
+    </section>
+
+	 <section id="rentenversicherung" class="category-section"> 
+      <h2>📜 Rentenversicherung</h2>
+      <ul class="tool-list">
+        <li>
+            <a href="info-em-rente.html">Erwerbsminderungsrente: Infos, Antrag & Widerspruch</a>
+            <small>Unterstützung bei Anträgen und Widersprüchen zur EM-Rente.</small>
+        </li>
+        <li>
+            <a href="info-reha-rv.html">Rehabilitation (Rentenversicherung): Infos, Antrag & Widerspruch</a>
+            <small>Für medizinische und berufliche Reha-Maßnahmen der Rentenversicherung.</small>
+        </li>
+      </ul>
+    </section>
+
+    <section id="schwerbehindertenrecht" class="category-section">
+      <h2>♿ Schwerbehindertenrecht</h2>
+      <ul class="tool-list">
+        <li>
+            <a href="info-schwerbehindertenausweis.html">Schwerbehindertenausweis: Infos, Antrag & Widerspruch</a>
+            <small>Alles rund um den Antrag auf Feststellung einer Behinderung (GdB) und den Widerspruch.</small>
+        </li>
+      </ul>
+    </section>
+
+    <section id="angehoerige-betreuung" class="category-section"> 
+      <h2>👨‍👩‍👧 Angehörige & Betreuung</h2>
+      <ul class="tool-list">
+        <li>
+            <a href="info-vollmachten.html">Vollmachten & Verfügungen: Infos & Generatoren</a>
+            <small>Informationen und Generatoren für Vorsorgevollmacht, Betreuungs- und Patientenverfügung.</small>
+        </li>
+        <li>
+            <a href="info-hilfe-fuer-pflegende.html">Hilfe und Entlastung für Pflegende</a>
+            <small>Informationen und Unterstützungsangebote für pflegende Angehörige.</small>
+        </li>
+      </ul>
+    </section>
+
+    <div class="privacy-info"> <h3>🔒 Datenschutz – Ihre Daten bleiben bei Ihnen!</h3>
+        <p>Der Schutz Ihrer persönlichen Daten ist uns extrem wichtig. Kassen-Lotse ist so konzipiert, dass <strong>alle von Ihnen eingegebenen Informationen ausschließlich in Ihrem eigenen Webbrowser verarbeitet werden</strong>. Das bedeutet:</p>
+        <ul>
+            <li>Es findet **keine Speicherung** Ihrer Formulardaten auf unseren oder fremden Servern statt.</li>
+            <li>Es erfolgt **keine Übertragung** Ihrer persönlichen Daten an uns oder an Dritte.</li>
+            <li>Die Generierung der PDF-Dokumente geschieht vollständig **lokal auf Ihrem Computer** direkt im Browser.</li>
+            <li>Sobald Sie Ihren Browser schließen oder die Seite verlassen, sind die eingegebenen Daten weg, es sei denn, Sie nutzen aktiv die Funktion "Eingaben im Browser speichern". Diese Funktion nutzt den lokalen Speicher (localStorage) Ihres Browsers, auf den nur Sie Zugriff haben.</li>
+        </ul>
+        <p>Wir verwenden keine Cookies für Trackingzwecke und analysieren Ihr Nutzungsverhalten nicht. Unser einziges Ziel ist es, Ihnen ein hilfreiches Werkzeug zur Verfügung zu stellen.</p>
+        <p>Wenn Sie sich für eine Spende via PayPal entscheiden, werden Sie auf die Webseite von PayPal weitergeleitet. Dort gelten die Datenschutzbestimmungen von PayPal. Wir erhalten von PayPal lediglich die Information über den Eingang einer Spende, aber keine Details zu Ihrem PayPal-Konto oder Ihren Bankdaten, sofern diese nicht explizit Teil der Spendenbenachrichtigung von PayPal an uns sind (z.B. Ihr Name, falls Sie ihn bei PayPal angeben).</p>
+        <p>Für weitere Details verweisen wir auf unser <a href="impressum.html#datenschutz">Impressum und die dortige ausführliche Datenschutzerklärung</a>
+    </div>
+
+  </div> <footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</body>
+</html>

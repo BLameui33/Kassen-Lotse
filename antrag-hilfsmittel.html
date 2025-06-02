@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antrag auf Kostenübernahme für ein Hilfsmittel</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="hilfsmittel_script.js"></script> <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 1rem auto;
+      padding: 1rem;
+      max-width: 800px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .form-container {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], input[type="number"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; }
+    button, .action-button {
+      margin-top: 1rem; margin-right: 0.5rem; padding: 10px 20px; font-size: 1rem;
+      border-radius: 5px; cursor: pointer; border: none; font-weight: bold;
+    }
+    button[type="submit"] { background-color: #0070f3; color: white; }
+    button[type="submit"]:hover { background-color: #005bb5; }
+    .action-button { background-color: #6c757d; color: white; }
+    .action-button:hover { background-color: #5a6268; }
+    .button-group { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; }
+    .info-box { font-size: 0.9em; background-color: #eef7ff; padding: 10px; border-radius: 4px; margin-bottom: 1rem; border-left: 3px solid #0070f3;}
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h1>Antrag auf Kostenübernahme für ein Hilfsmittel</h1>
+  <p class="info-box">
+    Füllen Sie dieses Formular sorgfältig aus, um Ihren Antrag auf Kostenübernahme für ein medizinisches Hilfsmittel zu erstellen. Dieses Schreiben können Sie zusammen mit Ihrer ärztlichen Verordnung und ggf. einem Kostenvoranschlag bei Ihrer Krankenkasse einreichen.
+    <br><strong>Hinweis:</strong> Benötigen Sie mehrere unterschiedliche Hilfsmittel, erstellen Sie bitte für jedes Hilfsmittel einen separaten Antrag, um die Bearbeitung durch Ihre Krankenkasse zu erleichtern.
+  </p>
+
+  <form id="hilfsmittelAntragForm">
+    <fieldset>
+      <legend>1. Persönliche Angaben</legend>
+      <label for="name">Vor- und Nachname:</label>
+      <input type="text" id="name" required>
+      <label for="adresse">Ihre vollständige Adresse: <small>(Straße, Hausnummer, PLZ, Ort)</small></label>
+      <textarea id="adresse" rows="3" required></textarea>
+      <label for="geburt">Geburtsdatum:</label>
+      <input type="date" id="geburt" required>
+      <label for="nummer">Versichertennummer: <small>(Finden Sie auf Ihrer Gesundheitskarte)</small></label>
+      <input type="text" id="nummer" required>
+      <label for="telefon">Telefonnummer (für Rückfragen, optional):</label>
+      <input type="text" id="telefon">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Angaben zur Krankenkasse</legend>
+      <label for="kasse">Name der Krankenkasse:</label>
+      <input type="text" id="kasse" required>
+      <label for="kassenAdresse">Vollständige Adresse der Krankenkasse:</label>
+      <textarea id="kassenAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zum ärztlich verordneten Hilfsmittel</legend>
+      <label for="hilfsmittel_bezeichnung">Genaue Bezeichnung des Hilfsmittels: <small>(Wie auf der Verordnung/Rezept angegeben)</small></label>
+      <input type="text" id="hilfsmittel_bezeichnung" required>
+      <label for="hilfsmittel_nummer">Hilfsmittelpositionsnummer (HMV-Nr.): <small>(Falls auf der Verordnung angegeben oder bekannt)</small></label>
+      <input type="text" id="hilfsmittel_nummer">
+      <label for="hilfsmittel_menge">Benötigte Menge/Stückzahl:</label>
+      <input type="number" id="hilfsmittel_menge" min="1" value="1" required>
+
+      <label for="arzt_name">Name des/der verordnenden Arztes/Ärztin:</label>
+      <input type="text" id="arzt_name" required>
+      <label for="arzt_anschrift">Anschrift der Arztpraxis:</label>
+      <textarea id="arzt_anschrift" rows="2" required></textarea>
+      <label for="verordnung_datum">Datum der ärztlichen Verordnung/des Rezepts:</label>
+      <input type="date" id="verordnung_datum" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Begründung und Notwendigkeit</legend>
+      <label for="diagnose">Medizinische Diagnose(n), die das Hilfsmittel erforderlich machen: <small>(Kurz und prägnant, wie vom Arzt mitgeteilt oder auf der Verordnung stehend)</small></label>
+      <textarea id="diagnose" rows="3" required></textarea>
+      <label for="begruendung_notwendigkeit">Ausführliche Begründung der Notwendigkeit: <small>(Warum benötigen Sie dieses spezielle Hilfsmittel? Wie verbessert es Ihren Alltag, Ihre Gesundheit oder Teilhabe? Gibt es günstigere Alternativen und warum sind diese ggf. nicht geeignet?)</small></label>
+      <textarea id="begruendung_notwendigkeit" rows="6" required></textarea>
+       <label for="erstversorgung">Handelt es sich um eine Erstversorgung mit diesem Hilfsmittel?</label>
+      <select id="erstversorgung">
+        <option value="Ja" selected>Ja</option>
+        <option value="Nein, es ist eine Folgeversorgung/Ersatzbeschaffung">Nein, es ist eine Folgeversorgung/Ersatzbeschaffung</option>
+      </select>
+      <div id="folgeversorgung_details" style="display:none;">
+        <label for="bisheriges_hilfsmittel">Falls Folgeversorgung: Welches Hilfsmittel hatten Sie bisher?</label>
+        <input type="text" id="bisheriges_hilfsmittel">
+        <label for="grund_neubeschaffung">Grund für die Neubeschaffung: <small>(z.B. defekt, nicht mehr passend, medizinische Gründe)</small></label>
+        <input type="text" id="grund_neubeschaffung">
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Angaben zum Leistungserbringer (z.B. Sanitätshaus)</legend>
+      <label for="leistungserbringer_bekannt">Ist der Leistungserbringer (z.B. Sanitätshaus) bereits ausgewählt/bekannt?</label>
+      <select id="leistungserbringer_bekannt">
+        <option value="Nein" selected>Nein, ich bitte um Vorschläge von Vertragspartnern</option>
+        <option value="Ja">Ja, ich habe bereits einen Leistungserbringer/Kostenvoranschlag</option>
+      </select>
+      <div id="leistungserbringer_details" style="display:none;">
+        <label for="leistungserbringer_name">Name des Leistungserbringers:</label>
+        <input type="text" id="leistungserbringer_name">
+        <label for="leistungserbringer_anschrift">Anschrift des Leistungserbringers:</label>
+        <textarea id="leistungserbringer_anschrift" rows="2"></textarea>
+        <label for="kostenvoranschlag_datum">Liegt ein Kostenvoranschlag bei? <small>(Wenn ja, bitte Datum eintragen)</small></label>
+        <input type="date" id="kostenvoranschlag_datum">
+      </div>
+    </fieldset>
+    
+    <fieldset>
+        <legend>6. Beizufügende Anlagen</legend>
+        <p class="info-box">Bitte kreuzen Sie an, welche Unterlagen Sie diesem Antrag beifügen (oder bereits eingereicht haben bzw. nachreichen werden).</p>
+        <label><input type="checkbox" id="anlage_verordnung" name="anlagen" value="Ärztliche Verordnung/Rezept"> Ärztliche Verordnung/Rezept</label>
+        <label><input type="checkbox" id="anlage_kostenvoranschlag" name="anlagen" value="Kostenvoranschlag"> Kostenvoranschlag</label>
+        <label><input type="checkbox" id="anlage_fotos" name="anlagen" value="Fotos zur Veranschaulichung"> Fotos zur Veranschaulichung</label>
+        <label for="anlage_sonstiges_text">Sonstige Anlagen (bitte auflisten):</label>
+        <input type="text" id="anlage_sonstiges_text" placeholder="z.B. medizinische Gutachten, Begründungsschreiben des Arztes">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnHilfsmittel" class="action-button">Eingaben speichern</button>
+      <button type="button" id="loadBtnHilfsmittel" class="action-button">Gespeicherte Eingaben laden</button>
+      <button type="submit">📄 Antragschreiben erstellen</button>
+    </div>
+  </form>
+</div> <div id="spendenPopup" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem;">
+  <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width:100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);">
+    <h2 style="font-size: 1.5em; margin-top:0; margin-bottom: 1rem;">Danke für deine Nutzung 💛</h2>
+    <p style="margin-bottom: 1.5rem;">Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank" style="margin-top: 1rem;">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" /> <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" style="background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;" />
+    </form>
+    <button id="closePopupBtnHilfsmittel" style="margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;">Schließen</button>
+  </div>
+</div>
+
+</body>
+</html>

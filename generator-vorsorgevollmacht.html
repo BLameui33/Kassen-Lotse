@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Generator für Vorsorgevollmacht</title>
+  <meta name="description" content="Erstellen Sie eine individuelle Vorsorgevollmacht, um für den Fall Ihrer Entscheidungsunfähigkeit vorzusorgen.">
+  <meta name="keywords" content="Vorsorgevollmacht, Generator, Vollmacht, Betreuung, rechtliche Vorsorge, Patientenverfügung">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="vorsorgevollmacht_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .checkbox-group label, .radio-group label { font-weight: normal; display: block; margin-top: 0.5rem;}
+    .checkbox-group input[type="checkbox"], .radio-group input[type="radio"] { width: auto; margin-right: 8px; vertical-align: middle;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .warning-box { background-color: #fcf8e3; border-left: 5px solid #f0ad4e; padding: 15px; margin: 1.5rem 0; border-radius: 5px; }
+    .sub-details { display: none; margin-left: 10px; border-left: 2px solid #eee; padding-left: 10px; margin-top:0.5rem;}
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Vorsorgevollmacht erstellen</h1>
+  <p class="info-box">
+    Mit diesem Generator können Sie eine Vorsorgevollmacht erstellen. Nehmen Sie sich Zeit und lesen Sie die Hinweise sorgfältig.
+    Dieses Tool ersetzt keine Rechtsberatung. Für komplexe Situationen oder wenn Sie Immobiliengeschäfte oder umfangreiche Bankgeschäfte bevollmächtigen wollen, ist eine notarielle Beratung und Beurkundung dringend empfohlen.
+    Weitere Informationen finden Sie auf unserer <a href="info-vollmachten.html">Info-Seite zu Vollmachten & Verfügungen</a>.
+  </p>
+
+  <form id="vorsorgevollmachtForm">
+    <fieldset>
+      <legend>1. Vollmachtgeber:in (Person, die die Vollmacht erteilt)</legend>
+      <label for="vgName">Vor- und Nachname:</label>
+      <input type="text" id="vgName" required>
+      <label for="vgGeburtsdatum">Geburtsdatum:</label>
+      <input type="date" id="vgGeburtsdatum" required>
+      <label for="vgAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
+      <textarea id="vgAdresse" rows="3" required></textarea>
+      <label for="vgTelefon">Telefon (optional):</label>
+      <input type="text" id="vgTelefon">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Bevollmächtigte Person(en)</legend>
+      <p class="info-box">Sie können eine oder mehrere Personen bevollmächtigen. Überlegen Sie gut, wem Sie dieses weitreichende Vertrauen schenken.</p>
+      
+      <div id="bevollmaechtigter1">
+        <h3 style="font-size:1.1em; margin-top:0;">Bevollmächtigte Person 1:</h3>
+        <label for="bv1Name">Vor- und Nachname:</label>
+        <input type="text" id="bv1Name" required>
+        <label for="bv1Geburtsdatum">Geburtsdatum:</label>
+        <input type="date" id="bv1Geburtsdatum" required>
+        <label for="bv1Adresse">Anschrift:</label>
+        <textarea id="bv1Adresse" rows="3" required></textarea>
+        <label for="bv1Telefon">Telefon (optional):</label>
+        <input type="text" id="bv1Telefon">
+        <label for="bv1Verhaeltnis">Verhältnis zum/zur Vollmachtgeber:in (optional):</label>
+        <input type="text" id="bv1Verhaeltnis" placeholder="z.B. Ehepartner, Kind, Freund">
+      </div>
+
+      <div id="bevollmaechtigter2Wrapper" class="sub-details" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
+        <h3 style="font-size:1.1em; margin-top:0;">Bevollmächtigte Person 2 (optional):</h3>
+        <label for="bv2Name">Vor- und Nachname:</label>
+        <input type="text" id="bv2Name">
+        <label for="bv2Geburtsdatum">Geburtsdatum:</label>
+        <input type="date" id="bv2Geburtsdatum">
+        <label for="bv2Adresse">Anschrift:</label>
+        <textarea id="bv2Adresse" rows="3"></textarea>
+        <label for="bv2Telefon">Telefon (optional):</label>
+        <input type="text" id="bv2Telefon">
+        <label for="bv2Verhaeltnis">Verhältnis zum/zur Vollmachtgeber:in (optional):</label>
+        <input type="text" id="bv2Verhaeltnis">
+      </div>
+      <button type="button" id="addBevollmaechtigterBtn" style="margin-top:1rem; background-color: #5cb85c; color:white;">Weitere bevollmächtigte Person hinzufügen</button>
+      <button type="button" id="removeBevollmaechtigterBtn" class="button-secondary" style="display:none; margin-top:1rem;">Zweite bevollmächtigte Person entfernen</button>
+
+      <div id="vertretungsregelungWrapper" class="sub-details">
+          <label for="vertretungsregelung">Vertretungsregelung für Person 1 und 2:</label>
+          <select id="vertretungsregelung">
+              <option value="einzeln">Jede:r darf einzeln handeln</option>
+              <option value="gemeinsam">Dürfen nur gemeinsam handeln</option>
+              <option value="reihenfolge">Person 2 darf nur handeln, wenn Person 1 verhindert ist</option>
+          </select>
+      </div>
+
+      <label for="ersatzbevollmaechtigterName">Ersatzbevollmächtigte:r (optional, falls oben genannte Person(en) nicht handeln können/wollen):</label>
+      <input type="text" id="ersatzbevollmaechtigterName" placeholder="Vor- und Nachname">
+      <label for="ersatzbevollmaechtigterAdresse">Anschrift des/der Ersatzbevollmächtigten:</label>
+      <textarea id="ersatzbevollmaechtigterAdresse" rows="2"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Umfang der Vollmacht</legend>
+      <p class="info-box">Kreuzen Sie an, für welche Bereiche die Vollmacht gelten soll. Nicht angekreuzte Bereiche sind nicht umfasst. Sie können den Umfang in Feld 4 weiter präzisieren oder einschränken.</p>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="vollmachtBereich" value="Gesundheitssorge" checked> <strong>Gesundheitssorge und Pflegebedürftigkeit</strong> <small>Umfasst Entscheidungen über ärztliche Behandlungen, Heilmaßnahmen, Krankenhausaaufenthalte, Pflege, Einsicht in Krankenunterlagen, Entbindung der Ärzte von der Schweigepflicht. Auch Entscheidungen über lebensverlängernde Maßnahmen (beachten Sie hierzu Ihre Patientenverfügung!).</small></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Aufenthalt" checked> <strong>Aufenthalts- und Wohnungsangelegenheiten</strong> <small>Umfasst Entscheidungen über den Wohnort, Heimverträge, Wohnungsauflösung.</small></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Vermoegen" checked> <strong>Vermögenssorge</strong> <small>Umfasst Verwaltung von Vermögen, Bankgeschäfte, Zahlungsverkehr, Abschluss von Verträgen. Für Immobiliengeschäfte oder Darlehensaufnahmen ist oft eine notarielle Vollmacht nötig!</small></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Behoerden" checked> <strong>Vertretung gegenüber Behörden, Versicherungen, Gerichten</strong> <small>Umfasst Antragsstellungen, Entgegennahme von Bescheiden, Vertretung in Verfahren.</small></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Post" checked> <strong>Post und Telekommunikation</strong> <small>Entgegennahme und Öffnen von Post, Kündigung von Verträgen etc.</small></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Weisungen, Beschränkungen und Wünsche</legend>
+      <label for="innereBindung">Anweisungen an den/die Bevollmächtigte(n) im Innenverhältnis (optional): <small>(Wünsche, wie die Vollmacht ausgeübt werden soll, z.B. bestimmte Personen zu informieren, bestimmte Werte zu beachten. Diese sind für den Bevollmächtigten bindend, aber nicht unbedingt für Dritte.)</small></label>
+      <textarea id="innereBindung" rows="4" placeholder="z.B. Ich wünsche, dass meine Kinder regelmäßig über meinen Zustand informiert werden. / Finanzielle Entscheidungen über X EUR sollen mit Y abgestimmt werden."></textarea>
+      
+      <label for="geltungsbereichEinschraenkung">Gibt es bestimmte Geschäfte oder Entscheidungen, die von der Vollmacht ausdrücklich <u>nicht</u> umfasst sein sollen? (Optional)</label>
+      <textarea id="geltungsbereichEinschraenkung" rows="3" placeholder="z.B. Der Verkauf meiner Immobilie in Musterstadt ist von dieser Vollmacht ausgeschlossen. / Schenkungen über X EUR sind nicht gestattet."></textarea>
+
+      <label for="untervollmachtErlaubt">Soll der/die Bevollmächtigte Untervollmachten erteilen dürfen?</label>
+      <select id="untervollmachtErlaubt">
+        <option value="nein" selected>Nein</option>
+        <option value="ja">Ja, für einzelne Angelegenheiten</option>
+        <option value="ja_umfassend">Ja, umfassend</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Geltung der Vollmacht und Schlussbestimmungen</legend>
+      <label for="geltungTod">Soll die Vollmacht über Ihren Tod hinaus gelten? <small>(Kann für Erben zur Regelung von Nachlassangelegenheiten sinnvoll sein.)</small></label>
+      <select id="geltungTod">
+        <option value="nein" selected>Nein, sie erlischt mit dem Tod</option>
+        <option value="ja">Ja, sie gilt über den Tod hinaus</option>
+      </select>
+
+      <label for="betreuungsverfuegungEnthalten">Soll diese Vorsorgevollmacht auch Wünsche für eine eventuell dennoch notwendige gerichtliche Betreuung enthalten (als Betreuungsverfügung dienen)? <small>(Das Gericht soll dann vorrangig die hier genannte(n) Person(en) als Betreuer bestellen.)</small></label>
+      <select id="betreuungsverfuegungEnthalten">
+        <option value="ja" selected>Ja</option>
+        <option value="nein">Nein</option>
+      </select>
+      <p class="info-box"><small>Hinweis: Diese Vollmacht soll eine vom Gericht angeordnete Betreuung möglichst vermeiden. Sie ist Ausdruck meines Selbstbestimmungsrechts.</small></p>
+      <label><input type="checkbox" id="eigenhaendigUnterschreiben" required> Ich werde dieses Dokument nach dem Ausdrucken eigenhändig unterschreiben und mit Ort und Datum versehen.</label>
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnVorsorgeVM" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnVorsorgeVM" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Vorsorgevollmacht-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupVorsorgeVM" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnVorsorgeVM" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-vollmachten.html">Infos Vollmachten & Verfügungen</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

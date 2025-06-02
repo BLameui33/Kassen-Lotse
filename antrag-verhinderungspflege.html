@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antrag/Abrechnung Verhinderungspflege</title>
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Leistungen der Verhinderungspflege oder reichen Sie Kosten zur Erstattung bei Ihrer Pflegekasse ein.">
+  <meta name="keywords" content="Antrag, Verhinderungspflege, Ersatzpflege, Abrechnung, Pflegekasse, §39 SGB XI, Pflegeperson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="verhinderungspflege_antrag_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], input[type="number"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    .checkbox-group label { font-weight: normal; display: block; margin-right: 15px; margin-top: 0.5rem;}
+    .checkbox-group input[type="checkbox"] { width: auto; margin-right: 5px; vertical-align: middle;}
+
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .sub-details { display: none; margin-left: 10px; border-left: 2px solid #eee; padding-left: 10px; margin-top:0.5rem;}
+
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Antrag auf Leistungen der Verhinderungspflege / Abrechnung</h1>
+  <p class="info-box">
+    Mit diesem Formular können Sie Leistungen der Verhinderungspflege bei Ihrer Pflegekasse beantragen oder bereits entstandene Kosten zur Erstattung einreichen.
+    Lesen Sie bitte auch unsere <a href="info-verhinderungspflege.html">Informationen zur Verhinderungspflege</a>.
+  </p>
+
+  <form id="verhinderungspflegeAntragForm">
+    <fieldset>
+      <legend>1. Angaben zur pflegebedürftigen Person</legend>
+      <label for="vpName">Vor- und Nachname:</label>
+      <input type="text" id="vpName" required>
+      <label for="vpGeburt">Geburtsdatum:</label>
+      <input type="date" id="vpGeburt" required>
+      <label for="vpAdresse">Vollständige Adresse:</label>
+      <textarea id="vpAdresse" rows="3" required></textarea>
+      <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
+      <input type="text" id="vpNummer" required>
+      <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad (mind. PG 2 erforderlich):</label>
+      <select id="vpPflegegrad" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Pflegegrad 2">Pflegegrad 2</option>
+          <option value="Pflegegrad 3">Pflegegrad 3</option>
+          <option value="Pflegegrad 4">Pflegegrad 4</option>
+          <option value="Pflegegrad 5">Pflegegrad 5</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Antragsteller:in (falls abweichend)</legend>
+      <label for="antragstellerIdentischVP">Wird der Antrag von der pflegebedürftigen Person selbst gestellt?</label>
+      <select id="antragstellerIdentischVP">
+          <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
+          <option value="nein">Nein, von einer anderen Person</option>
+      </select>
+      <div id="antragstellerDetailsVP" class="sub-details">
+          <label for="asNameVP">Vor- und Nachname des/der Antragsteller:in:</label>
+          <input type="text" id="asNameVP">
+          <label for="asVerhaeltnisVP">Verhältnis zur pflegebedürftigen Person:</label>
+          <input type="text" id="asVerhaeltnisVP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
+          <label><input type="checkbox" id="asVollmachtVP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zur Pflegekasse</legend>
+      <label for="kasseName">Name der Pflegekasse:</label>
+      <input type="text" id="kasseName" required>
+      <label for="kasseAdresse">Vollständige Adresse der Pflegekasse:</label>
+      <textarea id="kasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Angaben zur Verhinderung der Hauptpflegeperson</legend>
+      <label for="hauptpflegepersonName">Name der Hauptpflegeperson, die verhindert ist/war:</label>
+      <input type="text" id="hauptpflegepersonName" required>
+      <label for="verhinderungGrund">Grund der Verhinderung:</label>
+      <select id="verhinderungGrund" required>
+        <option value="">Bitte wählen...</option>
+        <option value="Urlaub">Urlaub</option>
+        <option value="Krankheit der Pflegeperson">Krankheit der Pflegeperson</option>
+        <option value="Sonstige Erholungsgründe">Sonstige Erholungsgründe</option>
+        <option value="Andere wichtige Gründe">Andere wichtige Gründe (bitte unten erläutern)</option>
+      </select>
+      <div id="verhinderungGrundSonstigesDetails" class="sub-details">
+        <label for="verhinderungGrundSonstigesText">Erläuterung zu "Andere wichtige Gründe":</label>
+        <textarea id="verhinderungGrundSonstigesText" rows="2"></textarea>
+      </div>
+      <label for="verhinderungZeitraumVon">Verhinderung der Hauptpflegeperson vom:</label>
+      <input type="date" id="verhinderungZeitraumVon" required>
+      <label for="verhinderungZeitraumBis">Verhinderung der Hauptpflegeperson bis:</label>
+      <input type="date" id="verhinderungZeitraumBis" required>
+       <label><input type="checkbox" id="vorpflegezeitErfuellt"> Die Vorpflegezeit von mindestens 6 Monaten durch die Hauptpflegeperson vor der erstmaligen Verhinderungspflege ist erfüllt.</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Durchführung der Ersatzpflege</legend>
+      <label for="ersatzpflegeDurch">Die Ersatzpflege wurde/wird durchgeführt von:</label>
+      <select id="ersatzpflegeDurch" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Nahe Angehörige (bis 2. Grad oder verschwägert)">Nahe Angehörige (bis 2. Grad oder verschwägert)</option>
+          <option value="Andere Privatperson (z.B. Nachbar, Freund)">Andere Privatperson (z.B. Nachbar, Freund)</option>
+          <option value="Ambulanter Pflegedienst">Ambulanter Pflegedienst</option>
+          <option value="Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)">Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)</option>
+      </select>
+
+      <div id="ersatzpflegeNaheAngehoerigeDetails" class="sub-details">
+          <p><strong>Details für nahe Angehörige:</strong> <small>(Leistung i.d.R. max. 1,5-faches Pflegegeld des Pflegegrades. Nachgewiesene Aufwendungen wie Fahrtkosten/Verdienstausfall können zusätzlich bis zum Höchstbetrag von 1.612 € bzw. 2.418 € geltend gemacht werden.)</small></p>
+          <label for="epNameNahe">Name der Ersatzpflegeperson:</label>
+          <input type="text" id="epNameNahe">
+          <label for="epVerwandtschaftNahe">Verwandtschaftsverhältnis:</label>
+          <input type="text" id="epVerwandtschaftNahe" placeholder="z.B. Sohn, Schwester, Schwiegertochter">
+          <label for="epKostenFahrtkosten">Geltend gemachte Fahrtkosten (EUR, optional):</label>
+          <input type="number" id="epKostenFahrtkosten" step="0.01" placeholder="0.00">
+          <label for="epKostenVerdienstausfall">Geltend gemachter Verdienstausfall (EUR, optional):</label>
+          <input type="number" id="epKostenVerdienstausfall" step="0.01" placeholder="0.00">
+          <label><input type="checkbox" id="epNachweisVerdienstausfall"> Nachweis über Verdienstausfall liegt bei.</label>
+      </div>
+      <div id="ersatzpflegeAnderePrivatpersonDetails" class="sub-details">
+          <p><strong>Details für andere Privatperson:</strong></p>
+          <label for="epNamePrivat">Name der Ersatzpflegeperson:</label>
+          <input type="text" id="epNamePrivat">
+          <label for="epAnzahlStundenPrivat">Anzahl der geleisteten Pflegestunden (insgesamt):</label>
+          <input type="number" id="epAnzahlStundenPrivat" min="0">
+          <label for="epStundensatzPrivat">Vereinbarter Stundensatz (EUR):</label>
+          <input type="number" id="epStundensatzPrivat" step="0.01" placeholder="0.00">
+          <label for="epGesamtkostenPrivat">Gesamtkosten für die private Ersatzpflege (EUR):</label>
+          <input type="number" id="epGesamtkostenPrivat" step="0.01" placeholder="0.00">
+      </div>
+      <div id="ersatzpflegeDienstDetails" class="sub-details">
+           <p><strong>Details für Pflegedienst/Einrichtung:</strong></p>
+          <label for="dienstName">Name des Pflegedienstes/der Einrichtung:</label>
+          <input type="text" id="dienstName">
+          <label for="dienstKosten">Kosten laut Rechnung/Kostenvoranschlag (EUR):</label>
+          <input type="number" id="dienstKosten" step="0.01" placeholder="0.00">
+          <label><input type="checkbox" id="dienstRechnungAnbei"> Rechnung/Kostenvoranschlag liegt bei.</label>
+      </div>
+      
+      <label for="vpZeitraumVon">Tatsächlicher Zeitraum der Ersatzpflege vom:</label>
+      <input type="date" id="vpZeitraumVon" required>
+      <label for="vpZeitraumBis">Tatsächlicher Zeitraum der Ersatzpflege bis:</label>
+      <input type="date" id="vpZeitraumBis" required>
+      <label><input type="checkbox" id="vpStundenweise"> Die Verhinderungspflege wurde nur stundenweise (weniger als 8 Stunden pro Tag) in Anspruch genommen. <small>(Wichtig für die Weiterzahlung des Pflegegeldes)</small></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>6. Kombination mit Kurzzeitpflege (optional)</legend>
+      <label><input type="checkbox" id="kombiKurzzeitpflege"> Ich beantrage zusätzlich die anteilige Verwendung von noch nicht verbrauchten Mitteln der Kurzzeitpflege (bis zu 50% des Leistungsanspruchs) zur Aufstockung der Verhinderungspflege.</label>
+    </fieldset>
+
+    <fieldset>
+        <legend>7. Bankverbindung für die Erstattung</legend>
+        <label for="iban">IBAN:</label>
+        <input type="text" id="iban" required>
+        <label for="bic">BIC (optional):</label>
+        <input type="text" id="bic">
+        <label for="kontoinhaber">Kontoinhaber:in (falls abweichend von Antragsteller:in bzw. versicherter Person):</label>
+        <input type="text" id="kontoinhaber">
+    </fieldset>
+
+    <fieldset>
+        <legend>8. Beizufügende Anlagen</legend>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="anlagenVerhinderungspflege" value="Nachweise über die Kosten der Ersatzpflege (Rechnungen, Quittungen)"> Nachweise über die Kosten der Ersatzpflege (Rechnungen, Quittungen)</label>
+            <label><input type="checkbox" name="anlagenVerhinderungspflege" value="Nachweis über Verdienstausfall (bei nahen Angehörigen)"> Nachweis über Verdienstausfall (bei nahen Angehörigen)</label>
+            <label><input type="checkbox" name="anlagenVerhinderungspflege" value="Nachweis über Fahrtkosten (bei nahen Angehörigen)"> Nachweis über Fahrtkosten (bei nahen Angehörigen)</label>
+            <label><input type="checkbox" id="anlageVollmachtVP" name="anlagenVerhinderungspflege" value="Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
+        </div>
+        <label for="anlageSonstigesVP">Sonstige Anlagen:</label>
+        <input type="text" id="anlageSonstigesVP">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnVerhinderungspflege" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnVerhinderungspflege" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Antrag/Abrechnung-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupVerhinderungspflege" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnVerhinderungspflege" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-verhinderungspflege.html">Infos Verhinderungspflege</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

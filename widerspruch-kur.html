@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Widerspruch Kurantrag</title>
+  <meta name="description" content="Erstellen Sie einen fundierten Widerspruch gegen einen abgelehnten Kurantrag bei Ihrer Krankenkasse.">
+  <meta name="keywords" content="Widerspruch, Kur, Reha, Ablehnung, Krankenkasse, Rechtsmittel, SGB V">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="widerspruch-kur_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    #ergaenzendeArgumenteKur {min-height: 100px;} /* Aus vorheriger Version beibehalten */
+    #widerspruchBegruendungFahrtkosten { min-height: 100px; } /* War in widerspruch-fahrtkosten, hier nicht relevant */
+
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+    .button-danger { background-color: #d9534f; color: white; }
+    .button-danger:hover { background-color: #c9302c; }
+
+    .info-box {
+      font-size: 0.9em; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left-width: 4px; border-left-style: solid;
+    }
+    .info-box ul { margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 15px;}
+    .info-box.warning { background-color: #fcf8e3; border-left-color: #f0ad4e; }
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Widerspruch gegen Ablehnung des Kurantrags</h1>
+  <p class="info-box warning">
+    Wurde Ihr Kurantrag (Vorsorge, Reha, Mutter/Vater-Kind-Kur) abgelehnt? Hier können Sie einen fundierten Widerspruch erstellen.
+    Beachten Sie die Widerspruchsfrist (i.d.R. ein Monat) und lesen Sie ggf. unsere <a href="info-kur.html">Informationen zum Thema Kur</a>.
+  </p>
+
+  <form id="widerspruchKurForm">
+    <fieldset>
+      <legend>1. Ihre Persönlichen Angaben</legend>
+      <label for="name">Vor- und Nachname:</label>
+      <input type="text" id="name" required>
+      <label for="adresse">Ihre vollständige Adresse:</label>
+      <textarea id="adresse" rows="3" required></textarea>
+      <label for="nummer">Versichertennummer:</label>
+      <input type="text" id="nummer" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Angaben zur Krankenkasse</legend>
+      <label for="kasseName">Name der Krankenkasse:</label>
+      <input type="text" id="kasseName" required>
+      <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
+      <textarea id="kasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zum abgelehnten Kurantrag</legend>
+      <label for="ursprAntragDatumKur">Datum Ihres ursprünglichen Kurantrags:</label>
+      <input type="date" id="ursprAntragDatumKur" required>
+      <label for="kurArtAbgelehnt">Art der beantragten und abgelehnten Kurmaßnahme:</label>
+      <select id="kurArtAbgelehnt" required>
+          <option value="">Bitte wählen...</option>
+          <option value="Medizinische Vorsorgeleistung (§ 23 SGB V)">Medizinische Vorsorgeleistung (§ 23 SGB V)</option>
+          <option value="Medizinische Rehabilitationsleistung (§ 40 SGB V)">Medizinische Rehabilitationsleistung (§ 40 SGB V)</option>
+          <option value="Mutter-Kind-Kur (bzw. Vater-Kind-Kur, §§ 24, 41 SGB V)">Mutter-Kind-Kur (bzw. Vater-Kind-Kur, §§ 24, 41 SGB V)</option>
+          <option value="Sonstige Kurmaßnahme">Sonstige Kurmaßnahme</option>
+      </select>
+      <label for="kurZielortAbgelehnt">Name der Kureinrichtung (falls im Antrag genannt und relevant für Ablehnung):</label>
+      <input type="text" id="kurZielortAbgelehnt" placeholder="z.B. Rehaklinik Musterstadt">
+      <label for="ablehnungsbescheidDatumKur">Datum des Ablehnungsbescheids der Krankenkasse:</label>
+      <input type="date" id="ablehnungsbescheidDatumKur" required>
+      <label for="aktenzeichenKur">Aktenzeichen / Vorgangsnummer des Bescheids (falls vorhanden):</label>
+      <input type="text" id="aktenzeichenKur">
+    </fieldset>
+    
+    <fieldset>
+      <legend>4. Begründung Ihres Widerspruchs – Ihre Argumente</legend>
+      <p class="info-box">Formulieren Sie hier Ihre Argumente gegen die Ablehnung. Beziehen Sie sich auf die ärztliche(n) Stellungnahme(n) und die konkreten Ablehnungsgründe Ihrer Krankenkasse. Führen Sie aus, warum die Voraussetzungen für die Kurmaßnahme aus Ihrer Sicht erfüllt sind.</p>
+
+      <label for="hauptablehnungsgrund">Was war der Hauptgrund für die Ablehnung laut Krankenkasse? <small>(Fassen Sie kurz zusammen)</small></label>
+      <textarea id="hauptablehnungsgrund" rows="3" required placeholder="z.B. Die medizinische Notwendigkeit sei nicht ausreichend dargelegt; ambulante Maßnahmen seien vorrangig und nicht ausgeschöpft; die gewünschte Klinik habe keinen Vertrag."></textarea>
+
+      <label for="argumentMedizinischeNotwendigkeitKur">Darlegung der weiterhin bestehenden oder verstärkten medizinischen Notwendigkeit der Kur: <small>(Warum ist die Kur aus medizinischer Sicht zwingend erforderlich? Was sagt Ihr Arzt/Ihre Ärztin dazu – ggf. auf (neue) Atteste verweisen.)</small></label>
+      <textarea id="argumentMedizinischeNotwendigkeitKur" rows="5" required placeholder="z.B. Trotz ambulanter Behandlung hat sich mein Zustand XY verschlechtert. Dr. Z hat erneut die Dringlichkeit der Kurmaßnahme in der Einrichtung Y bestätigt, um eine Chronifizierung zu verhindern..."></textarea>
+
+      <label for="argumentKeineAlternativenKur">Warum sind andere/ambulante Maßnahmen nicht (mehr) ausreichend oder zielführend? <small>(Wurden ambulante Maßnahmen bereits ausgeschöpft? Warum ist eine stationäre Maßnahme notwendig?)</small></label>
+      <textarea id="argumentKeineAlternativenKur" rows="4" required placeholder="z.B. Alle lokalen ambulanten Therapiemöglichkeiten wurden über X Monate ohne nachhaltigen Erfolg ausgeschöpft. Eine intensive stationäre Behandlung ist nun erforderlich, um..."></textarea>
+      
+      <label for="argumentPersoenlicheAuswirkungenKur">Welche schwerwiegenden Auswirkungen hat die Nichtdurchführung der Kur auf Ihre Gesundheit, Ihren Alltag, Ihre Arbeitsfähigkeit oder Ihre familiäre Situation?</label>
+      <textarea id="argumentPersoenlicheAuswirkungenKur" rows="4" required placeholder="z.B. Ohne die Kur droht eine Verschlechterung meines Gesundheitszustandes, die meine Arbeitsfähigkeit gefährdet und die Betreuung meiner Kinder unmöglich macht..."></textarea>
+
+      <label for="ergaenzendeArgumenteKur">Weitere Argumente und Erläuterungen zu den Ablehnungsgründen der Krankenkasse:</label>
+      <textarea id="ergaenzendeArgumenteKur" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere Aspekte anfügen."></textarea>
+    </fieldset>
+
+    <fieldset>
+        <legend>5. Forderung und Fristsetzung</legend>
+        <label for="fristsetzungDatum">Ich bitte um eine Entscheidung bis spätestens zum (optional): <small>(Wenn Sie kein Datum angeben, wird automatisch eine Frist von ca. 4 Wochen gesetzt)</small></label>
+        <input type="date" id="fristsetzungDatum">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnWiderspruchKur" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnWiderspruchKur" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
+    </div>
+  </form>
+</div> <div id="spendenPopupWiderspruchKur" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnWiderspruchKur" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kur.html">Infos Kurantrag</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

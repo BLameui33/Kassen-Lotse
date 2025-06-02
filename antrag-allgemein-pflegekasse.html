@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Allgemeiner Antrag Pflegekasse</title>
+  <meta name="description" content="Erstellen Sie einen allgemeinen Antrag an Ihre Pflegekasse für individuelle Anliegen oder Leistungen, die nicht durch spezifische Formulare abgedeckt sind.">
+  <meta name="keywords" content="Antrag, Pflegekasse, Allgemein, formlos, SGB XI, Pflegeversicherung, Anliegen">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="antrag-allgemein-pflegekasse_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    #anliegenBeschreibung {min-height: 150px;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-primary { background-color: #0070f3; color: white; }
+    .button-primary:hover { background-color: #005bb5; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+
+    .info-box {
+      font-size: 0.9em; background-color: #eef7ff; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left: 4px solid #0070f3;
+    }
+    .sub-details { display: none; margin-left: 10px; border-left: 2px solid #eee; padding-left: 10px; margin-top:0.5rem;}
+    .checkbox-group label { font-weight: normal; display: block; margin-top: 0.5rem;}
+    .checkbox-group input[type="checkbox"] { width: auto; margin-right: 5px; vertical-align: middle;}
+
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Allgemeiner Antrag an die Pflegekasse</h1>
+  <p class="info-box">
+    Dieses Formular hilft Ihnen, einen allgemeinen (formlosen) Antrag an Ihre Pflegekasse zu stellen, für Anliegen, die nicht durch spezifische Formulare abgedeckt sind.
+    Formulieren Sie Ihr Anliegen so klar und präzise wie möglich.
+    Weitere Informationen finden Sie auf unserer <a href="info-allgemein-pflegekasse.html">Info-Seite zu allgemeinen Anliegen bei der Pflegekasse</a>.
+  </p>
+
+  <form id="antragAllgemeinPkForm">
+    <fieldset>
+      <legend>1. Angaben zur versicherten Person</legend>
+      <label for="vpName">Vor- und Nachname:</label>
+      <input type="text" id="vpName" required>
+      <label for="vpGeburt">Geburtsdatum:</label>
+      <input type="date" id="vpGeburt" required>
+      <label for="vpAdresse">Vollständige Adresse:</label>
+      <textarea id="vpAdresse" rows="3" required></textarea>
+      <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
+      <input type="text" id="vpNummer" required>
+      <label for="vpTelefon">Telefonnummer (für Rückfragen, optional):</label>
+      <input type="text" id="vpTelefon">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Antragsteller:in (falls abweichend)</legend>
+      <label for="antragstellerIdentischAllgPk">Wird der Antrag von der versicherten Person selbst gestellt?</label>
+      <select id="antragstellerIdentischAllgPk">
+          <option value="ja" selected>Ja, von der versicherten Person selbst</option>
+          <option value="nein">Nein, von einer anderen Person</option>
+      </select>
+      <div id="antragstellerDetailsAllgPk" class="sub-details">
+          <label for="asNameAllgPk">Vor- und Nachname des/der Antragsteller:in:</label>
+          <input type="text" id="asNameAllgPk">
+          <label for="asAdresseAllgPk">Vollständige Adresse des/der Antragsteller:in:</label>
+          <textarea id="asAdresseAllgPk" rows="3"></textarea>
+          <label for="asVerhaeltnisAllgPk">Verhältnis zur versicherten Person:</label>
+          <input type="text" id="asVerhaeltnisAllgPk" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
+          <label><input type="checkbox" id="asVollmachtAllgPk"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zur Pflegekasse</legend>
+      <label for="pflegekasseName">Name der Pflegekasse:</label>
+      <input type="text" id="pflegekasseName" required>
+      <label for="pflegekasseAdresse">Vollständige Adresse der Pflegekasse:</label>
+      <textarea id="pflegekasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Ihr Anliegen / Antrag</legend>
+      <label for="antragBetreff">Betreff Ihres Anliegens/Antrags: <small>(Formulieren Sie einen klaren Betreff)</small></label>
+      <input type="text" id="antragBetreff" required placeholder="z.B. Antrag auf Akteneinsicht, Anfrage zu Leistung X, Antrag auf Einzelfallentscheidung Y">
+      
+      <label for="anliegenBeschreibung">Genaue Beschreibung Ihres Anliegens / Antrags: <small>(Was beantragen oder bitten Sie? Welche Situation liegt vor? Warum ist Ihr Anliegen wichtig?)</small></label>
+      <textarea id="anliegenBeschreibung" rows="10" required placeholder="Beschreiben Sie hier detailliert Ihr Anliegen..."></textarea>
+
+      <label for="antragBegruendung">Begründung für Ihren Antrag / Ihr Anliegen: <small>(Warum ist dies notwendig oder gerechtfertigt? Beziehen Sie sich ggf. auf Gesetze, ärztliche Empfehlungen oder besondere Umstände.)</small></label>
+      <textarea id="antragBegruendung" rows="6" placeholder="Führen Sie hier Ihre Gründe auf..."></textarea>
+      
+      <label for="antragForderung">Was genau erwarten/fordern Sie von der Pflegekasse? <small>(Formulieren Sie Ihr Ziel klar und präzise.)</small></label>
+      <textarea id="antragForderung" rows="3" required placeholder="z.B. Ich bitte um Gewährung von..., Ich beantrage die Überprüfung von..., Ich bitte um Zusendung von Informationen zu..."></textarea>
+    </fieldset>
+    
+    <fieldset>
+        <legend>5. Beizufügende Anlagen (optional)</legend>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="anlagenAllgPk" value="Ärztliche Unterlagen / Atteste"> Ärztliche Unterlagen / Atteste</label>
+            <label><input type="checkbox" name="anlagenAllgPk" value="Kopien relevanter Schreiben/Bescheide"> Kopien relevanter Schreiben/Bescheide</label>
+            <label><input type="checkbox" id="anlageVollmachtAllgPk" name="anlagenAllgPk" value="Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
+        </div>
+        <label for="anlageSonstigesAllgPk">Sonstige Anlagen (bitte auflisten):</label>
+        <input type="text" id="anlageSonstigesAllgPk">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnAntragAllgPk" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnAntragAllgPk" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-primary">📄 Antrags-PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopupAntragAllgPk" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnAntragAllgPk" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Ihr Projektname | <a href="index.html">Zurück zur Startseite</a> | <a href="info-allgemein-pflegekasse.html">Infos Allg. Anträge PK</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+</body>
+</html>

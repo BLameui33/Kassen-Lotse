@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Widerspruch Krankengeld</title>
+  <meta name="description" content="Erstellen Sie einen fundierten Widerspruch gegen Entscheidungen Ihrer Krankenkasse bezüglich des Krankengeldes.">
+  <meta name="keywords" content="Widerspruch, Krankengeld, Krankenkasse, MDK, Arbeitsunfähigkeit, Ablehnung, Einstellung, Berechnung">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="widerspruch-krankengeld_script.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333;
+    }
+    .page-container {
+        max-width: 800px; margin: 2rem auto; background-color: #fff;
+        padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center;
+      overflow-wrap: break-word; word-wrap: break-word;
+    }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box;
+      border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; color: #333;
+    }
+    textarea { min-height: 80px; resize: vertical; }
+    #ergaenzendeBegruendungKG {min-height: 100px;}
+
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    
+    .button-group {
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    button {
+      padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer;
+      border: none; font-weight: bold; text-align: center;
+      transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+    }
+    button:hover { transform: translateY(-1px); }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-secondary:hover { background-color: #5a6268; }
+    .button-danger { background-color: #d9534f; color: white; }
+    .button-danger:hover { background-color: #c9302c; }
+
+    .info-box {
+      font-size: 0.9em; padding: 10px 15px;
+      border-radius: 4px; margin-bottom: 1rem; border-left-width: 4px; border-left-style: solid;
+    }
+    .info-box.warning { background-color: #fcf8e3; border-left-color: #f0ad4e; }
+    .info-box ul { margin-top: 0.5rem; margin-bottom: 0.5rem; padding-left: 15px;}
+
+    .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; box-sizing: border-box;}
+    .popup-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);}
+    .popup-content h2 { font-size: 1.5em; margin-top: 0; margin-bottom: 1rem; color: #333; border-bottom: none; padding-bottom: 0;}
+    .popup-content p { margin-bottom: 1.5rem; color: #444; }
+    .popup-content form { margin-top: 1rem; }
+    .popup-content input[type="submit"] { background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;}
+    .popup-content input[type="submit"]:hover { background-color: #f0b429; }
+    .popup-close-button { margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;}
+    .popup-close-button:hover { background-color: #f0f0f0; }
+    
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      h1 { font-size: 1.7rem; }
+      legend { font-size: 1.1em;}
+      .button-group { flex-direction: column; }
+      button { width: 100%; margin-right: 0;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-container">
+  <h1>Widerspruch in Krankengeld-Angelegenheiten</h1>
+  <p class="info-box warning">
+    Wurde Ihre Krankengeldzahlung eingestellt, abgelehnt, falsch berechnet oder sind Sie mit einer Entscheidung des MDK nicht einverstanden? Nutzen Sie dieses Formular, um Widerspruch einzulegen.
+    Beachten Sie die Widerspruchsfrist (i.d.R. ein Monat). Lesen Sie auch unsere <a href="info-krankengeld.html">Informationen zum Krankengeld</a>.
+  </p>
+
+  <form id="widerspruchKrankengeldForm">
+    <fieldset>
+      <legend>1. Ihre Persönlichen Angaben</legend>
+      <label for="name">Vor- und Nachname:</label>
+      <input type="text" id="name" required>
+      <label for="adresse">Ihre vollständige Adresse:</label>
+      <textarea id="adresse" rows="3" required></textarea>
+      <label for="geburt">Geburtsdatum:</label>
+      <input type="date" id="geburt" required>
+      <label for="nummer">Versichertennummer:</label>
+      <input type="text" id="nummer" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Angaben zur Krankenkasse</legend>
+      <label for="kasseName">Name der Krankenkasse:</label>
+      <input type="text" id="kasseName" required>
+      <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
+      <textarea id="kasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Angaben zum angefochtenen Bescheid/Entscheidung</legend>
+      <label for="datumEntscheidungKG">Datum des Bescheids/Schreibens der Krankenkasse:</label>
+      <input type="date" id="datumEntscheidungKG" required>
+      <label for="aktenzeichenKG">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
+      <input type="text" id="aktenzeichenKG">
+      <label for="gegenstandEntscheidungKG">Gegenstand der Entscheidung (wogegen richtet sich der Widerspruch?):</label>
+      <select id="gegenstandEntscheidungKG" required>
+        <option value="">Bitte wählen...</option>
+        <option value="Einstellung der Krankengeldzahlung">Einstellung der Krankengeldzahlung</option>
+        <option value="Ablehnung der Krankengeldzahlung">Ablehnung der Krankengeldzahlung</option>
+        <option value="Festgestellte Arbeitsfähigkeit durch den MDK">Festgestellte Arbeitsfähigkeit durch den MDK</option>
+        <option value="Fehlerhafte Berechnung der Krankengeldhöhe">Fehlerhafte Berechnung der Krankengeldhöhe</option>
+        <option value="Anrechnung von Einkommen auf das Krankengeld">Anrechnung von Einkommen auf das Krankengeld</option>
+        <option value="Sonstiges (bitte unten erläutern)">Sonstiges (bitte unten erläutern)</option>
+      </select>
+      <div id="gegenstandSonstigesKGDetails" style="display:none;">
+        <label for="gegenstandSonstigesKGText">Erläuterung zu "Sonstiges":</label>
+        <textarea id="gegenstandSonstigesKGText" rows="2"></textarea>
+      </div>
+      <label for="beginnArbeitsunfaehigkeitKG">Beginn der Arbeitsunfähigkeit, auf die sich das Krankengeld bezieht:</label>
+      <input type="date" id="beginnArbeitsunfaehigkeitKG" required>
+      <label for="diagnoseHauptKG">Hauptdiagnose(n) für die Arbeitsunfähigkeit:</label>
+      <input type="text" id="diagnoseHauptKG" required placeholder="z.B. Mittelgradige depressive Episode, Bandscheibenvorfall L5/S1">
+      <label for="zeitraumKrankengeldStreitig">Zeitraum, für den das Krankengeld strittig ist/eingestellt wurde: <small>(Falls zutreffend, z.B. "ab TT.MM.JJJJ" oder "TT.MM.JJJJ - TT.MM.JJJJ")</small></label>
+      <input type="text" id="zeitraumKrankengeldStreitig" placeholder="z.B. ab 01.07.2025">
+    </fieldset>
+    
+    <fieldset>
+      <legend>4. Begründung Ihres Widerspruchs</legend>
+      <p class="info-box">Erläutern Sie hier detailliert, warum die Entscheidung der Krankenkasse aus Ihrer Sicht nicht korrekt ist. Beziehen Sie sich auf ärztliche Atteste und ggf. auf Fehler im Bescheid oder in der MDK-Begutachtung.</p>
+
+      <label for="argumentFortbestehendeAUKG">Darlegung der fortbestehenden Arbeitsunfähigkeit und medizinische Gründe: <small>(Was sagt Ihr behandelnder Arzt/Ihre Ärztin zur aktuellen Arbeitsunfähigkeit? Welche Diagnosen liegen vor? Verweisen Sie auf aktuelle ärztliche Atteste.)</small></label>
+      <textarea id="argumentFortbestehendeAUKG" rows="5" required placeholder="z.B. Meine Arbeitsunfähigkeit aufgrund von [Diagnose] besteht unverändert fort, wie durch das beiliegende Attest von Dr. [Arztname] vom TT.MM.JJJJ bestätigt wird."></textarea>
+
+      <label for="argumentFehlerImBescheidKG">Fehler im Bescheid oder in der MDK-Begutachtung (falls zutreffend): <small>(Wurden wichtige Aspekte nicht berücksichtigt? Gab es formale Fehler? Stimmen die im MDK-Gutachten getroffenen Feststellungen nicht mit Ihrem tatsächlichen Gesundheitszustand überein?)</small></label>
+      <textarea id="argumentFehlerImBescheidKG" rows="5" placeholder="z.B. Das MDK-Gutachten vom TT.MM.JJJJ berücksichtigt nicht die gravierenden Nebenwirkungen von Medikament X. / In Ihrem Bescheid wurde die Dauer meiner Vorerkrankungen nicht korrekt einbezogen."></textarea>
+      
+      <label for="ergaenzendeBegruendungKG">Weitere/ergänzende Begründung Ihres Widerspruchs:</label>
+      <textarea id="ergaenzendeBegruendungKG" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere Aspekte anfügen, z.B. zur Berechnung der Krankengeldhöhe."></textarea>
+    </fieldset>
+
+    <fieldset>
+        <legend>5. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+        <label for="forderungWiderspruchKG">Formulieren Sie klar Ihr Ziel:</label>
+        <textarea id="forderungWiderspruchKG" rows="3" required placeholder="z.B. Ich beantrage die Aufhebung des Bescheides und die Fortzahlung des Krankengeldes. / Ich beantrage eine Neuberechnung des Krankengeldes. / Ich beantrage eine erneute ärztliche Begutachtung."></textarea>
+    </fieldset>
+
+     <fieldset>
+        <legend>6. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="anlagenKrankengeld" value="Kopie des angefochtenen Bescheids"> Kopie des angefochtenen Bescheids</label>
+            <label><input type="checkbox" name="anlagenKrankengeld" value="Aktuelle(s) ärztliche(s) Attest(e) / Stellungnahme(n) zur Arbeitsunfähigkeit"> Aktuelle(s) ärztliche(s) Attest(e) / Stellungnahme(n) zur Arbeitsunfähigkeit</label>
+            <label><input type="checkbox" name="anlagenKrankengeld" value="Kopien der lückenlosen Arbeitsunfähigkeitsbescheinigungen"> Kopien der lückenlosen Arbeitsunfähigkeitsbescheinigungen</label>
+            <label><input type="checkbox" name="anlagenKrankengeld" value="Ggf. Kopie des MDK-Gutachtens (falls vorhanden)"> Ggf. Kopie des MDK-Gutachtens (falls vorhanden)</label>
+            <label><input type="checkbox" name="anlagenKrankengeld" value="Ggf. Lohnabrechnungen (bei Streit um Berechnung)"> Ggf. Lohnabrechnungen (bei Streit um Berechnung)</label>
+        </div>
+        <label for="anlageSonstigesKrankengeld">Sonstige Anlagen (bitte auflisten):</label>
+        <input type="text" id="anlageSonstigesKrankengeld">
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnWiderspruchKG" class="button-secondary">Eingaben speichern</button>
+      <button type="button" id="loadBtnWiderspruchKG" class="button-secondary">Gespeicherte Eingaben laden</button>
+      <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
+    </div>
+  </form>
+</div> <div id="spendenPopupWiderspruchKG" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="charset" value="utf-8">
+      <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" />
+    </form>
+    <button id="closePopupBtnWiderspruchKG" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-krankengeld.html">Infos Krankengeld</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>

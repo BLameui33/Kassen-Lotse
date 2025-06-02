@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Widerspruch Kostenerstattungsverfahren – PDF erstellen</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 2rem; }
+    input, textarea { width: 100%; margin-bottom: 1rem; padding: 0.5rem; }
+    label { font-weight: bold; }
+    button { padding: 1rem 2rem; background: #0070f3; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    /* Alter Spendenhinweis-Style - nicht mehr primär genutzt, wenn Pop-up aktiv ist */
+    .spenden { margin-top: 2rem; background: #f9f9f9; padding: 1rem; border-left: 4px solid #ffc439; }
+  </style>
+</head>
+<body>
+
+<h1>Widerspruch im Kostenerstattungsverfahren</h1>
+
+<p>Wenn dein Antrag abgelehnt wurde, kannst du Widerspruch einlegen. Fülle dazu das folgende Formular aus – dein PDF wird automatisch erstellt:</p>
+
+<form id="widerspruchForm">
+  <label for="name">Dein vollständiger Name</label>
+  <input type="text" id="name" required>
+
+  <label for="adresse">Deine Adresse</label>
+  <textarea id="adresse" required></textarea>
+
+  <label for="kasse">Name & Adresse der Krankenkasse</label>
+  <textarea id="kasse" required></textarea>
+
+  <label for="versichertennr">Versichertennummer</label>
+  <input type="text" id="versichertennr" required>
+
+  <label for="bescheiddatum">Datum des Ablehnungsbescheids</label>
+  <input type="date" id="bescheiddatum" required>
+
+  <button type="submit">📄 PDF Widerspruch erstellen</button>
+</form>
+
+<div id="spendenPopup" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+  <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 400px; text-align: center; box-shadow: 0 0 15px rgba(0,0,0,0.2);">
+    <h2>Danke für deine Nutzung 💛</h2>
+    <p>Wenn dir dieses Tool geholfen hat, unterstütze es mit einer kleinen Spende:</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_blank" style="margin-top: 1rem;">
+      <input type="hidden" name="business" value="info@kassen-lotse.de" />
+      <input type="hidden" name="item_name" value="Spende für das Projekt Kostenerstattungsverfahren Psychotherapie." />
+      <input type="hidden" name="currency_code" value="EUR" />
+      <input type="submit" value="Spenden mit PayPal" style="background:#ffc439; border:none; padding:0.8rem 1.6rem; font-weight:bold; border-radius:5px; cursor: pointer;" />
+    </form>
+    <button onclick="closePopup()" style="margin-top: 1rem; background: none; border: none; color: #0070f3; font-weight: bold; cursor: pointer;">Nein danke, schließen</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById("widerspruchForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const name = document.getElementById("name").value;
+    const adresse = document.getElementById("adresse").value;
+    const kasse = document.getElementById("kasse").value;
+    const versichertennr = document.getElementById("versichertennr").value;
+    const bescheiddatum = document.getElementById("bescheiddatum").value;
+
+    let text = `
+${name}
+${adresse}
+
+An:
+${kasse}
+
+Versichertennummer: ${versichertennr}
+
+${new Date().toLocaleDateString("de-DE")}
+
+Widerspruch gegen die Ablehnung meines Antrags auf Kostenerstattung gemäß §13 Abs. 3 SGB V
+
+Sehr geehrte Damen und Herren,
+
+hiermit lege ich fristgerecht Widerspruch gegen Ihren Ablehnungsbescheid vom ${bescheiddatum} ein, in dem Sie meinen Antrag auf Kostenerstattung einer ambulanten psychotherapeutischen Behandlung abgelehnt haben.
+
+Die Ablehnung ist aus meiner Sicht weder medizinisch noch rechtlich haltbar. Ich habe durch dokumentierte Kontaktversuche bei kassenzugelassenen Therapeut:innen nachgewiesen, dass ich trotz intensiver Bemühungen keinen Therapieplatz innerhalb einer zumutbaren Wartezeit finden konnte. Eine Behandlung bei einer approbierten, aber nicht kassenzugelassenen Therapeutin stellt daher keine Wahlleistung dar, sondern ist medizinisch dringend geboten.
+
+Gemäß §13 Abs. 3 SGB V besteht in einem solchen Fall ein 'Rechtsanspruch' auf Kostenerstattung. Die aktuelle Versorgungslage in der psychotherapeutischen Regelversorgung ist bundesweit als angespannt bekannt – dies kann jedoch nicht zulasten der Versicherten gehen. Auch das Bundessozialgericht (BSG) hat mehrfach betont, dass Kassen im Rahmen ihrer Fürsorgepflicht verpflichtet sind, in medizinisch notwendigen Fällen die Kosten zu übernehmen, wenn die Regelversorgung versagt (vgl. u.a. BSG, Urteil vom 21.05.1997 – 1 RK 28/95).
+
+Ich fordere Sie daher auf, meinen Antrag erneut zu prüfen und mir die Kostenübernahme zu bewilligen. Sollte ich innerhalb der gesetzlich vorgesehenen Frist keine positive Rückmeldung erhalten, behalte ich mir rechtliche Schritte ausdrücklich vor.
+
+Mit freundlichen Grüßen 
+
+${name}
+    `;
+
+    doc.setFontSize(12);
+    doc.text(text, 20, 20, { maxWidth: 170, lineHeightFactor: 1.5 });
+    doc.save("widerspruch_kostenerstattung.pdf");
+
+    // Pop-up anzeigen (statt dem alten spendenHinweis)
+    document.getElementById("spendenPopup").style.display = "flex";
+  });
+
+  // Pop-up schließen (Funktion von script.js übernommen)
+  function closePopup() {
+    document.getElementById("spendenPopup").style.display = "none";
+  }
+</script>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kostenerstattung.html">Infos Kostenersattung</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+</body>
+</html>
