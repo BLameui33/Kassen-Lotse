@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kassen-lotse.de/sitemap.xml
