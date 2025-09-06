@@ -1,129 +1,135 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Informationen zum Antrag auf Hilfsmittel</title>
-  <meta name="description" content="Informationen und Hilfe zum Antrag auf medizinische Hilfsmittel bei Ihrer Krankenkasse. Erfahren Sie mehr über Voraussetzungen, den Prozess und Ihre Rechte.">
-  <meta name="keywords" content="Hilfsmittel, Antrag, Krankenkasse, Information, Ratgeber, medizinische Hilfsmittel, §33 SGB V">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      line-height: 1.7; background-color: #f9f9f9; color: #333; margin: 0; padding: 0;
-    }
-    .content-wrapper { /* Gleicher Wrapper wie auf der Startseite */
-        max-width: 800px; margin: 2rem auto; background-color: #fff; padding: 2rem;
-        border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center; }
-    h2 { font-size: 1.6rem; margin-top: 2rem; margin-bottom: 1rem; color: #1a5276; border-bottom: 2px solid #aed6f1; padding-bottom: 0.6rem;}
-    p, ul li { margin-bottom: 1rem; }
-    ul { padding-left: 20px; }
-    .cta-button { /* Stil für Buttons/Links zu den Formularen */
-      display: inline-block; background: #0070f3; color: white !important; padding: 0.8rem 1.5rem;
-      text-decoration: none; border-radius: 6px; margin: 1rem 0.5rem 1rem 0; font-weight: bold;
-      transition: background-color 0.2s ease-in-out; text-align:center;
-    }
-    .cta-button:hover { background-color: #005bb5; }
-    .button-container { text-align: center; margin-top:1.5rem; margin-bottom:1.5rem;}
-    .highlight-box { background-color: #eef7ff; border-left: 5px solid #0070f3; padding: 15px; margin: 1.5rem 0; border-radius: 5px; }
-    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
-    footer a { color: #555; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    @media (max-width: 600px) {
-      h1 { font-size: 1.8rem; }
-      h2 { font-size: 1.4rem; }
-      .content-wrapper { padding: 1rem; margin: 1rem auto; }
-      .cta-button { display: block; margin-left:0; margin-right:0; }
-    }
-    /* Stil für den Header-Container */
+  <meta charset="UTF-8">
+  <title>Informationen zum Antrag auf Hilfsmittel</title>
+  <meta name="description" content="Informationen und Hilfe zum Antrag auf medizinische Hilfsmittel bei Ihrer Krankenkasse. Erfahren Sie mehr über Voraussetzungen, den Prozess und Ihre Rechte.">
+  <meta name="keywords" content="Hilfsmittel, Antrag, Krankenkasse, Information, Ratgeber, medizinische Hilfsmittel, §33 SGB V">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      line-height: 1.7; background-color: #f9f9f9; color: #333; margin: 0; padding: 0;
+    }
+    .content-wrapper {
+        max-width: 800px; margin: 2rem auto; background-color: #fff; padding: 2rem;
+        border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center; }
+    h2 { font-size: 1.6rem; margin-top: 2rem; margin-bottom: 1rem; color: #1a5276; border-bottom: 2px solid #aed6f1; padding-bottom: 0.6rem;}
+    h3 { font-size: 1.3rem; margin-top: 1.5rem; margin-bottom: 0.8rem; color: #2c3e50; }
+    p, ul li, ol li { margin-bottom: 1rem; }
+    ul, ol { padding-left: 20px; }
+    .button {
+      display: inline-block; background: #0070f3; color: white !important; padding: 0.8rem 1.5rem;
+      text-decoration: none; border-radius: 6px; margin: 1rem 0.5rem 1rem 0; font-weight: bold;
+      transition: background-color 0.2s ease-in-out; text-align:center;
+      border: none; cursor: pointer;
+    }
+    .button:hover { background-color: #005bb5; transform: translateY(-1px); }
+    .button-danger { background-color: #d9534f; color: white !important; }
+    .button-danger:hover { background-color: #c9302c; transform: translateY(-1px); }
+    .button-container { text-align: center; margin-top:1.5rem; margin-bottom:1.5rem;}
+    .highlight-box { background-color: #eef7ff; border-left: 5px solid #0070f3; padding: 15px; margin: 1.5rem 0; border-radius: 5px; }
+    .warning-box { background-color: #fcf8e3; border-left: 5px solid #f0ad4e; padding: 15px; margin: 1.5rem 0; border-radius: 5px; }
+    strong { color: #117864; }
+    code { background-color: #f0f0f0; padding: 2px 4px; border-radius: 3px; font-family: monospace; }
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.4rem; }
+      h3 { font-size: 1.2rem; }
+      .page-container { padding: 1rem; margin: 1rem auto; }
+      .button { display: block; margin-left:0; margin-right:0; }
+    }
+    /* Stil für den Header-Container */
 .site-header {
-    background-color: #ffffff; /* Weißer Hintergrund */
-    padding: 1rem 2rem;        /* Innenabstand oben/unten und links/rechts */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07); /* Subtiler Schatten nach unten */
-    border-bottom: 1px solid #e9ecef; /* Feine untere Trennlinie */
-    margin-bottom: 2rem;       /* Abstand zum Inhalt darunter */
-    text-align: center;
+    background-color: #ffffff; /* Weißer Hintergrund */
+    padding: 1rem 2rem;        /* Innenabstand oben/unten und links/rechts */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07); /* Subtiler Schatten nach unten */
+    border-bottom: 1px solid #e9ecef; /* Feine untere Trennlinie */
+    margin-bottom: 2rem;       /* Abstand zum Inhalt darunter */
+    text-align: center;
 }
 
 /* Stil für das Logo bzw. den Seitennamen */
 .site-logo {
-    color: #1a5276; /* Deine dunkle Akzentfarbe */
-    font-size: 1.5rem;   /* Angenehme, gut lesbare Größe */
-    font-weight: bold;
-    text-decoration: none; /* Entfernt die Link-Unterstreichung */
-    transition: color 0.2s; /* Weicher Farbwechsel beim Hovern */
+    color: #1a5276; /* Deine dunkle Akzentfarbe */
+    font-size: 1.5rem;   /* Angenehme, gut lesbare Größe */
+    font-weight: bold;
+    text-decoration: none; /* Entfernt die Link-Unterstreichung */
+    transition: color 0.2s; /* Weicher Farbwechsel beim Hovern */
 }
 
 .site-logo:hover {
-    color: #d35400; /* Deine orange Hauptfarbe als Hover-Effekt */
+    color: #d35400; /* Deine orange Hauptfarbe als Hover-Effekt */
 }
-  </style>
+  </style>
 </head>
 <body>
 
-  <header class="site-header">
-    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
-  <div class="content-wrapper">
-    <h1>Wissenswertes zum Antrag auf Hilfsmittel</h1>
+  <div class="content-wrapper">
+    <h1>Wissenswertes zum Antrag auf Hilfsmittel</h1>
 
-    <p>Medizinische Hilfsmittel sind wichtige Unterstützer im Alltag, um Krankheiten vorzubeugen, den Behandlungserfolg zu sichern oder eine Behinderung auszugleichen. Der Weg zur Kostenübernahme durch die Krankenkasse kann manchmal Fragen aufwerfen. Hier finden Sie grundlegende Informationen.</p>
+    <p>Medizinische Hilfsmittel sind wichtige Unterstützer im Alltag, um Krankheiten vorzubeugen, den Behandlungserfolg zu sichern oder eine Behinderung auszugleichen. Der Weg zur Kostenübernahme durch die Krankenkasse kann manchmal Fragen aufwerfen. Hier finden Sie grundlegende Informationen.</p>
 
-    <h2>Was sind Hilfsmittel?</h2>
-    <p>Zu den Hilfsmitteln zählen sächliche Mittel, die im Einzelfall erforderlich sind, um den Erfolg einer Krankenbehandlung zu sichern, einer drohenden Behinderung vorzubeugen oder eine Behinderung auszugleichen (§ 33 SGB V). Beispiele hierfür sind Rollstühle, Prothesen, orthopädische Schuheinlagen, Hörgeräte, Inhalationsgeräte, Blutzuckermessgeräte und vieles mehr.</p>
+    <h2>Was sind Hilfsmittel?</h2>
+    <p>Zu den Hilfsmitteln zählen sächliche Mittel, die im Einzelfall erforderlich sind, um den Erfolg einer Krankenbehandlung zu sichern, einer drohenden Behinderung vorzubeugen oder eine Behinderung auszugleichen (§ 33 SGB V). Beispiele hierfür sind Rollstühle, Prothesen, orthopädische Schuheinlagen, Hörgeräte, Inhalationsgeräte, Blutzuckermessgeräte und vieles mehr.</p>
 
-    <h2>Wer hat Anspruch?</h2>
-    <p>Gesetzlich Versicherte haben Anspruch auf Versorgung mit Hilfsmitteln, wenn diese im Einzelfall medizinisch notwendig sind. Die Notwendigkeit wird in der Regel durch eine ärztliche Verordnung (Rezept) nachgewiesen.</p>
+    <h2>Wer hat Anspruch?</h2>
+    <p>Gesetzlich Versicherte haben Anspruch auf Versorgung mit Hilfsmitteln, wenn diese im Einzelfall medizinisch notwendig sind. Die Notwendigkeit wird in der Regel durch eine ärztliche Verordnung (Rezept) nachgewiesen.</p>
 
-    <h2>Die Rolle der ärztlichen Verordnung</h2>
-    <p>Die ärztliche Verordnung ist das wichtigste Dokument für Ihren Antrag. Sie sollte das Hilfsmittel genau bezeichnen (ggf. mit Hilfsmittelnummer), die Diagnose enthalten und die medizinische Notwendigkeit begründen. Sprechen Sie mit Ihrem Arzt oder Ihrer Ärztin, um sicherzustellen, dass die Verordnung alle relevanten Informationen enthält.</p>
+    <h2>Die Rolle der ärztlichen Verordnung</h2>
+    <p>Die ärztliche Verordnung ist das wichtigste Dokument für Ihren Antrag. Sie sollte das Hilfsmittel genau bezeichnen (ggf. mit Hilfsmittelnummer), die Diagnose enthalten und die medizinische Notwendigkeit begründen. Sprechen Sie mit Ihrem Arzt oder Ihrer Ärztin, um sicherzustellen, dass die Verordnung alle relevanten Informationen enthält.</p>
 
-    <h2>Der Antragsprozess bei der Krankenkasse</h2>
-    <p>In der Regel reichen Sie die ärztliche Verordnung zusammen mit einem formlosen Antrag oder einem von uns generierten Antragschreiben bei Ihrer Krankenkasse ein. Oft wird auch ein Kostenvoranschlag eines Leistungserbringers (z.B. Sanitätshaus) benötigt, besonders wenn es um individuell angefertigte oder teurere Hilfsmittel geht. Ihre Krankenkasse prüft dann den Antrag. Manchmal wird der Medizinische Dienst der Krankenversicherung (MDK) zur Begutachtung hinzugezogen.</p>
-    <div class="button-container">
-        <a href="antrag-hilfsmittel.html" class="cta-button">Zum Antragsformular für Hilfsmittel</a>
-    </div>
+    <h2>Der Antragsprozess bei der Krankenkasse</h2>
+    <p>In der Regel reichen Sie die ärztliche Verordnung zusammen mit einem formlosen Antrag oder einem von uns generierten Antragschreiben bei Ihrer Krankenkasse ein. Oft wird auch ein Kostenvoranschlag eines Leistungserbringers (z.B. Sanitätshaus) benötigt, besonders wenn es um individuell angefertigte oder teurere Hilfsmittel geht. Ihre Krankenkasse prüft dann den Antrag. Manchmal wird der Medizinische Dienst der Krankenversicherung (MDK) zur Begutachtung hinzugezogen.</p>
+    <div class="button-container">
+        <a href="antrag-hilfsmittel.html" class="cta-button">Zum Antragsformular für Hilfsmittel</a>
+    </div>
 
-    <h2>Was tun bei Ablehnung?</h2>
-    <p>Sollte Ihr Antrag auf ein Hilfsmittel abgelehnt werden, haben Sie das Recht, innerhalb eines Monats nach Erhalt des Bescheids Widerspruch einzulegen. Eine gute Begründung ist hier entscheidend. Oftmals werden Anträge im ersten Anlauf abgelehnt, ein Widerspruch kann aber erfolgreich sein.</p>
-    <div class="button-container">
-        <a href="widerspruch-hilfsmittel.html" class="cta-button">Zum Widerspruchsformular für Hilfsmittel</a>
-    </div>
-    
-    <h2>Allgemeine Tipps:</h2>
-    <ul>
-        <li>Reichen Sie Anträge und Unterlagen immer schriftlich und nachweisbar ein (z.B. per Einschreiben mit Rückschein oder mit Bitte um Eingangsbestätigung).</li>
-        <li>Machen Sie sich von allen eingereichten Dokumenten Kopien für Ihre Unterlagen.</li>
-        <li>Notieren Sie sich Ansprechpartner und Daten von Telefonaten mit der Krankenkasse.</li>
-        <li>Lassen Sie sich bei komplexen Fällen ggf. von Patientenberatungsstellen oder Sozialverbänden unterstützen.</li>
-    </ul>
+    <h2>Was tun bei Ablehnung?</h2>
+    <p>Sollte Ihr Antrag auf ein Hilfsmittel abgelehnt werden, haben Sie das Recht, innerhalb eines Monats nach Erhalt des Bescheids Widerspruch einzulegen. Eine gute Begründung ist hier entscheidend. Oftmals werden Anträge im ersten Anlauf abgelehnt, ein Widerspruch kann aber erfolgreich sein.</p>
+    <div class="button-container">
+        <a href="widerspruch-hilfsmittel.html" class="cta-button">Zum Widerspruchsformular für Hilfsmittel</a>
+    </div>
+    
+    <h2>Allgemeine Tipps:</h2>
+    <ul>
+        <li>Reichen Sie Anträge und Unterlagen immer schriftlich und nachweisbar ein (z.B. per Einschreiben mit Rückschein oder mit Bitte um Eingangsbestätigung).</li>
+        <li>Machen Sie sich von allen eingereichten Dokumenten Kopien für Ihre Unterlagen.</li>
+        <li>Notieren Sie sich Ansprechpartner und Daten von Telefonaten mit der Krankenkasse.</li>
+        <li>Lassen Sie sich bei komplexen Fällen ggf. von Patientenberatungsstellen oder Sozialverbänden unterstützen.</li>
+    </ul>
 
-  </div>
+    ---
 
-  ---
+    <h2>Häufig gestellte Fragen (FAQ)</h2>
 
-    <h2>Häufig gestellte Fragen (FAQ)</h2>
+    <h3>Kann ich mir das Hilfsmittel selbst aussuchen?</h3>
+    <p>Grundsätzlich ja, aber die Krankenkasse ist nur für eine „ausreichende, zweckmäßige und wirtschaftliche“ Versorgung zuständig. Das bedeutet, sie muss die Kosten für die günstigste Standardlösung übernehmen, die Ihren Bedarf abdeckt. Wünschen Sie ein teureres Modell (z.B. mit Sonderfunktionen), müssen Sie die Mehrkosten in der Regel selbst tragen.</p>
 
-    <h3>Kann ich mir das Hilfsmittel selbst aussuchen?</h3>
-    <p>Grundsätzlich ja, aber die Krankenkasse ist nur für eine „ausreichende, zweckmäßige und wirtschaftliche“ Versorgung zuständig. Das bedeutet, sie muss die Kosten für die günstigste Standardlösung übernehmen, die Ihren Bedarf abdeckt. Wünschen Sie ein teureres Modell (z.B. mit Sonderfunktionen), müssen Sie die Mehrkosten in der Regel selbst tragen.</p>
+    <h3>Muss ich für ein Hilfsmittel eine Zuzahlung leisten?</h3>
+    <p>Ja, in der Regel müssen Sie 10% des Abgabepreises selbst bezahlen, jedoch mindestens 5 Euro und maximal 10 Euro. Für Verbandmittel, Inkontinenzhilfen und Hilfsmittel, die zum Verbrauch bestimmt sind, beträgt die Zuzahlung pauschal 10 Euro pro Monat.</p>
 
-    <h3>Muss ich für ein Hilfsmittel eine Zuzahlung leisten?</h3>
-    <p>Ja, in der Regel müssen Sie 10% des Abgabepreises selbst bezahlen, jedoch mindestens 5 Euro und maximal 10 Euro. Für Verbandmittel, Inkontinenzhilfen und Hilfsmittel, die zum Verbrauch bestimmt sind, beträgt die Zuzahlung pauschal 10 Euro pro Monat.</p>
+    <h3>Was ist ein Kostenvoranschlag und wann brauche ich ihn?</h3>
+    <p>Ein Kostenvoranschlag ist eine Schätzung der voraussichtlichen Kosten durch den Anbieter des Hilfsmittels (z. B. ein Sanitätshaus). Er ist besonders bei teureren oder individuell angefertigten Hilfsmitteln notwendig, damit Ihre Krankenkasse die Wirtschaftlichkeit und die Höhe der Kosten vorab prüfen kann.</p>
 
-    <h3>Was ist ein Kostenvoranschlag und wann brauche ich ihn?</h3>
-    <p>Ein Kostenvoranschlag ist eine Schätzung der voraussichtlichen Kosten durch den Anbieter des Hilfsmittels (z. B. ein Sanitätshaus). Er ist besonders bei teureren oder individuell angefertigten Hilfsmitteln notwendig, damit Ihre Krankenkasse die Wirtschaftlichkeit und die Höhe der Kosten vorab prüfen kann.</p>
+    <h3>Was ist der Unterschied zwischen einem Hilfsmittel und einem Heilmittel?</h3>
+    <p>Ein **Hilfsmittel** (z.B. Rollstuhl, Hörgerät) dient dem Ausgleich einer Behinderung oder der Sicherung eines Behandlungserfolgs. Ein **Heilmittel** (z.B. Physiotherapie, Ergotherapie, Logopädie) ist eine medizinische Dienstleistung, die zur Heilung oder Linderung einer Krankheit eingesetzt wird.</p>
 
-    <h3>Was ist der Unterschied zwischen einem Hilfsmittel und einem Heilmittel?</h3>
-    <p>Ein **Hilfsmittel** (z.B. Rollstuhl, Hörgerät) dient dem Ausgleich einer Behinderung oder der Sicherung eines Behandlungserfolgs. Ein **Heilmittel** (z.B. Physiotherapie, Ergotherapie, Logopädie) ist eine medizinische Dienstleistung, die zur Heilung oder Linderung einer Krankheit eingesetzt wird.</p>
-
-    <h3>Wie lange dauert die Bearbeitung eines Antrags?</h3>
-    <p>Die Krankenkassen haben gesetzliche Fristen. Für Hilfsmittel mit Kostenvoranschlag sind es in der Regel drei Wochen ab Eingang des Antrags. Ohne Kostenvoranschlag sind es drei Werktage. Werden die Fristen überschritten, gilt der Antrag unter Umständen als genehmigt, wenn die Krankenkasse die Fristversäumnis nicht begründen kann.</p>
- 
-  <footer>
-    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
-  </footer>
+    <h3>Wie lange dauert die Bearbeitung eines Antrags?</h3>
+    <p>Die Krankenkassen haben gesetzliche Fristen. Für Hilfsmittel mit Kostenvoranschlag sind es in der Regel drei Wochen ab Eingang des Antrags. Ohne Kostenvoranschlag sind es drei Werktage. Werden die Fristen überschritten, gilt der Antrag unter Umständen als genehmigt, wenn die Krankenkasse die Fristversäumnis nicht begründen kann.</p>
+ 
+  <footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
 
 </body>
 </html>
