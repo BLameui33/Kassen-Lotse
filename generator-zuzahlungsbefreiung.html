@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Antrag auf Zuzahlungsbefreiung erstellen | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Befreiung von Zuzahlungen bei Ihrer Krankenkasse. Berechnen Sie Ihre persönliche Belastungsgrenze und fordern Sie zu viel gezahlte Beträge zurück.">
+  <meta name="keywords" content="Zuzahlungsbefreiung, Belastungsgrenze, Antrag, Krankenkasse, Zuzahlung, chronisch krank, § 62 SGB V, Vorlage, Generator">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script defer src="zuzahlungsbefreiung_script.js"></script>
+  <style>
+    /* Exakt die gleichen Stile wie bei den Mieter-Lotse Seiten */
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; line-height: 1.7; background-color: #f9f9f9; color: #333; }
+    .page-container { max-width: 800px; margin: 2rem auto; background-color: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    h1 { font-size: 2.2rem; margin-bottom: 1.5rem; color: #222; text-align: center; }
+    label { display: block; margin-top: 1rem; font-weight: 500; color: #444; }
+    label small { display: block; font-weight: normal; font-size: 0.85em; color: #555; margin-top: 0.2rem; }
+    input[type="text"], input[type="date"], input[type="number"], select, textarea { width: 100%; padding: 10px; margin-top: 0.3rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; }
+    fieldset { border: 1px solid #ddd; padding: 1.5rem; margin-top: 2rem; border-radius: 6px; }
+    legend { font-weight: bold; font-size: 1.2em; padding: 0 0.5em; color: #333; margin-bottom:0.8rem;}
+    .radio-group label, .checkbox-group label { font-weight: normal; display: block; margin-top: 0.5rem;}
+    .radio-group input, .checkbox-group input { width: auto; margin-right: 8px; vertical-align: middle;}
+    .button-group { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    button { padding: 10px 20px; font-size: 1rem; border-radius: 5px; cursor: pointer; border: none; font-weight: bold; text-align: center; }
+    .button-secondary { background-color: #6c757d; color: white; }
+    .button-primary { background-color: #0070f3; color: white; }
+    .info-box { font-size: 0.9em; padding: 10px 15px; border-radius: 4px; margin-bottom: 1rem; border-left-width: 4px; border-left-style: solid; }
+    .info-box.info { background-color: #eef7ff; border-left-color: #0070f3; }
+    .info-box.warning { background-color: #fcf8e3; border-left-color: #f0ad4e; }
+    .berechnungs-ergebnis { background-color: #eafaf1; padding: 15px; border-radius: 6px; margin-top: 1rem; font-size: 1.2rem; font-weight: bold; color: #1e8449; text-align: center; }
+    .popup-overlay { 
+        display: none; 
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background-color: rgba(0,0,0,0.6); 
+        z-index: 1000; 
+        justify-content: center; 
+        align-items: center; 
+        padding: 1rem; 
+        box-sizing: border-box;
+    }
+    .popup-content { 
+        background: white; 
+        padding: 2rem; 
+        border-radius: 10px; 
+        max-width: 450px; 
+        width: 100%; 
+        text-align: center; 
+        box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    }
+    .popup-content h2 { 
+        font-size: 1.5em; 
+        margin-top: 0; 
+        margin-bottom: 1rem;
+    }
+    .popup-content p { 
+        margin-bottom: 1.5rem; 
+        color: #444; 
+    }
+    .popup-content form { 
+        margin-top: 1rem; 
+    }
+    .popup-content input[type="submit"] { 
+        background:#ffc439; 
+        border:none; 
+        padding:0.9rem 1.8rem; 
+        font-weight:bold; 
+        border-radius:5px; 
+        cursor: pointer; 
+        color: #333; 
+        font-size: 1em;
+    }
+     .popup-content input[type="submit"]:hover { 
+        background-color: #f0b429; 
+    }
+    .popup-close-button { 
+        margin-top: 1.5rem; 
+        background: none; 
+        border: 1px solid #ccc; 
+        color: #555; 
+        font-weight: normal; 
+        cursor: pointer; 
+        padding: 0.6rem 1.2rem; 
+        border-radius: 5px; 
+        font-size: 0.9em;
+    }
+     .popup-close-button:hover { 
+        background-color: #f0f0f0; 
+    }
+    .site-header { background-color: #ffffff; padding: 1rem 2rem; box-shadow: 0 2px 5px rgba(0,0,0,0.07); border-bottom: 1px solid #e9ecef; margin-bottom: 2rem; text-align: center; }
+    .site-logo { color: #1a5276; font-size: 1.5rem; font-weight: bold; text-decoration: none; }
+    footer { text-align: center; padding: 2rem 0; margin-top: 2rem; font-size: 0.9em; color: #666; }
+    footer a { color: #555; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+</header>
+
+<div class="page-container">
+  <h1>Antrag auf Befreiung von Zuzahlungen</h1>
+  <p class="info-box info">
+    Jeder gesetzlich Versicherte muss Zuzahlungen leisten, aber nur bis zu einer persönlichen Belastungsgrenze. Diese liegt bei 2% (bei chronisch Kranken bei 1%) der jährlichen Bruttoeinnahmen. Mit diesem Tool können Sie die Befreiung beantragen, wenn Sie die Grenze erreicht haben oder im Voraus zahlen möchten.
+  </p>
+<p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+</p>
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+</p>
+  
+  <form id="zuzahlungsbefreiungForm">
+    <fieldset>
+      <legend>1. Ihre Angaben (Versicherte/r)</legend>
+      <label for="personName">Vor- und Nachname:</label>
+      <input type="text" id="personName" required>
+      <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
+      <textarea id="personAdresse" rows="2" required></textarea>
+      <label for="versicherungsnummer">Krankenversicherungsnummer:</label>
+      <input type="text" id="versicherungsnummer" required>
+      <label for="geburtsdatum">Geburtsdatum:</label>
+      <input type="date" id="geburtsdatum" required>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Angaben zur Krankenkasse</legend>
+      <label for="kasseName">Name der Krankenkasse:</label>
+      <input type="text" id="kasseName" required>
+      <label for="kasseAdresse">Anschrift der Krankenkasse:</label>
+      <textarea id="kasseAdresse" rows="3" required></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Berechnung Ihrer Belastungsgrenze (optional)</legend>
+      <small>Diese Berechnung dient nur Ihrer Orientierung. Die Krankenkasse prüft die genauen Werte anhand Ihrer Nachweise.</small>
+      <label for="bruttoeinkommen">Jährliche Bruttoeinnahmen aller Haushaltsangehörigen:</label>
+      <input type="number" id="bruttoeinkommen" step="0.01" placeholder="z.B. 25000.00">
+      <div class="checkbox-group">
+        <label><input type="checkbox" id="chronischKrank"> Ich bin schwerwiegend chronisch krank (1%-Regelung).</label>
+      </div>
+      <label for="bereitsGezahlt">Bereits geleistete Zuzahlungen in diesem Jahr in €:</label>
+      <input type="number" id="bereitsGezahlt" step="0.01" placeholder="0.00">
+      <div id="ergebnis-container" class="berechnungs-ergebnis" style="display: none;">
+        Ihre geschätzte Belastungsgrenze: <span id="belastungsgrenze">0,00 €</span>
+      </div>
+    </fieldset>
+    
+    <fieldset>
+      <legend>4. Art des Antrags</legend>
+      <div class="radio-group">
+        <label><input type="radio" name="antragArt" value="befreiung" required> <strong>Befreiung für den Rest des Jahres:</strong> Ich habe meine Belastungsgrenze bereits erreicht.</label>
+        <label><input type="radio" name="antragArt" value="vorauszahlung" required> <strong>Befreiung durch Vorauszahlung:</strong> Ich möchte meine Belastungsgrenze im Voraus bezahlen.</label>
+        <label><input type="radio" name="antragArt" value="rueckerstattung" required> <strong>Rückerstattung für vergangenes Jahr:</strong> Ich habe letztes Jahr zu viel bezahlt.</label>
+      </div>
+    </fieldset>
+    
+    <div class="button-group">
+      <button type="button" id="saveBtnZuzahlung" class="button-secondary">Speichern</button>
+      <button type="button" id="loadBtnZuzahlung" class="button-secondary">Laden</button>
+      <button type="submit" class="button-primary">📄 Antrag als PDF erstellen</button>
+    </div>
+  </form>
+</div>
+
+<div id="spendenPopup" class="popup-overlay">
+  <div class="popup-content">
+      <h2>Antrag erstellt!</h2>
+      <p>Wir hoffen, es klappt mit der Befreiung! Wenn Ihnen dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
+      <form action="https://www.paypal.com/donate" method="post" target="_blank">
+          <input type="hidden" name="business" value="info@kassen-lotse.de" />
+          <input type="hidden" name="item_name" value="Unterstützung für das Projekt Kassen-Lotse" />
+          <input type="hidden" name="currency_code" value="EUR" />
+          <input type="submit" value="Spenden mit PayPal" />
+      </form>
+      <button id="closePopupBtn" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="datenschutz.html">Datenschutz</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+</body>
+</html>
