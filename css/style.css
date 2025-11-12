@@ -465,3 +465,7 @@ a:hover {
 .wizard-buttons .button-secondary {
   margin-left: 0;
 }
+
+.pflegegrad-label input[type="number"] {
+  max-width: 260px;
+}

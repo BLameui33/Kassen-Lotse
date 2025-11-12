@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kurzzeitpflege- &amp; Verhinderungspflege-Rechner 2025 | Kassen-Lotse</title>
+  <meta name="description" content="Rechne aus, wie viel Budget du 2025 für Kurzzeitpflege und Verhinderungspflege noch von der Pflegekasse bekommst. Mit Erklärung zum gemeinsamen Jahresbetrag von 3.539 Euro ab Pflegegrad 2.">
+  <meta name="keywords" content="Kurzzeitpflege Rechner, Verhinderungspflege Rechner, Entlastungsbudget 2025, gemeinsamer Jahresbetrag 3539 Euro, Pflegegrad 2, Pflegegrad 3, Pflegegrad 4, Pflegegrad 5, Kassen-Lotse, Entlastung pflegende Angehörige">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    <h1>Kurzzeitpflege- &amp; Verhinderungspflege-Rechner 2025</h1>
+
+    <div class="highlight-box">
+      <p>
+        Seit 2025 stehen für <strong>Kurzzeitpflege</strong> und <strong>Verhinderungspflege</strong> zusammen
+        bis zu <strong>3.539&nbsp;Euro pro Kalenderjahr</strong> zur Verfügung (gemeinsamer Jahresbetrag ab Pflegegrad&nbsp;2).
+      </p>
+      <p>
+        Mit diesem Rechner kannst du prüfen, wie viel Budget du im laufenden Jahr
+        voraussichtlich noch hast und ob deine geplanten Aufenthalte
+        (Kurzzeitpflege / Verhinderungspflege) voraussichtlich komplett von der
+        Pflegekasse übernommen werden oder ob ein <strong>Eigenanteil</strong> bleibt.
+      </p>
+      <p>
+        Wichtig: Der Rechner ist eine <strong>unverbindliche Orientierungshilfe</strong> und ersetzt
+        keinen Bescheid deiner Pflegekasse oder eine individuelle Beratung.
+      </p>
+    </div>
+
+    <form id="kvp-form" class="pflegegrad-form">
+      <fieldset class="pflegegrad-fieldset">
+        <legend>1. Pflegegrad &amp; Jahresbudget</legend>
+
+        <label class="pflegegrad-label">
+          Pflegegrad der pflegebedürftigen Person
+          <select id="kvp_pflegegrad">
+            <option value="1">Pflegegrad 1</option>
+            <option value="2" selected>Pflegegrad 2</option>
+            <option value="3">Pflegegrad 3</option>
+            <option value="4">Pflegegrad 4</option>
+            <option value="5">Pflegegrad 5</option>
+          </select>
+        </label>
+
+        <p class="hinweis">
+          Anspruch auf den gemeinsamen Jahresbetrag für Kurzzeit- und Verhinderungspflege
+          besteht in der Regel <strong>ab Pflegegrad 2</strong>.
+          Bei Pflegegrad&nbsp;1 gibt es kein eigenes Budget, aber der
+          <strong>Entlastungsbetrag von 131&nbsp;Euro/Monat</strong> kann teilweise auch für
+          Kurzzeitpflege genutzt werden (das berücksichtigt dieser Rechner nicht).
+        </p>
+
+        <label class="pflegegrad-label">
+          Kalenderjahr
+          <select id="kvp_jahr">
+            <option value="2025" selected>2025 (aktuelles Entlastungsbudget 3.539&nbsp;Euro)</option>
+            <!-- bei Bedarf später erweiterbar -->
+          </select>
+        </label>
+
+        <p class="hinweis">
+          Der Rechner geht davon aus, dass dir im gewählten Jahr ein gemeinsamer
+          Jahresbetrag von <strong>3.539&nbsp;Euro</strong> für Kurzzeit- und Verhinderungspflege
+          zur Verfügung steht, sofern Pflegegrad&nbsp;2 oder höher vorliegt.
+        </p>
+      </fieldset>
+
+      <fieldset class="pflegegrad-fieldset">
+        <legend>2. Bereits genutzte Beträge in diesem Kalenderjahr</legend>
+
+        <label class="pflegegrad-label">
+          Bereits von der Pflegekasse übernommene Kosten für Kurzzeitpflege in diesem Jahr (in Euro)
+          <input
+            type="number"
+            id="kvp_bereits_kurz"
+            min="0"
+            step="1"
+            placeholder="z. B. 800"
+          />
+        </label>
+
+        <label class="pflegegrad-label">
+          Bereits von der Pflegekasse übernommene Kosten für Verhinderungspflege in diesem Jahr (in Euro)
+          <input
+            type="number"
+            id="kvp_bereits_verh"
+            min="0"
+            step="1"
+            placeholder="z. B. 400"
+          />
+        </label>
+
+        <p class="hinweis">
+          Trage hier die Beträge ein, die die Pflegekasse in diesem Kalenderjahr
+          bereits für Kurzzeit- oder Verhinderungspflege übernommen hat (laut
+          Leistungsnachweisen / Bescheiden). Diese werden vom Jahresbudget abgezogen.
+        </p>
+      </fieldset>
+
+      <fieldset class="pflegegrad-fieldset">
+        <legend>3. Geplante weitere Kosten in diesem Kalenderjahr</legend>
+
+        <label class="pflegegrad-label">
+          Voraussichtliche Kosten für geplante Kurzzeitpflege (dieses Jahr, in Euro)
+          <input
+            type="number"
+            id="kvp_geplant_kurz"
+            min="0"
+            step="1"
+            placeholder="z. B. 1500"
+          />
+        </label>
+
+        <label class="pflegegrad-label">
+          Voraussichtliche Kosten für geplante Verhinderungspflege (dieses Jahr, in Euro)
+          <input
+            type="number"
+            id="kvp_geplant_verh"
+            min="0"
+            step="1"
+            placeholder="z. B. 600"
+          />
+        </label>
+
+        <p class="hinweis">
+          Das sind die Kosten, die voraussichtlich im restlichen Kalenderjahr
+          noch entstehen. Typisch sind hier zum Beispiel:
+        </p>
+        <ul>
+          <li>Kurzzeitpflege im Pflegeheim (z. B. nach Krankenhausaufenthalt)</li>
+          <li>Verhinderungspflege, wenn Angehörige Urlaub machen oder krank sind</li>
+        </ul>
+      </fieldset>
+
+      <div class="button-container">
+        <button type="button" id="kvp_berechnen" class="button">
+          Budget berechnen
+        </button>
+        <button type="reset" id="kvp_reset" class="button button-secondary">
+          Eingaben zurücksetzen
+        </button>
+      </div>
+    </form>
+
+    <section id="kvp_ergebnis"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Wichtiger Hinweis:</strong> Der gemeinsame Jahresbetrag für Kurzzeitpflege
+        und Verhinderungspflege ist an verschiedene Detailregelungen gebunden
+        (Pflegegrad, Zeiträume, pflegende Person, Art der Einrichtung usw.).
+        Dieser Rechner liefert nur eine <strong>vereinfachte, unverbindliche
+        Rechnung</strong> und kann eine Prüfung durch die Pflegekasse oder eine
+        professionelle Pflegeberatung nicht ersetzen.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+  <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+  <script src="kurzzeit-verhinderungspflege-rechner.js"></script>
+</body>
+</html>

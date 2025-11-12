@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>EM-Rente-Schätzung 2025 | Kassen-Lotse</title>
+  <meta name="description" content="Vereinfachte Schätzung der Erwerbsminderungsrente (EM-Rente): Entgeltpunkte, Zurechnungszeit, Abschläge, Rentenwert und Nettoschätzung. Ideal als Orientierung auf Basis der Renteninformation.">
+  <meta name="keywords" content="EM-Rente Rechner, Erwerbsminderungsrente, Rente wegen voller Erwerbsminderung, Rente wegen teilweiser Erwerbsminderung, Zurechnungszeit, Entgeltpunkte, Rentenwert, Abschlag, Rentenschätzung, Kassen-Lotse">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    <h1>EM-Rente – vereinfachte Schätzung</h1>
+
+    <div class="highlight-box">
+      <p>
+        Mit diesem Tool kannst du deine voraussichtliche <strong>Erwerbsminderungsrente (EM-Rente)</strong>
+        überschlägig berechnen – auf Basis deiner <strong>Entgeltpunkte</strong>, einer
+        <strong>Zurechnungszeit-Schätzung</strong> bis zur Regelaltersgrenze, eines
+        <strong>Abschlags</strong> sowie des aktuellen <strong>Rentenwerts</strong>.
+      </p>
+      <p>
+        Wichtig: Das ist eine <strong>vereinfachte Orientierung</strong>. Die tatsächliche Berechnung der
+        Deutschen Rentenversicherung (DRV) ist umfangreicher (detailliertere Zurechnungszeit,
+        besondere Zeiten/Anrechnungen, genaue Abschlagsregel, Steuer &amp; KV/PV-Beiträge u. a.).
+      </p>
+    </div>
+
+    <form id="em-form" class="pflegegrad-form">
+      <!-- 1. Basis-Angaben -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>1. Basis-Angaben</legend>
+
+        <label class="pflegegrad-label">
+          Rente wegen ...
+          <select id="em_art">
+            <option value="voll" selected>voller Erwerbsminderung</option>
+            <option value="teilweise">teilweiser Erwerbsminderung</option>
+          </select>
+        </label>
+        <p class="hinweis">
+          Für volle EM gilt Rentenartfaktor 1,0 – für teilweise EM 0,5. Diese
+          Einstellung setzt der Rechner automatisch um.
+        </p>
+
+        <label class="pflegegrad-label">
+          Geburtsjahr (zur Orientierung der Restjahre)
+          <input type="number" id="em_geburtsjahr" min="1940" max="2010" step="1" placeholder="z. B. 1972" />
+        </label>
+
+        <label class="pflegegrad-label">
+          Heutiges Alter (falls Geburtsjahr unbekannt)
+          <input type="number" id="em_alter" min="18" max="67" step="1" placeholder="z. B. 53" />
+        </label>
+        <p class="hinweis">
+          Trage <em>entweder</em> Geburtsjahr <em>oder</em> dein Alter ein. Der Rechner
+          nutzt das, um die verbleibenden Jahre bis zur Regelaltersgrenze grob zu schätzen.
+        </p>
+      </fieldset>
+
+      <!-- 2. Entgeltpunkte & Zurechnungszeit -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>2. Entgeltpunkte &amp; Zurechnungszeit (vereinfacht)</legend>
+
+        <label class="pflegegrad-label">
+          Entgeltpunkte bisher (aus aktueller Renteninformation)
+          <input type="number" id="em_ep_bisher" min="0" step="0.01" placeholder="z. B. 32,50" />
+        </label>
+
+        <label class="pflegegrad-label">
+          Durchschnittliche Entgeltpunkte je Jahr (Schätzwert)
+          <input type="number" id="em_ep_pro_jahr" min="0" step="0.01" placeholder="z. B. 0,9" />
+        </label>
+        <p class="hinweis">
+          Nimm z. B. die <strong>Durchschnitts-EP der letzten Jahre</strong> oder (grob) bisherige EP
+          geteilt durch Anzahl Versicherungsjahre. Dieser Wert dient zur Schätzung der Zurechnungszeit.
+        </p>
+
+        <label class="pflegegrad-label">
+          Zurechnungszeit-Modus
+          <select id="em_zrz_modus">
+            <option value="auto" selected>Automatisch aus Restjahren schätzen</option>
+            <option value="manuell">Manuell Entgeltpunkte für Zurechnungszeit angeben</option>
+            <option value="keine">Ohne Zurechnungszeit (konservativ)</option>
+          </select>
+        </label>
+
+        <div id="em_zrz_manuell_wrap" class="pflegegrad-label" style="display:none;">
+          Entgeltpunkte aus Zurechnungszeit (manuell)
+          <input type="number" id="em_ep_zrz_manuell" min="0" step="0.01" value="0" />
+          <p class="hinweis">Wenn dir ein konkreter Wert bekannt ist (z. B. aus Bescheid), kannst du ihn hier direkt eintragen.</p>
+        </div>
+
+        <label class="pflegegrad-label">
+          Regelaltersgrenzen-Ziel (Jahre)
+          <input type="number" id="em_regelalter" min="65" max="68" step="1" value="67" />
+        </label>
+        <p class="hinweis">
+          Für die automatische Zurechnungszeit-Schätzung nehmen wir an: Zurechnung
+          bis zur <strong>Regelaltersgrenze</strong> (standardmäßig 67). Passe dies bei Bedarf an.
+        </p>
+      </fieldset>
+
+      <!-- 3. Rentenwert & Abschläge -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>3. Rentenwert &amp; Abschläge</legend>
+
+        <label class="pflegegrad-label">
+          Aktueller Rentenwert (€/EP)
+          <input type="number" id="em_rentenwert" min="20" max="60" step="0.01" value="39.32" />
+        </label>
+        <p class="hinweis">
+          Euro-Betrag je Entgeltpunkt. Du kannst hier den aktuellen Rentenwert anpassen.
+        </p>
+
+        <label class="pflegegrad-label">
+          Abschlag (in %), z. B. bis max. 10,8 %
+          <input type="number" id="em_abschlag" min="0" max="15" step="0.1" value="10.8" />
+        </label>
+        <p class="hinweis">
+          Je nach Alter beim Eintritt der EM entstehen <strong>Abschläge</strong> (Zugangsfaktor &lt; 1).
+          Trage hier deinen Abschlag ein (Standard: 10,8 % als Maximalabschlag).
+        </p>
+      </fieldset>
+
+      <!-- 4. Nettoschätzung -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>4. Nettoschätzung (optional)</legend>
+
+        <label class="pflegegrad-label">
+          Pauschaler Abzug für KV/PV in % (Schätzwert)
+          <input type="number" id="em_abzug_kv_pv" min="0" max="20" step="0.1" value="11.0" />
+        </label>
+        <p class="hinweis">
+          Von Renten gehen Beiträge zur <strong>Kranken-</strong> und <strong>Pflegeversicherung</strong> ab.
+          Der Satz ist hier <em>vereinfacht</em> als Gesamt-Prozentsatz konfigurierbar (z. B. ~10–12 %).
+        </p>
+      </fieldset>
+
+      <div class="button-container">
+        <button type="button" id="em_berechnen" class="button">EM-Rente schätzen</button>
+        <button type="reset" id="em_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="em_ergebnis"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Hinweis:</strong> Diese Berechnung vereinfacht stark (Zurechnungszeit, Zugangsfaktor/Abschlag,
+        exakte Versicherungsverläufe, Steuer, KV/PV, Besonderheiten). Maßgeblich sind immer die
+        <strong>Auskunft der DRV</strong> (Renteninformation / Rentenauskunft) und der spätere <strong>Bescheid</strong>.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Ihr Projektname | <a href="index.html">Zurück zur Startseite</a> | <a href="info-em-rente.html">Infos EM-Rente</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+  <script src="em-rente-schaetzer.js"></script>
+</body>
+</html>
