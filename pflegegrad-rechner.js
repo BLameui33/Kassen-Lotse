@@ -159,6 +159,93 @@ function zeigeErgebnis(container, daten) {
   `;
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("pflegegrad-form");
+  const ergebnisContainer = document.getElementById("ergebnis");
+
+  const fieldsets = Array.from(
+    form.querySelectorAll(".pflegegrad-fieldset")
+  );
+
+  const prevBtn = document.getElementById("prev-step");
+  const nextBtn = document.getElementById("next-step");
+  const berechnenBtn = document.getElementById("berechnen-btn");
+  const resetBtn = document.getElementById("reset-form");
+  const progressEl = document.getElementById("wizard-progress");
+
+  if (!form || fieldsets.length === 0) return;
+
+  let currentStep = 0;
+  const totalSteps = fieldsets.length;
+
+  function updateProgress() {
+    if (!progressEl) return;
+    progressEl.textContent = `Schritt ${currentStep + 1} von ${totalSteps}`;
+  }
+
+  function showStep(index) {
+    fieldsets.forEach((fs, i) => {
+      if (i === index) {
+        fs.classList.add("active-step");
+      } else {
+        fs.classList.remove("active-step");
+      }
+    });
+
+    // Buttons anpassen
+    prevBtn.disabled = index === 0;
+    if (index === totalSteps - 1) {
+      nextBtn.style.display = "none";
+      berechnenBtn.style.display = "inline-block";
+    } else {
+      nextBtn.style.display = "inline-block";
+      berechnenBtn.style.display = "none";
+    }
+
+    updateProgress();
+    // Ergebnis beim Navigieren ausblenden
+    ergebnisContainer.innerHTML = "";
+  }
+
+  // Initialer Schritt
+  showStep(currentStep);
+
+  // Navigation
+  prevBtn.addEventListener("click", () => {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (currentStep < totalSteps - 1) {
+      currentStep++;
+      showStep(currentStep);
+    }
+  });
+
+  // Berechnung am Ende
+  berechnenBtn.addEventListener("click", () => {
+    const daten = berechnePflegegrad(form);
+    zeigeErgebnis(ergebnisContainer, daten);
+    // automatisch nach unten scrollen (optional)
+    ergebnisContainer.scrollIntoView({ behavior: "smooth" });
+  });
+
+  // Reset: zurück auf Schritt 1
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      currentStep = 0;
+      setTimeout(() => {
+        showStep(currentStep);
+        ergebnisContainer.innerHTML = "";
+      }, 0);
+    });
+  }
+});
+
+
 // Event-Handler
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("pflegegrad-form");

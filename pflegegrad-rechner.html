@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Pflegegrad-Rechner | Mieter-Lotse</title>
+  <title>Pflegegrad-Rechner | Kassen-Lotse</title>
   <meta name="description" content="Umfassende Informationen zu Palliativ- und Hospizangeboten für pflegende Angehörige: Unterstützung, Entlastung, Beratung, Trauerbegleitung und praktische Tipps für den Alltag.">
   <meta name="keywords" content="Palliativversorgung, Hospiz, pflegende Angehörige, Entlastung, Trauerbegleitung, Pflegeberatung, Hospizverein, Schmerztherapie, Pflege zu Hause, Selbstfürsorge, Tipps Angehörige, Patientenverfügung, Kostenübernahme">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -260,15 +260,24 @@
         </label>
       </fieldset>
 
-      <div class="button-container">
-        <button type="button" id="berechnen-btn" class="button">
-          Pflegegrad berechnen
-        </button>
-        <button type="reset" class="button button-secondary">
-          Eingaben zurücksetzen
-        </button>
-      </div>
-    </form>
+      <div class="wizard-progress" id="wizard-progress">
+  Schritt 1 von 6
+</div>
+
+<div class="button-container wizard-buttons">
+  <button type="button" id="prev-step" class="button button-secondary">
+    Zurück
+  </button>
+  <button type="button" id="next-step" class="button">
+    Weiter
+  </button>
+  <button type="button" id="berechnen-btn" class="button" style="display:none;">
+    Pflegegrad berechnen
+  </button>
+  <button type="reset" class="button button-secondary" id="reset-form">
+    Eingaben zurücksetzen
+  </button>
+</div>
 
     <section id="ergebnis"></section>
 

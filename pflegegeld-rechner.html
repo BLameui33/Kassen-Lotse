@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pflegegeld-Rechner 2025 | Kassen-Lotse</title>
+  <meta name="description" content="Umfassende Informationen zu Palliativ- und Hospizangeboten für pflegende Angehörige: Unterstützung, Entlastung, Beratung, Trauerbegleitung und praktische Tipps für den Alltag.">
+  <meta name="keywords" content="Palliativversorgung, Hospiz, pflegende Angehörige, Entlastung, Trauerbegleitung, Pflegeberatung, Hospizverein, Schmerztherapie, Pflege zu Hause, Selbstfürsorge, Tipps Angehörige, Patientenverfügung, Kostenübernahme">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    <h1>Pflegegeld-Rechner 2025</h1>
+
+    <div class="highlight-box">
+      <p>
+        Mit diesem Rechner kannst du dein <strong>voraussichtliches Pflegegeld</strong>
+        ab 2025 berechnen – wahlweise nur Pflegegeld oder als
+        <strong>Kombination mit Pflegesachleistungen</strong> (Pflegedienst).
+      </p>
+      <p>
+        Die Berechnung orientiert sich an den gesetzlichen Leistungsbeträgen der Pflegeversicherung ab 2025,
+        ersetzt aber <strong>keine Rechtsberatung</strong> und keinen Bescheid der Pflegekasse.
+      </p>
+    </div>
+
+    <form id="pflegegeld-form" class="pflegegrad-form">
+      <fieldset class="pflegegrad-fieldset active-step">
+        <legend>Grunddaten</legend>
+
+        <label class="pflegegrad-label">
+          Pflegegrad der pflegebedürftigen Person
+          <select id="pg_pflegegrad">
+            <option value="1">Pflegegrad 1</option>
+            <option value="2" selected>Pflegegrad 2</option>
+            <option value="3">Pflegegrad 3</option>
+            <option value="4">Pflegegrad 4</option>
+            <option value="5">Pflegegrad 5</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          Versorgungsart
+          <select id="pg_versorgungsart">
+            <option value="pflegegeld">Nur Pflegegeld (Angehörige / Freunde pflegen zuhause)</option>
+            <option value="kombination">Kombination Pflegegeld + Pflegesachleistungen (Pflegedienst)</option>
+          </select>
+        </label>
+
+        <div id="pg_sach_prozent_row" class="pflegegrad-label" style="display:none;">
+          <span>
+            Anteil der <strong>Pflegesachleistungen</strong>, der vom Pflegedienst ausgeschöpft werden soll
+            (in % des maximalen Sachleistungsbetrags):
+          </span>
+
+          <div class="pflegegeld-prozent-wrapper">
+            <input
+              type="range"
+              id="pg_sach_prozent"
+              min="0"
+              max="100"
+              step="5"
+              value="50"
+            />
+            <input
+              type="number"
+              id="pg_sach_prozent_input"
+              min="0"
+              max="100"
+              step="1"
+              value="50"
+            />
+            <span>%</span>
+          </div>
+
+          <p class="hinweis">
+            Beispiel: 40&nbsp;% Sachleistungen und 60&nbsp;% Pflegegeld bedeuten, dass
+            40&nbsp;% des ambulanten Sachleistungsbudgets durch den Pflegedienst genutzt werden
+            und das Pflegegeld entsprechend <strong>auf 60&nbsp;% gekürzt</strong> wird.
+          </p>
+        </div>
+      </fieldset>
+
+      <div class="button-container">
+        <button type="button" id="pg_berechnen" class="button">
+          Pflegegeld berechnen
+        </button>
+        <button type="reset" id="pg_reset" class="button button-secondary">
+          Eingaben zurücksetzen
+        </button>
+      </div>
+    </form>
+
+    <section id="pflegegeld-ergebnis"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Hinweis:</strong> Die Berechnung ist eine
+        <strong>unverbindliche Orientierung</strong>. Maßgeblich sind immer die gesetzlichen
+        Regelungen (SGB XI) und der Bescheid deiner Pflegekasse. Prüfe die Werte im Zweifel
+        mit einer offiziellen Quelle oder lass dich beraten.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+  <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+  <script src="pflegegeld-rechner.js"></script>
+</body>
+</html>
