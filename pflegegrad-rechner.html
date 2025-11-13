@@ -2,9 +2,9 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Pflegegrad-Rechner | Kassen-Lotse</title>
-  <meta name="description" content="Umfassende Informationen zu Palliativ- und Hospizangeboten für pflegende Angehörige: Unterstützung, Entlastung, Beratung, Trauerbegleitung und praktische Tipps für den Alltag.">
-  <meta name="keywords" content="Palliativversorgung, Hospiz, pflegende Angehörige, Entlastung, Trauerbegleitung, Pflegeberatung, Hospizverein, Schmerztherapie, Pflege zu Hause, Selbstfürsorge, Tipps Angehörige, Patientenverfügung, Kostenübernahme">
+  <title>Pflegegrad-Rechner 2025 – Punkte einschätzen (inoffiziell) | Kassen-Lotse</title>
+  <meta name="description" content="Pflegegrad online einschätzen: Punkte nach Modulen (1–6) schnell bewerten und voraussichtlichen Pflegegrad ermitteln. Unverbindlich, einfach erklärt – ersetzt keine MD-Begutachtung.">
+  <meta name="keywords" content="Pflegegrad Rechner, Pflegegrad Punkte, NBA Module, Mobilität, Kognition, Verhalten, Selbstversorgung, krankheitsbedingte Anforderungen, Alltagsgestaltung, SGB XI, Kassen-Lotse">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
@@ -12,27 +12,27 @@
 <body>
   <!-- Header wie bei deinen Infoseiten -->
   <header class="site-header">
-  <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
 
   <div class="page-container">
     <h1>Pflegegrad-Rechner (inoffizielle Einschätzung)</h1>
 
-    <div class="highlight-box">
+    <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Mit diesem Rechner kannst du eine <strong>erste, unverbindliche Einschätzung</strong> des
-        möglichen Pflegegrads nach dem neuen Begutachtungssystem (Module 1–6, 0–100 Punkte) vornehmen.
+        Mit diesem Rechner erhältst du eine <strong>erste, unverbindliche Einschätzung</strong> zum möglichen Pflegegrad
+        nach dem Begutachtungssystem mit <strong>Modulen 1–6</strong> (0–100 Punkte).
       </p>
       <p>
-        Wichtig: Das Ergebnis ist <strong>nicht rechtsverbindlich</strong> und ersetzt keine
-        Begutachtung durch den Medizinischen Dienst (MD) oder andere Gutachter der Pflegekasse.
+        <strong>Wichtig:</strong> Das Ergebnis ist <strong>nicht rechtsverbindlich</strong> und ersetzt keine
+        Begutachtung durch den <strong>Medizinischen Dienst (MD)</strong> bzw. die Pflegekasse.
       </p>
     </div>
 
-    <form id="pflegegrad-form" class="pflegegrad-form">
+    <form id="pflegegrad-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
       <!-- MODUL 1: Mobilität -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>Modul 1 – Mobilität</legend>
+        <legend>Modul 1 – Mobilität <span class="sr-only">(Gewichtung ca. 10 %)</span></legend>
 
         <label class="pflegegrad-label">
           Aufstehen und Hinlegen (Bett, Stuhl, Sofa)
@@ -260,40 +260,42 @@
         </label>
       </fieldset>
 
-      <div class="wizard-progress" id="wizard-progress">
-  Schritt 1 von 6
-</div>
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 6</div>
 
-<div class="button-container wizard-buttons">
-  <button type="button" id="prev-step" class="button button-secondary">
-    Zurück
-  </button>
-  <button type="button" id="next-step" class="button">
-    Weiter
-  </button>
-  <button type="button" id="berechnen-btn" class="button" style="display:none;">
-    Pflegegrad berechnen
-  </button>
-  <button type="reset" class="button button-secondary" id="reset-form">
-    Eingaben zurücksetzen
-  </button>
-</div>
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Pflegegrad berechnen</button>
+        <button type="reset" class="button button-secondary" id="reset-form">Eingaben zurücksetzen</button>
+      </div>
+    </form>
 
-    <section id="ergebnis"></section>
+    <section id="ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
-        <strong>Wichtiger Hinweis:</strong> Dieser Rechner dient nur der Orientierung. Maßgeblich für die
-        Einstufung sind immer die gesetzlichen Vorgaben und das Gutachten der Pflegekasse bzw. des
-        Medizinischen Dienstes. Bei Unsicherheit hol dir unbedingt <strong>professionelle Beratung</strong>.
+        <strong>Hinweis:</strong> Orientierungshilfe. Maßgeblich sind <strong>SGB&nbsp;XI</strong> und das offizielle Gutachten
+        der Pflegekasse bzw. des Medizinischen Dienstes. Stand: 13.11.2025.
       </p>
     </div>
   </div>
 
   <footer>
-  <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
-</footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
 
   <script src="pflegegrad-rechner.js"></script>
+
+  <!-- FAQ-Schema separat eingebunden -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Wie wird der Pflegegrad ermittelt?","acceptedAnswer":{"@type":"Answer","text":"Die Einschätzung erfolgt über sechs Module. In die Gesamtpunkte fließen Modul 1, 4, 5, 6 sowie das höhere Ergebnis aus Modul 2 oder 3 ein."}},
+      {"@type":"Question","name":"Ist das Ergebnis verbindlich?","acceptedAnswer":{"@type":"Answer","text":"Nein. Es handelt sich um eine unverbindliche Orientierung. Verbindlich ist das Gutachten der Pflegekasse/MD."}}
+    ]
+  }
+  </script>
 </body>
 </html>

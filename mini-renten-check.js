@@ -13,7 +13,6 @@ function euro(v) {
 }
 function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 function monthsFromAge(toYears, toMonths, nowYears) {
-  // Monate bis gewünschtes Alter (wunsch) ab heutigem Alter (now)
   const targetM = (Math.max(0, Math.floor(toYears || 0)) * 12) + clamp(Math.floor(toMonths || 0), 0, 11);
   const nowM = Math.max(0, Math.floor(nowYears || 0)) * 12;
   return Math.max(0, targetM - nowM);
@@ -47,13 +46,13 @@ function gesetzlicheRenteMitAbschlag(regelMonat, regJ, regM, wJ, wM, abschlagPM,
   return {
     diffMonate: diff,
     faktor,
-    abschlagGes, // in Dezimal
-    zuschlagGes, // in Dezimal
+    abschlagGes, // dezimal
+    zuschlagGes, // dezimal
     renteMonat: Math.max(0, regelMonat * faktor)
   };
 }
 
-// --- Private Sparrate: Aufzinsung real, monatliche Rente per Entnahmequote ---
+// --- Private Sparrate ---
 function realRate(nominalPct, inflPct) {
   const i = Math.max(0, nominalPct) / 100;
   const inf = Math.max(0, inflPct) / 100;
@@ -70,6 +69,17 @@ function monthlyFromWithdrawal(pot, withdrawalPctYear) {
   const y = Math.max(0, withdrawalPctYear) / 100;
   if (y <= 0) return 0;
   return (pot * y) / 12;
+}
+
+// --- UI: Ergebnis/Fehler ---
+function renderError(container, messages) {
+  const list = messages.map(m => `<li>${m}</li>`).join("");
+  container.innerHTML = `
+    <div class="pflegegrad-result-card">
+      <h2>Bitte Eingaben prüfen</h2>
+      <ul>${list}</ul>
+    </div>
+  `;
 }
 
 function buildResultHTML(input, out) {
@@ -95,9 +105,7 @@ function buildResultHTML(input, out) {
         }
       </p>
       <table class="pflegegrad-tabelle">
-        <thead>
-          <tr><th>Variante</th><th>Monatsbetrag</th></tr>
-        </thead>
+        <thead><tr><th>Variante</th><th>Monatsbetrag</th></tr></thead>
         <tbody>
           <tr><td>Zum Regelalter (Angabe)</td><td>${euro(input.regelrente)}</td></tr>
           <tr><td>Zum gewünschten Beginn</td><td><strong>${euro(out.renteGesetzlich)}</strong></td></tr>
@@ -106,9 +114,7 @@ function buildResultHTML(input, out) {
 
       <h3>Private Vorsorge</h3>
       <table class="pflegegrad-tabelle">
-        <thead>
-          <tr><th>Größe</th><th>Wert</th></tr>
-        </thead>
+        <thead><tr><th>Größe</th><th>Wert</th></tr></thead>
         <tbody>
           <tr><td>Sparzeit bis Rentenbeginn</td><td>${out.sparkMonths} Monate</td></tr>
           <tr><td>Realer Jahreszins (Nominal ${input.rNom.toFixed(1).replace(".", ",")} % − Inflation ${input.infl.toFixed(1).replace(".", ",")} %)</td><td>${(out.rReal * 100).toFixed(2).replace(".", ",")} % p. a.</td></tr>
@@ -120,9 +126,7 @@ function buildResultHTML(input, out) {
 
       <h3>Gesamtrente & Vergleich</h3>
       <table class="pflegegrad-tabelle">
-        <thead>
-          <tr><th>Position</th><th>Betrag</th></tr>
-        </thead>
+        <thead><tr><th>Position</th><th>Betrag</th></tr></thead>
         <tbody>
           <tr><td>Gesetzliche Rente (gewünschter Beginn)</td><td>${euro(out.renteGesetzlich)}</td></tr>
           <tr><td>Private Zusatzrente (geschätzt)</td><td>${euro(out.privateMonthly)}</td></tr>
@@ -136,7 +140,7 @@ function buildResultHTML(input, out) {
 
       <p class="hinweis">
         Vereinfachung: Keine Steuern, keine Kranken-/Pflegeversicherungsbeiträge, keine Produkt-/Kostenannahmen.
-        Zinssätze und Inflation sind Annahmen, die sich ändern können. Entnahmequote = reine Daumenregel.
+        Zinssätze und Inflation sind Annahmen, die sich ändern können. Entnahmequote = Daumenregel.
       </p>
     </div>
   `;
@@ -169,6 +173,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!btn || !outEl) return;
 
   btn.addEventListener("click", () => {
+    const errors = [];
+
     // Eingaben
     const input = {
       regelrente: n(regelrente),
@@ -189,6 +195,22 @@ document.addEventListener("DOMContentLoaded", () => {
       zuschlagPM: n(zPM) || 0.5,
       maxAbschlag: n(aMax) || 14.4
     };
+
+    // Grundchecks
+    if (input.regelrente <= 0) errors.push("Bitte die monatliche Regelalters-Rente (Brutto) eintragen.");
+    if (input.wJ <= 0 && input.wM <= 0) errors.push("Bitte den gewünschten Rentenbeginn (Alter in Jahren/Monaten) angeben.");
+    if (input.regJ < 60 || input.regJ > 68) errors.push("Regelalter: Bitte einen Wert zwischen 60 und 68 Jahren wählen.");
+    if (input.wJ < 60 || input.wJ > 70) errors.push("Wunschalter: Bitte einen Wert zwischen 60 und 70 Jahren wählen.");
+    if (input.alter > 0 && input.wJ > 0 && monthsFromAge(input.wJ, input.wM, input.alter) === 0 && input.pmt > 0) {
+      // ok, aber Hinweis: keine Sparzeit
+    }
+    if (input.withdraw <= 0) errors.push("Entnahmequote muss größer als 0 % sein.");
+
+    if (errors.length) {
+      renderError(outEl, errors);
+      outEl.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
 
     // Gesetzliche Rente – Zu-/Abschlag
     const gesetz = gesetzlicheRenteMitAbschlag(

@@ -2,63 +2,56 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Zuzahlungsrechner Krankenkasse 2025 | Kassen-Lotse</title>
-  <meta name="description" content="Berechne deine jährliche Zuzahlungs-Belastungsgrenze bei der gesetzlichen Krankenkasse: 1 % oder 2 % des Bruttoeinkommens. Mit Übersicht, wie viel du schon gezahlt hast und ob sich eine Befreiung lohnt.">
-  <meta name="keywords" content="Zuzahlungsrechner, Belastungsgrenze, 1 Prozent, 2 Prozent, Zuzahlungsbefreiung, gesetzliche Krankenkasse, chronisch krank, Eigenanteil Medikamente, Krankenversicherung, Kassen-Lotse">
+  <title>Zuzahlungsrechner GKV 2025 – 1 %/2 % Belastungsgrenze | Kassen-Lotse</title>
+  <meta name="description" content="Berechne deine jährliche Zuzahlungs-Belastungsgrenze in der GKV: 2 % des Bruttoeinkommens bzw. 1 % bei schwerwiegend chronisch Kranken. Mit Übersicht: bereits gezahlt, noch offen und ob sich eine Befreiung lohnt.">
+  <meta name="keywords" content="Zuzahlungsrechner, Belastungsgrenze 1 Prozent, Belastungsgrenze 2 Prozent, Zuzahlungsbefreiung, gesetzliche Krankenkasse, chronisch krank, Eigenanteil Medikamente, GKV, Kassen-Lotse">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="site-logo">Kassen-Lotse</a>
+    <a href="/" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
   </header>
 
   <div class="page-container">
     <h1>Zuzahlungsrechner Krankenkasse – jährliche Belastungsgrenze</h1>
 
-    <div class="highlight-box">
+    <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Gesetzlich Versicherte müssen pro Kalenderjahr nur bis zu einer
-        <strongpersönlichen Belastungsgrenze</strong> Zuzahlungen leisten:
+        Gesetzlich Versicherte zahlen pro Kalenderjahr nur bis zur
+        <strong>persönlichen Belastungsgrenze</strong> Zuzahlungen:
         in der Regel <strong>2&nbsp;%</strong> der jährlichen Bruttoeinnahmen
         zum Lebensunterhalt, bei <strong>schwerwiegend chronisch Kranken</strong>
         <strong>1&nbsp;%</strong>.
       </p>
       <p>
-        Dieser Rechner zeigt dir eine <strong>vereinfachte Orientierung</strong>:
-        Wie hoch deine Belastungsgrenze ungefähr ist, wie viel du schon gezahlt
-        hast und wie viel noch offen ist, bis du die Grenze erreicht hast.
+        Dieser Rechner liefert eine <strong>vereinfachte Orientierung</strong>:
+        deine voraussichtliche Grenze, was du bereits gezahlt hast und was noch fehlt
+        – plus Vorschau, ob du mit geplanten Zuzahlungen die Grenze erreichst.
       </p>
       <p>
-        Achtung: In der Praxis berücksichtigen die Krankenkassen
-        <strong>Freibeträge für Angehörige</strong> und weitere Details.
-        Diese werden hier nicht vollständig abgebildet.
+        Hinweis: In der Praxis berücksichtigen Krankenkassen u. a.
+        <strong>Freibeträge für Angehörige</strong> und weitere Details. Diese
+        Vereinfachungen werden hier nicht vollständig abgebildet.
       </p>
     </div>
 
-    <form id="zuz_form" class="pflegegrad-form">
+    <form id="zuz_form" class="pflegegrad-form" aria-describedby="zuz_ergebnis" novalidate>
       <fieldset class="pflegegrad-fieldset">
         <legend>1. Angaben zum Haushalt und Einkommen</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="zuz_einkommen">
           Jährliches Bruttoeinkommen des Haushalts (geschätzt)
-          <input
-            type="number"
-            id="zuz_einkommen"
-            min="0"
-            step="100"
-            placeholder="z. B. 30.000"
-          />
+          <input type="number" id="zuz_einkommen" min="0" step="100" placeholder="z. B. 30.000" />
         </label>
         <p class="hinweis">
-          Nimm hier die <strong>Summe der jährlichen Bruttoeinkommen</strong> aller
-          Personen, die bei der Krankenkasse als Familie mitgerechnet werden
-          (Löhne, Renten etc.). Freibeträge für Angehörige werden in diesem
-          Rechner aus Vereinfachungsgründen <strong>nicht abgezogen</strong>.
+          Summe der <strong>jährlichen Bruttoeinnahmen zum Lebensunterhalt</strong> der
+          mitberücksichtigten Personen (z. B. Löhne, Renten). <em>Freibeträge</em> für
+          Ehepartner/Kinder werden hier <strong>nicht</strong> abgezogen.
         </p>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="zuz_versicherungsart">
           Versicherungsart
           <select id="zuz_versicherungsart">
             <option value="gkv" selected>Gesetzliche Krankenversicherung (GKV)</option>
@@ -66,101 +59,82 @@
           </select>
         </label>
         <p class="hinweis">
-          Die Regel „1&nbsp;% / 2&nbsp;% Belastungsgrenze“ gilt für die
-          <strong>gesetzliche Krankenversicherung (GKV)</strong>. Für privat
-          Versicherte gelten andere Regeln; das Ergebnis ist dann nur eine
-          grobe Orientierung.
+          Die 1 %/2 %-Grenze gilt für die <strong>GKV</strong>. In der PKV/Beihilfe
+          weichen die Regelungen ab – hier ist das Ergebnis nur grob.
         </p>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="zuz_chronisch">
           <input type="checkbox" id="zuz_chronisch" />
-          Ich bin / eine mitversicherte Person ist
-          <strong>schwerwiegend chronisch krank</strong>
-          (ärztliche Bescheinigung erforderlich – z.&nbsp;B. Muster&nbsp;55)
+          Ich bin / eine mitversicherte Person ist <strong>schwerwiegend chronisch krank</strong>
+          (ärztliche Bescheinigung – z.&nbsp;B. Muster&nbsp;55)
         </label>
         <p class="hinweis">
-          Wenn die Krankenkasse eine <strong>schwerwiegende chronische Erkrankung</strong>
-          anerkannt hat, liegt die Belastungsgrenze bei <strong>1&nbsp;%</strong>
-          statt 2&nbsp;% des jährlichen Bruttoeinkommens.
+          Bei Anerkennung als <strong>schwerwiegend chronisch krank</strong> liegt die Grenze bei <strong>1&nbsp;%</strong>
+          (statt 2&nbsp;%) der jährlichen Bruttoeinnahmen.
         </p>
       </fieldset>
 
       <fieldset class="pflegegrad-fieldset">
-        <legend>2. Bereits gezahlte Zuzahlungen im laufenden Kalenderjahr</legend>
+        <legend>2. Bereits gezahlte Zuzahlungen (laufendes Jahr)</legend>
 
-        <label class="pflegegrad-label">
-          Bisherige Zuzahlungen in diesem Kalenderjahr (geschätzt, in Euro)
-          <input
-            type="number"
-            id="zuz_bisher"
-            min="0"
-            step="5"
-            placeholder="z. B. 120"
-          />
+        <label class="pflegegrad-label" for="zuz_bisher">
+          Bisherige Zuzahlungen (geschätzt, in Euro)
+          <input type="number" id="zuz_bisher" min="0" step="5" placeholder="z. B. 120" />
         </label>
 
         <p class="hinweis">
-          Hier trägst du die <strong>Summe aller Eigenanteile</strong> ein,
-          die du im laufenden Kalenderjahr bereits gezahlt hast, z. B. für:
+          Summe aller Eigenanteile in diesem Jahr (z. B. Rezeptgebühren, Krankenhaus 10 €/Tag,
+          Heil-/Hilfsmittel, Fahrkosten, häusliche Krankenpflege …).
         </p>
-        <ul>
-          <li>Rezeptgebühren (Arznei- und Verbandmittel)</li>
-          <li>Krankenhausaufenthalte (10&nbsp;Euro/Tag)</li>
-          <li>Heil- und Hilfsmittel, Fahrkosten, häusliche Krankenpflege usw.</li>
-        </ul>
       </fieldset>
 
       <fieldset class="pflegegrad-fieldset">
         <legend>3. Voraussichtliche weitere Zuzahlungen (optional)</legend>
 
-        <label class="pflegegrad-label">
-          Voraussichtlich noch anfallende Zuzahlungen bis Jahresende (in Euro)
-          <input
-            type="number"
-            id="zuz_geplant"
-            min="0"
-            step="5"
-            placeholder="z. B. 80"
-          />
+        <label class="pflegegrad-label" for="zuz_geplant">
+          Noch anfallende Zuzahlungen bis Jahresende (in Euro)
+          <input type="number" id="zuz_geplant" min="0" step="5" placeholder="z. B. 80" />
         </label>
 
         <p class="hinweis">
-          Dieses Feld ist <strong>optional</strong>. Wenn du hier einen Betrag
-          einträgst, zeigt dir der Rechner zusätzlich, ob du mit diesen
-          geplanten Zuzahlungen voraussichtlich deine Belastungsgrenze
-          überschreiten würdest.
+          Optional: So siehst du, ob du die Grenze mit den geplanten Zuzahlungen voraussichtlich erreichst.
         </p>
       </fieldset>
 
       <div class="button-container">
-        <button type="button" id="zuz_berechnen" class="button">
-          Belastungsgrenze berechnen
-        </button>
-        <button type="reset" id="zuz_reset" class="button button-secondary">
-          Eingaben zurücksetzen
-        </button>
+        <button type="button" id="zuz_berechnen" class="button">Belastungsgrenze berechnen</button>
+        <button type="reset" id="zuz_reset" class="button button-secondary">Eingaben zurücksetzen</button>
       </div>
     </form>
 
-    <section id="zuz_ergebnis"></section>
+    <section id="zuz_ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
-        <strong>Wichtiger Hinweis:</strong> Dieser Rechner ist eine
-        <strong>vereinfachte Hilfestellung</strong>.
-        Die Krankenkassen berücksichtigen in der Praxis u. a.
-        <strong>Freibeträge für Ehepartner und Kinder</strong> und setzen
-        zum Teil Mindest-Einkommensbeträge an. Verlass dich daher nicht allein
-        auf dieses Ergebnis, sondern lass dir die genaue Berechnung von deiner
-        Krankenkasse oder einer unabhängigen Beratungsstelle erläutern.
+        <strong>Wichtig:</strong> Vereinfachte Hilfestellung. In der Praxis werden u. a.
+        <strong>Freibeträge für Ehepartner/Kinder</strong> abgezogen, teils Mindestbeträge angesetzt
+        und Besonderheiten (z. B. Bürgergeld/Grundsicherung) beachtet. Kläre die Details mit deiner
+        <strong>Krankenkasse</strong> oder einer unabhängigen Beratung. Stand: 13.11.2025.
       </p>
     </div>
   </div>
 
   <footer>
-  <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
-</footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
 
   <script src="zuzahlungsrechner-krankenkasse.js"></script>
+
+  <!-- Strukturierte Daten: FAQ für bessere Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Wie hoch ist meine Zuzahlungs-Belastungsgrenze in der GKV?","acceptedAnswer":{"@type":"Answer","text":"Vereinfachte Faustregel: 2 % der jährlichen Bruttoeinnahmen zum Lebensunterhalt, bei schwerwiegend chronisch Kranken 1 % (Bescheinigung erforderlich). Krankenkassen berücksichtigen zusätzlich Freibeträge für Angehörige."}},
+      {"@type":"Question","name":"Welche Zahlungen zählen zu den Zuzahlungen?","acceptedAnswer":{"@type":"Answer","text":"Zum Beispiel Rezeptgebühren für Arznei- und Verbandmittel, Zuzahlungen bei Krankenhausaufenthalt (10 €/Tag), Heil- und Hilfsmittel, Fahrkosten, häusliche Krankenpflege (jeweils nach GKV-Regelungen)."}}
+    ]
+  }
+  </script>
 </body>
 </html>

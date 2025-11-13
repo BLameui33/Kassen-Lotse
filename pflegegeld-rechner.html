@@ -2,13 +2,57 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Pflegegeld-Rechner 2025 | Kassen-Lotse</title>
-  <meta name="description" content="Umfassende Informationen zu Palliativ- und Hospizangeboten für pflegende Angehörige: Unterstützung, Entlastung, Beratung, Trauerbegleitung und praktische Tipps für den Alltag.">
-  <meta name="keywords" content="Palliativversorgung, Hospiz, pflegende Angehörige, Entlastung, Trauerbegleitung, Pflegeberatung, Hospizverein, Schmerztherapie, Pflege zu Hause, Selbstfürsorge, Tipps Angehörige, Patientenverfügung, Kostenübernahme">
+  <title>Pflegegeld-Rechner 2025 – Pflegegeld & Sachleistungen kombinieren</title>
+  <meta name="description" content="Pflegegeld 2025 einfach berechnen: Monatsbeträge je Pflegegrad (PG2–PG5) und Kombination mit Pflegesachleistungen. Inkl. Entlastungsbetrag (131 €) und verständlicher Erklärung.">
+  <meta name="keywords" content="Pflegegeld 2025, Pflegegeld Rechner, Pflegesachleistungen, Kombinationsleistung, Entlastungsbetrag 131 Euro, Pflegegrad 2 3 4 5, SGB XI, Kassen-Lotse">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Schema.org: HowTo + FAQ für bessere SERP-Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HowTo",
+    "name":"Pflegegeld 2025 berechnen",
+    "description":"So ermittelst du Pflegegeld und die Kombinationsleistung mit Pflegesachleistungen.",
+    "step":[
+      {"@type":"HowToStep","name":"Pflegegrad wählen","text":"Pflegegeld gibt es ab Pflegegrad 2; Pflegegrad 1 hat kein Pflegegeld."},
+      {"@type":"HowToStep","name":"Versorgungsart wählen","text":"Nur Pflegegeld oder Kombination mit Pflegesachleistungen (ambulante Dienste)."},
+      {"@type":"HowToStep","name":"Sachleistungs-Anteil setzen","text":"Bei Kombination prozentualen Anteil auswählen – Pflegegeld wird anteilig gekürzt."},
+      {"@type":"HowToStep","name":"Ergebnis prüfen","text":"Monatsbeträge für Pflegegeld, Sachleistungen und Summe inkl. Entlastungsbetrag (131 €)."}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Wie hoch ist das Pflegegeld 2025?",
+        "acceptedAnswer":{"@type":"Answer","text":"Ab 01.01.2025: PG2 347 €, PG3 599 €, PG4 800 €, PG5 990 € pro Monat (PG1: 0 €)."}
+      },
+      {
+        "@type":"Question",
+        "name":"Wie hoch sind die Pflegesachleistungen 2025?",
+        "acceptedAnswer":{"@type":"Answer","text":"PG2 796 €, PG3 1.497 €, PG4 1.859 €, PG5 2.299 € pro Monat (PG1: 0 €)."}
+      },
+      {
+        "@type":"Question",
+        "name":"Gibt es 2025 mehr Entlastungsbetrag?",
+        "acceptedAnswer":{"@type":"Answer","text":"Ja, der Entlastungsbetrag beträgt 131 € pro Monat (PG1–PG5). Er ist zweckgebunden für anerkannte Angebote."}
+      },
+      {
+        "@type":"Question",
+        "name":"Wie funktioniert die Kombination von Geld- und Sachleistungen?",
+        "acceptedAnswer":{"@type":"Answer","text":"Nimmst du z. B. 40 % Sachleistungen in Anspruch, wird das Pflegegeld um 40 % gekürzt. Die Kürzung entspricht dem genutzten Sachleistungs-Anteil."}
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="site-header">
@@ -18,23 +62,22 @@
   <div class="page-container">
     <h1>Pflegegeld-Rechner 2025</h1>
 
-    <div class="highlight-box">
+    <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Mit diesem Rechner kannst du dein <strong>voraussichtliches Pflegegeld</strong>
-        ab 2025 berechnen – wahlweise nur Pflegegeld oder als
-        <strong>Kombination mit Pflegesachleistungen</strong> (Pflegedienst).
+        Berechne dein <strong>voraussichtliches Pflegegeld</strong> ab 2025 – wahlweise nur Pflegegeld
+        oder als <strong>Kombination mit Pflegesachleistungen</strong> (Pflegedienst).
       </p>
       <p>
-        Die Berechnung orientiert sich an den gesetzlichen Leistungsbeträgen der Pflegeversicherung ab 2025,
-        ersetzt aber <strong>keine Rechtsberatung</strong> und keinen Bescheid der Pflegekasse.
+        Basis sind die gültigen <strong>Leistungsbeträge der Pflegeversicherung 2025</strong>.
+        Das Ergebnis ist eine <strong>unverbindliche Orientierung</strong> und ersetzt keinen Bescheid deiner Pflegekasse.
       </p>
     </div>
 
-    <form id="pflegegeld-form" class="pflegegrad-form">
+    <form id="pflegegeld-form" class="pflegegrad-form" aria-describedby="pflegegeld-ergebnis" novalidate>
       <fieldset class="pflegegrad-fieldset active-step">
         <legend>Grunddaten</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="pg_pflegegrad">
           Pflegegrad der pflegebedürftigen Person
           <select id="pg_pflegegrad">
             <option value="1">Pflegegrad 1</option>
@@ -45,10 +88,10 @@
           </select>
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="pg_versorgungsart">
           Versorgungsart
           <select id="pg_versorgungsart">
-            <option value="pflegegeld">Nur Pflegegeld (Angehörige / Freunde pflegen zuhause)</option>
+            <option value="pflegegeld">Nur Pflegegeld (Angehörige/Freunde pflegen zuhause)</option>
             <option value="kombination">Kombination Pflegegeld + Pflegesachleistungen (Pflegedienst)</option>
           </select>
         </label>
@@ -60,58 +103,39 @@
           </span>
 
           <div class="pflegegeld-prozent-wrapper">
-            <input
-              type="range"
-              id="pg_sach_prozent"
-              min="0"
-              max="100"
-              step="5"
-              value="50"
-            />
-            <input
-              type="number"
-              id="pg_sach_prozent_input"
-              min="0"
-              max="100"
-              step="1"
-              value="50"
-            />
+            <input type="range" id="pg_sach_prozent" min="0" max="100" step="5" value="50" />
+            <input type="number" id="pg_sach_prozent_input" min="0" max="100" step="1" value="50" />
             <span>%</span>
           </div>
 
           <p class="hinweis">
             Beispiel: 40&nbsp;% Sachleistungen und 60&nbsp;% Pflegegeld bedeuten, dass
-            40&nbsp;% des ambulanten Sachleistungsbudgets durch den Pflegedienst genutzt werden
-            und das Pflegegeld entsprechend <strong>auf 60&nbsp;% gekürzt</strong> wird.
+            40&nbsp;% des ambulanten Sachleistungsbudgets genutzt werden und das Pflegegeld
+            entsprechend <strong>um 40&nbsp;% gekürzt</strong> wird.
           </p>
         </div>
       </fieldset>
 
       <div class="button-container">
-        <button type="button" id="pg_berechnen" class="button">
-          Pflegegeld berechnen
-        </button>
-        <button type="reset" id="pg_reset" class="button button-secondary">
-          Eingaben zurücksetzen
-        </button>
+        <button type="button" id="pg_berechnen" class="button">Pflegegeld berechnen</button>
+        <button type="reset" id="pg_reset" class="button button-secondary">Eingaben zurücksetzen</button>
       </div>
     </form>
 
-    <section id="pflegegeld-ergebnis"></section>
+    <section id="pflegegeld-ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
-        <strong>Hinweis:</strong> Die Berechnung ist eine
-        <strong>unverbindliche Orientierung</strong>. Maßgeblich sind immer die gesetzlichen
-        Regelungen (SGB XI) und der Bescheid deiner Pflegekasse. Prüfe die Werte im Zweifel
-        mit einer offiziellen Quelle oder lass dich beraten.
+        <strong>Hinweis:</strong> Maßgeblich sind die Regelungen des <strong>SGB&nbsp;XI</strong> und der Bescheid deiner Pflegekasse.
+        Der <strong>Entlastungsbetrag (131&nbsp;€/Monat)</strong> ist <em>zweckgebunden</em> (anerkannte Angebote).
+        Stand: 13.11.2025.
       </p>
     </div>
   </div>
 
   <footer>
-  <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
-</footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
 
   <script src="pflegegeld-rechner.js"></script>
 </body>

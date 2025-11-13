@@ -2,7 +2,7 @@
 
 // Konfiguration der Module
 // maxRaw = maximale Rohpunkte (Anzahl Fragen * 3)
-// maxWeighted = maximale gewichtete Punkte, angelehnt an die gesetzliche Gewichtung
+// maxWeighted = maximale gewichtete Punkte gemäß gängigem NBA-Schema
 const moduleConfig = {
   1: { name: "Modul 1 – Mobilität", maxRaw: 4 * 3, maxWeighted: 10 },
   2: { name: "Modul 2 – Kognition/Kommunikation", maxRaw: 3 * 3, maxWeighted: 15 },
@@ -46,9 +46,7 @@ function berechnePflegegrad(formElement) {
     if (!rawSums.hasOwnProperty(moduleId)) return;
 
     const value = Number(select.value);
-    if (!Number.isNaN(value)) {
-      rawSums[moduleId] += value;
-    }
+    if (!Number.isNaN(value)) rawSums[moduleId] += value;
   });
 
   const weighted = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
@@ -59,16 +57,11 @@ function berechnePflegegrad(formElement) {
     weighted[moduleId] = scaleToWeighted(rawSums[moduleId], cfg.maxRaw, cfg.maxWeighted);
   });
 
-  // Von Modul 2 & 3 zählt nur das jeweils höhere Gewicht
+  // Von Modul 2 & 3 zählt nur das jeweils höhere Gewicht (max. 15 %)
   const weighted23 = Math.max(weighted[2], weighted[3]);
 
   // Gesamtpunkte 0–100
-  const totalPoints =
-    weighted[1] +      // Modul 1
-    weighted23 +       // max(Modul 2, Modul 3)
-    weighted[4] +      // Modul 4
-    weighted[5] +      // Modul 5
-    weighted[6];       // Modul 6
+  const totalPoints = weighted[1] + weighted23 + weighted[4] + weighted[5] + weighted[6];
 
   const pflegegrad = bestimmePflegegrad(totalPoints);
 
@@ -83,14 +76,7 @@ function berechnePflegegrad(formElement) {
 
 // Ausgabe ins DOM
 function zeigeErgebnis(container, daten) {
-  const {
-    rawSums,
-    weighted,
-    totalPoints,
-    effective23,
-    pflegegrad
-  } = daten;
-
+  const { rawSums, weighted, totalPoints, effective23, pflegegrad } = daten;
   const totalRounded = totalPoints.toFixed(1);
 
   const modulRows = [
@@ -102,14 +88,13 @@ function zeigeErgebnis(container, daten) {
     { id: 6, extraInfo: "" }
   ];
 
-  let tableRowsHtml = modulRows.map((row) => {
+  const tableRowsHtml = modulRows.map((row) => {
     const id = row.id;
     const cfg = moduleConfig[id];
     const raw = rawSums[id];
     const rawMax = cfg.maxRaw;
     const weightedPoints = weighted[id].toFixed(1);
     const weightedMax = cfg.maxWeighted.toFixed(1);
-
     return `
       <tr>
         <td>${cfg.name}${row.extraInfo}</td>
@@ -131,30 +116,21 @@ function zeigeErgebnis(container, daten) {
     <h2>Ergebnis</h2>
     <p>
       Gesamtpunkte (gewichtete Punktzahl): <strong>${totalRounded} von 100</strong><br>
-      Voraussichtlich erreichter Pflegegrad nach diesem Modell:
-      <strong>${pflegegrad.text}</strong>
+      Voraussichtlich erreichter Pflegegrad: <strong>${pflegegrad.text}</strong>
     </p>
 
     <div class="pflegegrad-result-card">
       <table class="pflegegrad-tabelle">
         <thead>
-          <tr>
-            <th>Modul</th>
-            <th>Rohpunkte</th>
-            <th>Gewichtete Punkte</th>
-          </tr>
+          <tr><th>Modul</th><th>Rohpunkte</th><th>Gewichtete Punkte</th></tr>
         </thead>
-        <tbody>
-          ${tableRowsHtml}
-        </tbody>
+        <tbody>${tableRowsHtml}</tbody>
       </table>
       ${info23}
     </div>
 
     <p class="hinweis">
-      Dieses Ergebnis ist eine <strong>unverbindliche Orientierungshilfe</strong>.
-      Es ersetzt weder eine professionelle Pflegeberatung noch die offizielle Begutachtung
-      durch den Medizinischen Dienst oder andere Gutachter.
+      Unverbindliche Orientierung. Maßgeblich sind SGB XI und die Begutachtung durch den Medizinischen Dienst / die Pflegekasse.
     </p>
   `;
 }
@@ -163,10 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("pflegegrad-form");
   const ergebnisContainer = document.getElementById("ergebnis");
 
-  const fieldsets = Array.from(
-    form.querySelectorAll(".pflegegrad-fieldset")
-  );
-
+  const fieldsets = Array.from(form.querySelectorAll(".pflegegrad-fieldset"));
   const prevBtn = document.getElementById("prev-step");
   const nextBtn = document.getElementById("next-step");
   const berechnenBtn = document.getElementById("berechnen-btn");
@@ -179,20 +152,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalSteps = fieldsets.length;
 
   function updateProgress() {
-    if (!progressEl) return;
-    progressEl.textContent = `Schritt ${currentStep + 1} von ${totalSteps}`;
+    if (progressEl) progressEl.textContent = `Schritt ${currentStep + 1} von ${totalSteps}`;
   }
 
   function showStep(index) {
-    fieldsets.forEach((fs, i) => {
-      if (i === index) {
-        fs.classList.add("active-step");
-      } else {
-        fs.classList.remove("active-step");
-      }
-    });
-
-    // Buttons anpassen
+    fieldsets.forEach((fs, i) => fs.classList.toggle("active-step", i === index));
     prevBtn.disabled = index === 0;
     if (index === totalSteps - 1) {
       nextBtn.style.display = "none";
@@ -201,61 +165,35 @@ document.addEventListener("DOMContentLoaded", () => {
       nextBtn.style.display = "inline-block";
       berechnenBtn.style.display = "none";
     }
-
     updateProgress();
-    // Ergebnis beim Navigieren ausblenden
     ergebnisContainer.innerHTML = "";
   }
 
-  // Initialer Schritt
+  // Initial
   showStep(currentStep);
 
   // Navigation
   prevBtn.addEventListener("click", () => {
-    if (currentStep > 0) {
-      currentStep--;
-      showStep(currentStep);
-    }
+    if (currentStep > 0) { currentStep--; showStep(currentStep); }
   });
 
   nextBtn.addEventListener("click", () => {
-    if (currentStep < totalSteps - 1) {
-      currentStep++;
-      showStep(currentStep);
-    }
+    if (currentStep < totalSteps - 1) { currentStep++; showStep(currentStep); }
   });
 
   // Berechnung am Ende
   berechnenBtn.addEventListener("click", () => {
     const daten = berechnePflegegrad(form);
     zeigeErgebnis(ergebnisContainer, daten);
-    // automatisch nach unten scrollen (optional)
     ergebnisContainer.scrollIntoView({ behavior: "smooth" });
   });
 
-  // Reset: zurück auf Schritt 1
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      currentStep = 0;
-      setTimeout(() => {
-        showStep(currentStep);
-        ergebnisContainer.innerHTML = "";
-      }, 0);
-    });
-  }
-});
-
-
-// Event-Handler
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("pflegegrad-form");
-  const button = document.getElementById("berechnen-btn");
-  const ergebnisContainer = document.getElementById("ergebnis");
-
-  if (!form || !button || !ergebnisContainer) return;
-
-  button.addEventListener("click", () => {
-    const daten = berechnePflegegrad(form);
-    zeigeErgebnis(ergebnisContainer, daten);
+  // Reset
+  resetBtn.addEventListener("click", () => {
+    currentStep = 0;
+    setTimeout(() => {
+      showStep(currentStep);
+      ergebnisContainer.innerHTML = "";
+    }, 0);
   });
 });

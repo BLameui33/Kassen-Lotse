@@ -4,7 +4,11 @@ function toNumber(el) {
   if (!el) return 0;
   const raw = (el.value || "").toString().replace(",", ".");
   const num = Number(raw);
-  return Number.isFinite(num) && num >= 0 ? num : 0;
+  return Number.isFinite(num) ? num : 0;
+}
+
+function clamp(v, min, max) {
+  return Math.min(Math.max(v, min), max);
 }
 
 function formatEuro(v) {
@@ -12,7 +16,7 @@ function formatEuro(v) {
   return n.toFixed(2).replace(".", ",") + " €";
 }
 
-// Vereinfachte Staffel (Beispiel): Zuschlag in % je nach Aufenthaltsmonaten
+// Vereinfachte Staffel: Zuschlag % je nach Aufenthaltsmonaten
 function autoZuschlagProzent(monate) {
   const m = Math.max(0, Math.floor(monate || 0));
   if (m >= 36) return 75; // ab 36. Monat
@@ -22,49 +26,39 @@ function autoZuschlagProzent(monate) {
 }
 
 function berechneEigenanteilEinenMonat({
-  eee,
-  uv,
-  invest,
-  zusatz,
-  ausbildung,
-  sonstZuschuesse,
-  zuschlagProzent
+  eee, uv, invest, zusatz, ausbildung, sonstZuschuesse, zuschlagProzent
 }) {
-  // Zuschlag der Pflegekasse ist ein prozentualer Zuschuss auf den EEE
-  const zuschlagBetrag = eee * (Math.max(0, Math.min(zuschlagProzent, 100)) / 100);
+  const z = clamp(zuschlagProzent, 0, 100);
+  const zuschlagBetrag = Math.max(0, eee) * (z / 100);
   const eeeNachZuschlag = Math.max(0, eee - zuschlagBetrag);
 
-  // Monatliche Heimkosten für Bewohner: EEE (nach Zuschlag) + U+V + Invest + Zusatz + Ausbildungsumlage - sonstige Zuschüsse
-  const bruttoKosten = eeeNachZuschlag + uv + invest + zusatz + ausbildung;
-  const eigenanteil = Math.max(0, bruttoKosten - Math.max(0, sonstZuschuesse));
+  const bruttoKosten = eeeNachZuschlag + Math.max(0, uv) + Math.max(0, invest) + Math.max(0, zusatz) + Math.max(0, ausbildung);
+  // "sonstZuschuesse": als Abzug gedacht – negative Werte also nicht doppelt subtrahieren
+  const abzug = Math.max(0, sonstZuschuesse);
+  const eigenanteil = Math.max(0, bruttoKosten - abzug);
 
-  return {
-    zuschlagBetrag,
-    eeeNachZuschlag,
-    bruttoKosten,
-    eigenanteil
-  };
+  return { zuschlagBetrag, eeeNachZuschlag, bruttoKosten, eigenanteil };
+}
+
+function renderError(container, messages) {
+  const lis = messages.map(m => `<li>${m}</li>`).join("");
+  container.innerHTML = `
+    <div class="pflegegrad-result-card">
+      <h2>Bitte Angaben prüfen</h2>
+      <ul>${lis}</ul>
+    </div>
+  `;
 }
 
 function baueErgebnisHTML(input, result, deckung) {
   const {
-    pflegegrad,
-    monate,
-    zuschlagProzent,
-    eee,
-    uv,
-    invest,
-    zusatz,
-    ausbildung,
-    sonstZuschuesse,
-    eigeneMittel
+    pflegegrad, monate, zuschlagProzent, eee, uv, invest, zusatz, ausbildung, sonstZuschuesse, eigeneMittel
   } = input;
 
   const { zuschlagBetrag, eeeNachZuschlag, bruttoKosten, eigenanteil } = result;
+  const { deckungDurchMittel, restLuecke, modus } = deckung;
 
-  const { deckungDurchMittel, restLuecke } = deckung;
-
-  const modusText = input.modus === "auto"
+  const modusText = modus === "auto"
     ? `Automatisch (geschätzt nach ${monate} Monaten Heimaufenthalt)`
     : "Manuell festgelegter Prozentsatz";
 
@@ -80,52 +74,19 @@ function baueErgebnisHTML(input, result, deckung) {
 
       <table class="pflegegrad-tabelle">
         <thead>
-          <tr>
-            <th>Baustein</th>
-            <th>Betrag / Monat</th>
-          </tr>
+          <tr><th>Baustein</th><th>Betrag / Monat</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td>EEE (einrichtungseinheitlicher Eigenanteil)</td>
-            <td>${formatEuro(eee)}</td>
-          </tr>
-          <tr>
-            <td>– Leistungszuschlag der Pflegekasse (${zuschlagProzent.toFixed(0)} % von EEE)</td>
-            <td>– ${formatEuro(zuschlagBetrag)}</td>
-          </tr>
-          <tr>
-            <td><strong>EEE nach Zuschlag</strong></td>
-            <td><strong>${formatEuro(eeeNachZuschlag)}</strong></td>
-          </tr>
-          <tr>
-            <td>Unterkunft &amp; Verpflegung (U+V)</td>
-            <td>${formatEuro(uv)}</td>
-          </tr>
-          <tr>
-            <td>Investitionskosten</td>
-            <td>${formatEuro(invest)}</td>
-          </tr>
-          <tr>
-            <td>Zusatzleistungen (pauschal)</td>
-            <td>${formatEuro(zusatz)}</td>
-          </tr>
-          <tr>
-            <td>Ausbildungsumlage</td>
-            <td>${formatEuro(ausbildung)}</td>
-          </tr>
-          <tr>
-            <td>– Sonstige Zuschüsse/Entlastungen</td>
-            <td>– ${formatEuro(sonstZuschuesse)}</td>
-          </tr>
-          <tr>
-            <td><strong>Heimkosten gesamt (monatlich)</strong></td>
-            <td><strong>${formatEuro(bruttoKosten)}</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Voraussichtlicher Eigenanteil (zu zahlen)</strong></td>
-            <td><strong>${formatEuro(eigenanteil)}</strong></td>
-          </tr>
+          <tr><td>EEE (einrichtungseinheitlicher Eigenanteil)</td><td>${formatEuro(eee)}</td></tr>
+          <tr><td>– Leistungszuschlag der Pflegekasse (${zuschlagProzent.toFixed(0)} % von EEE)</td><td>– ${formatEuro(zuschlagBetrag)}</td></tr>
+          <tr><td><strong>EEE nach Zuschlag</strong></td><td><strong>${formatEuro(eeeNachZuschlag)}</strong></td></tr>
+          <tr><td>Unterkunft &amp; Verpflegung (U+V)</td><td>${formatEuro(uv)}</td></tr>
+          <tr><td>Investitionskosten</td><td>${formatEuro(invest)}</td></tr>
+          <tr><td>Zusatzleistungen (pauschal)</td><td>${formatEuro(zusatz)}</td></tr>
+          <tr><td>Ausbildungsumlage</td><td>${formatEuro(ausbildung)}</td></tr>
+          <tr><td>– Sonstige Zuschüsse/Entlastungen</td><td>– ${formatEuro(sonstZuschuesse)}</td></tr>
+          <tr><td><strong>Heimkosten gesamt (monatlich)</strong></td><td><strong>${formatEuro(bruttoKosten)}</strong></td></tr>
+          <tr><td><strong>Voraussichtlicher Eigenanteil (zu zahlen)</strong></td><td><strong>${formatEuro(eigenanteil)}</strong></td></tr>
         </tbody>
       </table>
 
@@ -138,9 +99,8 @@ function baueErgebnisHTML(input, result, deckung) {
     </div>
 
     <p class="hinweis">
-      Hinweis: Der Leistungszuschlag sowie Zuschüsse (z. B. Pflegewohngeld) unterscheiden sich je nach Bundesland/Heim und können sich ändern.
-      Bitte nutze Heimvertrag, Kostenaufstellung und Kassen-/Behördenbescheide als Grundlage und passe die Eingaben an.
-      Bei nicht gedeckten Kosten kann ggf. <strong>Hilfe zur Pflege</strong> (Sozialamt) in Betracht kommen.
+      Der Leistungszuschlag reduziert nur den <em>EEE</em>. U+V, Investitionskosten und Zusatzleistungen bleiben unberührt.
+      Bundeslandspezifische Zuschüsse (z.&nbsp;B. Pflegewohngeld) sind unterschiedlich geregelt und müssen individuell geprüft werden.
     </p>
   `;
 }
@@ -177,60 +137,61 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     out.innerHTML = "";
   }
-
-  if (modusSel) {
-    modusSel.addEventListener("change", updateZuschlagUI);
-  }
+  if (modusSel) modusSel.addEventListener("change", updateZuschlagUI);
   updateZuschlagUI();
+
+  function validateInputs() {
+    const errors = [];
+    const eee = toNumber(eeeInput);
+    const uv = toNumber(uvInput);
+    const invest = toNumber(investInput);
+    const zuschlagMode = modusSel ? modusSel.value : "auto";
+    const manuellPct = toNumber(prozentInput);
+
+    if (eee <= 0) errors.push("Bitte den EEE (einrichtungseinheitlicher Eigenanteil) angeben.");
+    if (uv < 0 || invest < 0) errors.push("Unterkunft/Verpflegung und Investitionskosten dürfen nicht negativ sein.");
+    if (zuschlagMode === "manuell" && (manuellPct < 0 || manuellPct > 100)) {
+      errors.push("Leistungszuschlag (manuell) muss zwischen 0 % und 100 % liegen.");
+    }
+    return errors;
+  }
 
   if (btnCalc && out) {
     btnCalc.addEventListener("click", () => {
+      const errors = validateInputs();
+      if (errors.length) {
+        renderError(out, errors);
+        out.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+
       const pflegegrad = (gradSel && gradSel.value) || "2";
-      const monate = toNumber(monateInput);
+      const monate = clamp(Math.floor(toNumber(monateInput)), 0, 600);
 
       const modus = (modusSel && modusSel.value) || "auto";
-      let zuschlagProzent =
-        modus === "manuell"
-          ? toNumber(prozentInput)
-          : autoZuschlagProzent(monate);
+      let zuschlagProzent = modus === "manuell" ? toNumber(prozentInput) : autoZuschlagProzent(monate);
+      zuschlagProzent = clamp(zuschlagProzent, 0, 100);
 
-      const eee = toNumber(eeeInput);
-      const uv = toNumber(uvInput);
-      const invest = toNumber(investInput);
-      const zusatz = toNumber(zusatzInput);
-      const ausbildung = toNumber(ausbildungInput);
-      const sonstZuschuesse = toNumber(sonstZuschuesseInput);
-      const eigeneMittel = toNumber(eigeneMittelInput);
+      const eee = Math.max(0, toNumber(eeeInput));
+      const uv = Math.max(0, toNumber(uvInput));
+      const invest = Math.max(0, toNumber(investInput));
+      const zusatz = Math.max(0, toNumber(zusatzInput));
+      const ausbildung = Math.max(0, toNumber(ausbildungInput));
+      const sonstZuschuesse = Math.max(0, toNumber(sonstZuschuesseInput)); // als Abzug
+
+      const eigeneMittel = Math.max(0, toNumber(eigeneMittelInput));
 
       const result = berechneEigenanteilEinenMonat({
-        eee,
-        uv,
-        invest,
-        zusatz,
-        ausbildung,
-        sonstZuschuesse,
-        zuschlagProzent
+        eee, uv, invest, zusatz, ausbildung, sonstZuschuesse, zuschlagProzent
       });
 
       const deckungDurchMittel = Math.min(result.eigenanteil, eigeneMittel);
       const restLuecke = Math.max(0, result.eigenanteil - deckungDurchMittel);
 
       const html = baueErgebnisHTML(
-        {
-          pflegegrad,
-          monate,
-          modus,
-          zuschlagProzent,
-          eee,
-          uv,
-          invest,
-          zusatz,
-          ausbildung,
-          sonstZuschuesse,
-          eigeneMittel
-        },
+        { pflegegrad, monate, zuschlagProzent, eee, uv, invest, zusatz, ausbildung, sonstZuschuesse, eigeneMittel },
         result,
-        { deckungDurchMittel, restLuecke }
+        { deckungDurchMittel, restLuecke, modus }
       );
 
       out.innerHTML = html;

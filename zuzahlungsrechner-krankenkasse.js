@@ -5,81 +5,61 @@ function parseEuroInput(el) {
   if (!el) return 0;
   const raw = (el.value || "").toString().replace(",", ".");
   const num = Number(raw);
-  if (Number.isNaN(num) || num < 0) return 0;
-  return num;
+  return Number.isFinite(num) && num >= 0 ? num : 0;
 }
-
 function formatEuro(value) {
   const v = Number.isFinite(value) ? value : 0;
   return v.toFixed(2).replace(".", ",") + " €";
 }
 
-/**
- * Berechnet eine vereinfachte Zuzahlungs-Belastungsgrenze:
- * - 2 % der jährlichen Bruttoeinnahmen
- * - 1 % bei schwerwiegend chronisch Kranken
- *
- * WICHTIG: Freibeträge für Angehörige usw. werden hier NICHT berücksichtigt.
- */
+// Vereinfachte Belastungsgrenze: 2 % bzw. 1 % (chronisch)
 function berechneBelastungsgrenze(bruttoJahresEinkommen, istChronisch) {
   const faktor = istChronisch ? 0.01 : 0.02;
-  return bruttoJahresEinkommen * faktor;
+  return Math.max(0, bruttoJahresEinkommen) * faktor;
+}
+
+function renderError(container, messages) {
+  const lis = messages.map(m => `<li>${m}</li>`).join("");
+  container.innerHTML = `
+    <div class="pflegegrad-result-card">
+      <h2>Bitte Angaben prüfen</h2>
+      <ul>${lis}</ul>
+    </div>
+  `;
 }
 
 function zeigeZuzErgebnis(container, daten) {
   const {
-    versicherungsart,
-    brutto,
-    istChronisch,
-    belastungsgrenze,
-    bisherGezahlt,
-    restBisGrenze,
-    geplant,
-    gesamtMitGeplant,
-    ueberGrenzeMitGeplant
+    versicherungsart, brutto, istChronisch, belastungsgrenze,
+    bisherGezahlt, restBisGrenze, geplant, gesamtMitGeplant, ueberGrenzeMitGeplant
   } = daten;
 
-  const artText =
-    versicherungsart === "gkv"
-      ? "Gesetzliche Krankenversicherung (GKV)"
-      : "Private Krankenversicherung / Beihilfe (Regeln abweichend)";
+  const artText = versicherungsart === "gkv"
+    ? "Gesetzliche Krankenversicherung (GKV)"
+    : "Private Krankenversicherung / Beihilfe (Regeln abweichend)";
 
   const prozentText = istChronisch ? "1&nbsp;%" : "2&nbsp;%";
 
-  let statusJetzt;
-  if (bisherGezahlt >= belastungsgrenze && belastungsgrenze > 0) {
-    statusJetzt =
-      "Nach dieser vereinfachten Berechnung hast du deine Belastungsgrenze im laufenden Jahr bereits erreicht oder überschritten. Du kannst bei deiner Krankenkasse eine Zuzahlungsbefreiung und ggf. Erstattung prüfen lassen.";
-  } else if (belastungsgrenze === 0) {
-    statusJetzt =
-      "Für die Berechnung wurde ein jährliches Bruttoeinkommen von 0 Euro eingegeben. Bitte prüfe deine Angaben.";
+  let statusJetzt = "";
+  if (belastungsgrenze === 0) {
+    statusJetzt = "Das jährliche Bruttoeinkommen wurde mit 0 € angegeben. Bitte die Eingaben prüfen.";
+  } else if (bisherGezahlt >= belastungsgrenze) {
+    statusJetzt = "Nach dieser vereinfachten Berechnung ist die Belastungsgrenze bereits erreicht/überschritten. Zuzahlungsbefreiung/Erstattung bei der Krankenkasse prüfen.";
   } else {
-    statusJetzt =
-      "Du hast deine Belastungsgrenze nach dieser vereinfachten Berechnung noch nicht erreicht.";
+    statusJetzt = "Die Belastungsgrenze ist nach dieser vereinfachten Berechnung noch nicht erreicht.";
   }
 
-  let statusGeplant = "";
-  if (geplant > 0 && belastungsgrenze > 0) {
-    if (gesamtMitGeplant >= belastungsgrenze) {
-      statusGeplant =
-        "Mit den zusätzlich geplanten Zuzahlungen würdest du deine Belastungsgrenze voraussichtlich überschreiten. Alles, was darüber hinausgeht, kannst du dir unter Umständen erstatten lassen.";
-    } else {
-      statusGeplant =
-        "Selbst mit den geplanten Zuzahlungen würdest du deine Belastungsgrenze nach dieser Berechnung noch nicht erreichen.";
-    }
-  }
+  const statusGeplant = geplant > 0 && belastungsgrenze > 0
+    ? (gesamtMitGeplant >= belastungsgrenze
+        ? "Mit den geplanten Zuzahlungen würdest du die Belastungsgrenze voraussichtlich überschreiten. Beträge darüber hinaus können ggf. erstattet werden."
+        : "Selbst mit den geplanten Zuzahlungen wird die Belastungsgrenze voraussichtlich nicht erreicht.")
+    : "";
 
-  let hinweisVersicherung = "";
-  if (versicherungsart !== "gkv") {
-    hinweisVersicherung = `
-      <p class="hinweis">
-        Du hast <strong>Private Krankenversicherung / Beihilfe</strong> ausgewählt.
-        Die hier dargestellte 1&nbsp;% / 2&nbsp;%-Regel gilt aber für die
-        gesetzliche Krankenversicherung. Nutze das Ergebnis daher nur als
-        grobe Orientierung und lass dich unbedingt von deiner Versicherung beraten.
-      </p>
-    `;
-  }
+  const hinweisVersicherung = versicherungsart !== "gkv" ? `
+    <p class="hinweis">
+      Du hast <strong>PKV/Beihilfe</strong> gewählt. Die 1&nbsp;%/2&nbsp;%-Regel gilt für die GKV.
+      Bitte nutze das Ergebnis nur als grobe Orientierung und kläre Details mit deinem Versicherer.
+    </p>` : "";
 
   container.innerHTML = `
     <h2>Ergebnis: Zuzahlungs-Belastungsgrenze</h2>
@@ -87,56 +67,28 @@ function zeigeZuzErgebnis(container, daten) {
     <div class="pflegegrad-result-card">
       <p>
         <strong>Versicherung:</strong> ${artText}<br>
-        <strong>Jährliches Bruttoeinkommen (vereinfachte Angabe):</strong>
-        ${formatEuro(brutto)}<br>
+        <strong>Jährliches Bruttoeinkommen (vereinfacht):</strong> ${formatEuro(brutto)}<br>
         <strong>Regel:</strong> ${prozentText} des jährlichen Bruttoeinkommens
-        (${istChronisch ? "schwerwiegend chronisch krank" : "nicht chronisch / keine Bescheinigung hinterlegt"})
+        (${istChronisch ? "schwerwiegend chronisch krank" : "ohne Chroniker-Nachweis"})
       </p>
 
+      <h3>Aktueller Stand</h3>
       <table class="pflegegrad-tabelle">
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>Betrag</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Position</th><th>Betrag</th></tr></thead>
         <tbody>
-          <tr>
-            <td><strong>Jährliche Belastungsgrenze (vereinfachte Berechnung)</strong></td>
-            <td><strong>${formatEuro(belastungsgrenze)}</strong></td>
-          </tr>
-          <tr>
-            <td>Bisher gezahlte Zuzahlungen (dieses Jahr)</td>
-            <td>${formatEuro(bisherGezahlt)}</td>
-          </tr>
-          <tr>
-            <td><strong>Noch verbleibender Betrag bis zur Belastungsgrenze</strong></td>
-            <td><strong>${formatEuro(restBisGrenze)}</strong></td>
-          </tr>
+          <tr><td><strong>Jährliche Belastungsgrenze (vereinfacht)</strong></td><td><strong>${formatEuro(belastungsgrenze)}</strong></td></tr>
+          <tr><td>Bisher gezahlte Zuzahlungen</td><td>${formatEuro(bisherGezahlt)}</td></tr>
+          <tr><td><strong>Noch offen bis zur Grenze</strong></td><td><strong>${formatEuro(restBisGrenze)}</strong></td></tr>
         </tbody>
       </table>
 
-      <h3>Optionale Vorschau mit geplanten Zuzahlungen</h3>
+      <h3>Vorschau (mit geplanten Zuzahlungen)</h3>
       <table class="pflegegrad-tabelle">
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>Betrag</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Position</th><th>Betrag</th></tr></thead>
         <tbody>
-          <tr>
-            <td>Voraussichtlich noch anfallende Zuzahlungen</td>
-            <td>${formatEuro(geplant)}</td>
-          </tr>
-          <tr>
-            <td><strong>Bisher + geplant insgesamt</strong></td>
-            <td><strong>${formatEuro(gesamtMitGeplant)}</strong></td>
-          </tr>
-          <tr>
-            <td><strong>Betrag über der Belastungsgrenze (mit geplant)</strong></td>
-            <td><strong>${formatEuro(ueberGrenzeMitGeplant)}</strong></td>
-          </tr>
+          <tr><td>Voraussichtlich noch anfallende Zuzahlungen</td><td>${formatEuro(geplant)}</td></tr>
+          <tr><td><strong>Bisher + geplant insgesamt</strong></td><td><strong>${formatEuro(gesamtMitGeplant)}</strong></td></tr>
+          <tr><td><strong>Über der Grenze (mit geplant)</strong></td><td><strong>${formatEuro(ueberGrenzeMitGeplant)}</strong></td></tr>
         </tbody>
       </table>
 
@@ -147,11 +99,9 @@ function zeigeZuzErgebnis(container, daten) {
     ${hinweisVersicherung}
 
     <p class="hinweis">
-      In der Realität ziehen die Krankenkassen von deinem Bruttoeinkommen noch
-      <strong>Freibeträge für Ehepartner und Kinder</strong> ab und berücksichtigen
-      ggf. weitere Besonderheiten (z.&nbsp;B. bei Bürgergeld, Grundsicherung).
-      Frage bei deiner Krankenkasse nach, welche Unterlagen du für eine
-      <strong>Zuzahlungsbefreiung</strong> einreichen musst.
+      Krankenkassen ziehen von den Bruttoeinnahmen regelmäßig <strong>Freibeträge</strong> (z. B. für Ehepartner/Kinder) ab
+      und berücksichtigen Besonderheiten (z. B. Bürgergeld/Grundsicherung). Erfrage bei deiner Krankenkasse die
+      <strong>erforderlichen Nachweise</strong> für Zuzahlungsbefreiung/Erstattung.
     </p>
   `;
 }
@@ -171,11 +121,20 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!berechnenBtn || !ergebnisContainer) return;
 
   berechnenBtn.addEventListener("click", () => {
+    // sanfte Validierung
+    const errors = [];
     const brutto = parseEuroInput(einkommenInput);
-    const versArt = versArtSelect ? versArtSelect.value : "gkv";
-    const istChronisch = chronischCheck ? chronischCheck.checked : false;
     const bisherGezahlt = parseEuroInput(bisherInput);
     const geplant = parseEuroInput(geplantInput);
+
+    if (!(brutto > 0)) errors.push("Bitte ein jährliches Bruttoeinkommen größer 0 € eingeben.");
+    if (bisherGezahlt < 0) errors.push("Bisherige Zuzahlungen dürfen nicht negativ sein.");
+    if (geplant < 0) errors.push("Geplante Zuzahlungen dürfen nicht negativ sein.");
+
+    if (errors.length) { renderError(ergebnisContainer, errors); ergebnisContainer.scrollIntoView({ behavior: "smooth" }); return; }
+
+    const versArt = versArtSelect ? versArtSelect.value : "gkv";
+    const istChronisch = chronischCheck ? chronischCheck.checked : false;
 
     const belastungsgrenze = berechneBelastungsgrenze(brutto, istChronisch);
     const restBisGrenze = Math.max(belastungsgrenze - bisherGezahlt, 0);
@@ -200,9 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
-      setTimeout(() => {
-        ergebnisContainer.innerHTML = "";
-      }, 0);
+      setTimeout(() => { ergebnisContainer.innerHTML = ""; }, 0);
     });
   }
 });

@@ -12,7 +12,7 @@ function euro(v) {
 }
 function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
 
-// Hilfsfunktion: Monate aus (Jahre, Monate)
+// Monate aus (Jahre, Monate)
 function toMonths(years, months) {
   const y = Math.max(0, Math.floor(years || 0));
   const m = clamp(Math.floor(months || 0), 0, 11);
@@ -29,53 +29,64 @@ function berechneAbschlag({
   const regM = toMonths(regelJahre, regelMonate);
   const wnsM = toMonths(wunschJahre, wunschMonate);
 
-  const diff = regM - wnsM; // >0 = vorgezogen; <0 = später
+  const aPM = Math.max(0, abschlagProMonat) / 100;
+  const zPM = Math.max(0, zuschlagProMonat) / 100;
+  const aMax = Math.max(0, maxAbschlag) / 100;
+
+  const diff = regM - wnsM; // >0 vorgezogen; <0 später
   let abschlagPct = 0;
   let zuschlagPct = 0;
 
   if (diff > 0) {
-    // vorgezogen
-    abschlagPct = Math.min(diff * (abschlagProMonat / 100), maxAbschlag / 100);
+    abschlagPct = Math.min(diff * aPM, aMax);
   } else if (diff < 0) {
-    // später
-    zuschlagPct = Math.abs(diff) * (zuschlagProMonat / 100);
+    zuschlagPct = Math.abs(diff) * zPM;
   }
 
-  // Monatsrente bei gewünschtem Beginn
-  let renteGewuenscht = regelRente;
-  if (abschlagPct > 0) {
-    renteGewuenscht = regelRente * (1 - abschlagPct);
-  } else if (zuschlagPct > 0) {
-    renteGewuenscht = regelRente * (1 + zuschlagPct);
-  }
+  const renteGewuenscht =
+    abschlagPct > 0 ? regelRente * (1 - abschlagPct) :
+    zuschlagPct > 0 ? regelRente * (1 + zuschlagPct) :
+    regelRente;
 
-  // Vergleich: später gehen (X Monate nach dem gewünschten Start)
-  const verglDiffZuReg = regM - (wnsM + Math.max(0, Math.floor(spaeterMonate || 0)));
+  // Vergleich: X Monate später als gewünschter Beginn
+  const sh = Math.max(0, Math.floor(spaeterMonate || 0));
+  const verglDiffZuReg = regM - (wnsM + sh);
+
   let verglAbschlag = 0, verglZuschlag = 0;
   if (verglDiffZuReg > 0) {
-    verglAbschlag = Math.min(verglDiffZuReg * (abschlagProMonat / 100), maxAbschlag / 100);
+    verglAbschlag = Math.min(verglDiffZuReg * aPM, aMax);
   } else if (verglDiffZuReg < 0) {
-    verglZuschlag = Math.abs(verglDiffZuReg) * (zuschlagProMonat / 100);
+    verglZuschlag = Math.abs(verglDiffZuReg) * zPM;
   }
-  let renteSpaeter = regelRente * (1 - verglAbschlag + verglZuschlag);
+  const renteSpaeter = regelRente * (1 - verglAbschlag + verglZuschlag);
 
   return {
     diffMonate: diff,
-    abschlagPct,
-    zuschlagPct,
+    abschlagPct,           // dezimal
+    zuschlagPct,           // dezimal
     renteRegel: regelRente,
     renteGewuenscht,
-    verglMonateSpaeter: Math.max(0, Math.floor(spaeterMonate || 0)),
-    verglAbschlag,
-    verglZuschlag,
+    verglMonateSpaeter: sh,
+    verglAbschlag,         // dezimal
+    verglZuschlag,         // dezimal
     renteSpaeter
   };
+}
+
+function renderError(container, msgs) {
+  const list = msgs.map(m => `<li>${m}</li>`).join("");
+  container.innerHTML = `
+    <div class="pflegegrad-result-card">
+      <h2>Bitte Eingaben prüfen</h2>
+      <ul>${list}</ul>
+    </div>
+  `;
 }
 
 function renderErgebnis(container, input, out) {
   const {
     regelJahre, regelMonate, wunschJahre, wunschMonate,
-    abschlagProMonat, zuschlagProMonat, maxAbschlag
+    abschlagProMonat, zuschlagProMonat, maxAbschlag, geburtsjahr
   } = input;
 
   const {
@@ -84,94 +95,59 @@ function renderErgebnis(container, input, out) {
     verglMonateSpaeter, verglAbschlag, verglZuschlag, renteSpaeter
   } = out;
 
-  // Text für diff
-  let diffText = "";
-  if (diffMonate > 0) diffText = `Vorgezogen: ${diffMonate} Monat(e) vor der Regelaltersgrenze`;
-  else if (diffMonate < 0) diffText = `Später: ${Math.abs(diffMonate)} Monat(e) nach der Regelaltersgrenze`;
-  else diffText = "Genau zum regulären Rentenbeginn";
-
-  const pctToStr = (p) => (p * 100).toFixed(1).replace(".", ",") + " %";
+  const pctStr = (p) => (p * 100).toFixed(1).replace(".", ",") + " %";
+  const diffText = diffMonate > 0
+    ? `Vorgezogen: ${diffMonate} Monat(e) vor Regelalter`
+    : diffMonate < 0
+      ? `Später: ${Math.abs(diffMonate)} Monat(e) nach Regelalter`
+      : "Genau zum Regelalter";
 
   container.innerHTML = `
     <h2>Ergebnis: Rentenabschlag/Zuschlag</h2>
 
     <div class="pflegegrad-result-card">
       <p>
+        ${geburtsjahr ? `<strong>Geburtsjahr:</strong> ${geburtsjahr}<br>` : ""}
         <strong>Regelaltersgrenze:</strong> ${regelJahre} Jahre ${regelMonate} Monate<br>
         <strong>Gewünschter Beginn:</strong> ${wunschJahre} Jahre ${wunschMonate} Monate<br>
         <strong>Abweichung:</strong> ${diffText}
       </p>
 
+      <h3>Zu-/Abschläge</h3>
       <table class="pflegegrad-tabelle">
-        <thead>
-          <tr>
-            <th>Größe</th>
-            <th>Wert</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Größe</th><th>Wert</th></tr></thead>
         <tbody>
-          <tr>
-            <td>Abschlag pro Monat (vorziehen)</td>
-            <td>${abschlagProMonat.toFixed(2).replace(".", ",")} %</td>
-          </tr>
-          <tr>
-            <td>Zuschlag pro Monat (später)</td>
-            <td>${zuschlagProMonat.toFixed(2).replace(".", ",")} %</td>
-          </tr>
-          <tr>
-            <td>Maximaler Abschlag</td>
-            <td>${maxAbschlag.toFixed(1).replace(".", ",")} %</td>
-          </tr>
-          <tr>
-            <td><strong>Abschlag/Zuschlag gesamt</strong></td>
-            <td><strong>${
-              abschlagPct > 0 ? "− " + pctToStr(abschlagPct) :
-              zuschlagPct > 0 ? "+ " + pctToStr(zuschlagPct) : "0,0 %"
-            }</strong></td>
-          </tr>
+          <tr><td>Abschlag je Monat (vorziehen)</td><td>${Number(abschlagProMonat).toFixed(2).replace(".", ",")} %</td></tr>
+          <tr><td>Zuschlag je Monat (später)</td><td>${Number(zuschlagProMonat).toFixed(2).replace(".", ",")} %</td></tr>
+          <tr><td>Maximaler Abschlag</td><td>${Number(maxAbschlag).toFixed(1).replace(".", ",")} %</td></tr>
+          <tr><td><strong>Abschlag/Zuschlag gesamt</strong></td>
+              <td><strong>${
+                abschlagPct > 0 ? "− " + pctStr(abschlagPct) :
+                zuschlagPct > 0 ? "+ " + pctStr(zuschlagPct) : "0,0 %"
+              }</strong></td></tr>
         </tbody>
       </table>
 
-      <h3>Monatsrente (vereinfachte Betrachtung)</h3>
+      <h3>Monatsrente (vereinfacht)</h3>
       <table class="pflegegrad-tabelle">
-        <thead>
-          <tr>
-            <th>Variante</th>
-            <th>Monatsrente</th>
-            <th>Diff. zu Regelalter</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Variante</th><th>Monatsrente</th><th>Diff. zu Regelalter</th></tr></thead>
         <tbody>
-          <tr>
-            <td>Zum Regelalter</td>
-            <td>${euro(renteRegel)}</td>
-            <td>–</td>
-          </tr>
-          <tr>
-            <td>Gewünschter Beginn</td>
-            <td>${euro(renteGewuenscht)}</td>
-            <td>${euro(renteGewuenscht - renteRegel)}</td>
-          </tr>
+          <tr><td>Zum Regelalter</td><td>${euro(renteRegel)}</td><td>–</td></tr>
+          <tr><td>Gewünschter Beginn</td><td><strong>${euro(renteGewuenscht)}</strong></td><td>${euro(renteGewuenscht - renteRegel)}</td></tr>
         </tbody>
       </table>
 
       <h3>Vergleich: später gehen (+${verglMonateSpaeter} Monat(e))</h3>
       <table class="pflegegrad-tabelle">
-        <thead>
-          <tr>
-            <th>Variante</th>
-            <th>Monatsrente</th>
-            <th>Diff. zu Regelalter</th>
-          </tr>
-        </thead>
+        <thead><tr><th>Variante</th><th>Monatsrente</th><th>Diff. zu Regelalter</th></tr></thead>
         <tbody>
           <tr>
             <td>${
               verglAbschlag > 0
-                ? `Verschoben (noch vor Regelalter, Abschlag ${pctToStr(verglAbschlag)})`
+                ? `Verschoben (noch vor Regelalter, Abschlag ${pctStr(verglAbschlag)})`
                 : verglZuschlag > 0
-                ? `Verschoben (nach Regelalter, Zuschlag ${pctToStr(verglZuschlag)})`
-                : "Verschoben (genau Regelalter)"
+                  ? `Verschoben (nach Regelalter, Zuschlag ${pctStr(verglZuschlag)})`
+                  : "Verschoben (genau Regelalter)"
             }</td>
             <td><strong>${euro(renteSpaeter)}</strong></td>
             <td><strong>${euro(renteSpaeter - renteRegel)}</strong></td>
@@ -180,16 +156,15 @@ function renderErgebnis(container, input, out) {
       </table>
 
       <p class="hinweis">
-        Diese Rechnung ist eine vereinfachte Orientierung: Es werden nur feste Zu-/Abschlagssätze
-        auf deine angegebene Monatsrente zum Regelalter angewandt.
-        Beiträge, Steuern, Entgeltpunkte in der Verschiebephase etc. bleiben unberücksichtigt.
+        Reine Orientierung: Es werden feste Zu-/Abschlagsätze auf die angegebene Regelalters-Rente angewandt.
+        Steuern, KV/PV und mögliche zusätzliche Entgeltpunkte bei späterem Beginn sind nicht berücksichtigt.
       </p>
     </div>
   `;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const gj = document.getElementById("ra_geburtsjahr"); // optional, nur Info
+  const gj = document.getElementById("ra_geburtsjahr"); // optional
   const rj = document.getElementById("ra_reg_jahre");
   const rm = document.getElementById("ra_reg_monate");
   const wj = document.getElementById("ra_wunsch_jahre");
@@ -208,17 +183,39 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!btn || !out) return;
 
   btn.addEventListener("click", () => {
-    const input = {
-      regelJahre: n(rj) || 67,
-      regelMonate: n(rm),
-      wunschJahre: n(wj),
-      wunschMonate: n(wm),
-      regelRente: n(rr),
+    // sanfte Validierung
+    const regelRente = n(rr);
+    const errors = [];
+    if (!(regelRente > 0)) errors.push("Bitte die erwartete Monatsrente zum Regelalter angeben (größer 0 €).");
 
-      abschlagProMonat: n(a_pm) || 0.3,    // % pro Monat
-      zuschlagProMonat: n(z_pm) || 0.5,    // % pro Monat
-      maxAbschlag: n(a_max) || 14.4,       // % gesamt
-      spaeterMonate: n(sp) || 0
+    const regJ = n(rj) || 67;
+    const regM = n(rm);
+    const wJ = n(wj);
+    const wM = n(wm);
+
+    if (toMonths(wJ, wM) === 0) errors.push("Bitte den gewünschten Rentenbeginn (Alter in Jahren/Monaten) angeben.");
+
+    const abschlagPM = n(a_pm) || 0.3;
+    const zuschlagPM = n(z_pm) || 0.5;
+    const maxA = n(a_max) || 14.4;
+
+    if (abschlagPM < 0 || abschlagPM > 1) errors.push("Abschlag pro Monat muss zwischen 0 % und 1 % liegen.");
+    if (zuschlagPM < 0 || zuschlagPM > 2) errors.push("Zuschlag pro Monat muss zwischen 0 % und 2 % liegen.");
+    if (maxA < 0 || maxA > 20) errors.push("Maximaler Abschlag muss zwischen 0 % und 20 % liegen.");
+
+    if (errors.length) { renderError(out, errors); out.scrollIntoView({ behavior: "smooth" }); return; }
+
+    const input = {
+      geburtsjahr: n(gj),
+      regelJahre: regJ,
+      regelMonate: regM,
+      wunschJahre: wJ,
+      wunschMonate: wM,
+      regelRente: regelRente,
+      abschlagProMonat: abschlagPM,
+      zuschlagProMonat: zuschlagPM,
+      maxAbschlag: maxA,
+      spaeterMonate: clamp(n(sp) || 0, 0, 600)
     };
 
     const outVals = berechneAbschlag(input);

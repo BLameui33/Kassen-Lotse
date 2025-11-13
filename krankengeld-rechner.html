@@ -2,186 +2,148 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Krankengeld-Rechner 2025 | Kassen-Lotse</title>
-  <meta name="description" content="Berechne dein Krankengeld: Wie viel zahlt die gesetzliche Krankenkasse nach der Entgeltfortzahlung? Mit Brutto-/Netto-Rechner, täglichem Krankengeld, Monatssumme und geschätztem Nettokrankengeld nach Abzügen.">
-  <meta name="keywords" content="Krankengeld Rechner, Krankengeld berechnen, 70 Prozent Brutto, 90 Prozent Netto, Krankengeld 2025, gesetzliche Krankenversicherung, Entgeltfortzahlung, Netto Krankengeld, Kassen-Lotse">
+  <title>Krankengeld berechnen 2025 | Gesetzliches Krankengeld einfach erklärt</title>
+  <meta name="description" content="Kostenloser Krankengeld-Rechner 2025: Berechne dein gesetzliches Krankengeld nach Ablauf der Lohnfortzahlung – mit 70 % vom Brutto, 90 % vom Netto und Abzügen für Sozialversicherung.">
+  <meta name="keywords" content="Krankengeld berechnen, Krankengeld Rechner, gesetzliches Krankengeld, 70 Prozent Brutto, 90 Prozent Netto, Krankengeld 2025, Netto Krankengeld, Entgeltfortzahlung, Kassen-Lotse">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
+
+  <!-- strukturierte Daten (HowTo) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Krankengeld berechnen",
+    "description": "So berechnest du dein voraussichtliches Krankengeld nach der Entgeltfortzahlung.",
+    "step": [
+      {"@type":"HowToStep","name":"Brutto und Netto eingeben","text":"Trage dein monatliches Brutto- und Nettogehalt ein."},
+      {"@type":"HowToStep","name":"Versicherungsstatus wählen","text":"Gesetzlich, selbstständig oder privat versichert."},
+      {"@type":"HowToStep","name":"Zeitraum angeben","text":"Wie viele Tage Krankengeld sollen geschätzt werden?"},
+      {"@type":"HowToStep","name":"Abzüge prüfen","text":"Typisch 12 – 13 % Sozialabgaben; Wert kann angepasst werden."},
+      {"@type":"HowToStep","name":"Ergebnis anzeigen","text":"Brutto-, Netto- und Gesamtsumme deines Krankengeldes."}
+    ]
+  }
+  </script>
 </head>
+
 <body>
   <header class="site-header">
-    <a href="/" class="site-logo">Kassen-Lotse</a>
+    <a href="/" class="site-logo" aria-label="Zur Startseite Kassen-Lotse">Kassen-Lotse</a>
   </header>
 
-  <div class="page-container">
-    <h1>Krankengeld-Rechner 2025</h1>
+  <main class="page-container">
+    <h1>Krankengeld 2025 – einfach berechnen</h1>
 
-    <div class="highlight-box">
+    <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Wenn du länger als <strong>6 Wochen</strong> wegen derselben Krankheit
-        arbeitsunfähig bist, endet in der Regel die Lohnfortzahlung durch den
-        Arbeitgeber – danach springt die <strong>gesetzliche Krankenkasse</strong>
-        mit Krankengeld ein.
+        Nach <strong>6 Wochen Krankheit</strong> endet meist die Lohnfortzahlung des Arbeitgebers.
+        Ab diesem Zeitpunkt zahlt deine <strong>gesetzliche Krankenkasse</strong> Krankengeld.
       </p>
       <p>
-        Dieser Rechner zeigt dir eine <strong>vereinfachte Berechnung</strong>:
-        tägliches und monatliches Krankengeld (brutto) und eine grobe Schätzung
-        des <strong>Nettokrankengeldes nach Sozialabgaben</strong>.
+        Mit diesem kostenlosen Rechner ermittelst du, wie viel <strong>Krankengeld</strong> du
+        voraussichtlich erhältst – täglich, monatlich und als geschätzten <strong>Netto-Betrag</strong>.
       </p>
       <p>
-        Grundlage ist die gesetzliche Regel:
-        <strong>70&nbsp;% vom Brutto</strong>, aber höchstens
-        <strong>90&nbsp;% vom Netto</strong>, begrenzt durch einen
-        <strong>Höchstbetrag pro Tag</strong>.
+        Grundlage ist die gesetzliche Regelung:
+        <strong>70 % vom Brutto</strong>, aber höchstens <strong>90 % vom Netto</strong>,
+        begrenzt durch einen <strong>Höchstbetrag pro Tag</strong>.
       </p>
     </div>
 
-    <form id="kg-form" class="pflegegrad-form">
+    <form id="kg-form" class="pflegegrad-form" aria-describedby="intro-text" novalidate>
       <fieldset class="pflegegrad-fieldset">
-        <legend>1. Angaben zu deinem Einkommen</legend>
+        <legend>1. Einkommen</legend>
 
-        <label class="pflegegrad-label">
-          Monatliches Bruttogehalt (durchschnittlich)
-          <input
-            type="number"
-            id="kg_brutto"
-            min="0"
-            step="50"
-            placeholder="z. B. 3.000"
-          />
+        <label class="pflegegrad-label" for="kg_brutto">
+          Monatliches Bruttogehalt
+          <input type="number" id="kg_brutto" min="0" step="50" placeholder="z. B. 3 000 €" />
         </label>
         <p class="hinweis">
-          Nimm hier dein <strong>durchschnittliches Bruttogehalt pro Monat</strong>
-          vor Beginn der Arbeitsunfähigkeit. Einmalzahlungen (Weihnachtsgeld usw.)
-          werden in der Realität mit einbezogen; hier werden sie aus
-          Vereinfachungsgründen <strong>nicht gesondert berechnet</strong>.
+          Durchschnittliches <strong>Bruttogehalt pro Monat</strong> vor Beginn der Arbeitsunfähigkeit.
+          Einmalzahlungen werden hier nicht gesondert berücksichtigt.
         </p>
 
-        <label class="pflegegrad-label">
-          Monatliches Nettogehalt (durchschnittlich)
-          <input
-            type="number"
-            id="kg_netto"
-            min="0"
-            step="50"
-            placeholder="z. B. 2.050"
-          />
+        <label class="pflegegrad-label" for="kg_netto">
+          Monatliches Nettogehalt
+          <input type="number" id="kg_netto" min="0" step="50" placeholder="z. B. 2 050 €" />
         </label>
         <p class="hinweis">
-          Trage dein <strong>durchschnittliches Nettogehalt pro Monat</strong> ein
-          (nach Steuern und Sozialabgaben). Das wird benötigt, weil das
-          Krankengeld auf <strong>maximal 90&nbsp;% des Nettoeinkommens</strong>
-          begrenzt ist.
+          Wird benötigt, da das Krankengeld <strong>auf 90 % des Nettoeinkommens begrenzt</strong> ist.
         </p>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="kg_status">
           Versicherungsstatus
           <select id="kg_status">
-            <option value="gkv" selected>Gesetzlich versichert (Arbeitnehmer mit Krankengeldanspruch)</option>
-            <option value="selbst">Gesetzlich versichert (Selbstständig mit Krankengeld-Option)</option>
+            <option value="gkv" selected>Gesetzlich versichert – Arbeitnehmer</option>
+            <option value="selbst">Gesetzlich versichert – Selbstständig (mit Krankengeld-Option)</option>
             <option value="privat">Privat versichert / andere Regelung</option>
           </select>
         </label>
         <p class="hinweis">
-          Der Rechner ist <strong>primär für gesetzlich versicherte Arbeitnehmer</strong>
-          gedacht. Für Selbstständige und privat Versicherte können andere
-          vertragliche Regeln gelten. Nutze das Ergebnis dann nur als grobe
-          Orientierung.
+          Für Selbstständige oder Privatversicherte gelten ggf. andere Tarife – bitte nur als Orientierung nutzen.
         </p>
       </fieldset>
 
       <fieldset class="pflegegrad-fieldset">
-        <legend>2. Zeitraum der Krankengeld-Zahlung</legend>
-
-        <label class="pflegegrad-label">
-          Geplante Tage im Krankengeldbezug (ohne die ersten 6 Wochen Lohnfortzahlung)
-          <input
-            type="number"
-            id="kg_tage"
-            min="1"
-            max="365"
-            step="1"
-            placeholder="z. B. 30"
-          />
+        <legend>2. Zeitraum</legend>
+        <label class="pflegegrad-label" for="kg_tage">
+          Geplante Krankengeld-Tage (nach 6 Wochen Lohnfortzahlung)
+          <input type="number" id="kg_tage" min="1" max="365" step="1" placeholder="z. B. 30" />
         </label>
         <p class="hinweis">
-          Trage hier ein, für wie viele Tage du ungefähr
-          <strong>Krankengeld</strong> erhalten wirst (also <strong>nach</strong> der
-          Lohnfortzahlung durch den Arbeitgeber). Beispiel: 30 Tage, 60 Tage, 90 Tage.
+          Trage ein, für wie viele Tage du voraussichtlich <strong>Krankengeld</strong> erhältst – z. B. 30 oder 90 Tage.
         </p>
       </fieldset>
 
       <fieldset class="pflegegrad-fieldset">
-        <legend>3. Abzüge vom Krankengeld (Sozialversicherungsbeiträge)</legend>
+        <legend>3. Abzüge (Sozialversicherung)</legend>
 
-        <label class="pflegegrad-label">
-          Familienstand / Kinder für die Pflegeversicherung
+        <label class="pflegegrad-label" for="kg_kinderstatus">
+          Pflegeversicherung / Kinderstatus
           <select id="kg_kinderstatus">
-            <option value="mitkind" selected>Mit Kindern (Standardbeitrag Pflegeversicherung)</option>
-            <option value="ohnekind">Kinderlos (Zuschlag in der Pflegeversicherung)</option>
+            <option value="mitkind" selected>Mit Kindern (Standardbeitrag)</option>
+            <option value="ohnekind">Kinderlos (Zuschlag)</option>
           </select>
         </label>
 
         <p class="hinweis">
-          Von deinem Krankengeld werden in der Regel Beiträge zur
-          <strong>Rentenversicherung</strong>, <strong>Arbeitslosenversicherung</strong>
-          und <strong>Pflegeversicherung</strong> abgezogen.
-          Zur Vereinfachung nutzen wir hier typische Werte z. B.:
+          Beiträge zur <strong>Renten-</strong>, <strong>Arbeitslosen-</strong> und
+          <strong>Pflegeversicherung</strong> werden abgezogen.
+          Richtwerte (2025): RV 9,3 %, AV 1,3 %, PV 1,7 % (2,2 % kinderlos).
         </p>
-        <ul>
-          <li>Rentenversicherung: ca. 9,3&nbsp;%</li>
-          <li>Arbeitslosenversicherung: ca. 1,3&nbsp;%</li>
-          <li>Pflegeversicherung: ca. 1,7&nbsp;% (mit Kindern) / ca. 2,2&nbsp;% (kinderlos)</li>
-        </ul>
 
-        <label class="pflegegrad-label">
-          Gesamt-Prozentsatz der Abzüge vom Krankengeld (anpassbar)
-          <input
-            type="number"
-            id="kg_abzug_prozent"
-            min="0"
-            max="30"
-            step="0.1"
-            value="12.3"
-          />
+        <label class="pflegegrad-label" for="kg_abzug_prozent">
+          Gesamt-Abzug vom Krankengeld (in %)
+          <input type="number" id="kg_abzug_prozent" min="0" max="30" step="0.1" value="12.3" />
         </label>
         <p class="hinweis">
-          Standardmäßig setzen wir hier für Personen mit Kindern etwa
-          <strong>12,3&nbsp;%</strong> an (9,3&nbsp;% RV + 1,3&nbsp;% AV + 1,7&nbsp;% PV).
-          Wenn du kinderlos bist, wird automatisch ein etwas höherer Wert vorgeschlagen.
-          Du kannst den Prozentsatz bei Bedarf manuell anpassen.
+          Standardwert für Eltern ≈ <strong>12,3 %</strong>; kinderlos ≈ <strong>12,8 %</strong>.
+          Der Wert wird automatisch angepasst, kann aber manuell geändert werden.
         </p>
       </fieldset>
 
       <div class="button-container">
-        <button type="button" id="kg_berechnen" class="button">
-          Krankengeld berechnen
-        </button>
-        <button type="reset" id="kg_reset" class="button button-secondary">
-          Eingaben zurücksetzen
-        </button>
+        <button type="button" id="kg_berechnen" class="button">Jetzt Krankengeld berechnen</button>
+        <button type="reset" id="kg_reset" class="button button-secondary">Eingaben zurücksetzen</button>
       </div>
     </form>
 
-    <section id="kg_ergebnis"></section>
+    <section id="kg_ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
-        <strong>Wichtiger Hinweis:</strong> Dieser Rechner ist eine
-        <strong>vereinfachte Darstellung</strong>. In der Praxis berücksichtigen
-        Krankenkassen z.&nbsp;B. Einmalzahlungen, genaue Abrechnungszeiträume,
-        Beitragsbemessungsgrenzen, besondere Vereinbarungen für Selbstständige
-        und ggf. tarifliche Regelungen. Verlass dich deshalb <strong>nicht ausschließlich</strong>
-        auf dieses Ergebnis, sondern nutze es als Orientierung und frag im Zweifel
-        direkt bei deiner Krankenkasse oder beim Arbeitgeber nach.
+        <strong>Hinweis:</strong> Die Berechnung ist eine <strong>vereinfachte Schätzung</strong>.
+        Sie ersetzt keine verbindliche Auskunft deiner Krankenkasse.
+        Steuerliche Effekte, Einmalzahlungen oder Beitragsbemessungsgrenzen werden
+        nicht vollständig berücksichtigt. Stand: 13. 11. 2025.
       </p>
     </div>
-  </div>
+  </main>
 
   <footer>
-  <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
-</footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
 
   <script src="krankengeld-rechner.js"></script>
 </body>

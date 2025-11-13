@@ -2,41 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Eigenanteil im Pflegeheim (stationäre Pflege) 2025 | Kassen-Lotse</title>
-  <meta name="description" content="Rechne den voraussichtlichen Eigenanteil im Pflegeheim: einrichtungseinheitlicher Eigenanteil (EEE), Unterkunft & Verpflegung, Investitionskosten, Zusatzleistungen, Ausbildungsumlage, Leistungszuschlag der Pflegekasse und eigene Mittel.">
-  <meta name="keywords" content="Pflegeheim Eigenanteil, stationäre Pflege, EEE, Unterkunft und Verpflegung, Investitionskosten, Leistungszuschlag, Pflegekasse, Heimplatz Kosten, Hilfe zur Pflege, Sozialamt, Kassen-Lotse">
+  <title>Eigenanteil im Pflegeheim 2025 berechnen – EEE, U+V, Invest, Zuschläge | Kassen-Lotse</title>
+  <meta name="description" content="Rechner für den Eigenanteil im Pflegeheim: EEE (einrichtungseinheitlicher Eigenanteil), Unterkunft & Verpflegung, Investitionskosten, Zusatzleistungen, Ausbildungsumlage, Leistungszuschlag der Pflegekasse und eigene Mittel – monatlich, übersichtlich.">
+  <meta name="keywords" content="Pflegeheim Eigenanteil berechnen, stationäre Pflege Kosten, EEE, Unterkunft und Verpflegung, Investitionskosten, Leistungszuschlag Pflegekasse, Pflegewohngeld, Hilfe zur Pflege, Kassen-Lotse">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="site-logo">Kassen-Lotse</a>
+    <a href="/" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
   </header>
 
   <div class="page-container">
     <h1>Eigenanteil im Pflegeheim (stationäre Pflege)</h1>
 
-    <div class="highlight-box">
+    <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Dieser Rechner ermittelt den <strong>voraussichtlichen monatlichen Eigenanteil</strong> für einen Heimplatz.
-        Grundlage sind die Bausteine: <em>einrichtungseinheitlicher Eigenanteil (EEE)</em>, <em>Unterkunft &amp; Verpflegung</em>,
+        Dieser Rechner schätzt deinen <strong>monatlichen Eigenanteil</strong> für einen Heimplatz.
+        Grundlage sind: <em>EEE</em> (einrichtungseinheitlicher Eigenanteil), <em>Unterkunft &amp; Verpflegung</em>,
         <em>Investitionskosten</em>, <em>Zusatzleistungen</em> und ggf. <em>Ausbildungsumlage</em>.
       </p>
       <p>
-        Der <strong>Leistungszuschlag der Pflegekasse</strong> (prozentualer Zuschuss auf den EEE, abhängig u. a. von der Aufenthaltsdauer)
+        Der <strong>Leistungszuschlag der Pflegekasse</strong> (prozentualer Zuschuss auf den EEE, u. a. abhängig von der Aufenthaltsdauer)
         kann <strong>automatisch</strong> (per Aufenthaltsmonate) oder <strong>manuell</strong> gesetzt werden.
       </p>
       <p>
-        Ergebnis ist eine <strong>Orientierung</strong> – verbindlich sind immer die Vertragsunterlagen des Heims und die Bescheide der Pflegekasse/Behörden.
+        Das Ergebnis ist eine <strong>unverbindliche Orientierung</strong>. Maßgeblich sind Heimvertrag/Kostenaufstellung,
+        Bescheide der Pflegekasse und ggf. Behörden.
       </p>
     </div>
 
-    <form id="heim-form" class="pflegegrad-form">
+    <form id="heim-form" class="pflegegrad-form" aria-describedby="heim_ergebnis" novalidate>
       <fieldset class="pflegegrad-fieldset">
         <legend>1. Allgemeine Angaben</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_pflegegrad">
           Pflegegrad
           <select id="heim_pflegegrad">
             <option value="2" selected>Pflegegrad 2</option>
@@ -46,23 +47,24 @@
           </select>
         </label>
         <p class="hinweis">
-          Der Pflegegrad ist für die Aufnahme relevant. Die eigentliche Heimrechnung basiert aber überwiegend auf den untenstehenden Kostenbausteinen
-          sowie dem Leistungszuschlag auf den EEE.
+          Der Pflegegrad ist für die Aufnahme relevant. Die Rechnung basiert im Wesentlichen auf den Kostenbausteinen unten
+          und dem Leistungszuschlag auf den EEE.
         </p>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_monate">
           Aufenthaltsdauer im Heim <em>(bisher, in Monaten)</em>
           <input type="number" id="heim_monate" min="0" step="1" value="0" />
         </label>
         <p class="hinweis">
-          Wird für die <strong>automatische</strong> Ermittlung des Leistungszuschlags genutzt (siehe nächster Abschnitt). Du kannst den Prozentsatz alternativ auch manuell setzen.
+          Dient für die <strong>automatische</strong> Zuschlags-Ermittlung (siehe nächster Abschnitt).
+          Alternativ kannst du den Prozentsatz manuell setzen.
         </p>
       </fieldset>
 
       <fieldset class="pflegegrad-fieldset">
         <legend>2. Leistungszuschlag der Pflegekasse (auf den EEE)</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_zuschlag_modus">
           Zuschlagsmodus
           <select id="heim_zuschlag_modus">
             <option value="auto" selected>Automatisch nach Aufenthaltsmonaten</option>
@@ -71,7 +73,7 @@
         </label>
 
         <div id="heim_zuschlag_auto_wrap" class="pflegegrad-label">
-          <span>Aktuelle Annahme (vereinfachtes Modell):</span>
+          <span>Vereinfachte Staffel (angenommene Richtwerte):</span>
           <ul>
             <li>Monat 0–11: 15&nbsp;% Zuschlag</li>
             <li>Monat 12–23: 30&nbsp;% Zuschlag</li>
@@ -79,66 +81,67 @@
             <li>ab Monat 36: 75&nbsp;% Zuschlag</li>
           </ul>
           <p class="hinweis">
-            Diese Staffel ist ein <strong>vereinfachtes Beispiel</strong>. Prüfe deine Heim- bzw. Kassenunterlagen und passe ggf. auf „Manuell“ an.
+            Diese Staffel ist ein <strong>vereinfachtes Beispiel</strong>. Prüfe bitte deine Heim-/Kassenunterlagen und nutze ggf. „Manuell“.
           </p>
         </div>
 
         <div id="heim_zuschlag_manuell_wrap" class="pflegegrad-label" style="display:none;">
           Leistungszuschlag <em>(in % des EEE)</em>
           <input type="number" id="heim_zuschlag_prozent" min="0" max="100" step="1" value="30" />
-          <p class="hinweis">Trage hier den von der Pflegekasse gewährten Zuschlag in Prozent ein, wenn du ihn kennst.</p>
+          <p class="hinweis">Trage hier den gewährten Prozentsatz ein, wenn er bekannt ist.</p>
         </div>
       </fieldset>
 
       <fieldset class="pflegegrad-fieldset">
         <legend>3. Kostenbausteine (monatlich)</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_eee">
           Einrichtungseinheitlicher Eigenanteil (EEE)
           <input type="number" id="heim_eee" min="0" step="1" placeholder="z. B. 1.100" />
         </label>
         <p class="hinweis">
-          Anteil, den Bewohner:innen für pflegebedingte Aufwendungen zahlen; innerhalb eines Heims ist er für alle Pflegegrade gleich.
+          EEE = Eigenanteil für pflegebedingte Aufwendungen. Er ist innerhalb eines Heims für alle Pflegegrade gleich.
         </p>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_uv">
           Unterkunft &amp; Verpflegung (U+V)
           <input type="number" id="heim_uv" min="0" step="1" placeholder="z. B. 900" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_invest">
           Investitionskosten
           <input type="number" id="heim_invest" min="0" step="1" placeholder="z. B. 400" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_zusatz">
           Zusatzleistungen (pauschal)
           <input type="number" id="heim_zusatz" min="0" step="1" value="0" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_ausbildung">
           Ausbildungsumlage (falls ausgewiesen)
           <input type="number" id="heim_ausbildung" min="0" step="1" value="0" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_zuschuesse">
           Sonstige Zuschüsse/Entlastungen <em>(negativ als Abzug)</em>
           <input type="number" id="heim_zuschuesse" step="1" value="0" />
         </label>
         <p class="hinweis">
-          Z. B. Pflegewohngeld/Landeszuschüsse (bundeslandspezifisch), Härtefallzuschüsse, kommunale Förderungen – wenn vorhanden, hier als <strong>Abzug</strong> eintragen.
+          Z. B. Pflegewohngeld/Landeszuschüsse, Härtefallzuschüsse, kommunale Förderungen – wenn vorhanden, hier als <strong>Abzug</strong> eintragen.
         </p>
       </fieldset>
 
       <fieldset class="pflegegrad-fieldset">
         <legend>4. Eigene Mittel (optional)</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="heim_eigene_mittel">
           Monatliche eigene Mittel (z. B. Rente, Pension, regelmäßige Einnahmen)
           <input type="number" id="heim_eigene_mittel" min="0" step="50" placeholder="z. B. 1.800" />
         </label>
         <p class="hinweis">
-          Damit kann der Rechner eine <strong>Deckungslücke</strong> ermitteln. Leistungen wie <em>Hilfe zur Pflege</em> (Sozialamt) werden hier nicht automatisch berechnet – ggf. Beratung einholen.
+          Damit kann eine <strong>Deckungslücke</strong> ermittelt werden. Leistungen wie <em>Hilfe zur Pflege</em> (Sozialamt)
+          werden hier nicht automatisch berechnet.
         </p>
       </fieldset>
 
@@ -148,22 +151,48 @@
       </div>
     </form>
 
-    <section id="heim_ergebnis"></section>
+    <section id="heim_ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
-        <strong>Wichtig:</strong> Dieser Rechner bildet die <strong>typische Struktur</strong> der Heimkosten ab,
-        aber nicht alle Details (z. B. tagesgenaue Abrechnung, besondere Zuschläge/Abzüge, Pflegewohngeld-Regeln der Länder,
-        Zusatzvereinbarungen, Heimwechsel, Doppelzimmer-/Einzelzimmer-Zuschläge).
-        Maßgeblich sind immer die <strong>Heimverträge</strong> und Bescheide der <strong>Pflegekasse</strong>/<strong>Behörden</strong>.
+        <strong>Wichtig:</strong> Der Leistungszuschlag gilt nur für den <em>EEE</em> (pflegebedingter Eigenanteil).
+        Unterkunft/Verpflegung, Investitionskosten und Zusatzleistungen werden nicht durch ihn reduziert.
+        Bundeslandspezifische Regelungen (z.&nbsp;B. Pflegewohngeld) können abweichen. Stand: 13.11.2025.
       </p>
     </div>
   </div>
 
-    <footer>
-  <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
-</footer>
+  <footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
 
   <script src="pflegeheim-eigenanteil-rechner.js"></script>
+
+  <!-- Strukturierte Daten: HowTo + FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HowTo",
+    "name":"Eigenanteil im Pflegeheim berechnen",
+    "description":"EEE, U+V, Investitionskosten, Zuschläge erfassen und Eigenanteil abschätzen.",
+    "step":[
+      {"@type":"HowToStep","name":"Angaben machen","text":"Pflegegrad und bisherige Aufenthaltsmonate eingeben."},
+      {"@type":"HowToStep","name":"Zuschlag festlegen","text":"Automatisch per Aufenthaltsdauer oder manuell in % des EEE."},
+      {"@type":"HowToStep","name":"Kostenbausteine eintragen","text":"EEE, Unterkunft & Verpflegung, Investitionskosten, Zusatzleistungen, Ausbildungsumlage und Zuschüsse."},
+      {"@type":"HowToStep","name":"Eigene Mittel prüfen","text":"Monatliche Mittel für die Deckungsprüfung angeben."},
+      {"@type":"HowToStep","name":"Ergebnis lesen","text":"Eigenanteil, Zuschlagshöhe, Deckung und mögliche Lücke."}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Auf was wird der Leistungszuschlag angewendet?","acceptedAnswer":{"@type":"Answer","text":"Nur auf den einrichtungseinheitlichen Eigenanteil (EEE) – nicht auf Unterkunft/Verpflegung, Investitionskosten oder Zusatzleistungen."}},
+      {"@type":"Question","name":"Warum unterscheiden sich die Werte je Bundesland?","acceptedAnswer":{"@type":"Answer","text":"Investitionskosten, Landeszuschüsse und Pflegewohngeld sind länderspezifisch geregelt. Bitte die Unterlagen des jeweiligen Heims/der Pflegekasse prüfen."}}
+    ]
+  }
+  </script>
 </body>
 </html>

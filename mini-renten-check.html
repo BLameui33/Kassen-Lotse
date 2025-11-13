@@ -2,46 +2,87 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Mini-Renten-Check 2025 | Kassen-Lotse</title>
-  <meta name="description" content="Schneller Überblick zur späteren Rente: gesetzliche Monatsrente (mit Zu-/Abschlag), private Sparrate hochgerechnet und Gesamtrente im Vergleich zu deinem heutigen Netto.">
-  <meta name="keywords" content="Rentenrechner, Mini Renten Check, gesetzliche Rente, private Altersvorsorge, Sparrate, Entnahmequote, Inflation, Kassen-Lotse">
+  <title>Mini-Renten-Check 2025 – gesetzliche Rente + private Vorsorge vergleichen</title>
+  <meta name="description" content="Mini-Renten-Check 2025: Schätze deine gesetzliche Monatsrente (mit Zu-/Abschlag), rechne deine private Sparrate hoch und vergleiche die Gesamtrente mit deinem heutigen Netto. Einfach, schnell, unverbindlich.">
+  <meta name="keywords" content="Mini Renten Check, Rentenrechner, gesetzliche Rente berechnen, private Altersvorsorge, Sparrate hochrechnen, Entnahmequote, Inflation, Rentenbeginn vorziehen, Zuschlag Rente, Kassen-Lotse">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Schema.org: HowTo + FAQ für bessere SERP-Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"HowTo",
+    "name":"Mini-Renten-Check durchführen",
+    "description":"So vergleichst du gesetzliche Rente, private Zusatzrente und dein heutiges Netto.",
+    "step":[
+      {"@type":"HowToStep","name":"Regelalters-Rente eintragen","text":"Monatliche Bruttorente laut Renteninformation."},
+      {"@type":"HowToStep","name":"Regelalter und Wunschbeginn wählen","text":"Vorzugs- oder Aufschubmonate berechnen den Zu-/Abschlag automatisch."},
+      {"@type":"HowToStep","name":"Private Sparrate & Annahmen setzen","text":"Monatliche Sparrate, nominale Rendite, Inflation, Entnahmequote."},
+      {"@type":"HowToStep","name":"Heutiges Netto für Vergleich angeben","text":"Optional: Differenz zur künftigen Gesamtrente."},
+      {"@type":"HowToStep","name":"Ergebnis prüfen","text":"Gesetzliche Rente (angepasst), Zusatzrente, Gesamtrente & Differenz."}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Wie werden Zu- und Abschläge berechnet?",
+        "acceptedAnswer":{"@type":"Answer","text":"Vorgezogener Beginn: 0,3 % Abschlag je Monat (max. 14,4 %). Späterer Beginn: 0,5 % Zuschlag je Monat. Werte sind anpassbar."}
+      },
+      {
+        "@type":"Question",
+        "name":"Wird Inflation berücksichtigt?",
+        "acceptedAnswer":{"@type":"Answer","text":"Ja, die Sparrate wird real verzinst (nominale Rendite minus Inflation). Die Zusatzrente ergibt sich über eine jährliche Entnahmequote."}
+      },
+      {
+        "@type":"Question",
+        "name":"Sind Steuern und KV/PV enthalten?",
+        "acceptedAnswer":{"@type":"Answer","text":"Nein, der Check ist eine vereinfachte Modellrechnung ohne Steuern und Beiträge zur Kranken-/Pflegeversicherung."}
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="site-logo">Kassen-Lotse</a>
+    <a href="/" class="site-logo" aria-label="Zur Startseite Kassen-Lotse">Kassen-Lotse</a>
   </header>
 
   <div class="page-container">
     <h1>Mini-Renten-Check</h1>
 
-    <div class="highlight-box">
+    <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Dieser Check zeigt dir eine <strong>Gesamtrente (monatlich)</strong> aus gesetzlicher Rente
-        <em>plus</em> hochgerechneter <strong>privater Sparrate</strong> – verglichen mit deinem
-        <strong>heutigen Netto</strong>. Alle Annahmen kannst du anpassen.
+        Der Check zeigt deine <strong>Gesamtrente pro Monat</strong> aus
+        <strong>gesetzlicher Rente</strong> plus hochgerechneter <strong>privater Sparrate</strong> –
+        im Vergleich zu deinem <strong>heutigen Netto</strong>. Alle Annahmen kannst du anpassen.
       </p>
       <p>
-        Vereinfachungen: Zu-/Abschlag gesetzliche Rente je Monat (−0,3 % / +0,5 %),
-        private Sparrate real verzinst (Nominalzins − Inflation), Umrechnung des Endvermögens
-        in eine Zusatzrente per jährlicher <strong>Entnahmequote</strong>.
+        Vereinfachungen: Abschlag beim Vorziehen <strong>0,3&nbsp;%/Monat</strong> (max. 14,4&nbsp;%),
+        Zuschlag beim späteren Beginn <strong>0,5&nbsp;%/Monat</strong>. Private Sparrate wird
+        <em>real</em> (Nominalzins minus Inflation) verzinst; die Auszahlung erfolgt über
+        eine jährliche <strong>Entnahmequote</strong>.
       </p>
     </div>
 
-    <form id="mrc-form" class="pflegegrad-form">
+    <form id="mrc-form" class="pflegegrad-form" aria-describedby="mrc_ergebnis" novalidate>
       <!-- 1. Gesetzliche Rente -->
       <fieldset class="pflegegrad-fieldset active-step">
-        <legend>1. Gesetzliche Rente (Auskunft/Renteninformation)</legend>
+        <legend>1. Gesetzliche Rente (Renteninformation)</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_regelrente_monat">
           Monatliche Rente zum <strong>Regelalter</strong> (Brutto, lt. Information)
           <input type="number" id="mrc_regelrente_monat" min="0" step="1" placeholder="z. B. 1.600" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_reg_jahre">
           Reguläres Rentenalter
           <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
             <input type="number" id="mrc_reg_jahre" min="60" max="68" step="1" value="67" />
@@ -51,7 +92,7 @@
           </div>
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_wunsch_jahre">
           Gewünschter Rentenbeginn (Alter)
           <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
             <input type="number" id="mrc_wunsch_jahre" min="60" max="70" step="1" value="65" />
@@ -62,8 +103,8 @@
         </label>
 
         <div class="hinweis">
-          Abschlag (vorziehen): <strong>0,3 % je Monat</strong> (max. 14,4 %). Zuschlag (später): <strong>0,5 % je Monat</strong>.
-          Du kannst die Sätze unten bei „Feineinstellungen“ anpassen.
+          Abschlag (vorziehen): <strong>0,3&nbsp;% je Monat</strong> (max. 14,4&nbsp;%). Zuschlag (später):
+          <strong>0,5&nbsp;% je Monat</strong>. Du kannst die Sätze unten bei „Feineinstellungen“ anpassen.
         </div>
       </fieldset>
 
@@ -71,27 +112,27 @@
       <fieldset class="pflegegrad-fieldset">
         <legend>2. Private Sparrate bis Rentenbeginn</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_alter_heute">
           Heutiges Alter (Jahre)
           <input type="number" id="mrc_alter_heute" min="18" max="70" step="1" placeholder="z. B. 40" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_sparrate">
           Monatliche Sparrate (privat)
           <input type="number" id="mrc_sparrate" min="0" step="10" placeholder="z. B. 250" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_rendite_nominal">
           Erwartete <strong>nominale</strong> Rendite p. a. (in %)
           <input type="number" id="mrc_rendite_nominal" min="0" max="20" step="0.1" value="5.0" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_inflation">
           Erwartete Inflation p. a. (in %)
           <input type="number" id="mrc_inflation" min="0" max="15" step="0.1" value="2.0" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_entnahmequote">
           Entnahmequote (real, p. a.) ab Rentenbeginn (in %)
           <input type="number" id="mrc_entnahmequote" min="1" max="8" step="0.1" value="3.5" />
         </label>
@@ -106,30 +147,28 @@
       <fieldset class="pflegegrad-fieldset">
         <legend>3. Vergleich mit heutigem Netto</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_netto_heute">
           Heutiges Netto (Monat, geschätzt)
           <input type="number" id="mrc_netto_heute" min="0" step="50" placeholder="z. B. 2.200" />
         </label>
-        <p class="hinweis">
-          Dient nur dem Vergleich. Steuern/KV/PV im Rentenalter berücksichtigen wir <strong>nicht</strong>.
-        </p>
+        <p class="hinweis">Nur für den Vergleich. Steuern sowie KV/PV im Rentenalter werden <strong>nicht</strong> berücksichtigt.</p>
       </fieldset>
 
       <!-- 4. Feineinstellungen -->
       <fieldset class="pflegegrad-fieldset">
         <legend>4. Feineinstellungen (optional)</legend>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_abschlag_pm">
           Abschlag pro Monat (vorziehen) in %
           <input type="number" id="mrc_abschlag_pm" min="0" max="1" step="0.01" value="0.3" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_zuschlag_pm">
           Zuschlag pro Monat (später) in %
           <input type="number" id="mrc_zuschlag_pm" min="0" max="2" step="0.01" value="0.5" />
         </label>
 
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mrc_abschlag_max">
           Maximaler Abschlag in %
           <input type="number" id="mrc_abschlag_max" min="0" max="20" step="0.1" value="14.4" />
         </label>
@@ -141,19 +180,20 @@
       </div>
     </form>
 
-    <section id="mrc_ergebnis"></section>
+    <section id="mrc_ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
         <strong>Hinweis:</strong> Vereinfachte Modellrechnung ohne Steuern, KV/PV, biometrische Risiken
-        oder Förder-/Produktkosten. Nutze die Ergebnisse als Orientierung und prüfe Details mit DRV/Steuerberatung.
+        oder Produkt-/Kostenannahmen. Ergebnisse sind unverbindlich. Prüfe Details mit DRV/Steuerberatung.
+        Stand: 13.11.2025.
       </p>
     </div>
   </div>
 
   <footer>
-    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a></p>
-</footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="datenschutz.html">Datenschutz</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a></p>
+  </footer>
 
   <script src="mini-renten-check.js"></script>
 </body>
