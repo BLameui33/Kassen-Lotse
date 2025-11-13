@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rentenabschlags-Rechner Altersrente 2025 | Kassen-Lotse</title>
+  <meta name="description" content="Berechne deinen Rentenabschlag bei vorgezogener Altersrente: Monate vor/nach Regelalter, Abschlag in %, Rentenverlust in Euro und Vergleich, wie sich ein späterer Rentenbeginn auswirkt.">
+  <meta name="keywords" content="Rentenabschlag, Altersrente, vorgezogene Rente, Zuschlag Rente, 0,3 Prozent, 0,5 Prozent, Regelaltersgrenze, Rentenverlust, Kassen-Lotse, Rentenrechner">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    <h1>Rentenabschlags-Rechner (Altersrente)</h1>
+
+    <div class="highlight-box">
+      <p>
+        Dieser Rechner zeigt dir, wie sich ein <strong>früherer</strong> oder <strong>späterer</strong> Rentenbeginn
+        im Vergleich zum <strong>regulären Renteneintrittsalter</strong> auf deine monatliche Rente auswirkt.
+      </p>
+      <p>
+        Vereinfachte Annahmen: Abschlag <strong>0,3&nbsp;% je Monat</strong> vorgezogen (max. 14,4&nbsp;%), Zuschlag
+        <strong>0,5&nbsp;% je Monat</strong> später. Trage deine erwartete Monatsrente zum <em>regulären</em>
+        Rentenbeginn ein (z.&nbsp;B. laut Renteninformation), wir rechnen die Abweichung.
+      </p>
+    </div>
+
+    <form id="ra-form" class="pflegegrad-form">
+      <fieldset class="pflegegrad-fieldset active-step">
+        <legend>1. Basis-Angaben</legend>
+
+        <label class="pflegegrad-label">
+          Geburtsjahr (optional, nur zur Info im Ergebnis)
+          <input type="number" id="ra_geburtsjahr" min="1940" max="2010" step="1" placeholder="z. B. 1962" />
+        </label>
+
+        <label class="pflegegrad-label">
+          Reguläres Renteneintrittsalter
+          <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
+            <input type="number" id="ra_reg_jahre" min="60" max="68" step="1" value="67" />
+            <span>Jahre</span>
+            <input type="number" id="ra_reg_monate" min="0" max="11" step="1" value="0" />
+            <span>Monate</span>
+          </div>
+        </label>
+        <p class="hinweis">
+          Je nach Jahrgang kann das Regelalter <strong>zwischen 65 und 67</strong> (mit Zwischenstufen in Monaten) liegen.
+          Trage hier die für dich geltende Grenze ein.
+        </p>
+      </fieldset>
+
+      <fieldset class="pflegegrad-fieldset">
+        <legend>2. Gewünschter Rentenbeginn (Alter)</legend>
+
+        <label class="pflegegrad-label">
+          Gewünschtes Rentenbeginn-Alter
+          <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
+            <input type="number" id="ra_wunsch_jahre" min="60" max="70" step="1" value="64" />
+            <span>Jahre</span>
+            <input type="number" id="ra_wunsch_monate" min="0" max="11" step="1" value="0" />
+            <span>Monate</span>
+          </div>
+        </label>
+        <p class="hinweis">
+          Beispiel: Du willst 64 Jahre 0 Monate in Rente gehen. Der Rechner vergleicht das mit deiner
+          Angabe zum <em>regulären</em> Rentenalter und ermittelt Abschlag/Zuschlag.
+        </p>
+      </fieldset>
+
+      <fieldset class="pflegegrad-fieldset">
+        <legend>3. Rentenbetrag zum Regelalter</legend>
+
+        <label class="pflegegrad-label">
+          Erwartete Monatsrente <em>zum regulären Rentenbeginn</em> (Euro)
+          <input type="number" id="ra_regelrente" min="0" step="1" placeholder="z. B. 1.600" />
+        </label>
+        <p class="hinweis">
+          Nimm den Wert aus deiner <strong>Renteninformation/Rentenauskunft</strong> (Bruttorente). Der Rechner wendet
+          nur den Zu-/Abschlagsprozentsatz darauf an (Steuern/Sozialabgaben werden hier nicht berechnet).
+        </p>
+      </fieldset>
+
+      <fieldset class="pflegegrad-fieldset">
+        <legend>4. Vergleich „später gehen“ (optional)</legend>
+
+        <label class="pflegegrad-label">
+          Alternative: wie viele Monate <em>später</em> als dein gewünschter Beginn?
+          <input type="number" id="ra_spaeter_monate" min="0" max="60" step="1" value="12" />
+        </label>
+        <p class="hinweis">
+          Wir zeigen zusätzlich, was passiert, wenn du z.&nbsp;B. <strong>12 Monate später</strong> startest:
+          Zuschlag <strong>+0,5&nbsp;% je Monat</strong> (vereinfachte Regel).
+        </p>
+      </fieldset>
+
+      <fieldset class="pflegegrad-fieldset">
+        <legend>5. Feineinstellungen</legend>
+
+        <label class="pflegegrad-label">
+          Abschlag pro Monat (vorziehen) in %
+          <input type="number" id="ra_abschlag_pm" min="0" max="1" step="0.01" value="0.3" />
+        </label>
+
+        <label class="pflegegrad-label">
+          Zuschlag pro Monat (später) in %
+          <input type="number" id="ra_zuschlag_pm" min="0" max="2" step="0.01" value="0.5" />
+        </label>
+
+        <label class="pflegegrad-label">
+          Maximaler Abschlag in %
+          <input type="number" id="ra_abschlag_max" min="0" max="20" step="0.1" value="14.4" />
+        </label>
+        <p class="hinweis">
+          Die Standardwerte entsprechen den üblichen pauschalen Regeln (vereinfacht).
+          Passe sie bei Bedarf an.
+        </p>
+      </fieldset>
+
+      <div class="button-container">
+        <button type="button" id="ra_berechnen" class="button">Abschlag berechnen</button>
+        <button type="reset" id="ra_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="ra_ergebnis"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Hinweis:</strong> Diese Berechnung ist vereinfacht (keine Steuer, keine KV/PV, keine beitragsrechtlichen
+        Besonderheiten). Maßgeblich sind deine <strong>Renteninformation/Rentenauskunft</strong> und der spätere Bescheid
+        der <strong>Deutschen Rentenversicherung</strong>.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+  <script src="rentenabschlag-rechner.js"></script>
+</body>
+</html>

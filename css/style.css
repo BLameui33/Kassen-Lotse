@@ -476,3 +476,5 @@ a:hover {
 
 /* Alle anderen Formulare ohne Wizard sind immer sichtbar */
 .pflegegrad-form:not(.wizard-enabled) .pflegegrad-fieldset { display: block; }
+
+.pflegegrad-label input[type="number"] { max-width: 260px; }
