@@ -379,21 +379,116 @@ footer a:hover {
     </div>
 
     <section class="promo-teaser" aria-labelledby="promo-headline">
+
+      <style>.promo-teaser {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #eef7ff;
+      color: #1a5276;
+      border-radius: 12px;
+      padding: 20px 16px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .promo-teaser h2 {
+      font-size: 1.6rem;
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .promo-teaser h2 span.icon {
+      font-size: 1.8rem;
+    }
+    .promo-teaser p {
+      font-size: 1rem;
+      margin: 0 0 16px;
+      line-height: 1.5;
+    }
+    .promo-teaser .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 600;
+      margin: 4px 6px;
+      transition: background 0.2s, color 0.2s;
+      font-size: 0.95rem;
+    }
+    .promo-teaser .btn-primary {
+      background-color: #22c55e;
+      color: #052e16;
+    }
+    .promo-teaser .btn-primary:hover {
+      background-color: #16a34a;
+    }
+    .promo-teaser .btn-secondary {
+      background-color: #1a5276;
+      color: #eef7ff;
+    }
+    .promo-teaser .btn-secondary:hover {
+      background-color: #154360;
+    }
+
+    /* Kostenlose Hilfen: hellere Outline-Buttons */
+    .promo-teaser .free-help {
+      margin-top: 20px;
+      padding: 14px 12px;
+      background-color: #fff;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      color: #1a5276;
+      font-size: 0.95rem;
+    }
+    .promo-teaser .free-help p {
+      margin: 0 0 10px;
+    }
+    .promo-teaser .free-help .btn-outline {
+      background-color: transparent;
+      color: #1a5276;
+      border: 1px solid #1a5276;
+    }
+    .promo-teaser .free-help .btn-outline:hover {
+      background-color: #1a5276;
+      color: #eef7ff;
+    }
+
+    @media (max-width:600px){
+      .promo-teaser h2 { font-size: 1.4rem; }
+      .promo-teaser p { font-size: 0.95rem; }
+    }</style>
   
   <!-- Hauptangebot: Clerion -->
-  <h2 id="promo-headline"><span class="icon">🤖</span> Clerion – KI für Behördenpost in Sekunden</h2>
-  <p>Schnell, zuverlässig und spezialisiert: Ideal für pflegende Angehörige, Sozialarbeiter:innen oder alle, die effizient Schriftverkehr erledigen möchten. Sparen Sie Zeit und behalten Sie alles im Blick.</p>
-  
-  <div>
-    <a href="https://clerion.de" class="btn btn-primary" rel="noopener">Jetzt testen</a>
-    <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener">Mehr erfahren</a>
+  <h2 id="promo-headline">
+    <span class="icon" aria-hidden="true">🤖</span>
+    Clerion – Die KI, die Ihnen bei Behördenpost und Anträgen hilft
+  </h2>
+
+  <p class="lead">
+    Ob Brief vom Amt, komplizierter Antrag oder langer Bescheid: 
+    Clerion erklärt Ihnen jedes Schreiben verständlich, erkennt Fristen,
+    prüft Dokumente und erstellt auf Wunsch ein fertiges Antwort-PDF. 
+    Einfach, sicher und entwickelt für Menschen, die im Alltag entlastet werden wollen.
+  </p>
+
+ 
+  <div class="promo-ctas">
+    <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">
+      Jetzt kostenlos testen
+    </a>
+    <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">
+      Funktionen & Preise
+    </a>
   </div>
 
-  <!-- Separate kostenlose Hilfe -->
   <div class="free-help">
-    <p>Falls Sie andere kostenlose Unterstützung benötigen, finden Sie hier passende Angebote:</p>
-    <a href="https://sozialrecht-lotse.de" class="btn btn-outline" rel="noopener">🤝 Sozialrecht-Lotse</a>
-    <a href="https://mieter-lotse.de" class="btn btn-outline" rel="noopener">🏠 Mieter-Lotse</a>
+    <p class="muted">Sie suchen kostenlose Infos oder Vorlagen? Hier finden Sie weitere Hilfsangebote:</p>
+
+    <nav aria-label="Kostenlose Hilfsseiten">
+      <a href="https://sozialrecht-lotse.de" class="btn btn-outline" target="_blank">🤝 Sozial-Lotse</a>
+      <a href="https://mieter-lotse.de" class="btn btn-outline" target="_blank">🏠 Mieter-Lotse</a>
+    </nav>
   </div>
 </section>
 
