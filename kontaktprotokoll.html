@@ -5,10 +5,13 @@
   <title>Kontaktprotokoll Therapeutensuche</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
-  <!-- zentrales Site-CSS wie bei den anderen Seiten -->
   <link rel="stylesheet" href="/css/generator.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
   <style>
-    /* Ergänzende, seiten-spezifische Styles (angepasst an das Site-Design) */
+    /* Ergänzende, seiten-spezifische Styles */
     .protokoll-container {
       display: flex;
       flex-wrap: wrap;
@@ -124,12 +127,22 @@
       background: var(--primary-color, #0070f3);
       color: var(--white-color, #fff);
       box-shadow: 0 4px 12px rgba(0,112,243,0.08);
+      transition: transform 0.1s, background-color 0.2s;
     }
     .action-button:hover { transform: translateY(-2px); }
 
     .action-button[style*="background-color: #dc3545"] {
       background: #dc3545;
       box-shadow: 0 4px 12px rgba(220,53,69,0.08);
+    }
+    
+    /* PDF Button Style */
+    #pdfProtokollBtn {
+        background-color: #28a745; /* Grün */
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.08);
+    }
+    #pdfProtokollBtn:hover {
+        background-color: #218838;
     }
 
     .button-group-protokoll-main {
@@ -139,6 +152,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.6rem;
+        align-items: center;
     }
 
     .form-container .button-group {
@@ -197,7 +211,7 @@
     <p class="info-box">Fügen Sie links Ihre Kontakte hinzu. Rechts sehen Sie eine Übersicht. Alle Daten werden lokal im Browser (localStorage) gespeichert.</p>
 
     <div class="kontakt-info" role="note" aria-live="polite">
-      <p style="margin:0;"><strong>Wichtiger Hinweis:</strong> Die hier eingegebenen Daten werden nur lokal in Ihrem Browser gespeichert. Beim Löschen von Browserdaten (Cache/Cookies/Website-Daten) gehen diese Einträge verloren. Es findet keine Übertragung an einen Server statt.</p>
+      <p style="margin:0;"><strong>Wichtiger Hinweis:</strong> Die hier eingegebenen Daten werden nur lokal in Ihrem Browser gespeichert. Beim Löschen von Browserdaten (Cache/Cookies/Website-Daten) gehen diese Einträge verloren.</p>
     </div>
 
     <div class="protokoll-container" aria-hidden="false">
@@ -268,11 +282,13 @@
     <div class="button-group-protokoll-main">
       <button type="button" id="saveProtokollBtn" class="action-button">Gesamtes Protokoll speichern</button>
       <button type="button" id="loadProtokollBtn" class="action-button">Gespeichertes Protokoll laden</button>
+      
+      <button type="button" id="pdfProtokollBtn" class="action-button">Als PDF herunterladen</button>
+      
       <button type="button" id="deleteProtokollBtn" class="action-button" style="background-color:#dc3545;">Gesamtes Protokoll löschen</button>
     </div>
   </div>
 
-  <!-- Inline-Script: Protokoll-Logik (lokal storage, render, remove, save/load/delete) -->
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Formulare und Buttons in der Eingabespalte
@@ -287,6 +303,7 @@
     const saveProtokollBtn = document.getElementById('saveProtokollBtn');
     const loadProtokollBtn = document.getElementById('loadProtokollBtn');
     const deleteProtokollBtn = document.getElementById('deleteProtokollBtn');
+    const pdfProtokollBtn = document.getElementById('pdfProtokollBtn'); // Neuer Button
 
     const storageKey = 'kontaktProtokollData';
     let protokollDaten = {
@@ -309,7 +326,6 @@
     // ---- DATENMANAGEMENT FUNKTIONEN ----
     function saveProtokollToLocalStorage() {
         localStorage.setItem(storageKey, JSON.stringify(protokollDaten));
-        console.log("Protokoll gespeichert.");
     }
 
     function loadProtokollFromLocalStorage() {
@@ -453,6 +469,104 @@
             renderProtokollListen();
             alert('Alle Protokolldaten wurden gelöscht.');
         }
+    });
+
+    // ---- PDF GENERIERUNG FUNKTION ----
+    pdfProtokollBtn.addEventListener('click', function() {
+        // Zugriff auf jsPDF aus dem globalen window Objekt
+        const { jsPDF } = window.jspdf;
+        if (!jsPDF) {
+            alert('PDF-Bibliothek konnte nicht geladen werden.');
+            return;
+        }
+
+        const doc = new jsPDF();
+        
+        // Titel und Header
+        doc.setFontSize(18);
+        doc.text("Kontaktprotokoll Therapeutensuche", 14, 20);
+        
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        const heute = new Date().toLocaleDateString('de-DE');
+        doc.text("Erstellt am: " + heute, 14, 28);
+        doc.text("Kassen-Lotse Tool", 14, 33);
+        doc.setTextColor(0); // Farbe zurücksetzen
+
+        let finalY = 35; // Start Y-Position
+
+        // --- Tabelle 1: Bereits kontaktiert ---
+        if (protokollDaten.bereitsKontaktiert.length > 0) {
+            doc.setFontSize(14);
+            doc.text("Bereits kontaktierte Therapeut:innen", 14, finalY + 10);
+            
+            // Daten aufbereiten für autotable
+            const tableData1 = protokollDaten.bereitsKontaktiert.map(item => [
+                item.name,
+                item.datum ? new Date(item.datum).toLocaleDateString('de-DE') : '',
+                item.art,
+                statusMapBereitsKontaktiert[item.status] || item.status,
+                item.ergebnis
+            ]);
+
+            doc.autoTable({
+                startY: finalY + 15,
+                head: [['Name', 'Datum', 'Art', 'Status', 'Notizen']],
+                body: tableData1,
+                headStyles: { fillColor: [26, 82, 118] }, // Dunkelblau passend zum Theme
+                theme: 'grid',
+                styles: { fontSize: 9, cellPadding: 3 },
+                columnStyles: {
+                    0: { cellWidth: 35 }, // Name
+                    1: { cellWidth: 22 }, // Datum
+                    2: { cellWidth: 20 }, // Art
+                    3: { cellWidth: 45 }, // Status
+                    4: { cellWidth: 'auto' } // Notizen
+                }
+            });
+
+            finalY = doc.lastAutoTable.finalY;
+        }
+
+        // --- Tabelle 2: Noch zu kontaktieren ---
+        if (protokollDaten.nochZuKontaktieren.length > 0) {
+            // Check ob genug Platz ist, sonst neue Seite
+            if (finalY > 240) {
+                doc.addPage();
+                finalY = 20;
+            }
+
+            doc.setFontSize(14);
+            doc.text("Noch zu kontaktieren / Planung", 14, finalY + 15);
+
+            const tableData2 = protokollDaten.nochZuKontaktieren.map(item => [
+                item.name,
+                item.kontaktinfo,
+                item.erreichbarkeit
+            ]);
+
+            doc.autoTable({
+                startY: finalY + 20,
+                head: [['Name', 'Kontaktinfo', 'Planung / Notizen']],
+                body: tableData2,
+                headStyles: { fillColor: [100, 100, 100] }, // Grau
+                theme: 'grid',
+                styles: { fontSize: 9, cellPadding: 3 },
+                columnStyles: {
+                    0: { cellWidth: 50 },
+                    1: { cellWidth: 50 },
+                    2: { cellWidth: 'auto' }
+                }
+            });
+        }
+
+        // Nichts zu drucken?
+        if (protokollDaten.bereitsKontaktiert.length === 0 && protokollDaten.nochZuKontaktieren.length === 0) {
+            doc.text("Keine Einträge vorhanden.", 14, 50);
+        }
+
+        // PDF speichern
+        doc.save("Kontaktprotokoll_Therapeutensuche.pdf");
     });
 
     // ---- Hilfsfunktionen ----
