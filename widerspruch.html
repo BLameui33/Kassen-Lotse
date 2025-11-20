@@ -2,115 +2,257 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Kostenerstattungsverfahren – PDF erstellen</title>
+  <title>Widerspruch Kostenerstattung – PDF erstellen</title>
+  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen abgelehnten Antrag auf Kostenerstattung (z. B. Psychotherapie).">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
-    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 2rem; }
-    input, textarea { width: 100%; margin-bottom: 1rem; padding: 0.5rem; }
-    label { font-weight: bold; }
-    button { padding: 1rem 2rem; background: #0070f3; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-    /* Alter Spendenhinweis-Style - nicht mehr primär genutzt, wenn Pop-up aktiv ist */
-    .spenden { margin-top: 2rem; background: #f9f9f9; padding: 1rem; border-left: 4px solid #ffc439; }
-  </style>
+  <!-- Optional: eigenes Script, falls du separate Logik möchtest -->
+  <script defer src="kostenerstattung_widerspruch_script.js"></script>
+  <link rel="stylesheet" href="/css/generator.css">
 </head>
 <body>
 
-<h1>Widerspruch im Kostenerstattungsverfahren</h1>
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+  </header>
 
-<p>Wenn dein Antrag abgelehnt wurde, kannst du Widerspruch einlegen. Fülle dazu das folgende Formular aus – dein PDF wird automatisch erstellt:</p>
+  <div class="page-container">
+    <h1>Widerspruch im Kostenerstattungsverfahren</h1>
 
-<form id="widerspruchForm">
-  <label for="name">Dein vollständiger Name</label>
-  <input type="text" id="name" required>
+    <p class="info-box warning">
+      Wurde Ihr Antrag auf Kostenerstattung abgelehnt? Hier können Sie einen Widerspruch erstellen.
+      Beachten Sie die Widerspruchsfrist! Lesen Sie auch unsere <a href="info-kostenerstattung.html">Informationen zur Kostenerstattung</a>.
+    </p>
 
-  <label for="adresse">Deine Adresse</label>
-  <textarea id="adresse" required></textarea>
+    <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+      <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung.
+    </p>
 
-  <label for="kasse">Name & Adresse der Krankenkasse</label>
-  <textarea id="kasse" required></textarea>
+    <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+      <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App funktioniert der Download nicht zuverlässig.
+    </p>
 
-  <label for="versichertennr">Versichertennummer</label>
-  <input type="text" id="versichertennr" required>
+    <form id="widerspruchKostForm">
+      <fieldset>
+        <legend>1. Angaben zur Person</legend>
+        <label for="kpName">Vor- und Nachname</label>
+        <input type="text" id="kpName" required>
 
-  <label for="bescheiddatum">Datum des Ablehnungsbescheids</label>
-  <input type="date" id="bescheiddatum" required>
+        <label for="kpAdresse">Vollständige Adresse</label>
+        <textarea id="kpAdresse" rows="3" required></textarea>
 
-  <button type="submit">📄 PDF Widerspruch erstellen</button>
-</form>
+        <label for="kpVersichertennr">Versichertennummer</label>
+        <input type="text" id="kpVersichertennr" required>
+      </fieldset>
 
-<div id="spendenPopup" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
-  <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 400px; text-align: center; box-shadow: 0 0 15px rgba(0,0,0,0.2);">
-    <h2>Danke für deine Nutzung 💛</h2>
-    <p>Wenn dir dieses Tool geholfen hat, unterstütze es mit einer kleinen Spende:</p>
-    <form action="https://www.paypal.com/donate" method="post" target="_blank" style="margin-top: 1rem;">
-      <input type="hidden" name="business" value="info@kassen-lotse.de" />
-      <input type="hidden" name="item_name" value="Spende für das Projekt Kostenerstattungsverfahren Psychotherapie." />
-      <input type="hidden" name="currency_code" value="EUR" />
-      <input type="submit" value="Spenden mit PayPal" style="background:#ffc439; border:none; padding:0.8rem 1.6rem; font-weight:bold; border-radius:5px; cursor: pointer;" />
+      <fieldset>
+        <legend>2. Angaben zur Krankenkasse / Empfänger</legend>
+        <label for="kpKasseName">Name der Krankenkasse</label>
+        <input type="text" id="kpKasseName" required>
+
+        <label for="kpKasseAdresse">Vollständige Adresse der Krankenkasse</label>
+        <textarea id="kpKasseAdresse" rows="3" required></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Bescheid / Ablehnung</legend>
+        <label for="kpBescheidDatum">Datum des Ablehnungsbescheids</label>
+        <input type="date" id="kpBescheidDatum" required>
+
+        <label for="kpAktenzeichen">Aktenzeichen (falls vorhanden)</label>
+        <input type="text" id="kpAktenzeichen">
+
+        <label for="kpAblehnungsgrund">Kurze Zusammenfassung des Ablehnungsgrundes</label>
+        <textarea id="kpAblehnungsgrund" rows="3" placeholder="z. B. Ablehnung wegen fehlender Wirtschaftlichkeit, keine Kassenzulassung des Therapeuten etc."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Begründung Ihres Widerspruchs</legend>
+        <p class="info-box">Erläutern Sie hier, warum die Ablehnung nicht gerechtfertigt ist. Fügen Sie relevante Fakten, Arzt-/Therapeuten-Nachweise oder Gründe für Dringlichkeit hinzu.</p>
+
+        <label for="kpBegruendung">Ihre ausführliche Begründung</label>
+        <textarea id="kpBegruendung" rows="6" required placeholder="z. B. Keine zumutbaren Therapieplätze, medizinische Dringlichkeit, Nachweise über Kontaktversuche etc."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>5. Ziel des Widerspruchs</legend>
+        <label for="kpForderung">Was möchten Sie erreichen?</label>
+        <textarea id="kpForderung" rows="3" required placeholder="z. B. Übernahme der Therapiekosten ab Datum X."></textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>6. Anlagen (optional)</legend>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="anlagenKost" value="Kopie Bescheid"> Kopie des angefochtenen Bescheids</label>
+          <label><input type="checkbox" name="anlagenKost" value="Arztbericht"> Arztbericht / Befund</label>
+          <label><input type="checkbox" name="anlagenKost" value="Nachweise Kontaktversuche"> Nachweise über Kontaktversuche zu Therapeuten</label>
+          <label><input type="checkbox" name="anlagenKost" value="Sonstige Belege"> Sonstige Belege</label>
+        </div>
+        <label for="kpAnlageSonstiges">Sonstige Anlagen (bitte auflisten)</label>
+        <input type="text" id="kpAnlageSonstiges">
+      </fieldset>
+
+      <div class="button-group">
+        <button type="button" id="saveBtnKost" class="button-secondary">Eingaben speichern</button>
+        <button type="button" id="loadBtnKost" class="button-secondary">Gespeicherte Eingaben laden</button>
+        <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
+      </div>
     </form>
-    <button onclick="closePopup()" style="margin-top: 1rem; background: none; border: none; color: #0070f3; font-weight: bold; cursor: pointer;">Nein danke, schließen</button>
   </div>
-</div>
+
+  <!-- Spenden-Popup (angepasst an das Naming der Referenzseite) -->
+  <div id="spendenPopupKost" class="popup-overlay">
+    <div class="popup-content">
+      <h2>Danke für deine Nutzung 💛</h2>
+      <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+      <form action="https://www.paypal.com/donate" method="post" target="_blank">
+        <input type="hidden" name="business" value="info@kassen-lotse.de" />
+        <input type="hidden" name="charset" value="utf-8">
+        <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+        <input type="hidden" name="currency_code" value="EUR" />
+        <input type="submit" value="Spenden mit PayPal" />
+      </form>
+      <button id="closePopupBtnKost" class="popup-close-button">Schließen</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="mini-footer-hint">
+      <p>Brauchen Sie mehr Unterstützung bei Anträgen, Behördenbriefen oder komplexen Schreiben?</p>
+      <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
+    </div>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kostenerstattung.html">Infos Kostenerstattung</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
 
 <script>
-  document.getElementById("widerspruchForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+/* Inline-PDF-Generator (angepasst an die Feld-IDs dieser Seite) */
+document.getElementById("widerspruchKostForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+  // Formulardaten
+  const name = document.getElementById("kpName").value;
+  const adresse = document.getElementById("kpAdresse").value;
+  const versichertennr = document.getElementById("kpVersichertennr").value;
+  const kasseName = document.getElementById("kpKasseName").value;
+  const kasseAdresse = document.getElementById("kpKasseAdresse").value;
+  const bescheiddatumInput = document.getElementById("kpBescheidDatum").value;
+  const aktenzeichen = document.getElementById("kpAktenzeichen").value;
+  const ablehnungsgrund = document.getElementById("kpAblehnungsgrund").value;
+  const begruendung = document.getElementById("kpBegruendung").value;
+  const forderung = document.getElementById("kpForderung").value;
 
-    const name = document.getElementById("name").value;
-    const adresse = document.getElementById("adresse").value;
-    const kasse = document.getElementById("kasse").value;
-    const versichertennr = document.getElementById("versichertennr").value;
-    const bescheiddatum = document.getElementById("bescheiddatum").value;
+  const absender = `${name}\n${adresse}`;
+  const empfaenger = `An:\n${kasseName}\n${kasseAdresse}`;
+  const heutigesDatum = new Date().toLocaleDateString("de-DE");
+  const bescheiddatum = bescheiddatumInput ? new Date(bescheiddatumInput).toLocaleDateString("de-DE") : "";
 
-    let text = `
-${name}
-${adresse}
+  doc.setFont('Helvetica');
+  doc.setFontSize(12);
 
-An:
-${kasse}
+  // Absender & Datum
+  doc.setFontSize(10);
+  doc.text(absender, 20, 20);
+  doc.setFontSize(12);
+  doc.text(heutigesDatum, 190, 35, { align: 'right' });
 
-Versichertennummer: ${versichertennr}
+  // Empfänger
+  doc.text(empfaenger, 20, 50);
 
-${new Date().toLocaleDateString("de-DE")}
+  // Betreff
+  doc.setFont(undefined, 'bold');
+  doc.text(`Widerspruch gegen Ihren Bescheid vom ${bescheiddatum}`, 20, 85);
+  doc.setFont(undefined, 'normal');
 
-Widerspruch gegen die Ablehnung meines Antrags auf Kostenerstattung gemäß §13 Abs. 3 SGB V
-
-Sehr geehrte Damen und Herren,
-
-hiermit lege ich fristgerecht Widerspruch gegen Ihren Ablehnungsbescheid vom ${bescheiddatum} ein, in dem Sie meinen Antrag auf Kostenerstattung einer ambulanten psychotherapeutischen Behandlung abgelehnt haben.
-
-Die Ablehnung ist aus meiner Sicht weder medizinisch noch rechtlich haltbar. Ich habe durch dokumentierte Kontaktversuche bei kassenzugelassenen Therapeut:innen nachgewiesen, dass ich trotz intensiver Bemühungen keinen Therapieplatz innerhalb einer zumutbaren Wartezeit finden konnte. Eine Behandlung bei einer approbierten, aber nicht kassenzugelassenen Therapeutin stellt daher keine Wahlleistung dar, sondern ist medizinisch dringend geboten.
-
-Gemäß §13 Abs. 3 SGB V besteht in einem solchen Fall ein 'Rechtsanspruch' auf Kostenerstattung. Die aktuelle Versorgungslage in der psychotherapeutischen Regelversorgung ist bundesweit als angespannt bekannt – dies kann jedoch nicht zulasten der Versicherten gehen. Auch das Bundessozialgericht (BSG) hat mehrfach betont, dass Kassen im Rahmen ihrer Fürsorgepflicht verpflichtet sind, in medizinisch notwendigen Fällen die Kosten zu übernehmen, wenn die Regelversorgung versagt (vgl. u.a. BSG, Urteil vom 21.05.1997 – 1 RK 28/95).
-
-Ich fordere Sie daher auf, meinen Antrag erneut zu prüfen und mir die Kostenübernahme zu bewilligen. Sollte ich innerhalb der gesetzlich vorgesehenen Frist keine positive Rückmeldung erhalten, behalte ich mir rechtliche Schritte ausdrücklich vor.
-
-Mit freundlichen Grüßen 
-
-${name}
-    `;
-
-    doc.setFontSize(12);
-    doc.text(text, 20, 20, { maxWidth: 170, lineHeightFactor: 1.5 });
-    doc.save("widerspruch_kostenerstattung.pdf");
-
-    // Pop-up anzeigen (statt dem alten spendenHinweis)
-    document.getElementById("spendenPopup").style.display = "flex";
-  });
-
-  // Pop-up schließen (Funktion von script.js übernommen)
-  function closePopup() {
-    document.getElementById("spendenPopup").style.display = "none";
+  // Versichertennummer & Aktenzeichen
+  if (versichertennr) {
+    doc.text(`Versichertennummer: ${versichertennr}`, 20, 92);
   }
-</script>
+  if (aktenzeichen) {
+    doc.text(`Aktenzeichen: ${aktenzeichen}`, 20, 99);
+  }
 
-<footer>
-    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kostenerstattung.html">Infos Kostenersattung</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
-</footer>
+  // Einleitende Anrede
+  let currentY = 110;
+  doc.text('Sehr geehrte Damen und Herren,', 20, currentY);
+  currentY += 8;
+
+  // Haupttext (kombiniert aus Feldern)
+  const intro = `hiermit lege ich fristgerecht Widerspruch gegen Ihren Bescheid vom ${bescheiddatum} ein.`;
+  const reason = ablehnungsgrund ? `\n\nAblehnungsgrund laut Bescheid:\n${ablehnungsgrund}` : '';
+  const claimText = `\n\nBegründung meines Widerspruchs:\n${begruendung}`;
+  const demandText = `\n\nMein Antrag / mein Ziel:\n${forderung}`;
+
+  const haupttext = `${intro}${reason}${claimText}${demandText}\n\nIch bitte um erneute Prüfung und um Mitteilung innerhalb der gesetzlichen Frist.`;
+  const textLines = doc.splitTextToSize(haupttext, 170);
+  doc.text(textLines, 20, currentY);
+  currentY += textLines.length * 7;
+
+  // Grußformel und Name
+  currentY += 12;
+  doc.text('Mit freundlichen Grüßen', 20, currentY);
+  currentY += 20;
+  doc.text(name, 20, currentY);
+
+  // PDF speichern
+  doc.save("widerspruch_kostenerstattung.pdf");
+
+  // Spenden-Popup anzeigen (wie auf Referenzseite)
+  const popup = document.getElementById("spendenPopupKost");
+  if (popup) popup.style.display = "flex";
+});
+
+// Save / Load (localStorage) — einfache Umsetzung analog zur Referenzseite
+document.getElementById("saveBtnKost").addEventListener("click", function() {
+  const data = {
+    kpName: document.getElementById("kpName").value,
+    kpAdresse: document.getElementById("kpAdresse").value,
+    kpVersichertennr: document.getElementById("kpVersichertennr").value,
+    kpKasseName: document.getElementById("kpKasseName").value,
+    kpKasseAdresse: document.getElementById("kpKasseAdresse").value,
+    kpBescheidDatum: document.getElementById("kpBescheidDatum").value,
+    kpAktenzeichen: document.getElementById("kpAktenzeichen").value,
+    kpAblehnungsgrund: document.getElementById("kpAblehnungsgrund").value,
+    kpBegruendung: document.getElementById("kpBegruendung").value,
+    kpForderung: document.getElementById("kpForderung").value,
+    kpAnlageSonstiges: document.getElementById("kpAnlageSonstiges").value
+  };
+  localStorage.setItem("widerspruchKostData", JSON.stringify(data));
+  alert("Eingaben wurden gespeichert.");
+});
+
+document.getElementById("loadBtnKost").addEventListener("click", function() {
+  const raw = localStorage.getItem("widerspruchKostData");
+  if (!raw) { alert("Keine gespeicherten Eingaben gefunden."); return; }
+  const data = JSON.parse(raw);
+  document.getElementById("kpName").value = data.kpName || "";
+  document.getElementById("kpAdresse").value = data.kpAdresse || "";
+  document.getElementById("kpVersichertennr").value = data.kpVersichertennr || "";
+  document.getElementById("kpKasseName").value = data.kpKasseName || "";
+  document.getElementById("kpKasseAdresse").value = data.kpKasseAdresse || "";
+  document.getElementById("kpBescheidDatum").value = data.kpBescheidDatum || "";
+  document.getElementById("kpAktenzeichen").value = data.kpAktenzeichen || "";
+  document.getElementById("kpAblehnungsgrund").value = data.kpAblehnungsgrund || "";
+  document.getElementById("kpBegruendung").value = data.kpBegruendung || "";
+  document.getElementById("kpForderung").value = data.kpForderung || "";
+  document.getElementById("kpAnlageSonstiges").value = data.kpAnlageSonstiges || "";
+  alert("Gespeicherte Eingaben geladen.");
+});
+
+// Popup schließen
+document.getElementById("closePopupBtnKost").addEventListener("click", function() {
+  document.getElementById("spendenPopupKost").style.display = "none";
+});
+
+// Stelle sicher, dass Popup-Overlay als flex angezeigt wird (Referenzseite nutzt inline style)
+// Falls generator.css bereits .popup-overlay regelt, diese Zeile ist optional:
+document.addEventListener("DOMContentLoaded", function() {
+  const pop = document.getElementById("spendenPopupKost");
+  if (pop) pop.style.display = "none";
+});
+</script>
 
 </body>
 </html>

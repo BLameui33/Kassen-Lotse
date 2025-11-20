@@ -3,441 +3,498 @@
 <head>
   <meta charset="UTF-8">
   <title>Kostenerstattungs-Antrag Psychotherapie</title>
+  <meta name="description" content="Antrag auf Kostenerstattung für Psychotherapie: Kontaktversuche, Begründung und PDF-Erzeugung.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script defer src="script.js"></script>
+  <!-- Optional: du kannst komplexe Logik in eine separate Datei auslagern -->
+  <script defer src="kostenerstattung_psychotherapie_script.js"></script>
+  <link rel="stylesheet" href="/css/generator.css">
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-      margin: 1rem auto;
-      padding: 1rem;
-      max-width: 800px;
-      background-color: #f9f9f9;
-      color: #333;
+    /* kleine Ergänzungen, damit bestimmte Elemente aus dem Original gut aussehen */
+    .protokoll-anzeige-bereich legend {
+      font-size: 1.05em;
+      color: #444;
+      font-weight: 600;
     }
-    .form-container {
-        background-color: #fff;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-weight: 500;
-    }
-    label small {
-        display: block;
-        font-weight: normal;
-        font-size: 0.85em;
-        color: #555;
-        margin-top: 0.2rem;
-    }
-    input[type="text"], input[type="date"], textarea, select {
-      width: 100%;
+    .protokoll-anzeige-eintrag {
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
       padding: 10px;
-      margin-top: 0.3rem;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    textarea {
-        min-height: 80px;
-        resize: vertical;
-    }
-    fieldset {
-      border: 1px solid #ddd;
-      padding: 1.5rem;
-      margin-top: 2rem;
+      margin-bottom: 8px;
       border-radius: 6px;
+      font-size: 0.95em;
     }
-    legend {
-      font-weight: bold;
-      font-size: 1.2em;
-      padding: 0 0.5em;
-      color: #333;
+    .protokoll-hinweis {
+      font-size: 0.95em;
+      color: #555;
+      margin-bottom: 1rem;
+      background-color: #eef7ff;
+      padding: 8px;
+      border-radius: 4px;
+      border-left: 3px solid #0070f3;
     }
-    button, .action-button {
-      margin-top: 1rem;
-      margin-right: 0.5rem;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      border: none;
-      font-weight: bold;
-    }
-    button[type="submit"] {
-        background-color: #0070f3;
-        color: white;
-    }
-    button[type="submit"]:hover {
-        background-color: #005bb5;
-    }
-    .action-button {
-        background-color: #6c757d;
-        color: white;
-    }
-    .action-button:hover {
-        background-color: #5a6268;
-    }
-    .button-group {
-        margin-top: 2rem;
-        padding-top: 1rem;
-        border-top: 1px solid #eee;
-    }
-    .kontakt-info {
-        font-size: 0.9em;
-        background-color: #eef7ff;
-        padding: 10px;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-        border-left: 3px solid #0070f3;
-    }
-    /* Stil für den Header-Container */
-.site-header {
-    background-color: #ffffff; /* Weißer Hintergrund */
-    padding: 1rem 2rem;        /* Innenabstand oben/unten und links/rechts */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07); /* Subtiler Schatten nach unten */
-    border-bottom: 1px solid #e9ecef; /* Feine untere Trennlinie */
-    margin-bottom: 2rem;       /* Abstand zum Inhalt darunter */
-    text-align: center;
-}
-
-/* Stil für das Logo bzw. den Seitennamen */
-.site-logo {
-    color: #1a5276; /* Deine dunkle Akzentfarbe */
-    font-size: 1.5rem;   /* Angenehme, gut lesbare Größe */
-    font-weight: bold;
-    text-decoration: none; /* Entfernt die Link-Unterstreichung */
-    transition: color 0.2s; /* Weicher Farbwechsel beim Hovern */
-}
-
-.site-logo:hover {
-    color: #d35400; /* Deine orange Hauptfarbe als Hover-Effekt */
-}
   </style>
 </head>
 <body>
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
-<div class="form-container">
-  <h1>Antrag auf Kostenerstattung Psychotherapie</h1>
-  <p>Füllen Sie dieses Formular sorgfältig aus, um Ihren Antrag auf Kostenerstattung für Psychotherapie zu erstellen. Ihre Eingaben können Sie im Browser zwischenspeichern.</p>
+  <div class="page-container">
+    <h1>Antrag auf Kostenerstattung Psychotherapie</h1>
 
-  <form id="antragForm">
-    <fieldset>
-      <legend>Persönliche Angaben</legend>
-      <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+    <p class="info-box">
+      Füllen Sie dieses Formular sorgfältig aus, um Ihren Antrag auf Kostenerstattung für Psychotherapie zu erstellen. Ihre Eingaben können Sie im Browser zwischenspeichern.
+    </p>
 
-      <label for="adresse">Ihre vollständige Adresse: <small>(Straße, Hausnummer, PLZ, Ort)</small></label>
-      <textarea id="adresse" required></textarea>
+    <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+      <strong>Hinweis:</strong> Unsere Inhalte und Formulare ersetzen keine Rechtsberatung. Sie dienen der allgemeinen Unterstützung. Für verbindliche Auskünfte wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+    </p>
 
-      <label for="geburt">Geburtsdatum:</label>
-      <input type="date" id="geburt" required>
+    <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+      <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App funktioniert der Download nicht zuverlässig.
+    </p>
 
-      <label for="nummer">Versichertennummer: <small>(Finden Sie auf Ihrer Gesundheitskarte)</small></label>
-      <input type="text" id="nummer" required>
-    </fieldset>
-
-    <fieldset>
-      <legend>Krankenkasse</legend>
-      <label for="kasse">Name der Krankenkasse:</label>
-      <input type="text" id="kasse" required>
-
-      <label for="kassenAdresse">Vollständige Adresse der Krankenkasse: <small>(Straße, Hausnummer, PLZ, Ort)</small></label>
-      <textarea id="kassenAdresse" required></textarea>
-    </fieldset>
-
-<fieldset>
-  <legend>Angaben zur Therapiebedürftigkeit</legend>
-  <label for="beschwerden_diagnose">Kurze Beschreibung Ihrer Beschwerden/Diagnose: <small>(z.B. seit wann bestehen die Beschwerden, Hauptsymptome, ggf. Verdachtsdiagnose oder bereits ärztlich bestätigte Diagnose. Hinweis auf Notwendigkeitsbescheinigung kann hier erfolgen.)</small></label>
-  <textarea id="beschwerden_diagnose" rows="5" required></textarea>
-</fieldset>
-
-    <fieldset>
-      <legend>Nachweis der Therapeutensuche</legend>
-      <p class="kontakt-info">Bitte dokumentieren Sie hier Ihre vergeblichen Versuche, einen Therapieplatz bei kassenzugelassenen Psychotherapeut:innen zu finden. **Mindestens 5 Versuche sind erforderlich.** Maximal 10 können eingetragen werden.</p>
-      
+    <form id="antragForm">
       <fieldset>
-        <legend>Kontaktversuch 1 (Pflicht)</legend>
-        <label for="kontakt_name_0">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_0" required>
-        <label for="kontakt_datum_0">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_0" required>
-        <label for="kontakt_art_0">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_0" required>
-        <label for="kontakt_ergebnis_0">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_0" required>
+        <legend>Persönliche Angaben</legend>
+        <label for="name">Vor- und Nachname:</label>
+        <input type="text" id="name" required>
+
+        <label for="adresse">Ihre vollständige Adresse: <small>(Straße, Hausnummer, PLZ, Ort)</small></label>
+        <textarea id="adresse" required></textarea>
+
+        <label for="geburt">Geburtsdatum:</label>
+        <input type="date" id="geburt" required>
+
+        <label for="nummer">Versichertennummer:</label>
+        <input type="text" id="nummer" required>
       </fieldset>
 
       <fieldset>
-        <legend>Kontaktversuch 2 (Pflicht)</legend>
-        <label for="kontakt_name_1">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_1" required>
-        <label for="kontakt_datum_1">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_1" required>
-        <label for="kontakt_art_1">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_1" required>
-        <label for="kontakt_ergebnis_1">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_1" required>
+        <legend>Krankenkasse</legend>
+        <label for="kasse">Name der Krankenkasse:</label>
+        <input type="text" id="kasse" required>
+
+        <label for="kassenAdresse">Vollständige Adresse der Krankenkasse:</label>
+        <textarea id="kassenAdresse" required></textarea>
       </fieldset>
 
       <fieldset>
-        <legend>Kontaktversuch 3 (Pflicht)</legend>
-        <label for="kontakt_name_2">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_2" required>
-        <label for="kontakt_datum_2">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_2" required>
-        <label for="kontakt_art_2">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_2" required>
-        <label for="kontakt_ergebnis_2">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_2" required>
+        <legend>Angaben zur Therapiebedürftigkeit</legend>
+        <label for="beschwerden_diagnose">Kurze Beschreibung Ihrer Beschwerden/Diagnose:</label>
+        <textarea id="beschwerden_diagnose" rows="5" required></textarea>
       </fieldset>
 
       <fieldset>
-        <legend>Kontaktversuch 4 (Pflicht)</legend>
-        <label for="kontakt_name_3">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_3" required>
-        <label for="kontakt_datum_3">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_3" required>
-        <label for="kontakt_art_3">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_3" required>
-        <label for="kontakt_ergebnis_3">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_3" required>
+        <legend>Nachweis der Therapeutensuche (manuelle Eingabe)</legend>
+        <p class="info-box">Bitte dokumentieren Sie hier Ihre vergeblichen Versuche, einen Therapieplatz bei kassenzugelassenen Psychotherapeut:innen zu finden. Mindestens 5 Versuche sind erforderlich. Maximal 10 können eingetragen werden.</p>
+
+        <!-- Kontaktversuche 0..9 (IDs bleiben erhalten) -->
+        <!-- Wir behalten die gleiche Struktur wie zuvor, damit bestehende JS/Tools kompatibel bleiben -->
+        <div id="kontaktversucheContainer">
+          <!-- Kontakt 1..10: je eine kleine Gruppe -->
+          <!-- Für Platzsparnis hier nur eine Vorlage (du hast bereits alle Felder, wir füllen sie in JS) -->
+          <!-- -> wir geben alle Felder einzeln (wie Original), damit Save/Load exakt funktioniert -->
+          <!-- Kontakt 1 -->
+          <fieldset>
+            <legend>Kontaktversuch 1 (Pflicht)</legend>
+            <label for="kontakt_name_0">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_0" required>
+            <label for="kontakt_datum_0">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_0" required>
+            <label for="kontakt_art_0">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_0" required>
+            <label for="kontakt_ergebnis_0">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_0" required>
+          </fieldset>
+
+          <!-- Kontakt 2 -->
+          <fieldset>
+            <legend>Kontaktversuch 2 (Pflicht)</legend>
+            <label for="kontakt_name_1">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_1" required>
+            <label for="kontakt_datum_1">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_1" required>
+            <label for="kontakt_art_1">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_1" required>
+            <label for="kontakt_ergebnis_1">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_1" required>
+          </fieldset>
+
+          <!-- Kontakt 3 -->
+          <fieldset>
+            <legend>Kontaktversuch 3 (Pflicht)</legend>
+            <label for="kontakt_name_2">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_2" required>
+            <label for="kontakt_datum_2">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_2" required>
+            <label for="kontakt_art_2">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_2" required>
+            <label for="kontakt_ergebnis_2">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_2" required>
+          </fieldset>
+
+          <!-- Kontakt 4 -->
+          <fieldset>
+            <legend>Kontaktversuch 4 (Pflicht)</legend>
+            <label for="kontakt_name_3">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_3" required>
+            <label for="kontakt_datum_3">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_3" required>
+            <label for="kontakt_art_3">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_3" required>
+            <label for="kontakt_ergebnis_3">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_3" required>
+          </fieldset>
+
+          <!-- Kontakt 5 -->
+          <fieldset>
+            <legend>Kontaktversuch 5 (Pflicht)</legend>
+            <label for="kontakt_name_4">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_4" required>
+            <label for="kontakt_datum_4">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_4" required>
+            <label for="kontakt_art_4">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_4" required>
+            <label for="kontakt_ergebnis_4">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_4" required>
+          </fieldset>
+
+          <!-- Kontakt 6..10 (optional) -->
+          <fieldset>
+            <legend>Kontaktversuch 6 (Optional)</legend>
+            <label for="kontakt_name_5">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_5">
+            <label for="kontakt_datum_5">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_5">
+            <label for="kontakt_art_5">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_5">
+            <label for="kontakt_ergebnis_5">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_5">
+          </fieldset>
+
+          <fieldset>
+            <legend>Kontaktversuch 7 (Optional)</legend>
+            <label for="kontakt_name_6">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_6">
+            <label for="kontakt_datum_6">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_6">
+            <label for="kontakt_art_6">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_6">
+            <label for="kontakt_ergebnis_6">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_6">
+          </fieldset>
+
+          <fieldset>
+            <legend>Kontaktversuch 8 (Optional)</legend>
+            <label for="kontakt_name_7">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_7">
+            <label for="kontakt_datum_7">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_7">
+            <label for="kontakt_art_7">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_7">
+            <label for="kontakt_ergebnis_7">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_7">
+          </fieldset>
+
+          <fieldset>
+            <legend>Kontaktversuch 9 (Optional)</legend>
+            <label for="kontakt_name_8">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_8">
+            <label for="kontakt_datum_8">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_8">
+            <label for="kontakt_art_8">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_8">
+            <label for="kontakt_ergebnis_8">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_8">
+          </fieldset>
+
+          <fieldset>
+            <legend>Kontaktversuch 10 (Optional)</legend>
+            <label for="kontakt_name_9">Name des Therapeuten/der Praxis:</label>
+            <input type="text" id="kontakt_name_9">
+            <label for="kontakt_datum_9">Datum des Kontakts:</label>
+            <input type="date" id="kontakt_datum_9">
+            <label for="kontakt_art_9">Art des Kontakts:</label>
+            <input type="text" id="kontakt_art_9">
+            <label for="kontakt_ergebnis_9">Ergebnis/Antwort:</label>
+            <input type="text" id="kontakt_ergebnis_9">
+          </fieldset>
+        </div>
+      </fieldset>
+
+      <fieldset class="protokoll-anzeige-bereich">
+        <legend>Übersicht: Bereits kontaktierte Therapeut:innen (aus Kontaktprotokoll)</legend>
+        <p class="protokoll-hinweis">Diese Daten stammen aus dem Kontaktprotokoll-Tool und können nur dort bearbeitet werden.</p>
+        <div id="protokollAnzeigeBereitsKontaktiert"></div>
+      </fieldset>
+
+      <fieldset class="protokoll-anzeige-bereich">
+        <legend>Übersicht: Geplante Kontakte (aus Kontaktprotokoll)</legend>
+        <p class="protokoll-hinweis">Diese Daten stammen aus dem Kontaktprotokoll-Tool und können nur dort bearbeitet werden.</p>
+        <div id="protokollAnzeigeNochZuKontaktieren"></div>
       </fieldset>
 
       <fieldset>
-        <legend>Kontaktversuch 5 (Pflicht)</legend>
-        <label for="kontakt_name_4">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_4" required>
-        <label for="kontakt_datum_4">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_4" required>
-        <label for="kontakt_art_4">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_4" required>
-        <label for="kontakt_ergebnis_4">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_4" required>
+        <legend>Gewünschte:r Therapeut:in (für Kostenerstattung)</legend>
+        <label for="therapeut">Vor- und Nachname des/der Therapeut:in:</label>
+        <input type="text" id="therapeut">
+        <label for="therapeutAdresse">Praxisadresse des/der Therapeut:in:</label>
+        <textarea id="therapeutAdresse"></textarea>
+        <label for="approbiert">Approbation vorhanden?</label>
+        <select id="approbiert">
+          <option value="Ja" selected>Ja</option>
+          <option value="Nein">Nein</option>
+        </select>
+        <label for="kassenzulassung">Hat der/die Therapeut:in eine Kassenzulassung?</label>
+        <select id="kassenzulassung">
+          <option value="Nein" selected>Nein</option>
+          <option value="Ja">Ja</option>
+        </select>
+        <label for="verfuegbar">Kann die Behandlung zeitnah begonnen werden?</label>
+        <select id="verfuegbar">
+          <option value="Ja" selected>Ja</option>
+          <option value="Nein">Nein</option>
+        </select>
       </fieldset>
 
-      <fieldset>
-        <legend>Kontaktversuch 6 (Optional)</legend>
-        <label for="kontakt_name_5">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_5">
-        <label for="kontakt_datum_5">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_5">
-        <label for="kontakt_art_5">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_5">
-        <label for="kontakt_ergebnis_5">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_5">
-      </fieldset>
-
-      <fieldset>
-        <legend>Kontaktversuch 7 (Optional)</legend>
-        <label for="kontakt_name_6">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_6">
-        <label for="kontakt_datum_6">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_6">
-        <label for="kontakt_art_6">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_6">
-        <label for="kontakt_ergebnis_6">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_6">
-      </fieldset>
-
-      <fieldset>
-        <legend>Kontaktversuch 8 (Optional)</legend>
-        <label for="kontakt_name_7">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_7">
-        <label for="kontakt_datum_7">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_7">
-        <label for="kontakt_art_7">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_7">
-        <label for="kontakt_ergebnis_7">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_7">
-      </fieldset>
-
-      <fieldset>
-        <legend>Kontaktversuch 9 (Optional)</legend>
-        <label for="kontakt_name_8">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_8">
-        <label for="kontakt_datum_8">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_8">
-        <label for="kontakt_art_8">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_8">
-        <label for="kontakt_ergebnis_8">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_8">
-      </fieldset>
-
-      <fieldset>
-        <legend>Kontaktversuch 10 (Optional)</legend>
-        <label for="kontakt_name_9">Name des Therapeuten/der Praxis:</label>
-        <input type="text" id="kontakt_name_9">
-        <label for="kontakt_datum_9">Datum des Kontakts:</label>
-        <input type="date" id="kontakt_datum_9">
-        <label for="kontakt_art_9">Art des Kontakts: <small>(z.B. Telefon, E-Mail, Persönlich)</small></label>
-        <input type="text" id="kontakt_art_9">
-        <label for="kontakt_ergebnis_9">Ergebnis/Antwort: <small>(z.B. Absage, Wartezeit X Monate, keine Antwort, Therapieplatz erst ab Monat Y)</small></label>
-        <input type="text" id="kontakt_ergebnis_9">
-      </fieldset>
-
-    <fieldset>
-      <legend>Gewünschte:r Therapeut:in (für Kostenerstattung)</legend>
-      <p class="kontakt-info">Geben Sie hier die Daten des/der approbierten Psychotherapeut:in an, bei dem/der Sie die Therapie im Kostenerstattungsverfahren beginnen möchten.</p>
-      <label for="therapeut">Vor- und Nachname des/der Therapeut:in:</label>
-      <input type="text" id="therapeut">
-      <label for="therapeutAdresse">Praxisadresse des/der Therapeut:in:</label>
-      <textarea id="therapeutAdresse"></textarea>
-      <label for="approbiert">Approbation als Psychotherapeut:in vorhanden?</label>
-      <select id="approbiert">
-        <option value="Ja" selected>Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-      <label for="kassenzulassung">Hat der/die Therapeut:in eine Kassenzulassung?</label>
-      <select id="kassenzulassung">
-        <option value="Nein" selected>Nein</option>
-        <option value="Ja">Ja</option>
-      </select>
-      <label for="verfuegbar">Kann die Behandlung zeitnah begonnen werden?</label>
-      <select id="verfuegbar">
-        <option value="Ja" selected>Ja</option>
-        <option value="Nein">Nein</option>
-      </select>
-    </fieldset>
-
-    <div class="button-group">
-      <button type="button" id="saveBtn" class="action-button">Eingaben im Browser speichern</button>
-      <button type="button" id="loadBtn" class="action-button">Gespeicherte Eingaben laden</button>
-      <button type="submit">📄 PDF erstellen</button>
-    </div>
-  </form>
-</div> <div id="spendenPopup" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem;">
-  <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);">
-    <h2 style="font-size: 1.5em; margin-top:0; margin-bottom: 1rem;">Danke für deine Nutzung 💛</h2>
-    <p style="margin-bottom: 1.5rem;">Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
-    <form action="https://www.paypal.com/donate" method="post" target="_blank" style="margin-top: 1rem;">
-      <input type="hidden" name="business" value="info@kassen-lotse.de" /> <input type="hidden" name="item_name" value="Spende für das Tool Kostenerstattungsverfahren Psychotherapie." />
-      <input type="hidden" name="currency_code" value="EUR" />
-      <input type="submit" value="Spenden mit PayPal" style="background:#ffc439; border:none; padding:0.9rem 1.8rem; font-weight:bold; border-radius:5px; cursor: pointer; color: #333; font-size: 1em;" />
+      <div class="button-group">
+        <button type="button" id="saveBtn" class="button-secondary">Eingaben im Browser speichern</button>
+        <button type="button" id="loadBtn" class="button-secondary">Gespeicherte Eingaben laden</button>
+        <button type="submit" class="button-primary">📄 PDF erstellen</button>
+      </div>
     </form>
-    <button onclick="closePopup()" style="margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;">Schließen</button>
   </div>
-</div>
 
-<footer>
-    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kostenerstattung.html">Infos Kostenersattung</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
-</footer>
+  <!-- Spenden-Popup (angepasst an Namenskonvention) -->
+  <div id="spendenPopupPsych" class="popup-overlay">
+    <div class="popup-content">
+      <h2>Danke für deine Nutzung 💛</h2>
+      <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+      <form action="https://www.paypal.com/donate" method="post" target="_blank">
+        <input type="hidden" name="business" value="info@kassen-lotse.de" />
+        <input type="hidden" name="charset" value="utf-8">
+        <input type="hidden" name="item_name" value="Unterstützung für das Projekt Helfer Anträge & Widersprüche" />
+        <input type="hidden" name="currency_code" value="EUR" />
+        <input type="submit" value="Spenden mit PayPal" />
+      </form>
+      <button id="closePopupBtnPsych" class="popup-close-button">Schließen</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="mini-footer-hint">
+      <p>Brauchen Sie mehr Unterstützung bei Anträgen, Behördenbriefen oder komplexen Schreiben?</p>
+      <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
+    </div>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kostenerstattung.html">Infos Kostenerstattung</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
 
 <script>
-  // JavaScript für Speichern und Laden von Formulardaten
-  document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('antragForm');
-    const saveBtn = document.getElementById('saveBtn');
-    const loadBtn = document.getElementById('loadBtn');
-    const storageKey = 'antragFormData';
+/* --- PDF-Erzeugung, Save/Load, Popup-Verhalten --- */
 
-    // Liste aller relevanten Formularfeld-IDs
-    const formElementIds = [
-      "name", "adresse", "geburt", "nummer", "kasse", "kassenAdresse", "beschwerden_diagnose",
-      "therapeut", "therapeutAdresse", "approbiert", "kassenzulassung", "verfuegbar"
-    ];
-    const kontaktBaseIds = ["kontakt_name_", "kontakt_datum_", "kontakt_art_", "kontakt_ergebnis_"];
-    const maxKontakte = 10;
-
-    function getFormData() {
-      const data = {};
-      formElementIds.forEach(id => {
-        const element = document.getElementById(id);
-        if (element) {
-          data[id] = element.value;
-        }
-      });
-      data.kontakte = [];
-      for (let i = 0; i < maxKontakte; i++) {
-        const kontakt = {};
-        let hasData = false;
-        kontaktBaseIds.forEach(baseId => {
-          const element = document.getElementById(baseId + i);
-          if (element && element.value) {
-            kontakt[baseId.replace('kontakt_', '').replace('_','')] = element.value; // z.B. name, datum
-            if (element.value.trim() !== "") hasData = true; // Prüft, ob zumindest ein Feld im Kontakt Daten hat
-          } else if (element) {
-             kontakt[baseId.replace('kontakt_', '').replace('_','')] = ""; // Leere Werte speichern
-          }
-        });
-        // Speichere den Kontakt, auch wenn er leer ist, um die Struktur zu erhalten
-        data.kontakte.push(kontakt);
-      }
-      return data;
-    }
-
-    function populateForm(data) {
-      formElementIds.forEach(id => {
-        const element = document.getElementById(id);
-        if (element && data[id] !== undefined) {
-          element.value = data[id];
-        }
-      });
-      if (data.kontakte) {
-        for (let i = 0; i < maxKontakte; i++) {
-          if (data.kontakte[i]) {
-            kontaktBaseIds.forEach(baseId => {
-              const element = document.getElementById(baseId + i);
-              const key = baseId.replace('kontakt_', '').replace('_','');
-              if (element && data.kontakte[i][key] !== undefined) {
-                element.value = data.kontakte[i][key];
-              }
-            });
-          }
-        }
-      }
-    }
-
-    saveBtn.addEventListener('click', function() {
-      const data = getFormData();
-      localStorage.setItem(storageKey, JSON.stringify(data));
-      alert('Ihre Eingaben wurden im Browser gespeichert!');
-    });
-
-    loadBtn.addEventListener('click', function() {
-      const savedData = localStorage.getItem(storageKey);
-      if (savedData) {
-        const data = JSON.parse(savedData);
-        populateForm(data);
-        alert('Gespeicherte Eingaben wurden geladen!');
-      } else {
-        alert('Keine gespeicherten Daten gefunden.');
-      }
-    });
-
-    // Automatisch laden beim Seitenaufruf
-    const autoLoadData = localStorage.getItem(storageKey);
-    if (autoLoadData) {
-      try {
-        const data = JSON.parse(autoLoadData);
-        populateForm(data);
-        console.log('Daten automatisch aus localStorage geladen.');
-      } catch (e) {
-        console.error("Fehler beim Parsen der localStorage Daten: ", e);
-        localStorage.removeItem(storageKey); // Fehlerhafte Daten entfernen
-      }
-    }
-  });
-
-  // Pop-up schließen Funktion (wird auch von script.js für das Spenden-Pop-up genutzt)
-  // Diese Funktion ist hier, falls script.js nicht geladen wird oder um Redundanz zu vermeiden,
-  // falls script.js sie bereits global definiert. Besser wäre eine zentrale Definition.
-  if (typeof closePopup !== 'function') {
-    window.closePopup = function() {
-      const popup = document.getElementById("spendenPopup");
-      if (popup) {
-        popup.style.display = "none";
-      }
+function collectKontaktversuche() {
+  const attempts = [];
+  for (let i = 0; i < 10; i++) {
+    const name = document.getElementById(`kontakt_name_${i}`)?.value || "";
+    const datum = document.getElementById(`kontakt_datum_${i}`)?.value || "";
+    const art = document.getElementById(`kontakt_art_${i}`)?.value || "";
+    const erg = document.getElementById(`kontakt_ergebnis_${i}`)?.value || "";
+    if (name || datum || art || erg) {
+      attempts.push({ name, datum, art, erg });
     }
   }
+  return attempts;
+}
+
+document.getElementById("antragForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
+
+  // Sammle Felder
+  const name = document.getElementById("name").value;
+  const adresse = document.getElementById("adresse").value;
+  const geburt = document.getElementById("geburt").value;
+  const versichertennr = document.getElementById("nummer").value;
+  const kasse = document.getElementById("kasse").value;
+  const kassenAdresse = document.getElementById("kassenAdresse").value;
+  const beschwerden = document.getElementById("beschwerden_diagnose").value;
+  const therapeut = document.getElementById("therapeut").value;
+  const therapeutAdresse = document.getElementById("therapeutAdresse").value;
+  const approbiert = document.getElementById("approbiert").value;
+  const kassenzulassung = document.getElementById("kassenzulassung").value;
+  const verfuegbar = document.getElementById("verfuegbar").value;
+  const kontaktversuche = collectKontaktversuche();
+
+  // PDF Aufbau (übersichtlich, aber schlicht)
+  doc.setFont('Helvetica');
+  doc.setFontSize(11);
+
+  // Absender
+  let y = 20;
+  doc.setFontSize(10);
+  doc.text(`${name}`, 20, y);
+  y += 5;
+  doc.text(splitText(adresse, 60), 20, y);
+  y += 10;
+
+  // Empfänger (Kasse)
+  doc.setFontSize(11);
+  doc.text(`An: ${kasse}`, 20, y);
+  y += 6;
+  doc.text(splitText(kassenAdresse, 60), 20, y);
+  y += 14;
+
+  // Betreff
+  doc.setFont(undefined, 'bold');
+  doc.text(`Antrag auf Kostenerstattung Psychotherapie`, 20, y);
+  doc.setFont(undefined, 'normal');
+  y += 8;
+
+  // Einleitung / Versichertennr
+  if (versichertennr) {
+    doc.text(`Versichertennummer: ${versichertennr}`, 20, y);
+    y += 8;
+  }
+  if (geburt) {
+    const geb = new Date(geburt).toLocaleDateString('de-DE');
+    doc.text(`Geburtsdatum: ${geb}`, 20, y);
+    y += 8;
+  }
+
+  // Beschwerden / Begründung
+  const beschrLines = doc.splitTextToSize(`Beschwerden / Diagnose:\n${beschwerden}`, 170);
+  doc.text(beschrLines, 20, y);
+  y += beschrLines.length * 6 + 6;
+
+  // Gewünschter Therapeut
+  const thLines = doc.splitTextToSize(`Gewünschte/r Therapeut/in:\n${therapeut}\n${therapeutAdresse}\nApprobation: ${approbiert} | Kassenzulassung: ${kassenzulassung} | zeitnahe Verfügbarkeit: ${verfuegbar}`, 170);
+  doc.text(thLines, 20, y);
+  y += thLines.length * 6 + 6;
+
+  // Kontaktversuche (Liste)
+  if (kontaktversuche.length) {
+    doc.setFont(undefined, 'bold');
+    doc.text('Dokumentation: Kontaktversuche zu kassenzugelassenen Therapeut:innen', 20, y);
+    doc.setFont(undefined, 'normal');
+    y += 8;
+    kontaktversuche.forEach((k, idx) => {
+      const dateStr = k.datum ? new Date(k.datum).toLocaleDateString('de-DE') : '';
+      const block = `${idx + 1}. ${k.name} — ${dateStr} — ${k.art} — ${k.erg}`;
+      const lines = doc.splitTextToSize(block, 170);
+      if (y + lines.length * 6 > 280) { // einfache Seitenumbruch-Logik
+        doc.addPage();
+        y = 20;
+      }
+      doc.text(lines, 20, y);
+      y += lines.length * 6 + 4;
+    });
+  }
+
+  // Schlussformel
+  if (y + 40 > 280) { doc.addPage(); y = 20; }
+  y += 10;
+  doc.text('Ich bitte um Prüfung meines Antrags und um Mitteilung innerhalb der gesetzlichen Frist.', 20, y);
+  y += 12;
+  doc.text('Mit freundlichen Grüßen', 20, y);
+  y += 18;
+  doc.text(name, 20, y);
+
+  // Speichern
+  doc.save('antrag_kostenerstattung_psychotherapie.pdf');
+
+  // Popup anzeigen
+  const popup = document.getElementById("spendenPopupPsych");
+  if (popup) popup.style.display = "flex";
+});
+
+// einfache Helferfunktion: text in Zeilen splitten (für mehrere Zeilen beim Adressblock)
+function splitText(text, maxChars) {
+  if (!text) return '';
+  const parts = [];
+  const words = text.split(/\s+/);
+  let line = '';
+  words.forEach(w => {
+    if ((line + ' ' + w).trim().length > maxChars) {
+      parts.push(line.trim());
+      line = w;
+    } else {
+      line += ' ' + w;
+    }
+  });
+  if (line) parts.push(line.trim());
+  return parts.join('\n');
+}
+
+/* Save / Load (localStorage) */
+document.getElementById("saveBtn").addEventListener("click", function() {
+  const data = {
+    name: document.getElementById("name").value,
+    adresse: document.getElementById("adresse").value,
+    geburt: document.getElementById("geburt").value,
+    nummer: document.getElementById("nummer").value,
+    kasse: document.getElementById("kasse").value,
+    kassenAdresse: document.getElementById("kassenAdresse").value,
+    beschwerden_diagnose: document.getElementById("beschwerden_diagnose").value,
+    therapeut: document.getElementById("therapeut").value,
+    therapeutAdresse: document.getElementById("therapeutAdresse").value,
+    approbiert: document.getElementById("approbiert").value,
+    kassenzulassung: document.getElementById("kassenzulassung").value,
+    verfuegbar: document.getElementById("verfuegbar").value,
+    kontaktversuche: collectKontaktversuche()
+  };
+  localStorage.setItem("antragPsychData", JSON.stringify(data));
+  alert("Eingaben wurden gespeichert.");
+});
+
+document.getElementById("loadBtn").addEventListener("click", function() {
+  const raw = localStorage.getItem("antragPsychData");
+  if (!raw) { alert("Keine gespeicherten Eingaben gefunden."); return; }
+  const data = JSON.parse(raw);
+  document.getElementById("name").value = data.name || "";
+  document.getElementById("adresse").value = data.adresse || "";
+  document.getElementById("geburt").value = data.geburt || "";
+  document.getElementById("nummer").value = data.nummer || "";
+  document.getElementById("kasse").value = data.kasse || "";
+  document.getElementById("kassenAdresse").value = data.kassenAdresse || "";
+  document.getElementById("beschwerden_diagnose").value = data.beschwerden_diagnose || "";
+  document.getElementById("therapeut").value = data.therapeut || "";
+  document.getElementById("therapeutAdresse").value = data.therapeutAdresse || "";
+  document.getElementById("approbiert").value = data.approbiert || "Ja";
+  document.getElementById("kassenzulassung").value = data.kassenzulassung || "Nein";
+  document.getElementById("verfuegbar").value = data.verfuegbar || "Ja";
+
+  // Kontaktversuche wiederherstellen (wenn vorhanden)
+  if (Array.isArray(data.kontaktversuche)) {
+    data.kontaktversuche.forEach((k, idx) => {
+      if (idx < 10) {
+        document.getElementById(`kontakt_name_${idx}`).value = k.name || "";
+        document.getElementById(`kontakt_datum_${idx}`).value = k.datum || "";
+        document.getElementById(`kontakt_art_${idx}`).value = k.art || "";
+        document.getElementById(`kontakt_ergebnis_${idx}`).value = k.erg || "";
+      }
+    });
+  }
+  alert("Gespeicherte Eingaben geladen.");
+});
+
+/* Popup schließen */
+document.getElementById("closePopupBtnPsych").addEventListener("click", function() {
+  document.getElementById("spendenPopupPsych").style.display = "none";
+});
+
+/* Platzhalter: protokoll-Anzeige füllen (wenn Daten aus anderem Tool vorhanden sind).
+   Hier bleibt die Div leer — du kannst bei Bedarf die Daten per JS aus deinem Kontaktprotokoll-Tool einfügen.
+*/
+document.addEventListener("DOMContentLoaded", function() {
+  // ensure popup is hidden initially
+  const p = document.getElementById("spendenPopupPsych");
+  if (p) p.style.display = "none";
+});
 </script>
 
 </body>

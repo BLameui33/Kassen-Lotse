@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kontaktprotokoll Therapeutensuche</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <!-- zentrales Site-CSS wie bei den anderen Seiten -->
+  <link rel="stylesheet" href="/css/generator.css">
+  <style>
+    /* Ergänzende, seiten-spezifische Styles (angepasst an das Site-Design) */
+    .protokoll-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .eingabe-spalte {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .anzeige-spalte {
+      flex: 1.5;
+      min-width: 320px;
+      background-color: var(--white-color, #f9f9f9);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color, #e0e0e0);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+    }
+
+    .anzeige-spalte h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.5rem;
+      color: var(--text-color, #333);
+    }
+    .anzeige-spalte h3 {
+        font-size: 1.05rem;
+        color: #1a5276;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .protokoll-eintrag-display {
+      background-color: var(--white-color, #fff);
+      border: 1px solid var(--border-color, #e7e7e7);
+      padding: 0.85rem;
+      margin-bottom: 0.8rem;
+      border-radius: 6px;
+      font-size: 0.95em;
+      position: relative;
+    }
+    .protokoll-eintrag-display p {
+      margin: 4px 0;
+      line-height: 1.45;
+    }
+    .protokoll-eintrag-display strong {
+        display: inline-block;
+        min-width: 90px;
+        color: #333;
+    }
+
+    .remove-btn-display {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .remove-btn-display:hover { background-color: #ee5253; }
+
+    .eingabe-form fieldset {
+      margin-bottom: 1.25rem;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color, #e7e7e7);
+      background: var(--white-color, #fff);
+    }
+    .eingabe-form legend {
+        font-size: 1.05em;
+        font-weight: 600;
+        color: var(--text-color, #333);
+    }
+    .eingabe-form label {
+        margin-top: 0.5rem;
+        display:block;
+        font-size: 0.95em;
+        color: var(--light-text-color, #555);
+    }
+    .eingabe-form input[type="text"],
+    .eingabe-form input[type="date"],
+    .eingabe-form textarea,
+    .eingabe-form select {
+        padding: 10px;
+        font-size: 0.95rem;
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid var(--border-color, #dcdcdc);
+        border-radius: 6px;
+        background: #fff;
+    }
+    .eingabe-form textarea { min-height: 70px; }
+
+    .action-button {
+      display: inline-block;
+      padding: 10px 14px;
+      font-size: 0.98rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: var(--primary-color, #0070f3);
+      color: var(--white-color, #fff);
+      box-shadow: 0 4px 12px rgba(0,112,243,0.08);
+    }
+    .action-button:hover { transform: translateY(-2px); }
+
+    .action-button[style*="background-color: #dc3545"] {
+      background: #dc3545;
+      box-shadow: 0 4px 12px rgba(220,53,69,0.08);
+    }
+
+    .button-group-protokoll-main {
+        margin-top: 1.75rem;
+        padding-top: 1rem;
+        border-top: 1px solid #eee;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+
+    .form-container .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        justify-content: flex-start;
+    }
+
+    .kontakt-info {
+        font-size: 0.95em;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        border-left-width: 4px;
+        border-left-style: solid;
+        background-color: #fff3cd;
+        border-left-color: #ffeeba;
+        color: #856404;
+    }
+
+    /* Header styles (consistent) */
+    .site-header {
+        background-color: #ffffff;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+        border-bottom: 1px solid #e9ecef;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    .site-logo {
+        color: #1a5276;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .site-logo:hover { color: #d35400; }
+
+    /* Responsive tweaks */
+    @media (max-width: 900px) {
+      .protokoll-container { flex-direction: column; }
+      .anzeige-spalte { order: 2; }
+      .eingabe-spalte { order: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container form-container">
+    <h1>Kontaktprotokoll für die Therapeutensuche</h1>
+    <p class="info-box">Fügen Sie links Ihre Kontakte hinzu. Rechts sehen Sie eine Übersicht. Alle Daten werden lokal im Browser (localStorage) gespeichert.</p>
+
+    <div class="kontakt-info" role="note" aria-live="polite">
+      <p style="margin:0;"><strong>Wichtiger Hinweis:</strong> Die hier eingegebenen Daten werden nur lokal in Ihrem Browser gespeichert. Beim Löschen von Browserdaten (Cache/Cookies/Website-Daten) gehen diese Einträge verloren. Es findet keine Übertragung an einen Server statt.</p>
+    </div>
+
+    <div class="protokoll-container" aria-hidden="false">
+      <div class="eingabe-spalte">
+        <form id="formBereitsKontaktiert" class="eingabe-form" autocomplete="off">
+          <fieldset>
+            <legend>✔️ Bereits kontaktiert</legend>
+            <label for="bk_name_input">Name des Therapeuten / Praxis:</label>
+            <input type="text" id="bk_name_input" required>
+
+            <label for="bk_datum_input">Datum des Kontakts:</label>
+            <input type="date" id="bk_datum_input" required>
+
+            <label for="bk_art_input">Art des Kontakts (Telefon, E-Mail, etc.):</label>
+            <input type="text" id="bk_art_input" required>
+
+            <label for="bk_status_input">Status des Kontakts:</label>
+            <select id="bk_status_input">
+              <option value="absage_kapazitaeten" selected>Absage (keine Kapazitäten)</option>
+              <option value="absage_privat">Absage (nur Privatpatienten/Selbstzahler)</option>
+              <option value="wartezeit_genannt">Wartezeit genannt (Details in Notizen)</option>
+              <option value="warteliste_platz">Auf Warteliste gesetzt</option>
+              <option value="termin_sprechstunde">Termin für Sprechstunde/Erstgespräch</option>
+              <option value="keine_antwort">Keine Antwort/Rückmeldung erhalten</option>
+              <option value="nicht_erreicht">Telefonisch nicht erreicht (mehrmals)</option>
+              <option value="sonstiges">Sonstiges (Details in Notizen)</option>
+            </select>
+
+            <label for="bk_ergebnis_input">Zusätzliche Notizen / Ergebnis:</label>
+            <textarea id="bk_ergebnis_input" rows="3"></textarea>
+
+            <div class="button-group" style="margin-top:8px;">
+              <button type="submit" class="action-button">Hinzufügen</button>
+            </div>
+          </fieldset>
+        </form>
+
+        <form id="formNochZuKontaktieren" class="eingabe-form" autocomplete="off">
+          <fieldset>
+            <legend>🗓️ Noch zu kontaktieren / Planung</legend>
+            <label for="nzk_name_input">Name des Therapeuten / Praxis:</label>
+            <input type="text" id="nzk_name_input" required>
+
+            <label for="nzk_kontaktinfo_input">Telefon / E-Mail:</label>
+            <input type="text" id="nzk_kontaktinfo_input">
+
+            <label for="nzk_erreichbarkeit_input">Erreichbarkeit / Notizen:</label>
+            <textarea id="nzk_erreichbarkeit_input" rows="3"></textarea>
+
+            <div class="button-group" style="margin-top:8px;">
+              <button type="submit" class="action-button">Zur Planung hinzufügen</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+      <div class="anzeige-spalte" aria-live="polite">
+        <h2>Aktuelles Protokoll</h2>
+
+        <h3>✔️ Bereits kontaktierte Therapeut:innen</h3>
+        <div id="displayBereitsKontaktiertListe" aria-label="Bereits kontaktierte Liste"></div>
+
+        <h3 style="margin-top:18px;">🗓️ Noch zu kontaktierende Therapeut:innen / Planung</h3>
+        <div id="displayNochZuKontaktierenListe" aria-label="Noch zu kontaktierende Liste"></div>
+      </div>
+    </div>
+
+    <div class="button-group-protokoll-main">
+      <button type="button" id="saveProtokollBtn" class="action-button">Gesamtes Protokoll speichern</button>
+      <button type="button" id="loadProtokollBtn" class="action-button">Gespeichertes Protokoll laden</button>
+      <button type="button" id="deleteProtokollBtn" class="action-button" style="background-color:#dc3545;">Gesamtes Protokoll löschen</button>
+    </div>
+  </div>
+
+  <!-- Inline-Script: Protokoll-Logik (lokal storage, render, remove, save/load/delete) -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Formulare und Buttons in der Eingabespalte
+    const formBereitsKontaktiert = document.getElementById('formBereitsKontaktiert');
+    const formNochZuKontaktieren = document.getElementById('formNochZuKontaktieren');
+
+    // Anzeige-Container in der Anzeigespalte
+    const displayBereitsKontaktiertListe = document.getElementById('displayBereitsKontaktiertListe');
+    const displayNochZuKontaktierenListe = document.getElementById('displayNochZuKontaktierenListe');
+
+    // Haupt-Aktionsbuttons
+    const saveProtokollBtn = document.getElementById('saveProtokollBtn');
+    const loadProtokollBtn = document.getElementById('loadProtokollBtn');
+    const deleteProtokollBtn = document.getElementById('deleteProtokollBtn');
+
+    const storageKey = 'kontaktProtokollData';
+    let protokollDaten = {
+        bereitsKontaktiert: [],
+        nochZuKontaktieren: []
+    };
+
+    // Mapping für die lesbare Anzeige der Status-IDs
+    const statusMapBereitsKontaktiert = {
+        'absage_kapazitaeten': 'Absage (keine Kapazitäten)',
+        'absage_privat': 'Absage (nur Privatpatienten/Selbstzahler)',
+        'wartezeit_genannt': 'Wartezeit genannt',
+        'warteliste_platz': 'Auf Warteliste gesetzt',
+        'termin_sprechstunde': 'Termin für Sprechstunde/Erstgespräch',
+        'keine_antwort': 'Keine Antwort/Rückmeldung',
+        'nicht_erreicht': 'Telefonisch nicht erreicht',
+        'sonstiges': 'Sonstiges'
+    };
+
+    // ---- DATENMANAGEMENT FUNKTIONEN ----
+    function saveProtokollToLocalStorage() {
+        localStorage.setItem(storageKey, JSON.stringify(protokollDaten));
+        console.log("Protokoll gespeichert.");
+    }
+
+    function loadProtokollFromLocalStorage() {
+        const savedData = localStorage.getItem(storageKey);
+        if (savedData) {
+            try {
+                const parsedData = JSON.parse(savedData);
+                // Sicherstellen, dass die Arrays und deren Objekte die erwarteten Eigenschaften haben
+                protokollDaten.bereitsKontaktiert = (parsedData.bereitsKontaktiert || []).map(item => ({
+                    name: item.name || '',
+                    datum: item.datum || '',
+                    art: item.art || '',
+                    status: item.status || 'sonstiges',
+                    ergebnis: item.ergebnis || ''
+                }));
+                protokollDaten.nochZuKontaktieren = (parsedData.nochZuKontaktieren || []).map(item => ({
+                    name: item.name || '',
+                    kontaktinfo: item.kontaktinfo || '',
+                    erreichbarkeit: item.erreichbarkeit || ''
+                }));
+
+            } catch (e) {
+                console.error("Fehler beim Parsen der Protokolldaten aus localStorage:", e);
+                protokollDaten = { bereitsKontaktiert: [], nochZuKontaktieren: [] };
+            }
+        } else {
+            protokollDaten = { bereitsKontaktiert: [], nochZuKontaktieren: [] };
+        }
+        renderProtokollListen();
+    }
+
+    // ---- ANZEIGE FUNKTIONEN ----
+    function renderProtokollListen() {
+        // Bereits kontaktierte Liste rendern
+        displayBereitsKontaktiertListe.innerHTML = '';
+        if (protokollDaten.bereitsKontaktiert.length === 0) {
+            displayBereitsKontaktiertListe.innerHTML = '<p><em>Noch keine Einträge vorhanden.</em></p>';
+        } else {
+            protokollDaten.bereitsKontaktiert.forEach((item, index) => {
+                const eintragDiv = document.createElement('div');
+                eintragDiv.classList.add('protokoll-eintrag-display');
+                eintragDiv.innerHTML = `
+                    <button type="button" class="remove-btn-display" data-type="bereits" data-index="${index}" title="Diesen Eintrag entfernen">×</button>
+                    <p><strong>Name:</strong> ${escapeHtml(item.name) || 'N/A'}</p>
+                    <p><strong>Datum:</strong> ${item.datum ? new Date(item.datum).toLocaleDateString('de-DE') : 'N/A'}</p>
+                    <p><strong>Art:</strong> ${escapeHtml(item.art) || 'N/A'}</p>
+                    <p><strong>Status:</strong> ${statusMapBereitsKontaktiert[item.status] || escapeHtml(item.status) || 'N/A'}</p>
+                    <p><strong>Notizen:</strong> ${escapeHtml(item.ergebnis) || 'N/A'}</p>
+                `;
+                displayBereitsKontaktiertListe.appendChild(eintragDiv);
+            });
+        }
+
+        // Noch zu kontaktierende Liste rendern
+        displayNochZuKontaktierenListe.innerHTML = '';
+        if (protokollDaten.nochZuKontaktieren.length === 0) {
+            displayNochZuKontaktierenListe.innerHTML = '<p><em>Noch keine Einträge vorhanden.</em></p>';
+        } else {
+            protokollDaten.nochZuKontaktieren.forEach((item, index) => {
+                const eintragDiv = document.createElement('div');
+                eintragDiv.classList.add('protokoll-eintrag-display');
+                eintragDiv.innerHTML = `
+                    <button type="button" class="remove-btn-display" data-type="noch" data-index="${index}" title="Diesen Eintrag entfernen">×</button>
+                    <p><strong>Name:</strong> ${escapeHtml(item.name) || 'N/A'}</p>
+                    <p><strong>Kontakt:</strong> ${escapeHtml(item.kontaktinfo) || 'N/A'}</p>
+                    <p><strong>Planung:</strong> ${escapeHtml(item.erreichbarkeit) || 'N/A'}</p>
+                `;
+                displayNochZuKontaktierenListe.appendChild(eintragDiv);
+            });
+        }
+        addRemoveButtonListeners();
+    }
+
+    function addRemoveButtonListeners() {
+        const buttons = document.querySelectorAll('.remove-btn-display');
+        buttons.forEach(button => {
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            newButton.addEventListener('click', handleRemoveEntry);
+        });
+    }
+
+    function handleRemoveEntry(event) {
+        const type = event.target.dataset.type;
+        const index = parseInt(event.target.dataset.index, 10);
+
+        if (type === 'bereits' && index < protokollDaten.bereitsKontaktiert.length) {
+            protokollDaten.bereitsKontaktiert.splice(index, 1);
+        } else if (type === 'noch' && index < protokollDaten.nochZuKontaktieren.length) {
+            protokollDaten.nochZuKontaktieren.splice(index, 1);
+        }
+        saveProtokollToLocalStorage();
+        renderProtokollListen();
+    }
+
+    // ---- EVENT HANDLER ----
+    formBereitsKontaktiert.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const neuerEintrag = {
+            name: document.getElementById('bk_name_input').value.trim(),
+            datum: document.getElementById('bk_datum_input').value,
+            art: document.getElementById('bk_art_input').value.trim(),
+            status: document.getElementById('bk_status_input').value,
+            ergebnis: document.getElementById('bk_ergebnis_input').value.trim()
+        };
+        protokollDaten.bereitsKontaktiert.push(neuerEintrag);
+        saveProtokollToLocalStorage();
+        renderProtokollListen();
+        formBereitsKontaktiert.reset();
+        document.getElementById('bk_name_input').focus();
+    });
+
+    formNochZuKontaktieren.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const neuerEintrag = {
+            name: document.getElementById('nzk_name_input').value.trim(),
+            kontaktinfo: document.getElementById('nzk_kontaktinfo_input').value.trim(),
+            erreichbarkeit: document.getElementById('nzk_erreichbarkeit_input').value.trim()
+        };
+        protokollDaten.nochZuKontaktieren.push(neuerEintrag);
+        saveProtokollToLocalStorage();
+        renderProtokollListen();
+        formNochZuKontaktieren.reset();
+        document.getElementById('nzk_name_input').focus();
+    });
+
+    saveProtokollBtn.addEventListener('click', function() {
+        saveProtokollToLocalStorage();
+        alert('Protokolldaten explizit im Browser gespeichert!');
+    });
+
+    loadProtokollBtn.addEventListener('click', function() {
+        loadProtokollFromLocalStorage();
+        alert('Gespeicherte Protokolldaten geladen!');
+    });
+
+    deleteProtokollBtn.addEventListener('click', function() {
+        if (confirm('Möchten Sie wirklich alle Protokolldaten löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) {
+            protokollDaten = { bereitsKontaktiert: [], nochZuKontaktieren: [] };
+            saveProtokollToLocalStorage();
+            renderProtokollListen();
+            alert('Alle Protokolldaten wurden gelöscht.');
+        }
+    });
+
+    // ---- Hilfsfunktionen ----
+    function escapeHtml(unsafe) {
+      if (!unsafe) return '';
+      return String(unsafe)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // ---- INITIALISIERUNG ----
+    loadProtokollFromLocalStorage();
+  });
+  </script>
+
+  <footer>
+    <div class="mini-footer-hint">
+      <p>Brauchen Sie mehr Unterstützung bei Anträgen, Behördenbriefen oder komplexen Schreiben?</p>
+      <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
+    </div>
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="https://kassen-lotse.de/datenschutz.html" target="_blank">Datenschutz</a></p>
+  </footer>
+
+</body>
+</html>
