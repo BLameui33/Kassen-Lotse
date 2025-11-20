@@ -137,6 +137,11 @@ function zeigeErgebnis(container, daten) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("pflegegrad-form");
+  if (!form) return;
+
+  // ----- HIER HINZUFÜGEN -----
+  form.classList.add('wizard-enabled');
+  
   const ergebnisContainer = document.getElementById("ergebnis");
 
   const fieldsets = Array.from(form.querySelectorAll(".pflegegrad-fieldset"));
