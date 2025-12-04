@@ -559,3 +559,18 @@ a:hover {
       .promo-teaser h2 { font-size: 1.4rem; }
       .promo-teaser p { font-size: 0.95rem; }
     }
+
+
+    .kl-footer { border-top:1px solid #e6e6e6; padding:18px 0; margin-top:28px; font-family:inherit; color:#222; }
+  .kl-meta { display:flex; flex-wrap:wrap; gap:12px; align-items:center; font-size:0.92rem; color:#555; margin-bottom:12px; }
+  .kl-checklist { background:#fbfbfb; border:1px solid #eee; padding:12px; border-radius:8px; }
+  .kl-checklist ul { list-style:none; padding:0; margin:0; }
+  .kl-checklist li { margin:8px 0; }
+  .kl-actions { margin-top:10px; }
+  .kl-smallbtn { border:1px solid #ccc; background:white; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:0.9rem; }
+  .kl-sources { margin-top:12px; font-size:0.95rem; color:#333; }
+  .kl-sources ul { margin:6px 0 0 18px; }
+  .kl-author { margin-top:14px; font-size:0.9rem; color:#444; }
+  @media (max-width:540px) { .kl-meta { flex-direction:column; align-items:flex-start } }
+  /* Verstecke interaktive Buttons beim Drucken */
+  @media print { .kl-actions, .kl-checklist input { display:none } }
