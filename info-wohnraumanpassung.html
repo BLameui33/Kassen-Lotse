@@ -72,6 +72,13 @@
 <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
+<!-- K-L: Autor / Letzte Aktualisierung (platzieren unter dem Intro) -->
+<div class="kl-highlight kl-author-box" aria-label="Autor und Aktualisierung">
+  <strong>Autor:</strong> <span id="kl-page-author">Kassen-Lotse Team</span>
+  <span class="kl-sep">•</span>
+  <strong>Letzte Aktualisierung:</strong> <span id="kl-page-lastupdated"><!-- wird automatisch gesetzt --></span>
+</div>
+
     
     <h2>Was sind wohnumfeldverbessernde Maßnahmen?</h2>
     <p>Wohnumfeldverbessernde Maßnahmen nach <strong>§ 40 Abs. 4 SGB XI</strong> sind Umbauten oder technische Hilfen in der Wohnung, die dazu dienen:</p>
@@ -163,20 +170,11 @@
   </div>
 </section>
 
-  <section class="kl-footer" aria-labelledby="kl-footer-heading">
-  <h2 id="kl-footer-heading" style="font-size:1.05rem;margin:0 0 8px;">Praktische Hilfe & Checkliste</h2>
-
-  <div class="kl-meta" role="note" aria-live="polite">
-    <span>Autor: <strong>Kassen-Lotse Team</strong></span>
-    <span>•</span>
-    <span>Letzte Aktualisierung: <strong id="kl-last-updated"><!-- 04.12.2025 --></strong></span>
-  </div>
-
-  <div class="kl-checklist" aria-labelledby="kl-checklist-head">
-    <h3 id="kl-checklist-head" style="margin:0 0 8px;font-size:1rem;">Checkliste (abhakbar)</h3>
-    <p style="margin:0 0 8px;color:#666;font-size:0.95rem;">Klicke, um Punkte abzuhaken. Keine Daten werden an den Server gesendet.</p>
-
-    <ul id="kl-checklist">
+  <!-- K-L: Checkliste (Platzhalter) -->
+<section class="kl-checklist-block" aria-labelledby="kl-checklist-head">
+  <h2 id="kl-checklist-head">Checkliste</h2>
+  <div class="kl-checklist" id="kl-checklist">
+    <ul>
       <li><label><input type="checkbox"> Beratung nach §7a SGB XI einholen</label></li>
       <li><label><input type="checkbox"> Kostenvoranschläge von Fachfirmen einholen</label></li>
       <li><label><input type="checkbox"> Schriftliche Zustimmung des Vermieters (bei Mietwohnung) sicherstellen</label></li>
@@ -185,96 +183,13 @@
       <li><label><input type="checkbox"> Rechnungen sammeln und Abrechnung einreichen</label></li>
     </ul>
 
-    <div class="kl-actions">
-      <button type="button" class="kl-smallbtn" id="kl-clear">Alle abhaken zurücksetzen</button>
-      <button type="button" class="kl-smallbtn" id="kl-save" style="margin-left:8px; display:none;">Status speichern</button>
-      <small style="display:block;margin-top:8px;color:#777;">Hinweis: Standardmäßig bleibt die Auswahl nur in diesem Tab (nicht persistent). </small>
+    <div class="kl-checklist-actions">
+      <button type="button" class="kl-btn" id="kl-clear">Zurücksetzen</button>
+      <button type="button" class="kl-btn" id="kl-download">Als PDF herunterladen</button>
     </div>
   </div>
-
-  <div class="kl-sources" aria-labelledby="kl-sources-head">
-    <h3 id="kl-sources-head" style="margin:12px 0 6px;font-size:1rem;">Quellen & weiterführende Links</h3>
-    <ul>
-      <!-- Ersetze oder erweitere diese Links mit deinen konkreten Quellen -->
-      <li><a href="https://www.gesetze-im-internet.de/sgb_11/__40.html" target="_blank" rel="noopener">§ 40 SGB XI – Wohnumfeldverbessernde Maßnahmen</a></li>
-      <li><a href="https://www.mdk.de" target="_blank" rel="noopener">MDK – Medizinischer Dienst der Krankenversicherung</a></li>
-      <li><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestandsimmobilie/Altersgerecht-Umbauen-(455-B)/" target="_blank" rel="noopener">KfW - Altersgerecht Umbauen</a></li>
-    </ul>
-  </div>
 </section>
 
-<script>
-  (function(){
-    // --- Konfiguration: ---
-    // Wenn du persistent (localStorage) Speichern willst, setze persist = true.
-    // Achtung: lokal gespeichert pro Domain/URL — keine Serverübertragung.
-    const persist = false; // <-- true oder false
-
-    // Optional: automatische Datumseintragung (heute). Du kannst es auch manuell in HTML setzen.
-    const lastUpdatedEl = document.getElementById('kl-last-updated');
-    if (lastUpdatedEl && lastUpdatedEl.textContent.trim() === '') {
-      const d = new Date();
-      // Deutsches Datumsformat: 3. Dezember 2025
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      lastUpdatedEl.textContent = d.toLocaleDateString('de-DE', options);
-    }
-
-    // Jahr für Copyright
-    const yEl = document.getElementById('kl-year');
-    if (yEl) yEl.textContent = new Date().getFullYear();
-
-    // Checkliste Logik
-    const list = document.getElementById('kl-checklist');
-    const clearBtn = document.getElementById('kl-clear');
-    const saveBtn = document.getElementById('kl-save');
-
-    function getKey() {
-      // Schlüssel für localStorage, einzigartig pro Seite (URL)
-      return 'kl_checklist_' + location.pathname;
-    }
-
-    function saveState() {
-      if (!persist) return;
-      const states = Array.from(list.querySelectorAll('input[type=checkbox]')).map(cb => cb.checked);
-      try { localStorage.setItem(getKey(), JSON.stringify(states)); } catch(e){/* ignore */ }
-    }
-
-    function loadState() {
-      if (!persist) return;
-      try {
-        const raw = localStorage.getItem(getKey());
-        if (!raw) return;
-        const states = JSON.parse(raw);
-        const inputs = list.querySelectorAll('input[type=checkbox]');
-        inputs.forEach((cb, i) => { cb.checked = !!states[i]; });
-      } catch(e){/* ignore */ }
-    }
-
-    // Eventlisteners
-    list.querySelectorAll('input[type=checkbox]').forEach(cb=>{
-      cb.addEventListener('change', () => {
-        if (persist) saveState();
-      });
-    });
-
-    clearBtn && clearBtn.addEventListener('click', () => {
-      list.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
-      if (persist) saveState();
-    });
-
-    // Wenn persist=false, verberge Save-Button (oder benutze ihn, wenn du manuelles Speichern willst)
-    if (!persist) {
-      saveBtn.style.display = 'none';
-    } else {
-      saveBtn.style.display = 'inline-block';
-      saveBtn.addEventListener('click', saveState);
-      // Lade Zustand beim Start
-      loadState();
-    }
-  })();
-</script>
-
-</section>
 
     <h2>Häufig gestellte Fragen (FAQ)</h2>
 
@@ -293,9 +208,21 @@
     <h3>Gilt der Zuschuss auch für Mietwohnungen?</h3>
     <p>Ja, der Zuschuss gilt auch für Mietwohnungen. Allerdings benötigen Sie in diesem Fall unbedingt die **schriftliche Zustimmung des Vermieters** für die geplanten Umbauten. Klären Sie zudem im Vorfeld, wer die Kosten für einen möglichen Rückbau trägt, falls die Wohnung irgendwann verlassen wird.</p>
  
+    <!-- K-L: Quellen-Highlight (nach dem FAQ einfügen) -->
+<div class="kl-highlight kl-sources-box" aria-label="Quellen und weiterführende Links">
+  <h3>Quellen & weiterführende Links</h3>
+  <ul>
+    <li><a href="https://www.gesetze-im-internet.de/sgb_11/__40.html" target="_blank" rel="noopener">§ 40 SGB XI – Wohnumfeldverbessernde Maßnahmen</a></li>
+    <li><a href="https://www.mdk.de" target="_blank" rel="noopener">MDK – Medizinischer Dienst der Krankenversicherung</a></li>
+    <li><a href="https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestandsimmobilie/Altersgerecht-Umbauen-(455-B)/" target="_blank" rel="noopener">KfW - Altersgerecht Umbauen</a></li>
+  </ul>
+</div>
+
   </div> <footer>
     <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
   </footer>
+
+  <script src="kassen-lotse.js" defer></script>
 
 </body>
 </html>
