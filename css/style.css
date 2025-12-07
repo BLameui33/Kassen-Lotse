@@ -587,3 +587,11 @@ a:hover {
   .kl-checklist-actions, .kl-checklist input[type="checkbox"] { display:none; }
   .kl-highlight { page-break-inside: avoid; }
 }
+
+.kl-fallbeispiele { margin:20px 0; padding:12px; border-radius:6px; background:#f6fbff; border:1px solid #e0eefb; }
+.kl-fallbeispiele h2 { margin-top:0; }
+.kl-fall-intro { color:#334; margin-bottom:10px; }
+.kl-fall { background:#fff; border:1px solid #e9f2fb; padding:12px; border-radius:6px; margin-bottom:12px; }
+.kl-fall h3 { margin:0 0 6px 0; font-size:1rem; }
+.kl-fall p { margin:6px 0; color:#222; font-size:0.95rem; }
+.kl-fall-note { font-size:0.9rem; color:#555; margin-top:8px; }
