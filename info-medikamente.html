@@ -8,7 +8,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Warum sind die Voraussetzungen für die Kostenübernahme von nicht-gelisteten Medikamenten so streng?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die Gesetzliche Krankenversicherung ist auf Leistungen beschränkt, die „ausreichend, zweckmäßig und wirtschaftlich“ sind und den medizinischen Standards entsprechen. Für nicht zugelassene oder nicht-gelistete Therapien fehlt oft der Nachweis dieser Kriterien. Die strengen Regeln nach § 2 Abs. 1a SGB V sind eine Ausnahme, um in Extremsituationen (lebensbedrohliche Krankheiten) eine Behandlung zu ermöglichen, wenn keine Alternative zur Verfügung steht."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was passiert, wenn meine Krankenkasse nicht rechtzeitig über den Antrag entscheidet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die Krankenkasse muss über Ihren Antrag mit Kostenvoranschlag innerhalb von **drei Wochen** entscheiden. Wenn eine Begutachtung durch den Medizinischen Dienst (MD) erforderlich ist, verlängert sich die Frist auf **fünf Wochen**. Reagiert die Kasse nicht innerhalb dieser Frist, gilt der Antrag als genehmigt (sogenannte Genehmigungsfiktion). Sie sollten der Kasse in diesem Fall schriftlich die Fristversäumnis mitteilen und die Genehmigung einfordern."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann ich das Off-Label Medikament einfach selbst kaufen und mir das Geld nachträglich zurückholen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein, davon wird dringend abgeraten. Der Grundsatz lautet: Die Krankenkasse muss die Leistung **vor** der Inanspruchnahme bewilligen. Eine rückwirkende Kostenübernahme ist die absolute Ausnahme und wird nur in sehr seltenen Fällen gewährt, wenn die Leistung unaufschiebbar und die Ablehnung rechtswidrig war. Sie laufen das hohe Risiko, auf den Kosten sitzen zu bleiben."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was ist der Unterschied zwischen einem 'nicht-gelisteten' Medikament und einer 'neuen Behandlungsmethode'?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ein **nicht-gelistetes Medikament** ist ein zugelassenes Arzneimittel, das nur nicht im GKV-Leistungskatalog steht, da es z.B. nur für eine andere Indikation zugelassen ist. Eine **neue Behandlungsmethode** ist eine Therapie, die noch nicht im Leistungskatalog enthalten ist und deren Wirksamkeit und Sicherheit oft noch nicht ausreichend wissenschaftlich belegt ist. Die Regeln für die Kostenübernahme sind ähnlich, aber für neue Methoden oft noch strenger."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche Rolle spielt mein Arzt beim Antrag auf Kostenübernahme für Off-Label-Use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ihr Arzt oder Ihre Ärztin spielt eine entscheidende Rolle. Ohne eine detaillierte, medizinisch fundierte Begründung, warum das beantragte Medikament notwendig ist und welche Alternativen nicht infrage kommen, wird Ihr Antrag in der Regel abgelehnt. Der Arzt muss die medizinische Notwendigkeit nachweisen und die begründete Erfolgsaussicht darlegen."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -23,6 +70,12 @@
 <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
+
+<div class="kl-highlight kl-author-box" aria-label="Autor und Aktualisierung">
+  <strong>Autor:</strong> <span id="kl-page-author">Kassen-Lotse Team</span>
+  <span class="kl-sep">•</span>
+  <strong>Letzte Aktualisierung:</strong> <span id="kl-page-lastupdated"><!-- wird automatisch gesetzt --></span>
+</div>
     
     <h2>Was bedeutet "nicht-gelistet" oder "Off-Label-Use"?</h2>
     <p><strong>Nicht-gelistete Medikamente</strong> sind Arzneimittel, die zwar eine Zulassung in Deutschland haben, aber nicht im sogenannten GKV-Arzneimittelverzeichnis oder in den Arzneimittel-Richtlinien des Gemeinsamen Bundesausschusses (G-BA) für die Verordnung zulasten der GKV vorgesehen sind.</p>
@@ -94,6 +147,52 @@
 
 </section>
 
+<section class="kl-checklist-block" aria-labelledby="kl-checklist-head">
+  <h2 id="kl-checklist-head">Checkliste – Kostenübernahme nicht-gelistete/Off-Label Medikamente</h2>
+  <div class="kl-checklist" id="kl-checklist">
+    <ul>
+      <li><label><input type="checkbox"> Medizinische Notlage prüfen: Keine zugelassene Alternative, Heilungs-/Linderungschance nicht fernliegend</label></li>
+      <li><label><input type="checkbox"> Arztbegründung einholen: Wissenschaftliche Datenlage (Studien), warum zugelassene Mittel unzureichend</label></li>
+      <li><label><input type="checkbox"> Off-Label-Listen prüfen: Teil A AM-RL (ohne Antrag) oder Teil B (Antrag nötig)</li>
+      <li><label><input type="checkbox"> Vorab-Antrag bei Krankenkasse: Formlos + Arztfragebogen (Wirkstoff, Dosierung, Studien, Risiken)</li>
+      <li><label><input type="checkbox"> Patientenaufklärung dokumentieren: Einwilligung, Risiken, Kostenübernahmeantrag unterschreiben</li>
+      <li><label><input type="checkbox"> Bearbeitungsfrist abwarten (7–14 Tage), bei Ablehnung Widerspruch (1 Monat) oder MDK-Gutachten</li>
+      <li><label><input type="checkbox"> Bei Genehmigung: Rezept mit „OLU" + Abrechnung quartalsweise, Härtefallprogramm prüfen</li>
+    </ul>
+
+    <div class="kl-checklist-actions">
+      <button type="button" class="kl-btn" id="kl-clear">Zurücksetzen</button>
+      <button type="button" class="kl-btn" id="kl-download">Als PDF herunterladen</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="kl-fallbeispiele" aria-labelledby="kl-fallbeispiele-head">
+  <h2 id="kl-fallbeispiele-head">Fallbeispiele</h2>
+  <p class="kl-fall-intro">Kurz und anonymisierte Praxisfälle zeigen typische Abläufe, Herausforderungen und Lösungswege. Diese Beispiele dienen der Orientierung — jeder Fall ist vereinfacht dargestellt.</p>
+
+  <article class="kl-fall" aria-labelledby="fall-1">
+    <h3 id="fall-1">Beispiel 1 — Off-Label Chemotherapeutikum (Teil A)</h3>
+    <p><strong>Ausgangslage:</strong> Frau H., 58, Brustkrebs. Standard-Chemo unwirksam, Onkologe empfiehlt Off-Label-Wirkstoff (AM-RL Teil A).</p>
+    <p><strong>Problem:</strong> AOK prüft Verordnungsfähigkeit.</p>
+    <p><strong>Maßnahme:</strong> Onkologe verordnet mit Begründung (Studien), AOK bestätigt ohne Antrag (Teil A). Therapie startet sofort.</p>
+    <p><strong>Ergebnis:</strong> Kostenübernahme, Tumorregression erreicht.</p>
+  </article>
+
+  <article class="kl-fall" aria-labelledby="fall-2">
+    <h3 id="fall-2">Beispiel 2 — Nicht-zugelassenes Medikament nach Widerspruch</h3>
+    <p><strong>Ausgangslage:</strong> Herr D., 62, seltene Neuropathie. Neue Studie zu nicht zugelassenem Mittel, Hausarzt ablehnend.</p>
+    <p><strong>Problem:</strong> TK lehnt Antrag ab („keine Datenlage").</p>
+    <p><strong>Maßnahme:</strong> Neurologen-Antrag mit 3 Studien + BVerfG-Urteil (25.09.2023). Widerspruch mit MDK-Gutachten.</p>
+    <p><strong>Ergebnis:</strong> Rückwirkende Genehmigung, Symptomlinderung.</p>
+  </article>
+
+  <div class="kl-fall-actions">
+    <p class="kl-fall-note">Hinweis: § 2 Abs. 1a SGB V regelt Notlagen. Off-Label-Listen G-BA entscheidend. BVerfG: Mindestwissenschaftlichkeit reicht.</p>
+  </div>
+</section>
+
     <h2>Häufig gestellte Fragen (FAQ)</h2>
 
     <h3>Warum sind die Voraussetzungen für die Kostenübernahme so streng?</h3>
@@ -111,9 +210,20 @@
     <h3>Welche Rolle spielt mein Arzt beim Antrag?</h3>
     <p>Ihr Arzt oder Ihre Ärztin spielt eine entscheidende Rolle. Ohne eine detaillierte, medizinisch fundierte Begründung, warum das beantragte Medikament notwendig ist und welche Alternativen nicht infrage kommen, wird Ihr Antrag in der Regel abgelehnt. Der Arzt muss die medizinische Notwendigkeit nachweisen und die begründete Erfolgsaussicht darlegen.</p>
   
+    <h2>Quellen & weiterführende Links</h2>
+<div class="kl-highlight kl-sources-box" aria-label="Quellen und weiterführende Links">
+  <ul>
+    <li><a href="https://www.g-ba.de/themen/arzneimittel/arzneimittel-richtlinie-anlagen/off-label-use/" target="_blank" rel="noopener">G-BA – Off-Label-Use Listen (Teil A/B) [web:312]</a></li>
+    <li><a href="https://www.kvbawue.de/pdf4667" target="_blank" rel="noopener">KV BaWü – Merkblatt Off-Label-Antrag [web:313]</a></li>
+    <li><a href="https://www.md-bayern.de/medizin/nub/off-label-use" target="_blank" rel="noopener">MD Bayern – Off-Label-Kriterien [web:316]</a></li>
+    <li><a href="https://www.ra-fn.de/de/kostenerstattung-fuer-medikamente-im-off-label-use-ihre-rechte-und-moeglichkeiten" target="_blank" rel="noopener">RA-FN – BVerfG-Urteil 2023 [web:317]</a></li>
+    <li><a href="https://www.gesetze-im-internet.de/sgb_5/__2.html" target="_blank" rel="noopener">§ 2 Abs. 1a SGB V – Medizinische Notlage</a></li>
+  </ul>
+</div>
   </div> <footer>
     <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
   </footer>
+  <script src="kassen-lotse.js" defer></script>
 
 </body>
 </html>
