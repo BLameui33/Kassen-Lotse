@@ -1,231 +1,277 @@
-// mutterschaftsgeld-rechner.js (mit Mutterschutz-Tagen & PDF-Export)
+// mutterschaftsgeld-rechner.js
+// Verbesserte Version: Berechnet exakte Tage der 3 Monate vor Schutzfrist
+// Reparierter PDF-Export
 
-function n(el){ if(!el) return 0; const v = Number((el.value||"").toString().replace(",", ".")); return Number.isFinite(v)?v:0; }
-function euro(v){ const x = Number.isFinite(v)?v:0; return x.toFixed(2).replace(".", ",") + " €"; }
-function formatDate(d){
-  if(!d) return "–";
-  const dd = ("0"+d.getDate()).slice(-2);
-  const mm = ("0"+(d.getMonth()+1)).slice(-2);
-  return `${dd}.${mm}.${d.getFullYear()}`;
+/* --- Hilfsfunktionen --- */
+function n(el) { 
+    if (!el) return 0; 
+    const v = Number((el.value || "").toString().replace(",", ".")); 
+    return Number.isFinite(v) ? v : 0; 
 }
-function daysBetween(a,b){ return Math.round((b - a) / (1000*60*60*24)); }
+
+function euro(v) { 
+    const x = Number.isFinite(v) ? v : 0; 
+    return x.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; 
+}
+
+function formatDate(d) {
+    if (!d || isNaN(d.getTime())) return "–";
+    const dd = ("0" + d.getDate()).slice(-2);
+    const mm = ("0" + (d.getMonth() + 1)).slice(-2);
+    return `${dd}.${mm}.${d.getFullYear()}`;
+}
+
+// Gibt die Anzahl der Tage in einem bestimmten Monat zurück (1-12)
+function getDaysInMonth(year, monthIndexZeroBased) {
+    // Tag 0 des nächsten Monats ist der letzte Tag des aktuellen Monats
+    return new Date(year, monthIndexZeroBased + 1, 0).getDate();
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-  const vers = document.getElementById("mg_versicherung");
-  const m1 = document.getElementById("mg_m1");
-  const m2 = document.getElementById("mg_m2");
-  const m3 = document.getElementById("mg_m3");
-
-  const et = document.getElementById("mg_et");
-  const verl = document.getElementById("mg_verlaengerung");
-  const durLabel = document.getElementById("mg_dauer_label");
-  const durCustom = document.getElementById("mg_dauer_custom");
-
-  const kkTag = document.getElementById("mg_kk_tag");
-  const basMax = document.getElementById("mg_bas_max");
-
-  const btn = document.getElementById("mg_berechnen");
-  const reset = document.getElementById("mg_reset");
-  const out = document.getElementById("mg_ergebnis");
-
-  // Toggle für individuelle Tage
-  if (verl){
-    verl.addEventListener("change", () => {
-      if (verl.value === "individuell"){
-        durLabel.style.display = "block";
-      } else {
-        durLabel.style.display = "none";
-      }
-      out.innerHTML = "";
-    });
-    if (verl.value !== "individuell") durLabel.style.display = "none";
-  }
-
-  btn.addEventListener("click", () => {
-    out.innerHTML = "";
-    // Inputs
-    const input = {
-      versicherung: (vers && vers.value) || "gesetzlich",
-      m1: n(m1), m2: n(m2), m3: n(m3),
-      etStr: (et && et.value) || "",
-      verlaengerung: (verl && verl.value) || "standard",
-      customDays: Math.max(1, Math.floor(n(durCustom))),
-      kkTag: n(kkTag) || 13,
-      basMax: n(basMax) || 210
+    const inputs = {
+        vers: document.getElementById("mg_versicherung"),
+        m1: document.getElementById("mg_m1"),
+        m2: document.getElementById("mg_m2"),
+        m3: document.getElementById("mg_m3"),
+        et: document.getElementById("mg_et"),
+        verl: document.getElementById("mg_verlaengerung"),
+        durLabel: document.getElementById("mg_dauer_label"),
+        durCustom: document.getElementById("mg_dauer_custom"),
+        kkTag: document.getElementById("mg_kk_tag"),
+        basMax: document.getElementById("mg_bas_max")
     };
 
-    // Plausibilitätscheck Einkommen
-    if (input.m1 <= 0 || input.m2 <= 0 || input.m3 <= 0){
-      out.innerHTML = `<div class="warning-box">Bitte trage die Netto-Beträge der letzten 3 Monate ein (je größer 0).</div>`;
-      return;
+    const btn = document.getElementById("mg_berechnen");
+    const reset = document.getElementById("mg_reset");
+    const out = document.getElementById("mg_ergebnis");
+
+    // Toggle für individuelle Tage
+    if (inputs.verl) {
+        inputs.verl.addEventListener("change", () => {
+            if (inputs.verl.value === "individuell") {
+                inputs.durLabel.style.display = "block";
+            } else {
+                inputs.durLabel.style.display = "none";
+            }
+            out.innerHTML = "";
+        });
     }
 
-    // Berechne Mutterschutz-Tage (mit ET)
-    // Start = ET - 42 Tage (6 Wochen)
-    // Ende = Geburt + Nachfrist: Standard 56 Tage (8 Wochen) oder 84 Tage (12 Wochen)
-    let etDate = null;
-    if (input.etStr){
-      const tmp = new Date(input.etStr + "T12:00:00"); // avoid timezone shift
-      if (!isNaN(tmp.getTime())) etDate = tmp;
-    }
+    // --- HAUPTFUNKTION BERECHNEN ---
+    btn.addEventListener("click", () => {
+        out.innerHTML = ""; // Reset Output
 
-    // Bestimme days (gesamt) und Display-Range (wir benutzen ET als Annahme für Geburt)
-    let days = 98; // default
-    if (input.verlaengerung === "fruehling") days = 126; // 6w + 12w = 126
-    else if (input.verlaengerung === "individuell") days = input.customDays;
+        // 1. Validierung
+        const etStr = inputs.et.value;
+        const net1 = n(inputs.m1);
+        const net2 = n(inputs.m2);
+        const net3 = n(inputs.m3);
 
-    // If ET provided compute start/end assumptions
-    let assumedStart = null, assumedBirth = null, assumedEnd = null;
-    if (etDate){
-      assumedBirth = new Date(etDate.getTime());
-      assumedStart = new Date(etDate.getTime() - 42 * 24*60*60*1000);
-      // choose nachfrist depending on option
-      const afterDays = (input.verlaengerung === "fruehling") ? 84 : 56;
-      assumedEnd = new Date(assumedBirth.getTime() + afterDays * 24*60*60*1000);
-    } else {
-      // If no ET, we still set a neutral start/end relative to today
-      const today = new Date();
-      assumedBirth = null;
-      assumedStart = null;
-      assumedEnd = null;
-    }
+        if (!etStr) {
+            alert("Bitte gib zuerst den Entbindungstermin (ET) an, damit die Zeiträume berechnet werden können.");
+            return;
+        }
+        if (net1 <= 0 && net2 <= 0 && net3 <= 0) {
+            out.innerHTML = `<div class="warning-box" style="background:#fff3cd; color:#856404; border:1px solid #ffeeba;">Bitte trage mindestens ein Netto-Einkommen ein.</div>`;
+            return;
+        }
 
-    // 2) Durchschnittlicher kalendertäglicher Nettoverdienst aus 3 Monaten
-    const sum3 = input.m1 + input.m2 + input.m3;
-    const dailyAvg = sum3 / 90; // Praxis: Summe der 3 Monate / 90 Kalendertage
-    const totalNetEntitlement = dailyAvg * days;
+        // 2. Datums-Logik (Schutzfrist & Relevante Monate)
+        const etDate = new Date(etStr + "T12:00:00"); // 12:00 um Zeitzonenprobleme zu vermeiden
+        
+        // Beginn Schutzfrist = ET - 6 Wochen (42 Tage)
+        const schutzStart = new Date(etDate);
+        schutzStart.setDate(etDate.getDate() - 42);
 
-    // 3) Krankenkassenanteil (gesetzlich)
-    // Kasse zahlt bis kkTag/Tag, aber nicht mehr als dailyAvg (kann in Einzelfällen <13)
-    const kkDaily = Math.min(input.kkTag, dailyAvg);
-    const kkTotal = kkDaily * days;
+        // Bestimmung der 3 Kalendermonate VOR Beginn der Schutzfrist
+        // Beispiel: Schutzfrist beginnt 15. April -> Relevante Monate: Jan, Feb, März.
+        // Wir nehmen das Datum von SchutzStart und gehen auf den letzten Tag des Vormonats.
+        const endOfRefPeriod = new Date(schutzStart.getFullYear(), schutzStart.getMonth(), 0); 
+        
+        // Monat 3 (letzter Monat vor Schutzfrist)
+        const m3Date = new Date(endOfRefPeriod);
+        const daysM3 = getDaysInMonth(m3Date.getFullYear(), m3Date.getMonth());
+        
+        // Monat 2
+        const m2Date = new Date(m3Date.getFullYear(), m3Date.getMonth() - 1, 1);
+        const daysM2 = getDaysInMonth(m2Date.getFullYear(), m2Date.getMonth());
 
-    // 4) Privat/Fam: Bundesamt (BAS) Einmalzahlung bis basMax, Arbeitgeber kann Differenz zahlen
-    let employerTop = 0;
-    let basPayment = 0;
-    let note = "";
+        // Monat 1
+        const m1Date = new Date(m3Date.getFullYear(), m3Date.getMonth() - 2, 1);
+        const daysM1 = getDaysInMonth(m1Date.getFullYear(), m1Date.getMonth());
 
-    if (input.versicherung === "gesetzlich"){
-      employerTop = Math.max(0, totalNetEntitlement - kkTotal);
-      note = "Gesetzlich versichert: Krankenkasse zahlt bis zum Tagessatz, Arbeitgeber zahlt den Differenzbetrag.";
-    } else {
-      basPayment = Math.min(input.basMax, totalNetEntitlement);
-      employerTop = Math.max(0, totalNetEntitlement - basPayment);
-      note = "Privat/familienversichert: Bundesamt zahlt einmalig bis zum Maximalbetrag; Arbeitgeber zahlt ggf. Differenz.";
-    }
+        const totalRefDays = daysM1 + daysM2 + daysM3;
+        const totalNetto = net1 + net2 + net3;
 
-    // Runden für die Anzeige
-    const dailyAvgRounded = Math.round(dailyAvg * 100) / 100;
-    const kkDailyRounded = Math.round(kkDaily * 100) / 100;
-    const kkTotalRounded = Math.round(kkTotal * 100) / 100;
-    const employerTopRounded = Math.round(employerTop * 100) / 100;
-    const totalRounded = Math.round((kkTotal + employerTop + basPayment) * 100) / 100;
+        // Namen der Monate für die Anzeige
+        const monthNames = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+        const refText = `${monthNames[m1Date.getMonth()]} (${daysM1}T), ${monthNames[m2Date.getMonth()]} (${daysM2}T), ${monthNames[m3Date.getMonth()]} (${daysM3}T)`;
 
-    // Build result HTML
-    const resultHtml = `
-      <h2>Ergebnis: Mutterschaftsgeld & Zuschuss</h2>
+        // 3. Berechnung Tagessatz
+        // Gesetz: Summe Netto / Summe Kalendertage (nicht pauschal 90!)
+        const dailyNetto = totalNetto / totalRefDays;
 
-      <div id="mg_result_card" class="pflegegrad-result-card">
-        <h3>Kurzüberblick</h3>
-        <table class="pflegegrad-tabelle">
-          <thead><tr><th>Größe</th><th>Wert</th></tr></thead>
-          <tbody>
-            <tr><td>Versicherung</td><td>${input.versicherung === "gesetzlich" ? "gesetzlich" : "privat / familienversichert"}</td></tr>
-            <tr><td>Mutterschutzdauer (angenommen)</td><td>${days} Kalendertage</td></tr>
-            <tr><td>Durchschn. Tagessatz (letzte 3 Monate)</td><td><strong>${euro(dailyAvgRounded)}</strong></td></tr>
-            <tr><td>Krankenkassen-Tagessatz (bis)</td><td>${euro(kkDailyRounded)} / Tag</td></tr>
-            <tr><td>Krankenkassen-Anteil (gesamt, geschätzt)</td><td>${euro(kkTotalRounded)}</td></tr>
-            ${input.versicherung === "privat" ? `<tr><td>Bundesamt (max.)</td><td>${euro(input.basMax)}</td></tr>` : ""}
-            <tr><td><strong>Arbeitgeberzuschuss (geschätzt)</strong></td><td><strong>${euro(employerTopRounded)}</strong></td></tr>
-            <tr><td><strong>Gesamt (Netto-Äquivalent, geschätzt)</strong></td><td><strong>${euro(totalRounded)}</strong></td></tr>
-          </tbody>
-        </table>
+        // 4. Mutterschutz-Dauer gesamt
+        let durationDays = 98; // Standard 6+8 Wochen
+        if (inputs.verl.value === "fruehling") durationDays = 126; // 6+12
+        else if (inputs.verl.value === "individuell") durationDays = Math.max(1, n(inputs.durCustom));
 
-        <h3>Mutterschutz: angenommene Daten (Orientierung)</h3>
-        <table class="pflegegrad-tabelle">
-          <thead><tr><th>Bezeichnung</th><th>Datum</th><th>Bemerkung</th></tr></thead>
-          <tbody>
-            <tr><td>Erwarteter Entbindungstermin (ET)</td><td>${et.value ? formatDate(new Date(et.value+"T12:00:00")) : "nicht angegeben"}</td><td>ET als Berechnungsbasis; reale Geburt kann abweichen</td></tr>
-            <tr><td>Mutterschutz-Start (ET − 6 Wochen)</td><td>${assumedStart ? formatDate(assumedStart) : "–"}</td><td>Start der Schutzfrist (angenommen)</td></tr>
-            <tr><td>Angenommener Geburtstag</td><td>${assumedBirth ? formatDate(assumedBirth) : "–"}</td><td>Wir verwenden ET als angenommene Geburt</td></tr>
-            <tr><td>Mutterschutz-Ende (Nachfrist)</td><td>${assumedEnd ? formatDate(assumedEnd) : "–"}</td><td>Nachfrist: ${input.verlaengerung === "fruehling" ? "12 Wochen" : "8 Wochen"} nach Geburt</td></tr>
-          </tbody>
-        </table>
+        // Angenommenes Ende (Nur Orientierung)
+        const schutzEnd = new Date(etDate);
+        const weeksAfter = (inputs.verl.value === "fruehling") ? 12 : 8;
+        // Bei Individuell ist das Datum schwer zu raten, wir rechnen es relativ zum Start
+        if (inputs.verl.value === "individuell") {
+            schutzEnd.setTime(schutzStart.getTime() + (durationDays * 24*60*60*1000));
+        } else {
+            schutzEnd.setDate(etDate.getDate() + (weeksAfter * 7));
+        }
 
-        <h3>Erklärung & Hinweise</h3>
-        <p>${note}</p>
-        <ul>
-          <li>Die Berechnung des Tagessatzes erfolgt aus der Summe der letzten 3 Netto-Monate geteilt durch 90 Kalendertage.</li>
-          <li>Gesetzlich Versicherte erhalten von der Krankenkasse bis zu ${euro(input.kkTag)} je Kalendertag; Arbeitgeber zahlt die Differenz.</li>
-          <li>Privat/familienversicherte: Bundesamt (bis ${euro(input.basMax)}) + ggf. Arbeitgeberzuschuss.</li>
-        </ul>
+        // 5. Finanzielle Aufteilung
+        const kkLimit = n(inputs.kkTag) || 13;
+        const basLimit = n(inputs.basMax) || 210;
+        
+        let kkShareTotal = 0;
+        let agShareTotal = 0;
+        let basShare = 0;
+        let note = "";
 
-        <h3>Was jetzt tun?</h3>
-        <ol>
-          <li>Mutterschaftsgeld bei deiner Krankenkasse (gesetzlich) oder beim Bundesamt (privat/familienversichert) beantragen.</li>
-          <li>Personal/Lohnbuchhaltung informieren: Arbeitgeberzuschuss wird dort berechnet.</li>
-          <li>Lohnabrechnungen der letzten 3 Monate bereithalten.</li>
-        </ol>
+        const totalNeed = dailyNetto * durationDays;
 
-        <div class="button-container" style="display:flex; gap:.6rem; margin-top:1rem;">
-          <button id="mg_pdf" class="button">Als PDF speichern</button>
-          <button id="mg_download_json" class="button button-secondary">Daten (JSON) herunterladen</button>
-        </div>
+        if (inputs.vers.value === "gesetzlich") {
+            // Kasse zahlt max 13€, aber nie mehr als das tatsächliche Netto
+            const kkDailyReal = Math.min(dailyNetto, kkLimit);
+            const agDailyReal = Math.max(0, dailyNetto - kkDailyReal);
+            
+            kkShareTotal = kkDailyReal * durationDays;
+            agShareTotal = agDailyReal * durationDays;
+            note = "Als gesetzlich Versicherte erhältst du bis zu 13 € pro Kalendertag von der Kasse. Übersteigt dein durchschnittliches Netto diesen Betrag, zahlt der Arbeitgeber die Differenz als Zuschuss.";
+        } else {
+            // Privat
+            basShare = Math.min(basLimit, totalNeed);
+            agShareTotal = Math.max(0, totalNeed - basShare);
+            note = "Privat Versicherte erhalten einmalig bis zu 210 € vom Bundesamt für Soziale Sicherung. Der Arbeitgeber zahlt die Differenz zu deinem bisherigen Netto als Zuschuss.";
+        }
 
-        <p class="hinweis">Hinweis: Werte sind orientierend. Maßgeblich ist der Bescheid/die Berechnung durch Krankenkasse/Arbeitgeber/Bundesamt.</p>
-      </div>
-    `;
+        // 6. Rendering HTML
+        const resultHtml = `
+            <h2>Dein Ergebnis</h2>
+            <div id="mg_result_card" class="pflegegrad-result-card">
+                <h3>Berechnungsgrundlage</h3>
+                <table class="pflegegrad-tabelle">
+                    <tr>
+                        <td><strong>Relevanter Zeitraum</strong><br><span style="font-size:0.85em; color:#666;">(3 Monate vor Schutzfrist)</span></td>
+                        <td>${refText}<br><strong>= ${totalRefDays} Kalendertage</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Summe Netto-Einkommen</td>
+                        <td>${euro(totalNetto)}</td>
+                    </tr>
+                    <tr style="background-color:#f0f8ff;">
+                        <td><strong>Ø Kalendertägl. Netto</strong></td>
+                        <td><strong>${euro(dailyNetto)} / Tag</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Schutzfrist (angenommen)</td>
+                        <td>${formatDate(schutzStart)} bis ${formatDate(schutzEnd)} (${durationDays} Tage)</td>
+                    </tr>
+                </table>
 
-    out.innerHTML = resultHtml;
-    out.scrollIntoView({ behavior: "smooth" });
+                <h3>Voraussichtliche Zahlung (Gesamtzeitraum)</h3>
+                <table class="pflegegrad-tabelle">
+                    <thead>
+                        <tr><th>Wer zahlt?</th><th>Betrag (ca.)</th></tr>
+                    </thead>
+                    <tbody>
+                        ${inputs.vers.value === "gesetzlich" 
+                            ? `<tr><td>Krankenkasse (max. 13€/Tag)</td><td>${euro(kkShareTotal)}</td></tr>`
+                            : `<tr><td>Bundesamt (Einmalzahlung)</td><td>${euro(basShare)}</td></tr>`
+                        }
+                        <tr>
+                            <td><strong>Arbeitgeberzuschuss</strong></td>
+                            <td><strong>${euro(agShareTotal)}</strong></td>
+                        </tr>
+                        <tr style="font-weight:bold; border-top:2px solid #ccc;">
+                            <td>Gesamtsumme (Netto)</td>
+                            <td>${euro(kkShareTotal + agShareTotal + basShare)}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-    // PDF-Export: nur die Ergebniskarte als Inhalt
-    const pdfBtn = document.getElementById("mg_pdf");
-    const jsonBtn = document.getElementById("mg_download_json");
-    const resultCard = document.getElementById("mg_result_card");
+                <div style="margin-top:1rem; padding:10px; background:#f9f9f9; border-left:4px solid #2c3e50;">
+                    <p style="margin:0; font-size:0.9rem;">${note}</p>
+                </div>
 
-    if (pdfBtn && resultCard){
-      pdfBtn.addEventListener("click", () => {
-        // Optionen: margin, filename, image quality, html2canvas scale
-        const opt = {
-          margin:       0.6,
-          filename:     'mutterschaftsgeld-ergebnis.pdf',
-          image:        { type: 'jpeg', quality: 0.95 },
-          html2canvas:  { scale: 2, useCORS: true },
-          jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-        };
-        // Erstelle eine Kopie des Elements mit bereinigtem Styles (optional)
-        html2pdf().set(opt).from(resultCard).save();
-      });
-    }
+                <div class="button-container" style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+                    <button id="mg_pdf_btn" class="button">📄 Ergebnis als PDF speichern</button>
+                    <button id="mg_json_btn" class="button button-secondary">💾 Daten speichern (JSON)</button>
+                </div>
+                 <p class="hinweis" style="margin-top:10px;">Alle Angaben ohne Gewähr. Maßgeblich ist der offizielle Bescheid.</p>
+            </div>
+        `;
 
-    // JSON-Download (nur zur Weiterverarbeitung)
-    if (jsonBtn){
-      jsonBtn.addEventListener("click", () => {
-        const data = {
-          input,
-          computed: {
-            days, dailyAvg: dailyAvgRounded, kkDaily: kkDailyRounded,
-            kkTotal: kkTotalRounded, employerTop: employerTopRounded, total: totalRounded,
-            assumedStart: assumedStart ? assumedStart.toISOString().slice(0,10) : null,
-            assumedBirth: assumedBirth ? assumedBirth.toISOString().slice(0,10) : null,
-            assumedEnd: assumedEnd ? assumedEnd.toISOString().slice(0,10) : null
-          }
-        };
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'mutterschaftsgeld-daten.json';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      });
-    }
-  });
+        out.innerHTML = resultHtml;
+        out.scrollIntoView({ behavior: "smooth" });
 
-  if (reset){
-    reset.addEventListener("click", () => { setTimeout(()=>{ out.innerHTML = ""; }, 0); });
-  }
+        // --- PDF FUNKTIONALITÄT HINZUFÜGEN ---
+        // Wir fügen den Listener direkt an das neu erstellte Element an
+        setTimeout(() => {
+            const pdfBtn = document.getElementById("mg_pdf_btn");
+            const elementToPrint = document.getElementById("mg_result_card");
+
+            if(pdfBtn && elementToPrint) {
+                pdfBtn.addEventListener("click", () => {
+                    // Visuelles Feedback
+                    const originalText = pdfBtn.innerText;
+                    pdfBtn.innerText = "⏳ Wird erstellt...";
+                    
+                    const opt = {
+                        margin:       [0.5, 0.5], // Rand Oben/Unten, Links/Rechts
+                        filename:     'mutterschaftsgeld-berechnung.pdf',
+                        image:        { type: 'jpeg', quality: 0.98 },
+                        html2canvas:  { scale: 2, useCORS: false }, // useCORS false ist oft stabiler lokal
+                        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                    };
+
+                    // Buttons temporär ausblenden für den Druck
+                    const btnContainer = elementToPrint.querySelector('.button-container');
+                    if(btnContainer) btnContainer.style.display = 'none';
+
+                    html2pdf().from(elementToPrint).set(opt).save().then(() => {
+                        // Reset nach Download
+                        pdfBtn.innerText = originalText;
+                        if(btnContainer) btnContainer.style.display = 'flex';
+                    }).catch(err => {
+                        console.error(err);
+                        pdfBtn.innerText = "Fehler!";
+                        if(btnContainer) btnContainer.style.display = 'flex';
+                    });
+                });
+            }
+
+            // JSON Funktionalität
+            const jsonBtn = document.getElementById("mg_json_btn");
+            if(jsonBtn) {
+                jsonBtn.addEventListener("click", () => {
+                    const data = {
+                        input: { et: etStr, net1, net2, net3, vers: inputs.vers.value },
+                        result: { dailyNetto, totalRefDays, kkShareTotal, agShareTotal, total: kkShareTotal + agShareTotal + basShare }
+                    };
+                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'mutterschaftsgeld.json';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            }
+
+        }, 100); // Kurzer Timeout, um sicherzustellen, dass DOM gerendert ist
+    });
+
+    // Reset Button
+    reset.addEventListener("click", () => {
+        setTimeout(() => { out.innerHTML = ""; }, 50);
+    });
 });

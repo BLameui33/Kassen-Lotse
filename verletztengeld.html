@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Verletztengeld-Rechner 2025 — BG-Leistungen nach Arbeitsunfall | Kassen-Lotse</title>
+
+  <!-- SEO / Social -->
+  <meta name="description" content="Verletztengeld (Berufsgenossenschaft): Schnell berechnen, wie viel die BG nach einem Arbeitsunfall zahlt (ca. 80 % des Regelentgelts, Abzüge beachten). Erklärung, Beispiel und Hinweise zur Auszahlung." />
+  <meta name="keywords" content="Verletztengeld, Berufsgenossenschaft, BG, Arbeitsunfall, Verletztengeld Rechner, Entgeltfortzahlung, Arbeitslosigkeit, Kassen-Lotse" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://www.deinedomain.tld/verletztengeld-rechner.html" />
+  <meta property="og:title" content="Verletztengeld-Rechner 2025 — BG-Leistungen nach Arbeitsunfall" />
+  <meta property="og:description" content="Schnell prüfen: Wie viel Verletztengeld zahlt die Berufsgenossenschaft? Mit Beispiel, Formel (80 % Regel) und Hinweisen zu Abzügen." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- optional: html2pdf (wird im Original geladen) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <main class="page-container" role="main">
+    <h1>Verletztengeld-Rechner</h1>
+
+    <div class="highlight-box" role="region" aria-label="Kurzinfo Verletztengeld">
+      <p>
+        Nach einem <strong>Arbeitsunfall</strong> oder bei einer anerkannten <strong>Berufskrankheit</strong> zahlt die
+        Berufsgenossenschaft (BG) in der Regel <strong>Verletztengeld</strong>. Es ersetzt entgangenes Arbeitsentgelt,
+        ist in der Regel höher als Krankengeld und basiert häufig auf ca. <strong>80 % des maßgeblichen Regelentgelts (Brutto)</strong>.
+      </p>
+      <p class="hinweis">
+        WICHTIG: Die konkrete Auszahlung kann <strong>höher oder niedriger</strong> ausfallen — z. B. wegen Deckelung am Netto,
+        sozialversicherungsrechtlichen Abzügen (Renten-/ALV-Beiträge) oder Besonderheiten der jeweiligen BG.
+      </p>
+    </div>
+
+    <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+  <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+</p>
+
+    <form id="vg-form" class="pflegegrad-form" onsubmit="return false;" aria-describedby="vg_ergebnis">
+      <fieldset class="pflegegrad-fieldset active-step">
+        <legend>1) Dein Einkommen (vor dem Unfall)</legend>
+
+        <p class="hinweis">
+          Nutze die letzte vollständige Lohn-/Gehaltsabrechnung vor dem Unfall. Wenn nur Wochen- oder Stundenlohn vorhanden ist,
+          aufs Monatsäquivalent hochrechnen.
+        </p>
+
+        <label class="pflegegrad-label" for="vg_brutto">
+          Brutto-Arbeitsentgelt (Monat) €
+          <input type="number" id="vg_brutto" min="0" step="0.01" placeholder="z. B. 3.500,00" />
+        </label>
+
+        <label class="pflegegrad-label" for="vg_netto">
+          Netto-Arbeitsentgelt (Monat) € (zur Deckelprüfung)
+          <input type="number" id="vg_netto" min="0" step="0.01" placeholder="z. B. 2.400,00" />
+        </label>
+      </fieldset>
+
+      <fieldset class="pflegegrad-fieldset">
+        <legend>2) Zeitraum</legend>
+
+        <label class="pflegegrad-label" for="vg_tage">
+          Voraussichtliche Dauer der Zahlung (Tage)
+          <input type="number" id="vg_tage" min="1" step="1" value="30" />
+        </label>
+
+        <p class="hinweis">
+          Hinweis: Verletztengeld beginnt meist, nachdem Lohnfortzahlung durch den Arbeitgeber endet (z. B. ab Woche 7).
+          Viele BGs rechnen tagesgenau; hier wird ein Monatsäquivalent verwendet.
+        </p>
+      </fieldset>
+
+      <div class="button-container" role="group" aria-label="Aktionen">
+        <button type="button" id="vg_berechnen" class="button">Verletztengeld berechnen</button>
+        <button type="reset" id="vg_reset" class="button button-secondary">Zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="vg_ergebnis" aria-live="polite" style="margin-top:1rem;"></section>
+
+    <!-- Erläuterung / Formel / Beispiel -->
+    <section aria-label="Erklärung Verletztengeld" class="explain-box" style="margin-top:1rem;">
+      <h2>Wie das Verletztengeld grob berechnet wird</h2>
+      <p>
+        <strong>Vereinfachte Formel (Orientierung):</strong><br />
+        <code>Verletztengeld ≈ 0,80 × (Regel-Brutto) pro Tag, aber nicht höher als das Netto</code>.<br />
+        Auf den Auszahlungsbetrag können noch Abzüge für Renten- und Arbeitslosenversicherung anfallen, je nach Vorschrift der BG.
+      </p>
+
+      <h3>Beispiel (vereinfacht)</h3>
+      <p>
+        Brutto = 3.500 € / Monat → 80 % = 2.800 € (Monat). Wenn dein Netto 2.400 € ist,
+        wird der Bruttoanteil oft nicht über das Netto hinaus ausgezahlt — Auszahlung ≈ 2.400 € (vor Abzügen).
+        Für 30 Tage wäre das anteilig: 2.400 € × (30 / 30) = 2.400 € (vereinfacht).
+      </p>
+
+      <h3>Wichtige Hinweise</h3>
+      <ul>
+        <li>BG-Regelungen können von Fall zu Fall abweichen. Manche BGs verwenden eigene Bemessungsregeln.</li>
+        <li>Verletztengeld ist keine Pauschale — die BG prüft Anspruch, Dauer und Berechnungsgrundlage.</li>
+        <li>Bei Unsicherheit: Bescheide/Erklärungen der BG genau lesen und ggf. Widerspruch prüfen.</li>
+      </ul>
+    </section>
+
+    <!-- Highlight-Box: Link auf Info-Seite -->
+    <aside class="highlight-box" role="complementary" aria-label="Weiterführende Informationen">
+      <h2 style="margin-top:0">Mehr Infos & Tipps</h2>
+      <p>
+        Du möchtest tiefer einsteigen? Auf unserer Info-Seite erklären wir:
+        welche Unterlagen die BG benötigt, wie die Lohnfortzahlung mit Verletztengeld zusammenhängt,
+        welche Abzüge möglich sind und wie du gegen einen Bescheid vorgehen kannst.
+      </p>
+      <p style="margin-bottom:.4rem;">
+        <a href="https://kassen-lotse.de/info-verletztengeld-widerspruch.html" class="button button-secondary" title="Zur Info-Seite Verletztengeld">Zur Info-Seite: Verletztengeld (Details & Checkliste)</a>
+      </p>
+    </aside>
+
+    <!-- Promo / Partner (optional) -->
+    <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+      <h2 id="promo-headline">
+        <span class="icon" aria-hidden="true">🤖</span>
+        Clerion – Die KI, die Ihnen bei Behördenpost und Anträgen hilft
+      </h2>
+      <p class="lead">
+        Ob Brief vom Amt, komplizierter Antrag oder langer Bescheid: 
+        Clerion erklärt Ihnen jedes Schreiben verständlich, erkennt Fristen,
+        prüft Dokumente und erstellt auf Wunsch ein fertiges Antwort-PDF. 
+        Einfach, sicher und entwickelt für Menschen, die im Alltag entlastet werden wollen.
+      </p>
+      <div class="promo-ctas">
+        <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt kostenlos testen</a>
+        <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+      </div>
+      <div class="free-help">
+        <p class="muted">Sie suchen kostenlose Infos oder Vorlagen? Hier finden Sie weitere Hilfsangebote:</p>
+        <nav aria-label="Kostenlose Hilfsseiten">
+          <a href="https://sozialrecht-lotse.de" class="btn btn-outline" target="_blank">🤝 Sozial-Lotse</a>
+          <a href="https://mieter-lotse.de" class="btn btn-outline" target="_blank">💳 Mieter-Lotse</a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <!-- vorhandenes Berechnungs-Script beibehalten -->
+  <script src="verletztengeld-rechner.js" defer></script>
+</body>
+</html>

@@ -1,156 +1,195 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <title>Mutterschaftsgeld-Rechner 2025 | Kassen-Lotse</title>
-  <meta name="description" content="Rechner für Mutterschaftsgeld und Arbeitgeberzuschuss: gesetzlich / privat versichert, Berechnung nach den letzten 3 Monaten, Dauer der Schutzfrist.">
-  <meta name="keywords" content="Mutterschaftsgeld, Arbeitgeberzuschuss, Bundesamt für Soziale Sicherung, Mutterschutz, Rechner, Kassen-Lotse">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/logo-lotse-fav.png">
-  <link rel="stylesheet" href="/css/style.css">
+  <meta charset="utf-8" />
+  <title>Mutterschaftsgeld-Rechner 2025 — Mutterschutz & Auszahlung | Kassen-Lotse</title>
+
+  <!-- SEO & Social -->
+  <meta name="description" content="Mutterschaftsgeld-Rechner 2025: Ermittel Krankenkassenanteil (bis 13 €/Tag), Arbeitgeberzuschuss und Dauer der Zahlung. Genaue Berechnung anhand der letzten 3 Kalendermonate vor Schutzfrist." />
+  <meta name="keywords" content="Mutterschaftsgeld, Arbeitgeberzuschuss, Mutterschutz, Mutterschaftsgeld Rechner, Bundesversicherungsamt, Kassen-Lotse" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://www.deinedomain.tld/mutterschaftsgeld-rechner.html" />
+
+  <meta property="og:title" content="Mutterschaftsgeld-Rechner 2025 — Mutterschutz & Auszahlung" />
+  <meta property="og:description" content="Schnell den Krankenkassenanteil (max. 13 €/Tag), Arbeitgeberzuschuss und die voraussichtliche Gesamtzahlung im Mutterschutz berechnen." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="/logo-lotse-fav.png" />
+  <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="styles.css" />
-  <!-- html2pdf bundle für PDF-Export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <a href="/" class="site-logo">Kassen-Lotse</a>
+  <header class="site-header" role="banner">
+    <a href=""index.html class="site-logo" aria-label="Kassen-Lotse Startseite">Kassen-Lotse</a>
   </header>
 
-  <div class="page-container">
+  <main class="page-container" role="main">
     <h1>Mutterschaftsgeld-Rechner</h1>
 
-    <div class="highlight-box">
+    <div class="highlight-box" role="region" aria-label="Kurzinfo Mutterschaftsgeld">
       <p>
-        Berechne schnell die voraussichtliche Zahlung während der Mutterschutzfrist:
-        <strong>Krankenkassenanteil (bis 13 €/Tag)</strong>, <strong>Arbeitgeberzuschuss</strong> und
-        (bei privat/familienversicherten) das <strong>Bundesamt-Mutterschaftsgeld (max. 210 €)</strong>.
+        Berechne hier schnell und übersichtlich deinen Anspruch im <strong>Mutterschutz</strong>:
+        den Anteil der Krankenkasse (bis zu <strong>13,00 €/Tag</strong>), den erforderlichen
+        <strong>Arbeitgeberzuschuss</strong> und die erwartete Gesamtauszahlung während der Schutzfrist.
       </p>
       <p class="hinweis">
-        Die Berechnung ist eine Orientierung; maßgeblich sind Kasse / Arbeitgeber / Bundesamt und dein Bescheid.
+        Wichtig: Dieser Rechner ist eine vereinfachte Orientierung — maßgeblich sind die Regelungen der Krankenkasse
+        und ggf. das Bundesversicherungsamt bei privat Versicherten.
       </p>
     </div>
+    <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+  <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+</p>
 
-    <form id="mg-form" class="pflegegrad-form" onsubmit="return false;">
+    <form id="mg-form" class="pflegegrad-form" onsubmit="return false;" aria-describedby="mg_ergebnis">
+      <!-- 1) Geburt & Versicherung -->
       <fieldset class="pflegegrad-fieldset active-step">
-        <legend>1) Versicherungsstatus & Einkommen (letzte 3 Monate)</legend>
+        <legend>1) Termin & Versicherungsstatus</legend>
 
-        <label class="pflegegrad-label">
-          Krankenversicherung
-          <select id="mg_versicherung">
-            <option value="gesetzlich" selected>Gesetzlich krankenversichert</option>
-            <option value="privat">Privat oder familienversichert (Bundesamt max. 210 €)</option>
-          </select>
-        </label>
-
-        <p class="hinweis">Bitte die <strong>Netto-Entgelte</strong> der letzten 3 abgerechneten Kalendermonate eintragen.</p>
-
-        <label class="pflegegrad-label">Netto Monat 1 (€)
-          <input type="number" id="mg_m1" min="0" step="1" placeholder="z. B. 2.100" />
-        </label>
-        <label class="pflegegrad-label">Netto Monat 2 (€)
-          <input type="number" id="mg_m2" min="0" step="1" placeholder="z. B. 2.020" />
-        </label>
-        <label class="pflegegrad-label">Netto Monat 3 (€)
-          <input type="number" id="mg_m3" min="0" step="1" placeholder="z. B. 2.180" />
-        </label>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2) Mutterschutz-Dauer / Entbindungstermin</legend>
-
-        <label class="pflegegrad-label">
+        <label class="pflegegrad-label" for="mg_et">
           Erwarteter Entbindungstermin (ET)
-          <input type="date" id="mg_et" />
+          <input type="date" id="mg_et" required />
         </label>
+        <p class="hinweis" style="margin-top:-6px;">
+          Der ET bestimmt Beginn und Ende der Mutterschutzfrist (in der Regel 6 Wochen vor, 8 Wochen nach der Geburt).
+        </p>
 
-        <label class="pflegegrad-label">
-          Früh-/Mehrlingsgeburt erwartbar?
-          <select id="mg_verlaengerung">
-            <option value="standard" selected>Standard (6 Wochen vor + 8 Wochen nach Geburt)</option>
-            <option value="fruehling">Früh-/Mehrlingsgeburt → längere Nachfrist (12 Wochen)</option>
-            <option value="individuell">Individuelle Tage eingeben</option>
+        <label class="pflegegrad-label" for="mg_versicherung">
+          Versicherungsstatus
+          <select id="mg_versicherung">
+            <option value="gesetzlich" selected>Gesetzlich versichert (Pflicht/Freiwillig)</option>
+            <option value="privat">Privat / familienversichert (Bundesamt-Regelungen möglich)</option>
           </select>
         </label>
 
-        <label class="pflegegrad-label" id="mg_dauer_label" style="display:none;">
-          Anzahl Kalendertage (falls "individuell")
+        <label class="pflegegrad-label" for="mg_verlaengerung">
+          Besonderheiten (Mehrling/Frühgeburt)
+          <select id="mg_verlaengerung">
+            <option value="standard" selected>Standard: 6 Wo. vor + 8 Wo. nach Geburt</option>
+            <option value="mehrling">Mehrling / Frühgeburt: 6 Wo. vor + 12 Wo. nach Geburt</option>
+            <option value="individuell">Individuelle Dauer (z. B. abweichende ärztliche Feststellung)</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label" id="mg_dauer_label" style="display:none;" for="mg_dauer_custom">
+          Gesamtdauer Mutterschutz (Tage, nur bei "individuell")
           <input type="number" id="mg_dauer_custom" min="1" step="1" value="98" />
         </label>
-
-        <p class="hinweis">
-          Standarddauer = 6 Wochen vor + 8 Wochen nach der Geburt = 98 Kalendertage. Bei Früh-/Mehrlingen verlängert sich die Nachfrist.
-        </p>
       </fieldset>
 
+      <!-- 2) Netto-Arbeitsentgelt der 3 relevanten Kalendermonate -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>3) Feineinstellungen (optional)</legend>
+        <legend>2) Netto-Arbeitsentgelt — die letzten 3 vollen Kalendermonate vor Beginn der Schutzfrist</legend>
 
-        <label class="pflegegrad-label">
-          Max. Krankenkassen-Tagessatz (€/Tag) (Standard = 13)
+        <p class="hinweis">
+          Trage das Netto je Monat ein (letzte 3 vollständig abgerechneten Kalendermonate <strong>vor Beginn der Schutzfrist</strong>).
+          Der Rechner verwendet die exakten Kalendertage dieser Monate zur Ermittlung des Tagessatzes.
+        </p>
+
+        <label class="pflegegrad-label" for="mg_m1">1. Monat (am weitesten zurückliegend) €</label>
+        <input type="number" id="mg_m1" min="0" step="0.01" placeholder="z. B. 2.100,00" />
+
+        <label class="pflegegrad-label" for="mg_m2">2. Monat (mittlerer Monat) €</label>
+        <input type="number" id="mg_m2" min="0" step="0.01" placeholder="z. B. 2.150,00" />
+
+        <label class="pflegegrad-label" for="mg_m3">3. Monat (Monat vor Schutzfrist-Beginn) €</label>
+        <input type="number" id="mg_m3" min="0" step="0.01" placeholder="z. B. 2.200,00" />
+      </fieldset>
+
+      <!-- 3) Einstellungen / Maxwerte -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>3) Einstellungen (optional)</legend>
+
+        <label class="pflegegrad-label" for="mg_kk_tag">
+          Max. Krankenkassen-Tagessatz (€)
           <input type="number" id="mg_kk_tag" min="0" step="0.01" value="13.00" />
         </label>
+        <p class="hinweis">Standardwert: 13,00 € (gesetzliche Obergrenze Krankenkasse).</p>
 
-        <label class="pflegegrad-label">
-          Max. Bundesamt-Zahlung (privat, €) (Standard = 210)
+        <label class="pflegegrad-label" for="mg_bas_max">
+          Max. Bundesamt-Zahlung (bei Privatversicherten, pauschal €)
           <input type="number" id="mg_bas_max" min="0" step="1" value="210" />
         </label>
       </fieldset>
 
-      <div class="button-container">
+      <div class="button-container" role="group" aria-label="Berechnungs-Buttons">
         <button type="button" id="mg_berechnen" class="button">Mutterschaftsgeld berechnen</button>
-        <button type="reset" id="mg_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+        <button type="reset" id="mg_reset" class="button button-secondary">Zurücksetzen</button>
       </div>
     </form>
 
-    <section id="mg_ergebnis"></section>
+    <section id="mg_ergebnis" aria-live="polite" style="margin-top:1rem;"></section>
 
-    <div class="warning-box">
+    <section class="explain-box" aria-label="Berechnungsweise" style="margin-top:1rem;">
+      <h2>Wie die Berechnung (vereinfacht) funktioniert</h2>
+      <ol>
+        <li>Das durchschnittliche Netto der 3 relevanten Kalendermonate wird ermittelt.</li>
+        <li>Der tägliche Bemessungsbetrag = Summe der 3 Netto-Monate ÷ Anzahl Kalendertage dieser 3 Monate.</li>
+        <li>Die Krankenkasse zahlt den Tagessatz bis zu <strong>13,00 €/Tag</strong> (gesetzliche Obergrenze); bei privat Versicherten kann das Bundesamt pauschal zahlen.</li>
+        <li>Wenn der Kassen-Tagessatz niedriger ist als das Netto-Gehalt, zahlt der Arbeitgeber ergänzend den Arbeitgeberzuschuss (Differenz).</li>
+      </ol>
+
+      <h3>Kurzes Rechenbeispiel</h3>
       <p>
-        <strong>Hinweis:</strong> Die Kasse zahlt bis zu 13 €/Kalendertag; Arbeitgeber zahlt den individuellen Zuschuss.
-        Privatversicherte/familienversicherte können beim Bundesamt einen einmaligen Betrag beantragen.
+        Nettobeträge: 2.100 € + 2.150 € + 2.200 € = 6.450 €.
+        Nehmen die drei Kalendermonate zusammen z. B. 92 Tage an, dann Tagesbemessung ≈ 6.450 / 92 = 70,11 €.
+        Krankenkasse zahlt max. 13,00 €/Tag → Arbeitgeberzuschuss ≈ 57,11 €/Tag. Über 98 Tage ergibt das Gesamt ≈ (13 + 57,11) × 98.
       </p>
-    </div>
 
+      <h3>Wichtige Hinweise</h3>
+      <ul>
+        <li>Dies ist eine vereinfachte Orientierung — tatsächliche Zahlungen können durch Rundungen, Sozialversicherungsbeiträge oder besondere Rechtslagen abweichen.</li>
+        <li>Privatversicherte erhalten oft eine Pauschale durch das Bundesamt (hier vereinfacht als Eingabefeld).</li>
+        <li>Bei Fragen oder Unklarheiten: Krankenkasse, Arbeitgeber oder Beratungsstellen kontaktieren; relevante Dokumente bereithalten.</li>
+      </ul>
+    </section>
+
+    <!-- Highlight-Box: Link auf ausführliche Info-Seite -->
+    <aside class="highlight-box" role="complementary" aria-label="Mehr Infos Mutterschaftsgeld">
+      <h2 style="margin-top:0">Mehr Details & Checkliste: Mutterschaftsgeld</h2>
+      <p>
+        Auf unserer ausführlichen Info-Seite findest du:
+        welche Unterlagen nötig sind, eine Schritt-für-Schritt-Checkliste zur Antragstellung,
+        Informationen für privat Versicherten und Mustertexte für Arbeitgeber/Krankenkasse.
+      </p>
+      <p style="margin-bottom:.4rem;">
+        <a href="/info-mutterschaftsgeld.html" class="button button-secondary" title="Zur Info-Seite Mutterschaftsgeld">Zur Info-Seite: Mutterschaftsgeld (Checkliste & Muster)</a>
+      </p>
+      <small>Bitte ersetze die URL durch die tatsächliche Zielseite, falls nötig.</small>
+    </aside>
+
+    <!-- Promotion / Partner (optional) -->
     <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+      <h2 id="promo-headline">
+        <span class="icon" aria-hidden="true">🤖</span>
+        Clerion – Die KI, die Ihnen bei Behördenpost und Anträgen hilft
+      </h2>
+      <p class="lead">
+        Ob Brief vom Amt, komplizierter Antrag oder langer Bescheid: 
+        Clerion erklärt Ihnen jedes Schreiben verständlich, erkennt Fristen,
+        prüft Dokumente und erstellt auf Wunsch ein fertiges Antwort-PDF. 
+        Einfach, sicher und entwickelt für Menschen, die im Alltag entlastet werden wollen.
+      </p>
+      <div class="promo-ctas">
+        <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt kostenlos testen</a>
+        <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+      </div>
+      <div class="free-help">
+        <p class="muted">Sie suchen kostenlose Infos oder Vorlagen? Hier finden Sie weitere Hilfsangebote:</p>
+        <nav aria-label="Kostenlose Hilfsseiten">
+          <a href="https://sozialrecht-lotse.de" class="btn btn-outline" target="_blank">🤝 Sozial-Lotse</a>
+          <a href="https://mieter-lotse.de" class="btn btn-outline" target="_blank">💳 Mieter-Lotse</a>
+        </nav>
+      </div>
+    </section>
+  </main>
 
-  <h2 id="promo-headline">
-    <span class="icon" aria-hidden="true">🤖</span>
-    Clerion – Die KI, die Ihnen bei Behördenpost und Anträgen hilft
-  </h2>
-
-  <p class="lead">
-    Ob Brief vom Amt, komplizierter Antrag oder langer Bescheid: 
-    Clerion erklärt Ihnen jedes Schreiben verständlich, erkennt Fristen,
-    prüft Dokumente und erstellt auf Wunsch ein fertiges Antwort-PDF. 
-    Einfach, sicher und entwickelt für Menschen, die im Alltag entlastet werden wollen.
-  </p>
-
-  <div class="promo-ctas">
-    <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">
-      Jetzt kostenlos testen
-    </a>
-    <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">
-      Funktionen & Preise
-    </a>
-  </div>
-
-  <div class="free-help">
-    <p class="muted">Sie suchen kostenlose Infos oder Vorlagen? Hier finden Sie weitere Hilfsangebote:</p>
-
-    <nav aria-label="Kostenlose Hilfsseiten">
-      <a href="https://sozialrecht-lotse.de" class="btn btn-outline" target="_blank">🤝 Sozial-Lotse</a>
-      <a href="https://mieter-lotse.de" class="btn btn-outline" target="_blank">💳 Mieter-Lotse</a>
-    </nav>
-  </div>
-
-</section>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  <footer role="contentinfo">
+    <p>&copy; 2025 Kassen-Lotse | <a href="index.html">Zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
   </footer>
 
-  <script src="mutterschaftsgeld-rechner.js"></script>
+  <!-- existierendes Script unverändert referenziert -->
+  <script src="mutterschaftsgeld-rechner.js" defer></script>
 </body>
 </html>
