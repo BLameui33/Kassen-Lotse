@@ -148,10 +148,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Optionen (konservativer scale, mm-Unit für jsPDF ist stabil)
             const opt = {
-                margin:       10, // in mm
+                margin:       [10, 10, 10, 10], // Ränder: Oben, Rechts, Unten, Links
                 filename:     "kinderkrankengeld-berechnung.pdf",
-                image:        { type: 'jpeg', quality: 0.95 },
-                html2canvas:  { scale: 1.5, useCORS: false, logging: false },
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { 
+                    scale: 2,           // Bessere Qualität
+                    useCORS: true,      // Erlaubt externe Bilder/Fonts
+                    logging: true,      // Zeigt Rendering-Prozess in Konsole
+                    scrollY: 0,         // WICHTIG: Ignoriert Scroll-Position
+                    windowWidth: document.documentElement.offsetWidth // Stellt sicher, dass Layout passt
+                },
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
