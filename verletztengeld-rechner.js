@@ -139,12 +139,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     // 1. Optionen
                     const opt = {
-                        margin:       [0.5, 0.5],
-                        filename:     filename,
-                        image:        { type: 'jpeg', quality: 0.98 },
-                        html2canvas:  { scale: 2, useCORS: true, logging: false }, // logging: false für Cleanliness, useCORS: true für externe Ressourcen
-                        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-                    };
+                margin:       [10, 10, 10, 10], // Ränder: Oben, Rechts, Unten, Links
+                filename:     "kinderkrankengeld-berechnung.pdf",
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { 
+                    scale: 2,           // Bessere Qualität
+                    useCORS: true,      // Erlaubt externe Bilder/Fonts
+                    logging: true,      // Zeigt Rendering-Prozess in Konsole
+                    scrollY: 0,         // WICHTIG: Ignoriert Scroll-Position
+                    windowWidth: document.documentElement.offsetWidth // Stellt sicher, dass Layout passt
+                },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
 
                     // 2. Temporäre Anpassungen für den Druck (Buttons ausblenden)
                     const btnContainer = elementToPrint.querySelector('.button-container');
