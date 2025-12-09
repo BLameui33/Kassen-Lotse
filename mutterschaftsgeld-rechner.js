@@ -215,37 +215,46 @@ document.addEventListener("DOMContentLoaded", () => {
         // --- PDF FUNKTIONALITÄT HINZUFÜGEN ---
         // Wir fügen den Listener direkt an das neu erstellte Element an
         setTimeout(() => {
-            const pdfBtn = document.getElementById("mg_pdf_btn");
-            const elementToPrint = document.getElementById("mg_result_card");
+            // ID des Ergebnis-Containers (Muss für jede Datei angepasst werden!)
+            const resultCardId = (document.getElementById("mg_result_card") ? "mg_result_card" :
+                                  document.getElementById("kk_result_card") ? "kk_result_card" : "vg_result_card");
+
+            const pdfBtn = document.getElementById(resultCardId.replace('_result_card', '_pdf_btn'));
+            const elementToPrint = document.getElementById(resultCardId);
+            const filename = resultCardId.slice(0, 2) === 'mg' ? 'mutterschaftsgeld-berechnung.pdf' : 
+                             resultCardId.slice(0, 2) === 'kk' ? 'kinderkrankengeld-berechnung.pdf' : 
+                             'verletztengeld-berechnung.pdf';
 
             if(pdfBtn && elementToPrint) {
                 pdfBtn.addEventListener("click", () => {
-                    // Visuelles Feedback
                     const originalText = pdfBtn.innerText;
                     pdfBtn.innerText = "⏳ Wird erstellt...";
                     
+                    // 1. Optionen
                     const opt = {
-                        margin:       [0.5, 0.5], // Rand Oben/Unten, Links/Rechts
-                        filename:     'mutterschaftsgeld-berechnung.pdf',
+                        margin:       [0.5, 0.5],
+                        filename:     filename,
                         image:        { type: 'jpeg', quality: 0.98 },
-                        html2canvas:  { scale: 2, useCORS: false }, // useCORS false ist oft stabiler lokal
+                        html2canvas:  { scale: 2, useCORS: true, logging: false }, // logging: false für Cleanliness, useCORS: true für externe Ressourcen
                         jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
                     };
 
-                    // Buttons temporär ausblenden für den Druck
+                    // 2. Temporäre Anpassungen für den Druck (Buttons ausblenden)
                     const btnContainer = elementToPrint.querySelector('.button-container');
                     if(btnContainer) btnContainer.style.display = 'none';
 
+                    // 3. Ausführung des Exports
                     html2pdf().from(elementToPrint).set(opt).save().then(() => {
-                        // Reset nach Download
+                        // 4. Reset nach dem Export
                         pdfBtn.innerText = originalText;
                         if(btnContainer) btnContainer.style.display = 'flex';
                     }).catch(err => {
-                        console.error(err);
+                        console.error("PDF Export Fehler:", err);
+                        alert("PDF-Export fehlgeschlagen. Prüfe die Browser-Konsole für Details.");
                         pdfBtn.innerText = "Fehler!";
                         if(btnContainer) btnContainer.style.display = 'flex';
                     });
-                });
+                }, 500);
             }
 
             // JSON Funktionalität
