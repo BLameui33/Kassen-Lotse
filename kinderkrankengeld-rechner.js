@@ -123,49 +123,65 @@ document.addEventListener("DOMContentLoaded", () => {
         out.scrollIntoView({ behavior: "smooth" });
 
         // --- PDF EXPORT (Exakt wie beim MG Rechner) ---
-        setTimeout(() => {
-            // ID des Ergebnis-Containers (Muss für jede Datei angepasst werden!)
-            const resultCardId = (document.getElementById("mg_result_card") ? "mg_result_card" :
-                                  document.getElementById("kk_result_card") ? "kk_result_card" : "vg_result_card");
+        (() => {
+    // Warte kurz (sofern Styles/Fonts noch laden). 200ms reichen meistens.
+    setTimeout(() => {
+        const elementToPrint = document.getElementById("kk_result_card");
+        const pdfBtn = document.getElementById("kk_pdf_btn");
 
-            const pdfBtn = document.getElementById(resultCardId.replace('_result_card', '_pdf_btn'));
-            const elementToPrint = document.getElementById(resultCardId);
-            const filename = resultCardId.slice(0, 2) === 'mg' ? 'mutterschaftsgeld-berechnung.pdf' : 
-                             resultCardId.slice(0, 2) === 'kk' ? 'kinderkrankengeld-berechnung.pdf' : 
-                             'verletztengeld-berechnung.pdf';
+        if (!elementToPrint) {
+            console.error("PDF: kk_result_card nicht gefunden");
+            return;
+        }
+        if (!pdfBtn) {
+            console.error("PDF: kk_pdf_btn nicht gefunden");
+            return;
+        }
 
-            if(pdfBtn && elementToPrint) {
-                pdfBtn.addEventListener("click", () => {
-                    const originalText = pdfBtn.innerText;
-                    pdfBtn.innerText = "⏳ Wird erstellt...";
-                    
-                    // 1. Optionen
-                    const opt = {
-                        margin:       [0.5, 0.5],
-                        filename:     filename,
-                        image:        { type: 'jpeg', quality: 0.98 },
-                        html2canvas:  { scale: 2, useCORS: true, logging: false }, // logging: false für Cleanliness, useCORS: true für externe Ressourcen
-                        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-                    };
+        // Entferne frühere Listener (doppelte Bindungen vermeiden, falls mehrmals berechnet wird)
+        pdfBtn.replaceWith(pdfBtn.cloneNode(true));
+        const pdfBtnFresh = document.getElementById("kk_pdf_btn");
 
-                    // 2. Temporäre Anpassungen für den Druck (Buttons ausblenden)
-                    const btnContainer = elementToPrint.querySelector('.button-container');
-                    if(btnContainer) btnContainer.style.display = 'none';
+        pdfBtnFresh.addEventListener("click", () => {
+            const originalText = pdfBtnFresh.innerText;
+            pdfBtnFresh.innerText = "⏳ Wird erstellt...";
 
-                    // 3. Ausführung des Exports
-                    html2pdf().from(elementToPrint).set(opt).save().then(() => {
-                        // 4. Reset nach dem Export
-                        pdfBtn.innerText = originalText;
-                        if(btnContainer) btnContainer.style.display = 'flex';
-                    }).catch(err => {
-                        console.error("PDF Export Fehler:", err);
-                        alert("PDF-Export fehlgeschlagen. Prüfe die Browser-Konsole für Details.");
-                        pdfBtn.innerText = "Fehler!";
-                        if(btnContainer) btnContainer.style.display = 'flex';
-                    });
+            // Optionen (konservativer scale, mm-Unit für jsPDF ist stabil)
+            const opt = {
+                margin:       10, // in mm
+                filename:     "kinderkrankengeld-berechnung.pdf",
+                image:        { type: 'jpeg', quality: 0.95 },
+                html2canvas:  { scale: 1.5, useCORS: false, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Buttons ausblenden vor Export
+            const btnContainer = elementToPrint.querySelector('.button-container');
+            if (btnContainer) btnContainer.style.display = 'none';
+
+            // Extra: kurz sichtbarkeit sicherstellen
+            elementToPrint.style.display = ''; // falls vorher per CSS versteckt
+
+            // Ausführen
+            try {
+                html2pdf().set(opt).from(elementToPrint).save().then(() => {
+                    pdfBtnFresh.innerText = originalText;
+                    if (btnContainer) btnContainer.style.display = 'flex';
+                }).catch(err => {
+                    console.error("PDF Export Fehler (promise):", err);
+                    alert("PDF-Export fehlgeschlagen. Sieh in der Konsole nach Details.");
+                    pdfBtnFresh.innerText = "Fehler!";
+                    if (btnContainer) btnContainer.style.display = 'flex';
                 });
+            } catch (err) {
+                console.error("PDF Export Fehler (sync):", err);
+                alert("PDF-Export gescheitert. Prüfe die Browser-Konsole.");
+                pdfBtnFresh.innerText = "Fehler!";
+                if (btnContainer) btnContainer.style.display = 'flex';
             }
-        }, 500);
+        });
+    }, 200);
+})();
     });
 
     if (reset) {
