@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Antrag auf Kurzzeitpflege</title>
   <meta name="description" content="Erstellen Sie Ihren Antrag auf Kostenübernahme für Kurzzeitpflege bei Ihrer Pflegekasse.">
-  <meta name="keywords" content="Antrag, Kurzzeitpflege, Pflegekasse, §42 SGB XI, Pflegeheim, Entlastung">
+  <meta name="keywords" content="Antrag, Kurzzeitpflege, Pflegekasse, §42 SGB XI, Pflegeheim, Entlastung, Gemeinsamer Jahresbetrag">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -20,8 +20,11 @@
 <div class="page-container">
   <h1>Antrag auf Leistungen der Kurzzeitpflege</h1>
   <p class="info-box">
-    Mit diesem Formular beantragen Sie Leistungen der Kurzzeitpflege bei Ihrer Pflegekasse gemäß § 42 SGB XI.
-    Es ist ratsam, diesen Antrag <strong>vor</strong> Beginn der Kurzzeitpflege einzureichen.
+    Mit diesem Formular beantragen Sie Leistungen der Kurzzeitpflege bei Ihrer Pflegekasse.
+    <br><br>
+    <strong>Neu ab 01.07.2025 (für alle ab PG2):</strong> Kurzzeit- und Verhinderungspflege werden zum <strong>Gemeinsamen Jahresbetrag (3.539 €)</strong> zusammengefasst. 
+    Dieser Antrag berücksichtigt automatisch die für Sie günstigste Rechtslage (neues Budget oder bisherige Übertragungsregelung).
+    <br>
     Lesen Sie bitte auch unsere <a href="info-kurzzeitpflege.html">Informationen zur Kurzzeitpflege</a>.
   </p>
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
@@ -113,9 +116,12 @@
     </fieldset>
 
     <fieldset>
-      <legend>6. Kombination mit Verhinderungspflege (optional)</legend>
-      <label><input type="checkbox" id="kombiVerhinderungspflegeKZP"> Ich beantrage zusätzlich die Verwendung von noch nicht verbrauchten Mitteln der Verhinderungspflege (§ 39 SGB XI) zur Aufstockung der Leistungen für Kurzzeitpflege.</label>
-      <p class="info-box"><small>Hinweis: Wenn diese Option gewählt wird, kann der Leistungsbetrag für die pflegebedingten Aufwendungen der Kurzzeitpflege um bis zu 1.612 € (aus nicht genutzter Verhinderungspflege) erhöht werden. Die Pflegekasse prüft die Voraussetzungen.</small></p>
+      <legend>6. Gemeinsamer Jahresbetrag / Budget-Erhöhung</legend>
+      <label class="checkbox-label-large">
+        <input type="checkbox" id="kombiVerhinderungspflegeKZP" checked> 
+        <strong>Maximale Leistung beantragen (Gemeinsamer Jahresbetrag / Übertrag)</strong>
+      </label>
+      <p class="info-box"><small>Hinweis: Wenn diese Option gewählt wird, beantragen Sie automatisch den neuen Gemeinsamen Jahresbetrag (3.539 €). Falls dieser für Sie noch nicht gilt, wird die Übertragung ungenutzter Verhinderungspflegemittel (bis 100% / 1.612 €) beantragt.</small></p>
     </fieldset>
     
     <fieldset>

@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadBtn = document.getElementById('loadBtnVerhinderungspflege');
     const closePopupBtn = document.getElementById('closePopupBtnVerhinderungspflege');
     const spendenPopup = document.getElementById('spendenPopupVerhinderungspflege');
-    const storageKey = 'verhinderungspflegeAntragFormData';
+    const storageKey = 'verhinderungspflegeAntragFormData_v2'; // Neuer Key für neue Version
 
     // --- Steuerung der dynamischen Felder ---
     const antragstellerIdentischSelect = document.getElementById('antragstellerIdentischVP');
     const antragstellerDetailsDiv = document.getElementById('antragstellerDetailsVP');
-    const anlageVollmachtCheckboxAntrag = document.getElementById('asVollmachtVP'); // Checkbox für Vollmacht
+    const anlageVollmachtCheckboxAntrag = document.getElementById('asVollmachtVP');
 
     const verhinderungGrundSelect = document.getElementById('verhinderungGrund');
     const verhinderungGrundSonstigesDetailsDiv = document.getElementById('verhinderungGrundSonstigesDetails');
@@ -21,74 +21,82 @@ document.addEventListener('DOMContentLoaded', function() {
     const ersatzpflegeDienstDetailsDiv = document.getElementById('ersatzpflegeDienstDetails');
 
     function updateDynamicFieldVisibility(selectElement, detailsDiv, showValue, requiredFieldsIds = [], checkboxToToggleRequired = null) {
+        if(!selectElement) return;
         const isVisible = selectElement.value === showValue;
-        detailsDiv.style.display = isVisible ? 'block' : 'none';
-        detailsDiv.classList.toggle('sub-details-active', isVisible);
+        if(detailsDiv) {
+            detailsDiv.style.display = isVisible ? 'block' : 'none';
+            detailsDiv.classList.toggle('sub-details-active', isVisible);
+        }
         requiredFieldsIds.forEach(id => {
             const el = document.getElementById(id);
             if (el) el.required = isVisible;
         });
-         if (checkboxToToggleRequired) {
+        if (checkboxToToggleRequired) {
              const elCheckbox = document.getElementById(checkboxToToggleRequired.id);
              if(elCheckbox) elCheckbox.required = isVisible;
         }
     }
 
+    // Listener für Antragsteller
     if (antragstellerIdentischSelect && antragstellerDetailsDiv) {
         antragstellerIdentischSelect.addEventListener('change', () => {
              updateDynamicFieldVisibility(antragstellerIdentischSelect, antragstellerDetailsDiv, 'nein', ['asNameVP', 'asVerhaeltnisVP'], anlageVollmachtCheckboxAntrag);
         });
+        // Initial state check
         updateDynamicFieldVisibility(antragstellerIdentischSelect, antragstellerDetailsDiv, 'nein', ['asNameVP', 'asVerhaeltnisVP'], anlageVollmachtCheckboxAntrag);
     }
     
+    // Listener für Grund
     if (verhinderungGrundSelect && verhinderungGrundSonstigesDetailsDiv) {
         verhinderungGrundSelect.addEventListener('change', () => {
             const showSonstiges = verhinderungGrundSelect.value === 'Andere wichtige Gründe';
             verhinderungGrundSonstigesDetailsDiv.style.display = showSonstiges ? 'block' : 'none';
-            verhinderungGrundSonstigesDetailsDiv.classList.toggle('sub-details-active', showSonstiges);
-            verhinderungGrundSonstigesTextarea.required = showSonstiges;
+            if(verhinderungGrundSonstigesTextarea) verhinderungGrundSonstigesTextarea.required = showSonstiges;
         });
-        updateDynamicFieldVisibility(verhinderungGrundSelect, verhinderungGrundSonstigesDetailsDiv, 'Andere wichtige Gründe', ['verhinderungGrundSonstigesText']);
+        // Initial Trigger manually if needed, or rely on default hidden
     }
 
+    // Listener für Art der Ersatzpflege
     function updateErsatzpflegeDetailsVisibility() {
         const selectedArt = ersatzpflegeDurchSelect.value;
-        ersatzpflegeNaheAngehoerigeDetailsDiv.style.display = selectedArt === 'Nahe Angehörige (bis 2. Grad oder verschwägert)' ? 'block' : 'none';
-        ersatzpflegeNaheAngehoerigeDetailsDiv.classList.toggle('sub-details-active', selectedArt === 'Nahe Angehörige (bis 2. Grad oder verschwägert)');
-        document.getElementById('epNameNahe').required = selectedArt === 'Nahe Angehörige (bis 2. Grad oder verschwägert)';
         
-        ersatzpflegeAnderePrivatpersonDetailsDiv.style.display = selectedArt === 'Andere Privatperson (z.B. Nachbar, Freund)' ? 'block' : 'none';
-        ersatzpflegeAnderePrivatpersonDetailsDiv.classList.toggle('sub-details-active', selectedArt === 'Andere Privatperson (z.B. Nachbar, Freund)');
-        document.getElementById('epNamePrivat').required = selectedArt === 'Andere Privatperson (z.B. Nachbar, Freund)';
-        
-        ersatzpflegeDienstDetailsDiv.style.display = (selectedArt === 'Ambulanter Pflegedienst' || selectedArt === 'Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)') ? 'block' : 'none';
-        ersatzpflegeDienstDetailsDiv.classList.toggle('sub-details-active', (selectedArt === 'Ambulanter Pflegedienst' || selectedArt === 'Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)'));
-        document.getElementById('dienstName').required = (selectedArt === 'Ambulanter Pflegedienst' || selectedArt === 'Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)');
-        document.getElementById('dienstKosten').required = (selectedArt === 'Ambulanter Pflegedienst' || selectedArt === 'Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)');
+        // Helper to toggle display and required
+        const toggleSection = (div, ids, show) => {
+            if(div) div.style.display = show ? 'block' : 'none';
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.required = show;
+            });
+        };
 
+        toggleSection(ersatzpflegeNaheAngehoerigeDetailsDiv, ['epNameNahe'], selectedArt === 'Nahe Angehörige (bis 2. Grad oder verschwägert)');
+        toggleSection(ersatzpflegeAnderePrivatpersonDetailsDiv, ['epNamePrivat'], selectedArt === 'Andere Privatperson (z.B. Nachbar, Freund)');
+        toggleSection(ersatzpflegeDienstDetailsDiv, ['dienstName', 'dienstKosten'], (selectedArt === 'Ambulanter Pflegedienst' || selectedArt === 'Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)'));
     }
+
     if (ersatzpflegeDurchSelect) {
         ersatzpflegeDurchSelect.addEventListener('change', updateErsatzpflegeDetailsVisibility);
         updateErsatzpflegeDetailsVisibility();
     }
 
     // --- Speichern & Laden Logik ---
+    // Update List: removed vorpflegezeitErfuellt
     const formElementIds = [
-        "vpName", "vpGeburt", "vpAdresse", "vpNummer", "vpPflegegrad", "vpTelefon",
-        "antragstellerIdentischVP", "asNameVP", "asVerhaeltnisVP", "asAdresseVP", // asAdresseVP hinzugefügt
+        "vpName", "vpGeburt", "vpAdresse", "vpNummer", "vpPflegegrad",
+        "antragstellerIdentischVP", "asNameVP", "asVerhaeltnisVP",
         "kasseName", "kasseAdresse",
         "hauptpflegepersonName", "verhinderungGrund", "verhinderungGrundSonstigesText", 
         "verhinderungZeitraumVon", "verhinderungZeitraumBis",
         "ersatzpflegeDurch", 
         "epNameNahe", "epVerwandtschaftNahe", "epKostenFahrtkosten", "epKostenVerdienstausfall",
         "epNamePrivat", "epAnzahlStundenPrivat", "epStundensatzPrivat", "epGesamtkostenPrivat",
-        "dienstName", "dienstKosten", "dienstAdresse", // dienstAdresse hinzugefügt
+        "dienstName", "dienstKosten",
         "vpZeitraumVon", "vpZeitraumBis",
         "iban", "bic", "kontoinhaber",
         "anlageSonstigesVP"
     ];
-    const checkboxIdsToSave = [ // einzelne Checkboxen
-        "vorpflegezeitErfuellt", "epNachweisVerdienstausfall", "dienstRechnungAnbei", 
+    const checkboxIdsToSave = [
+        "epNachweisVerdienstausfall", "dienstRechnungAnbei", 
         "vpStundenweise", "kombiKurzzeitpflege", "asVollmachtVP"
     ];
     const anlagenCheckboxName = "anlagenVerhinderungspflege";
@@ -113,35 +121,29 @@ document.addEventListener('DOMContentLoaded', function() {
     function populateForm(data) {
         formElementIds.forEach(id => {
             const element = document.getElementById(id);
-            if (element && data[id] !== undefined) {
-                element.value = data[id];
-            }
+            if (element && data[id] !== undefined) element.value = data[id];
         });
         checkboxIdsToSave.forEach(id => {
             const element = document.getElementById(id);
-            if (element && data[id] !== undefined) {
-                element.checked = data[id];
-            }
+            if (element && data[id] !== undefined) element.checked = data[id];
         });
-        document.querySelectorAll(`input[name="${anlagenCheckboxName}"]`).forEach(checkbox => {
-            checkbox.checked = data.anlagen && data.anlagen.includes(checkbox.value);
-        });
-
-        // Sichtbarkeit nach Laden aktualisieren
-        if (antragstellerIdentischSelect) updateDynamicFieldVisibility(antragstellerIdentischSelect, antragstellerDetailsDiv, 'nein', ['asNameVP', 'asVerhaeltnisVP'], anlageVollmachtCheckboxAntrag);
-        if (verhinderungGrundSelect) updateDynamicFieldVisibility(verhinderungGrundSelect, verhinderungGrundSonstigesDetailsDiv, 'Andere wichtige Gründe', ['verhinderungGrundSonstigesText']);
-        if (ersatzpflegeDurchSelect) updateErsatzpflegeDetailsVisibility();
+        if(data.anlagen) {
+            document.querySelectorAll(`input[name="${anlagenCheckboxName}"]`).forEach(checkbox => {
+                checkbox.checked = data.anlagen.includes(checkbox.value);
+            });
+        }
+        
+        // Trigger updates
+        if (antragstellerIdentischSelect) antragstellerIdentischSelect.dispatchEvent(new Event('change'));
+        if (verhinderungGrundSelect) verhinderungGrundSelect.dispatchEvent(new Event('change'));
+        if (ersatzpflegeDurchSelect) ersatzpflegeDurchSelect.dispatchEvent(new Event('change'));
     }
 
     if (saveBtn) {
         saveBtn.addEventListener('click', function() {
-            if (!document.getElementById('vorpflegezeitErfuellt').checked) {
-                alert("Bitte bestätigen Sie, dass die Vorpflegezeit von 6 Monaten erfüllt ist, um fortzufahren.");
-                return;
-            }
             const data = getFormData();
             localStorage.setItem(storageKey, JSON.stringify(data));
-            alert('Ihre Eingaben wurden im Browser gespeichert!');
+            alert('Daten gespeichert.');
         });
     }
 
@@ -150,274 +152,235 @@ document.addEventListener('DOMContentLoaded', function() {
             const savedData = localStorage.getItem(storageKey);
             if (savedData) {
                 populateForm(JSON.parse(savedData));
-                alert('Gespeicherte Eingaben wurden geladen!');
+                alert('Daten geladen.');
             } else {
-                alert('Keine gespeicherten Daten gefunden.');
+                alert('Keine Daten gefunden.');
             }
         });
     }
-    
-    const autoLoadData = localStorage.getItem(storageKey);
-    if (autoLoadData) {
-        try {
-            populateForm(JSON.parse(autoLoadData));
-        } catch (e) {
-            localStorage.removeItem(storageKey);
-        }
+
+    // Auto-Load (optional, user friendly)
+    const autoLoad = localStorage.getItem(storageKey);
+    if(autoLoad) populateForm(JSON.parse(autoLoad));
+
+
+    // --- Pop-up ---
+    if (closePopupBtn && spendenPopup) {
+        closePopupBtn.addEventListener('click', () => spendenPopup.style.display = 'none');
     }
 
-    // --- Pop-up Steuerung ---
-    if (closePopupBtn && spendenPopup) {
-        closePopupBtn.addEventListener('click', function() {
-            spendenPopup.style.display = 'none';
-        });
-    }
-    
-    // --- PDF Generierung bei Formular-Submit ---
+    // --- PDF Submit ---
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            if (!document.getElementById('vorpflegezeitErfuellt').checked) {
-                alert("Die Bestätigung der Vorpflegezeit ist für den Antrag auf Verhinderungspflege erforderlich.");
-                return;
-            }
-            // Weitere Validierungen, z.B. ob je nach Ersatzpflegeart die notwendigen Felder gefüllt sind
+            // Validierung: Namen prüfen je nach Pflegeart
             const ersatzpflegeArt = document.getElementById('ersatzpflegeDurch').value;
-            if (ersatzpflegeArt === 'Nahe Angehörige (bis 2. Grad oder verschwägert)' && document.getElementById('epNameNahe').value.trim() === "") {
-                alert("Bitte geben Sie den Namen der nahen angehörigen Ersatzpflegeperson an."); return;
+            if (ersatzpflegeArt.includes('Nahe Angehörige') && !document.getElementById('epNameNahe').value) {
+                alert("Bitte Namen der Ersatzpflegeperson angeben."); return;
             }
-            if (ersatzpflegeArt === 'Andere Privatperson (z.B. Nachbar, Freund)' && document.getElementById('epNamePrivat').value.trim() === "") {
-                alert("Bitte geben Sie den Namen der privaten Ersatzpflegeperson an."); return;
+            if (ersatzpflegeArt.includes('Privatperson') && !document.getElementById('epNamePrivat').value) {
+                alert("Bitte Namen der Ersatzpflegeperson angeben."); return;
             }
-            if ((ersatzpflegeArt === 'Ambulanter Pflegedienst' || ersatzpflegeArt === 'Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)') && 
-                (document.getElementById('dienstName').value.trim() === "" || document.getElementById('dienstKosten').value.trim() === "")) {
-                alert("Bitte geben Sie Name und Kosten des Pflegedienstes/der Einrichtung an."); return;
-            }
-
+            
             generateVerhinderungspflegeAntragPDF();
+            
+            // Show Spenden Popup
+            if(spendenPopup) spendenPopup.style.display = 'flex';
         });
     }
-}); // Ende DOMContentLoaded
+});
 
+// ==========================================
+// PDF GENERATOR FUNKTION
+// ==========================================
 function generateVerhinderungspflegeAntragPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
+    // Konfiguration
     const margin = 20;
     const pageHeight = doc.internal.pageSize.getHeight();
     const pageWidth = doc.internal.pageSize.getWidth();
+    const usableWidth = pageWidth - (2 * margin);
     const usableHeight = pageHeight - margin;
     let y = margin;
-    const defaultLineHeight = 7;
-    const spaceAfterParagraph = 2;
-
-    function writeLine(text, currentLineHeight = defaultLineHeight, isBold = false, fontSize = 11) {
-        if (y + currentLineHeight > usableHeight) { doc.addPage(); y = margin; }
-        doc.setFontSize(fontSize);
-        doc.setFont(undefined, isBold ? "bold" : "normal");
-        doc.text(text, margin, y);
-        y += currentLineHeight;
-    }
-
-    function writeParagraph(text, paragraphLineHeight = defaultLineHeight, paragraphFontSize = 11, options = {}) {
-        const fontStyle = options.fontStyle || "normal";
-        doc.setFontSize(paragraphFontSize);
-        doc.setFont(undefined, fontStyle);
-        const lines = doc.splitTextToSize(text, pageWidth - (2 * margin));
-        for (let i = 0; i < lines.length; i++) {
-            if (y + paragraphLineHeight > usableHeight) { doc.addPage(); y = margin; }
-            doc.text(lines[i], margin, y);
-            y += paragraphLineHeight;
-        }
-        if (y + (options.extraSpacingAfter || spaceAfterParagraph) > usableHeight && lines.length > 0) {
-             doc.addPage(); y = margin;
-        } else if (lines.length > 0) { 
-            y += (options.extraSpacingAfter || spaceAfterParagraph);
-        }
-    }
+    const defaultLineHeight = 6;
     
-    // Formulardaten sammeln
+    // Hilfsfunktionen
+    function checkPageBreak(height = defaultLineHeight) {
+        if (y + height > usableHeight) {
+            doc.addPage();
+            y = margin;
+        }
+    }
+
+    function writeLine(text, isBold = false, fontSize = 11) {
+        checkPageBreak();
+        doc.setFontSize(fontSize);
+        doc.setFont("helvetica", isBold ? "bold" : "normal");
+        doc.text(text, margin, y);
+        y += defaultLineHeight;
+    }
+
+    function writeBlock(text, fontSize = 11, fontStyle = "normal") {
+        doc.setFontSize(fontSize);
+        doc.setFont("helvetica", fontStyle);
+        const lines = doc.splitTextToSize(text, usableWidth);
+        
+        if (y + (lines.length * defaultLineHeight) > usableHeight) {
+            doc.addPage();
+            y = margin;
+        }
+        
+        doc.text(lines, margin, y);
+        y += (lines.length * defaultLineHeight) + 2; // +2mm Abstand nach Block
+    }
+
+    function addSectionTitle(title) {
+        y += 4;
+        checkPageBreak();
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "bold");
+        // grauer Balken optional
+        doc.setFillColor(240, 240, 240);
+        doc.rect(margin, y - 5, usableWidth, 8, 'F');
+        doc.text(title, margin + 2, y);
+        y += 8;
+    }
+
+    // --- Daten auslesen ---
     const vpName = document.getElementById("vpName").value;
-    const vpGeburtInput = document.getElementById("vpGeburt").value;
-    const vpGeburtFormatiert = vpGeburtInput ? new Date(vpGeburtInput).toLocaleDateString("de-DE") : 'N/A';
+    const vpGeburt = new Date(document.getElementById("vpGeburt").value).toLocaleDateString("de-DE");
     const vpAdresse = document.getElementById("vpAdresse").value;
     const vpNummer = document.getElementById("vpNummer").value;
-    const vpPflegegrad = document.getElementById("vpPflegegrad").value;
-
-    const antragstellerIdentischVP = document.getElementById("antragstellerIdentischVP").value;
-    const asNameVP = document.getElementById("asNameVP").value;
-    const asVerhaeltnisVP = document.getElementById("asVerhaeltnisVP").value;
-    const asVollmachtVP = document.getElementById("asVollmachtVP") ? document.getElementById("asVollmachtVP").checked : false;
+    
+    const antragstellerIdentisch = document.getElementById("antragstellerIdentischVP").value;
+    const asName = document.getElementById("asNameVP").value;
+    const asVerhaeltnis = document.getElementById("asVerhaeltnisVP").value;
 
     const kasseName = document.getElementById("kasseName").value;
     const kasseAdresse = document.getElementById("kasseAdresse").value;
-
-    const hauptpflegepersonName = document.getElementById("hauptpflegepersonName").value;
-    let verhinderungGrund = document.getElementById("verhinderungGrund").value;
-    if (verhinderungGrund === "Andere wichtige Gründe") {
-        verhinderungGrund = document.getElementById("verhinderungGrundSonstigesText").value || "Andere wichtige Gründe";
-    }
-    const verhinderungZeitraumVonInput = document.getElementById("verhinderungZeitraumVon").value;
-    const verhinderungZeitraumVon = verhinderungZeitraumVonInput ? new Date(verhinderungZeitraumVonInput).toLocaleDateString("de-DE") : 'N/A';
-    const verhinderungZeitraumBisInput = document.getElementById("verhinderungZeitraumBis").value;
-    const verhinderungZeitraumBis = verhinderungZeitraumBisInput ? new Date(verhinderungZeitraumBisInput).toLocaleDateString("de-DE") : 'N/A';
-
-    const ersatzpflegeDurch = document.getElementById("ersatzpflegeDurch").value;
-    // Details je nach Ersatzpflegeart
-    const epNameNahe = document.getElementById("epNameNahe").value;
-    const epVerwandtschaftNahe = document.getElementById("epVerwandtschaftNahe").value;
-    const epKostenFahrtkosten = document.getElementById("epKostenFahrtkosten").value;
-    const epKostenVerdienstausfall = document.getElementById("epKostenVerdienstausfall").value;
-    const epNachweisVerdienstausfall = document.getElementById("epNachweisVerdienstausfall").checked;
-
-    const epNamePrivat = document.getElementById("epNamePrivat").value;
-    const epAnzahlStundenPrivat = document.getElementById("epAnzahlStundenPrivat").value;
-    const epStundensatzPrivat = document.getElementById("epStundensatzPrivat").value;
-    const epGesamtkostenPrivat = document.getElementById("epGesamtkostenPrivat").value;
     
-    const dienstName = document.getElementById("dienstName").value;
-    const dienstKosten = document.getElementById("dienstKosten").value;
-    const dienstRechnungAnbei = document.getElementById("dienstRechnungAnbei").checked;
+    // --- PDF Aufbau Start ---
+    
+    // 1. Absender (rechts oben oder links oben über Empfänger)
+    doc.setFontSize(10);
+    // Wir machen es klassisch links oben
+    let senderText = vpName + "\n" + vpAdresse;
+    if(antragstellerIdentisch === 'nein') {
+        senderText = asName + " (" + asVerhaeltnis + ")\n(für " + vpName + ")\n" + vpAdresse; // Adresse der VP wird meist verwendet
+    }
+    
+    writeBlock(senderText, 10);
+    y += 5;
 
+    // 2. Empfänger
+    writeLine(kasseName, true);
+    const kasseLines = doc.splitTextToSize(kasseAdresse, usableWidth / 2); // Schmaler machen
+    doc.text(kasseLines, margin, y);
+    y += (kasseLines.length * defaultLineHeight) + 10;
 
-    const vpZeitraumVonInput = document.getElementById("vpZeitraumVon").value;
-    const vpZeitraumVon = vpZeitraumVonInput ? new Date(vpZeitraumVonInput).toLocaleDateString("de-DE") : 'N/A';
-    const vpZeitraumBisInput = document.getElementById("vpZeitraumBis").value;
-    const vpZeitraumBis = vpZeitraumBisInput ? new Date(vpZeitraumBisInput).toLocaleDateString("de-DE") : 'N/A';
-    const vpStundenweise = document.getElementById("vpStundenweise").checked;
+    // 3. Datum (rechtsbündig)
+    const today = new Date().toLocaleDateString("de-DE");
+    doc.text("Datum: " + today, pageWidth - margin - 40, y - 10);
 
-    const kombiKurzzeitpflege = document.getElementById("kombiKurzzeitpflege").checked;
+    // 4. Betreff
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text(`Antrag auf Leistungen der Verhinderungspflege / Abrechnung`, margin, y);
+    y += 6;
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Versicherte Person: ${vpName}, Geb.: ${vpGeburt}, Vers.-Nr.: ${vpNummer}`, margin, y);
+    y += 10;
 
+    // 5. Einleitungstext (WICHTIG: PUEG Update)
+    const kombiKurzzeit = document.getElementById("kombiKurzzeitpflege").checked;
+    
+    let antragstext = "Hiermit beantrage ich die Erstattung von Aufwendungen für die Verhinderungspflege für den unten genannten Zeitraum.";
+    if (kombiKurzzeit) {
+        antragstext += "\n\nIch beantrage zudem die Auszahlung im Rahmen des Gemeinsamen Jahresbetrags für Verhinderungs- und Kurzzeitpflege (§ 42a SGB XI) bis zu 3.539 Euro. Sofern dieser (z.B. aufgrund des Stichtags) noch nicht für mich anwendbar ist, beantrage ich vorsorglich die Übertragung von bis zu 100% (bzw. 806 Euro nach altem Recht bis 1.612 Euro) der ungenutzten Mittel der Kurzzeitpflege auf die Verhinderungspflege.";
+    }
+    
+    writeBlock(antragstext);
+    y += 5;
+
+    // 6. Details Verhinderung
+    addSectionTitle("Angaben zur Verhinderung");
+    const hpName = document.getElementById("hauptpflegepersonName").value;
+    const vVon = new Date(document.getElementById("verhinderungZeitraumVon").value).toLocaleDateString("de-DE");
+    const vBis = new Date(document.getElementById("verhinderungZeitraumBis").value).toLocaleDateString("de-DE");
+    let grund = document.getElementById("verhinderungGrund").value;
+    if(grund === 'Andere wichtige Gründe') grund = document.getElementById("verhinderungGrundSonstigesText").value;
+
+    writeLine(`Verhinderte Pflegeperson: ${hpName}`);
+    writeLine(`Grund: ${grund}`);
+    writeLine(`Zeitraum der Verhinderung: ${vVon} bis ${vBis}`);
+    y+=2;
+
+    // 7. Ersatzpflege
+    addSectionTitle("Angaben zur Ersatzpflege");
+    const eArt = document.getElementById("ersatzpflegeDurch").value;
+    const pVon = new Date(document.getElementById("vpZeitraumVon").value).toLocaleDateString("de-DE");
+    const pBis = new Date(document.getElementById("vpZeitraumBis").value).toLocaleDateString("de-DE");
+    const stdWeise = document.getElementById("vpStundenweise").checked ? "Ja (unter 8 Std/Tag)" : "Nein (ganztägig)";
+
+    writeLine(`Durchgeführt von: ${eArt}`);
+    writeLine(`Tatsächlicher Zeitraum: ${pVon} bis ${pBis}`);
+    writeLine(`Stundenweise Verhinderung: ${stdWeise}`);
+    y += 3;
+
+    // Details je nach Art
+    doc.setFont("helvetica", "italic");
+    if (eArt.includes("Nahe Angehörige")) {
+        const epName = document.getElementById("epNameNahe").value;
+        const verw = document.getElementById("epVerwandtschaftNahe").value;
+        const fahrt = document.getElementById("epKostenFahrtkosten").value;
+        const verdienst = document.getElementById("epKostenVerdienstausfall").value;
+        writeLine(`Name: ${epName} (${verw})`);
+        if(fahrt) writeLine(`Geltend gemachte Fahrtkosten: ${fahrt} EUR`);
+        if(verdienst) writeLine(`Geltend gemachter Verdienstausfall: ${verdienst} EUR`);
+    } else if (eArt.includes("Privatperson")) {
+        const epName = document.getElementById("epNamePrivat").value;
+        const std = document.getElementById("epAnzahlStundenPrivat").value;
+        const satz = document.getElementById("epStundensatzPrivat").value;
+        const gesamt = document.getElementById("epGesamtkostenPrivat").value;
+        writeLine(`Name: ${epName}`);
+        writeLine(`${std} Stunden à ${satz} EUR = ${gesamt} EUR Gesamtkosten`);
+    } else {
+        const dName = document.getElementById("dienstName").value;
+        const dKosten = document.getElementById("dienstKosten").value;
+        writeLine(`Dienst/Einrichtung: ${dName}`);
+        writeLine(`Kosten: ${dKosten} EUR`);
+    }
+    doc.setFont("helvetica", "normal");
+    y += 5;
+
+    // 8. Bankverbindung
+    addSectionTitle("Bankverbindung");
     const iban = document.getElementById("iban").value;
     const bic = document.getElementById("bic").value;
-    const kontoinhaber = document.getElementById("kontoinhaber").value || (antragstellerIdentischVP === 'nein' && asNameVP.trim() !== "" ? asNameVP : vpName);
+    const konto = document.getElementById("kontoinhaber").value;
+    writeLine(`IBAN: ${iban}`);
+    if(bic) writeLine(`BIC: ${bic}`);
+    if(konto) writeLine(`Kontoinhaber: ${konto}`);
 
+    // 9. Anlagen
+    y += 5;
+    writeLine("Beigefügte Anlagen:", true);
+    const anlagenChecks = document.querySelectorAll('input[name="anlagenVerhinderungspflege"]:checked');
+    anlagenChecks.forEach(cb => writeLine("- " + cb.value));
+    const sonstAnlage = document.getElementById("anlageSonstigesVP").value;
+    if(sonstAnlage) writeLine("- " + sonstAnlage);
 
-    const anlagen = [];
-    const anlagenCheckboxes = document.querySelectorAll('input[name="anlagenVerhinderungspflege"]:checked');
-    anlagenCheckboxes.forEach(checkbox => {
-        if (checkbox.id === "anlageVollmachtVP" && antragstellerIdentischVP === "ja") {}
-        else { anlagen.push(checkbox.value); }
-    });
-    const anlageSonstigesVP = document.getElementById("anlageSonstigesVP").value;
-    if (anlageSonstigesVP.trim() !== "") { anlagen.push("Sonstige Anlagen: " + anlageSonstigesVP); }
-
-    // --- PDF-Inhalt erstellen ---
-    doc.setFontSize(11);
-
-    // Absender
-    let absenderName = vpName;
-    let absenderAdresse = vpAdresse;
-    if (antragstellerIdentischVP === 'nein' && asNameVP.trim() !== "") {
-        absenderName = asNameVP;
-        // Adresse des Antragstellers (falls im Formular vorhanden, aktuell nicht der Fall, daher vpAdresse)
-        // absenderAdresse = document.getElementById("asAdresseVP").value; // Wenn ein Feld asAdresseVP existiert
-    }
-    writeLine(absenderName);
-    vpAdresse.split("\n").forEach(line => writeLine(line)); // Immer Adresse der versicherten Person? Oder Antragsteller? Für VP.
-     if (antragstellerIdentischVP === 'nein' && asNameVP.trim() !== ""){
-         writeParagraph(`(handelnd als ${asVerhaeltnisVP || 'Vertreter/in'} für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
-
-    // Empfänger, Datum
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
-    const datumHeute = new Date().toLocaleDateString("de-DE");
-    doc.setFontSize(11);
-    const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
-
-    // Betreff
-    let betreffText = `Antrag auf Leistungen der Verhinderungspflege gemäß § 39 SGB XI`;
-    betreffText += `\nFür: ${vpName}, geb. am ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer} (${vpPflegegrad})`;
+    // 10. Unterschrift
+    y += 20;
+    checkPageBreak(30);
+    doc.line(margin, y, margin + 80, y);
+    doc.setFontSize(10);
+    doc.text("Ort, Datum, Unterschrift", margin, y + 5);
     
-    const betreffFontSize = 12;
-    writeParagraph(betreffText, defaultLineHeight, betreffFontSize, {fontStyle: "bold", extraSpacingAfter: defaultLineHeight});
-
-    // Anrede
-    writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, 11, {extraSpacingAfter: defaultLineHeight * 0.5});
-
-    // Einleitung
-    writeParagraph(`hiermit beantrage ich/beantragen wir für Herrn/Frau ${vpName} Leistungen der Verhinderungspflege.`);
-    writeParagraph(`Die Hauptpflegeperson, Herr/Frau ${hauptpflegepersonName || '[Name Hauptpflegeperson]'}, ist/war im Zeitraum vom ${verhinderungZeitraumVon} bis zum ${verhinderungZeitraumBis} aufgrund von "${verhinderungGrund}" an der Pflege gehindert.`);
-    writeParagraph("Die Voraussetzung der mindestens sechsmonatigen Vorpflegezeit durch die Hauptpflegeperson ist erfüllt.");
-
-    // Durchführung der Ersatzpflege
-    writeLine("Durchführung der Ersatzpflege:", defaultLineHeight, true);
-    y += spaceAfterParagraph/2;
-    writeParagraph(`Die Ersatzpflege wurde/wird im Zeitraum vom ${vpZeitraumVon} bis zum ${vpZeitraumBis} wie folgt durchgeführt:`);
-    
-    if (ersatzpflegeDurch === "Nahe Angehörige (bis 2. Grad oder verschwägert)") {
-        writeParagraph(`Durch den/die nahen Angehörigen (bis zum 2. Grad oder verschwägert): ${epNameNahe || '[Name eintragen]'} (${epVerwandtschaftNahe || '[Verwandtschaft eintragen]'}).`);
-        if (epKostenFahrtkosten.trim() !== "" && parseFloat(epKostenFahrtkosten) > 0) {
-            writeParagraph(`Hierfür werden Fahrtkosten in Höhe von ${parseFloat(epKostenFahrtkosten).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })} geltend gemacht.`);
-        }
-        if (epKostenVerdienstausfall.trim() !== "" && parseFloat(epKostenVerdienstausfall) > 0) {
-            writeParagraph(`Zusätzlich wird ein Verdienstausfall in Höhe von ${parseFloat(epKostenVerdienstausfall).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })} geltend gemacht.`);
-            if (epNachweisVerdienstausfall) writeParagraph("(Ein entsprechender Nachweis über den Verdienstausfall liegt bei.)", defaultLineHeight, 10, {fontStyle:"italic"});
-        }
-        writeParagraph("Wir bitten um Erstattung bis zur Höhe des 1,5-fachen Pflegegeldes des Pflegegrades " + vpPflegegrad + " bzw. unter Anrechnung der nachgewiesenen Aufwendungen bis zum gesetzlichen Höchstbetrag.", defaultLineHeight, 10);
-    } else if (ersatzpflegeDurch === "Andere Privatperson (z.B. Nachbar, Freund)") {
-        writeParagraph(`Durch eine andere Privatperson: ${epNamePrivat || '[Name eintragen]'}.`);
-        if (epAnzahlStundenPrivat.trim() !== "" && epStundensatzPrivat.trim() !== "") {
-            writeParagraph(`Es wurden ${epAnzahlStundenPrivat} Stunden zu einem Stundensatz von ${parseFloat(epStundensatzPrivat).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })} geleistet.`);
-        }
-        if (epGesamtkostenPrivat.trim() !== "") {
-            writeParagraph(`Die Gesamtkosten hierfür betragen: ${parseFloat(epGesamtkostenPrivat).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}.`);
-        } else {
-            writeParagraph("Die Kosten hierfür werden nach Vorlage der entsprechenden Nachweise abgerechnet.");
-        }
-    } else if (ersatzpflegeDurch === "Ambulanter Pflegedienst" || ersatzpflegeDurch === "Stationäre Einrichtung (z.B. Kurzzeitpflegeeinrichtung)") {
-        writeParagraph(`Durch: ${dienstName || '[Name des Dienstes/der Einrichtung eintragen]'}.`);
-        if (dienstKosten.trim() !== "") {
-            writeParagraph(`Die hierfür entstandenen Kosten betragen laut beiliegender Rechnung/Kostenvoranschlag: ${parseFloat(dienstKosten).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}.`);
-        }
-        if (dienstRechnungAnbei) writeParagraph("(Die Rechnung/der Kostenvoranschlag liegt bei.)", defaultLineHeight, 10, {fontStyle:"italic"});
-    }
-
-    if (vpStundenweise) {
-        writeParagraph("Die Verhinderungspflege wurde lediglich stundenweise (weniger als 8 Stunden pro Tag) in Anspruch genommen. Wir bitten um Weiterzahlung des vollen Pflegegeldes bzw. um entsprechende Verrechnung.", defaultLineHeight, 10, {fontStyle:"italic"});
-    }
-
-    // Kombination mit Kurzzeitpflege
-    if (kombiKurzzeitpflege) {
-        writeParagraph("Zusätzlich beantrage ich/beantragen wir die Umwandlung von bis zu 50% des noch nicht verbrauchten Leistungsbetrags der Kurzzeitpflege zur Finanzierung der oben genannten Verhinderungspflegekosten, um den Gesamtanspruch auf bis zu 2.418 Euro zu erhöhen.", defaultLineHeight, 11, {fontStyle:"bold"});
-    }
-
-    // Bankverbindung
-    writeLine("Bankverbindung für die Erstattung:", defaultLineHeight, true);
-    y += spaceAfterParagraph/2;
-    writeParagraph(`Kontoinhaber:in: ${kontoinhaber}`);
-    writeParagraph(`IBAN: ${iban}`);
-    if (bic.trim() !== "") writeParagraph(`BIC: ${bic}`);
-    
-    // Anlagen
-    if (anlagen.length > 0) {
-        writeLine("Beigefügte Anlagen:", defaultLineHeight, true);
-        y += spaceAfterParagraph / 2;
-        anlagen.forEach(anlage => {
-            writeParagraph(`- ${anlage}`);
-        });
-    }
-    
-    // Abschluss
-    writeParagraph("Ich/Wir bitten um Prüfung und Übernahme der entstandenen Kosten im Rahmen der Verhinderungspflege sowie um eine entsprechende Mitteilung.", defaultLineHeight, 11);
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
-
-    // Grußformel und Unterschrift
-    writeParagraph("Mit freundlichen Grüßen");
-    if (y + defaultLineHeight * 1.5 <= usableHeight) y += defaultLineHeight * 1.5; 
-    else { doc.addPage(); y = margin + defaultLineHeight * 1.5; }
-    writeParagraph(absenderName);
-
-    doc.save("antrag_verhinderungspflege.pdf");
-
-    const spendenPopupElement = document.getElementById("spendenPopupVerhinderungspflege");
-    if (spendenPopupElement) {
-        spendenPopupElement.style.display = "flex";
-    }
+    // PDF speichern
+    const filenameName = vpName.replace(/\s+/g, '_');
+    doc.save(`Antrag_Verhinderungspflege_${filenameName}.pdf`);
 }

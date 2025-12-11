@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         "einrichtungNameKZP", "einrichtungAdresseKZP", "zeitraumKurzzeitpflegeVon", "zeitraumKurzzeitpflegeBis",
         "anlageSonstigesKZP"
     ];
-    const checkboxIdsToSave = [ // einzelne Checkboxen
+    const checkboxIdsToSave = [ 
         "asVollmachtKZP", "platzReserviertKZP", "kombiVerhinderungspflegeKZP"
     ];
     const anlagenCheckboxName = "anlagenKurzzeitpflege";
@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
             checkbox.checked = data.anlagen && data.anlagen.includes(checkbox.value);
         });
 
-        // Sichtbarkeit nach Laden aktualisieren
         if (antragstellerIdentischSelect) updateDynamicFieldVisibility(antragstellerIdentischSelect, antragstellerDetailsDiv, 'nein', ['asNameKZP', 'asAdresseKZP', 'asVerhaeltnisKZP'], anlageVollmachtCheckboxAntrag);
         if (grundKurzzeitpflegeSelect) updateDynamicFieldVisibility(grundKurzzeitpflegeSelect, grundKurzzeitpflegeSonstigesDetailsDiv, 'Sonstiger Grund', ['grundKurzzeitpflegeSonstigesText']);
     }
@@ -234,7 +233,6 @@ function generateKurzzeitpflegeAntragPDF() {
     if (antragstellerIdentischKZP === 'nein' && asNameKZP.trim() !== "") {
         absenderName = asNameKZP;
         absenderAdresse = asAdresseKZP; 
-        // absenderTelefon = asTelefonKZP; // Falls ein Telefonfeld für Antragsteller existiert
     }
     writeLine(absenderName);
     absenderAdresse.split("\n").forEach(line => writeLine(line));
@@ -290,16 +288,15 @@ function generateKurzzeitpflegeAntragPDF() {
         writeParagraph("Ein Platz in der genannten Einrichtung ist für diesen Zeitraum bereits reserviert/zugesagt.", defaultLineHeight, 10, {fontStyle: "italic"});
     }
 
-    // Kombination mit Verhinderungspflege
+    // Kombination mit Verhinderungspflege (PUEG Update)
     if (kombiVerhinderungspflegeKZP) {
-        writeLine("3. Kombination mit Mitteln der Verhinderungspflege:", defaultLineHeight, true);
+        writeLine("3. Gemeinsamer Jahresbetrag / Budgeterhöhung:", defaultLineHeight, true);
         y += spaceAfterParagraph/2;
-        writeParagraph("Ich/Wir beantragen hiermit zusätzlich die Inanspruchnahme von noch nicht verbrauchten Mitteln der Verhinderungspflege (§ 39 SGB XI) zur Erhöhung des Leistungsbetrages für die Kurzzeitpflege.");
+        writeParagraph("Ich/Wir beantragen hiermit die Inanspruchnahme des Gemeinsamen Jahresbetrags für Verhinderungs- und Kurzzeitpflege (§ 42a SGB XI) bis zu 3.539 Euro. Sofern dieser für mich (z.B. aufgrund des Stichtags) noch nicht anwendbar ist, beantrage ich hiermit die Übertragung von 100% der ungenutzten Mittel der Verhinderungspflege (§ 39 SGB XI) auf die Kurzzeitpflege, um den Leistungsbetrag maximal zu erhöhen.");
     }
     
     // Pflegegeld
     writeParagraph("Mir/Uns ist bekannt, dass während der Inanspruchnahme der Kurzzeitpflege die Hälfte des bisher bezogenen Pflegegeldes für bis zu acht Wochen im Kalenderjahr weitergezahlt wird.", defaultLineHeight, 10, {fontStyle:"italic", extraSpacingAfter: defaultLineHeight});
-
 
     // Anlagen
     if (anlagen.length > 0) {
@@ -313,7 +310,6 @@ function generateKurzzeitpflegeAntragPDF() {
     // Abschluss
     let abschlussAbschnittNummer = kombiVerhinderungspflegeKZP ? 5 : 4;
     if (anlagen.length === 0) abschlussAbschnittNummer -=1;
-
 
     writeLine(`${abschlussAbschnittNummer}. Bitte um Bestätigung und Information`, defaultLineHeight, true);
     y += spaceAfterParagraph / 2;
