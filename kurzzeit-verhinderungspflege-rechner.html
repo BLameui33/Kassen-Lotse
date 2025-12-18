@@ -11,38 +11,62 @@
 
   <!-- Strukturierte Daten (HowTo + FAQ) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Kurzzeitpflege- & Verhinderungspflege-Budget berechnen",
-    "description": "So prüfst du dein Restbudget 2025 für Kurzzeit- und Verhinderungspflege.",
-    "step": [
-      {"@type":"HowToStep","name":"Pflegegrad wählen","text":"Anspruch auf das gemeinsame Budget besteht ab Pflegegrad 2."},
-      {"@type":"HowToStep","name":"Jahr wählen","text":"Für 2025 gilt ab 01.07. ein gemeinsamer Jahresbetrag von 3.539 €."},
-      {"@type":"HowToStep","name":"Bereits genutzte Beträge eintragen","text":"Kurzzeit- und Verhinderungspflege, die die Pflegekasse schon übernommen hat."},
-      {"@type":"HowToStep","name":"Geplante Kosten eintragen","text":"Voraussichtliche Kosten bis Jahresende für Kurzzeit- und Verhinderungspflege."},
-      {"@type":"HowToStep","name":"Ergebnis prüfen","text":"Restbudget, voraussichtlich übernehmbarer Betrag und ggf. Eigenanteil."}
-    ]
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Kurzzeitpflege- & Verhinderungspflege-Rechner 2025",
+  "operatingSystem": "Web",
+  "applicationCategory": "HealthApplication",
+  "description": "Online-Rechner zur unverbindlichen Berechnung des gemeinsamen Budgets für Kurzzeitpflege und Verhinderungspflege 2025. Ermittelt Restbudget, geplante Nutzung und möglichen Eigenanteil.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
   }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type":"Question",
-        "name":"Wie hoch ist das gemeinsame Budget 2025?",
-        "acceptedAnswer":{"@type":"Answer","text":"Ab dem 01.07.2025 beträgt der gemeinsame Jahresbetrag für Kurzzeit- und Verhinderungspflege bis zu 3.539 € je Kalenderjahr (Pflegegrad 2–5). Bereits im 1. Halbjahr 2025 genutzte Beträge werden angerechnet."}
-      },
-      {
-        "@type":"Question",
-        "name":"Gilt das Budget auch für Pflegegrad 1?",
-        "acceptedAnswer":{"@type":"Answer","text":"Nein. Pflegegrad 1 hat keinen Anspruch auf dieses Budget. Es steht aber der Entlastungsbetrag in Höhe von 131 € pro Monat (2025) zur Verfügung, der teilweise für vergleichbare Leistungen genutzt werden kann."}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Wie hoch ist das gemeinsame Budget für Kurzzeit- und Verhinderungspflege 2025?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ab dem 01.07.2025 steht für Pflegebedürftige ab Pflegegrad 2 ein gemeinsamer Jahresbetrag von bis zu 3.539 Euro für Kurzzeitpflege und Verhinderungspflege zur Verfügung. Bereits im Jahr genutzte Beträge werden angerechnet."
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "Question",
+      "name": "Wer hat Anspruch auf das gemeinsame Pflege-Budget?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anspruch auf das gemeinsame Budget haben Pflegebedürftige mit Pflegegrad 2 bis 5. Für Pflegegrad 1 besteht kein Anspruch auf dieses Budget."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was gilt bei Pflegegrad 1?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bei Pflegegrad 1 steht kein Budget für Kurzzeit- oder Verhinderungspflege zur Verfügung. Es kann jedoch der Entlastungsbetrag von 131 Euro pro Monat genutzt werden, zum Beispiel für unterstützende Leistungen im Alltag."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist das Ergebnis des Rechners verbindlich?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Die Berechnung ist unverbindlich und dient nur zur Orientierung. Maßgeblich sind die individuellen Regelungen und der Leistungsbescheid der zuständigen Pflegekasse."
+      }
+    }
+  ]
+}
+</script>
+
+  
 </head>
 <body>
   <header class="site-header">
@@ -54,19 +78,19 @@
 
     <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Seit <strong>01.07.2025</strong> gibt es für <strong>Kurzzeitpflege</strong> und <strong>Verhinderungspflege</strong>
-        einen <strong>gemeinsamen Jahresbetrag von bis zu 3.539&nbsp;Euro</strong> (ab Pflegegrad&nbsp;2).
-        Im <strong>1. Halbjahr 2025</strong> genutzte Beträge werden auf diesen Gesamtbetrag angerechnet.
-      </p>
-      <p>
-        Mit diesem Rechner prüfst du dein <strong>Restbudget</strong> und ob geplante Einsätze
-        voraussichtlich vollständig von der Pflegekasse übernommen werden – inklusive
-        <strong>möglichem Eigenanteil</strong>, falls das Budget nicht reicht.
-      </p>
-      <p>
-        Wichtig: Die Berechnung ist eine <strong>unverbindliche Orientierung</strong> und ersetzt
-        keinen Bescheid der Pflegekasse und keine individuelle Beratung.
-      </p>
+    Mit diesem Rechner kannst du dein <strong>Budget für Kurzzeitpflege und Verhinderungspflege 2025</strong>
+    <strong>unverbindlich berechnen</strong>.
+    Seit dem <strong>01.07.2025</strong> gilt für beide Leistungen ein
+    <strong>gemeinsamer Jahresbetrag von bis zu 3.539&nbsp;€</strong>
+    für Pflegebedürftige ab <strong>Pflegegrad&nbsp;2</strong>.
+  </p>
+  <p>
+    Der Rechner zeigt dir dein <strong>verbleibendes Restbudget</strong> und ob geplante Einsätze
+    voraussichtlich vollständig von der <strong>Pflegekasse</strong> übernommen werden
+    oder ein <strong>Eigenanteil</strong> entstehen kann.
+    Die Berechnung dient ausschließlich der Orientierung und ersetzt keine
+    individuelle Beratung oder einen verbindlichen Leistungsbescheid.
+  </p>
     </div>
 
     <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">

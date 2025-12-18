@@ -10,20 +10,54 @@
   <link rel="stylesheet" href="/css/style.css">
   <!-- strukturierte Daten für SEO -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Erwerbsminderungsrente berechnen",
-    "description": "So schätzt du deine monatliche Erwerbsminderungsrente in wenigen Schritten.",
-    "step": [
-      {"@type":"HowToStep","name":"Rentenart wählen","text":"Voll oder teilweise Erwerbsminderung."},
-      {"@type":"HowToStep","name":"Geburtsjahr oder Alter eingeben","text":"Für die Schätzung der Zurechnungszeit."},
-      {"@type":"HowToStep","name":"Entgeltpunkte aus Renteninformation übernehmen","text":"Diese findest du auf deiner jährlichen DRV-Renteninformation."},
-      {"@type":"HowToStep","name":"Aktuellen Rentenwert und Abschlag prüfen","text":"Standardwert 39,32 € je EP, Abschlag meist bis 10,8 %."},
-      {"@type":"HowToStep","name":"Ergebnis anzeigen","text":"Brutto- und Netto-Schätzung deiner EM-Rente."}
-    ]
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "EM-Rente Rechner 2025",
+  "operatingSystem": "Web",
+  "applicationCategory": "FinanceApplication",
+  "description": "Online-Rechner zur Schätzung der Erwerbsminderungsrente (EM-Rente) 2025 auf Basis von Entgeltpunkten, Zurechnungszeit, Rentenwert und Abschlägen.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
   }
-  </script>
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was berechnet der EM-Rente Rechner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Der Rechner schätzt die monatliche Erwerbsminderungsrente anhand von Entgeltpunkten, Zurechnungszeit, Abschlägen und dem aktuellen Rentenwert."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist die Berechnung der EM-Rente verbindlich?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Die Berechnung ist unverbindlich und dient nur zur Orientierung. Verbindlich ist ausschließlich der Bescheid der Deutschen Rentenversicherung."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wo finde ich meine Entgeltpunkte?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Deine bisherigen Entgeltpunkte findest du in deiner jährlichen Renteninformation oder Rentenauskunft der Deutschen Rentenversicherung."
+      }
+    }
+  ]
+}
+</script>
+
 </head>
 
 <body>
@@ -36,21 +70,23 @@
 
     <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Mit diesem kostenlosen Rechner kannst du deine <strong>voraussichtliche Erwerbsminderungsrente (EM-Rente)</strong> selbst einschätzen.
-        Grundlage sind deine <strong>Entgeltpunkte</strong>, eine <strong>Zurechnungszeit bis zur Regelaltersgrenze</strong>,
-        mögliche <strong>Abschläge</strong> sowie der aktuelle <strong>Rentenwert</strong>.
-      </p>
-      <p>
-        Die Berechnung dient nur als <strong>vereinfachte Orientierung</strong>.
-        Maßgeblich sind stets die Angaben der <strong>Deutschen Rentenversicherung (DRV)</strong>
-        in der Rentenauskunft oder im späteren Bescheid.
-      </p>
+    Mit diesem Rechner kannst du deine <strong>voraussichtliche Erwerbsminderungsrente (EM-Rente)</strong> für 2025 kostenlos schätzen.
+    Die Berechnung berücksichtigt deine bisherigen <strong>Entgeltpunkte</strong>,
+    eine gesetzliche <strong>Zurechnungszeit bis zur Regelaltersgrenze</strong>,
+    mögliche <strong>Abschläge</strong> sowie den aktuellen <strong>Rentenwert</strong>.
+  </p>
+  <p>
+    Das Ergebnis zeigt eine <strong>monatliche Brutto- und optional Netto-Schätzung</strong>
+    für volle oder teilweise Erwerbsminderung.
+    Die Berechnung ist <strong>rechtlich unverbindlich</strong> und dient ausschließlich der Orientierung.
+    Maßgeblich ist der spätere Bescheid der <strong>Deutschen Rentenversicherung (DRV)</strong>.
+  </p>
     </div>
     <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">18.12.2025</span></p>
 </div>
 
     <form id="em-form" class="pflegegrad-form" aria-describedby="intro-info" novalidate>
@@ -156,7 +192,7 @@
       <p>
         <strong>Hinweis:</strong> Diese Berechnung ist eine stark vereinfachte Orientierung.
         Maßgeblich bleiben die Angaben der <strong>Deutschen Rentenversicherung (DRV)</strong>.
-        Keine Rechtsberatung. Stand: 13.11.2025.
+        Keine Rechtsberatung. Stand: 18.12.2025.
       </p>
     </div>
   
@@ -208,6 +244,36 @@
     <a href="info-grundsicherung.html" class="button button-secondary" title="Zur Info Grundsicherung">EM-Rente zu niedrig? Hilfe vom Sozialamt</a>
   </p>
 </aside>
+
+<h2>Quellen &amp; weiterführende Links</h2>
+<div class="kl-highlight kl-sources-box" aria-label="Quellen und weiterführende Links">
+  <ul>
+    <li>
+        <a href="https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/Allgemeine-Informationen/Rentenarten-und-Leistungen/Erwerbsminderungsrenten.html" target="_blank" rel="noopener">
+            Deutsche Rentenversicherung – EM-Rente: Voraussetzungen & Leistungen
+        </a>
+    </li>
+    <li>
+        <a href="https://www.deutsche-rentenversicherung.de/SharedDocs/Downloads/DE/Broschueren/national/erwerbsminderungsrente_das_netz_fuer_alle_faelle.pdf?__blob=publicationFile&v=25" target="_blank" rel="noopener">
+            DRV-Broschüre – "Das Netz für alle Fälle" (PDF-Download)
+        </a>
+    </li>
+    <li>
+        <a href="https://www.deutsche-rentenversicherung.de/DRV/DE/Online-Services/antrag_stellen.html" target="_blank" rel="noopener">
+            eAntrag – Erwerbsminderungsrente direkt online beantragen
+        </a>
+    </li>
+    <li>
+        <a href="https://www.vdk.de/aktuelles/tipp/informationen-rund-um-die-erwerbsminderungsrente/" target="_blank" rel="noopener">
+            VdK – Tipps zum Widerspruch & Hinzuverdienstgrenzen 2025
+        </a>
+    </li>
+    <li>
+        <a href="https://www.betanet.de/erwerbsminderungsrente.html" target="_blank" rel="noopener">
+            Betanet – Teilweise vs. volle Erwerbsminderung einfach erklärt
+        </a>
+    </li>
+</ul>
 
 </main>
 

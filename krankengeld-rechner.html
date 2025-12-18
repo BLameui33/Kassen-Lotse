@@ -11,20 +11,61 @@
 
   <!-- strukturierte Daten (HowTo) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "Krankengeld berechnen",
-    "description": "So berechnest du dein voraussichtliches Krankengeld nach der Entgeltfortzahlung.",
-    "step": [
-      {"@type":"HowToStep","name":"Brutto und Netto eingeben","text":"Trage dein monatliches Brutto- und Nettogehalt ein."},
-      {"@type":"HowToStep","name":"Versicherungsstatus wählen","text":"Gesetzlich, selbstständig oder privat versichert."},
-      {"@type":"HowToStep","name":"Zeitraum angeben","text":"Wie viele Tage Krankengeld sollen geschätzt werden?"},
-      {"@type":"HowToStep","name":"Abzüge prüfen","text":"Typisch 12 – 13 % Sozialabgaben; Wert kann angepasst werden."},
-      {"@type":"HowToStep","name":"Ergebnis anzeigen","text":"Brutto-, Netto- und Gesamtsumme deines Krankengeldes."}
-    ]
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Krankengeld-Rechner 2025",
+  "operatingSystem": "Web",
+  "applicationCategory": "FinanceApplication",
+  "description": "Online-Rechner zur unverbindlichen Schätzung des gesetzlichen Krankengeldes 2025. Berechnet Krankengeld pro Tag, Monat und Zeitraum nach Ablauf der Lohnfortzahlung.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
   }
-  </script>
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Wie wird das Krankengeld berechnet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Das gesetzliche Krankengeld beträgt in der Regel 70 Prozent des Bruttoeinkommens, jedoch höchstens 90 Prozent des Nettoverdienstes. Von diesem Betrag werden Sozialversicherungsbeiträge abgezogen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ab wann bekomme ich Krankengeld?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Krankengeld wird in der Regel nach dem Ende der Lohnfortzahlung durch den Arbeitgeber gezahlt, meist ab der siebten Krankheitswoche."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist das Ergebnis des Krankengeld-Rechners verbindlich?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Die Berechnung ist eine vereinfachte und unverbindliche Schätzung. Maßgeblich ist ausschließlich die Berechnung und der Bescheid der zuständigen Krankenkasse."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wer hat Anspruch auf gesetzliches Krankengeld?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anspruch auf gesetzliches Krankengeld haben in der Regel gesetzlich versicherte Arbeitnehmer nach Ablauf der Lohnfortzahlung. Für Selbstständige oder Privatversicherte gelten besondere Regelungen."
+      }
+    }
+  ]
+}
+</script>
+
 </head>
 
 <body>
@@ -37,18 +78,19 @@
 
     <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Nach <strong>6 Wochen Krankheit</strong> endet meist die Lohnfortzahlung des Arbeitgebers.
-        Ab diesem Zeitpunkt zahlt deine <strong>gesetzliche Krankenkasse</strong> Krankengeld.
-      </p>
-      <p>
-        Mit diesem kostenlosen Rechner ermittelst du, wie viel <strong>Krankengeld</strong> du
-        voraussichtlich erhältst – täglich, monatlich und als geschätzten <strong>Netto-Betrag</strong>.
-      </p>
-      <p>
-        Grundlage ist die gesetzliche Regelung:
-        <strong>70 % vom Brutto</strong>, aber höchstens <strong>90 % vom Netto</strong>,
-        begrenzt durch einen <strong>Höchstbetrag pro Tag</strong>.
-      </p>
+    Mit diesem Rechner kannst du dein <strong>gesetzliches Krankengeld für 2025</strong>
+    <strong>unverbindlich berechnen</strong>.
+    Die Schätzung zeigt dir, wie hoch dein Krankengeld
+    <strong>pro Tag, pro Monat</strong> und für einen gewünschten Zeitraum
+    voraussichtlich ausfällt.
+  </p>
+  <p>
+    Grundlage sind die gesetzlichen Regeln der Krankenkassen
+    (<strong>70&nbsp;% vom Brutto</strong>, höchstens <strong>90&nbsp;% vom Netto</strong>)
+    sowie pauschale <strong>Abzüge für Sozialversicherung</strong>.
+    Das Ergebnis dient ausschließlich der Orientierung und ersetzt keine
+    verbindliche Auskunft oder den Bescheid deiner <strong>Krankenkasse</strong>.
+  </p>
     </div>
     <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.

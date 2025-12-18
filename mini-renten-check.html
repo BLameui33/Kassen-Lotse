@@ -12,43 +12,62 @@
 
   <!-- Schema.org: HowTo + FAQ für bessere SERP-Snippets -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"HowTo",
-    "name":"Mini-Renten-Check durchführen",
-    "description":"So vergleichst du gesetzliche Rente, private Zusatzrente und dein heutiges Netto.",
-    "step":[
-      {"@type":"HowToStep","name":"Regelalters-Rente eintragen","text":"Monatliche Bruttorente laut Renteninformation."},
-      {"@type":"HowToStep","name":"Regelalter und Wunschbeginn wählen","text":"Vorzugs- oder Aufschubmonate berechnen den Zu-/Abschlag automatisch."},
-      {"@type":"HowToStep","name":"Private Sparrate & Annahmen setzen","text":"Monatliche Sparrate, nominale Rendite, Inflation, Entnahmequote."},
-      {"@type":"HowToStep","name":"Heutiges Netto für Vergleich angeben","text":"Optional: Differenz zur künftigen Gesamtrente."},
-      {"@type":"HowToStep","name":"Ergebnis prüfen","text":"Gesetzliche Rente (angepasst), Zusatzrente, Gesamtrente & Differenz."}
-    ]
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Mini-Renten-Check 2025",
+  "operatingSystem": "Web",
+  "applicationCategory": "FinanceApplication",
+  "description": "Online-Rechner zur unverbindlichen Schätzung der monatlichen Gesamtrente. Kombiniert gesetzliche Rente mit möglichem Zu- oder Abschlag und eine hochgerechnete private Altersvorsorge.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
   }
-  </script>
+}
+</script>
+
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"Wie werden Zu- und Abschläge berechnet?",
-        "acceptedAnswer":{"@type":"Answer","text":"Vorgezogener Beginn: 0,3 % Abschlag je Monat (max. 14,4 %). Späterer Beginn: 0,5 % Zuschlag je Monat. Werte sind anpassbar."}
-      },
-      {
-        "@type":"Question",
-        "name":"Wird Inflation berücksichtigt?",
-        "acceptedAnswer":{"@type":"Answer","text":"Ja, die Sparrate wird real verzinst (nominale Rendite minus Inflation). Die Zusatzrente ergibt sich über eine jährliche Entnahmequote."}
-      },
-      {
-        "@type":"Question",
-        "name":"Sind Steuern und KV/PV enthalten?",
-        "acceptedAnswer":{"@type":"Answer","text":"Nein, der Check ist eine vereinfachte Modellrechnung ohne Steuern und Beiträge zur Kranken-/Pflegeversicherung."}
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was zeigt der Mini-Renten-Check?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Der Mini-Renten-Check schätzt die monatliche Gesamtrente aus gesetzlicher Rente und privater Altersvorsorge und stellt sie dem heutigen Nettoeinkommen gegenüber."
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "Question",
+      "name": "Wie werden Zu- und Abschläge bei der gesetzlichen Rente berücksichtigt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bei vorgezogenem Rentenbeginn wird standardmäßig ein Abschlag von 0,3 Prozent je Monat berechnet, bei späterem Rentenbeginn ein Zuschlag von 0,5 Prozent je Monat. Die Werte können im Rechner angepasst werden."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie wird die private Altersvorsorge berechnet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die private Sparrate wird real verzinst, also unter Berücksichtigung der Inflation. Das angesparte Vermögen wird über eine Entnahmequote in eine monatliche Zusatzrente umgerechnet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist das Ergebnis des Mini-Renten-Checks verbindlich?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Die Berechnung ist eine vereinfachte Modellrechnung und dient nur der Orientierung. Steuern, Kranken- und Pflegeversicherungsbeiträge sowie individuelle Faktoren sind nicht berücksichtigt."
+      }
+    }
+  ]
+}
+</script>
+
 </head>
 <body>
   <header class="site-header">
@@ -60,16 +79,19 @@
 
     <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Der Check zeigt deine <strong>Gesamtrente pro Monat</strong> aus
-        <strong>gesetzlicher Rente</strong> plus hochgerechneter <strong>privater Sparrate</strong> –
-        im Vergleich zu deinem <strong>heutigen Netto</strong>. Alle Annahmen kannst du anpassen.
-      </p>
-      <p>
-        Vereinfachungen: Abschlag beim Vorziehen <strong>0,3&nbsp;%/Monat</strong> (max. 14,4&nbsp;%),
-        Zuschlag beim späteren Beginn <strong>0,5&nbsp;%/Monat</strong>. Private Sparrate wird
-        <em>real</em> (Nominalzins minus Inflation) verzinst; die Auszahlung erfolgt über
-        eine jährliche <strong>Entnahmequote</strong>.
-      </p>
+    Mit dem <strong>Mini-Renten-Check</strong> erhältst du eine
+    <strong>unverbindliche Einschätzung deiner monatlichen Gesamtrente</strong>.
+    Der Rechner kombiniert deine <strong>gesetzliche Rente</strong>
+    (inklusive möglicher Zu- oder Abschläge bei früherem oder späterem Rentenbeginn)
+    mit einer hochgerechneten <strong>privaten Altersvorsorge</strong>.
+  </p>
+  <p>
+    Zusätzlich kannst du die berechnete Gesamtrente mit deinem
+    <strong>heutigen Netto</strong> vergleichen.
+    Alle Annahmen zu Sparrate, Rendite, Inflation und Entnahmequote sind
+    frei anpassbar. Die Ergebnisse dienen ausschließlich der Orientierung
+    und ersetzen keine individuelle Renten-, Steuer- oder Finanzberatung.
+  </p>
     </div>
     <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
