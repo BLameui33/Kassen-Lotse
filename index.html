@@ -307,6 +307,34 @@ footer a:hover {
   z-index: 10;
 }
 
+.intro-text,
+.model-info,
+.privacy-short-info {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 2rem;
+  padding: 1.4rem 1.7rem;
+  background-color: var(--primary-light);
+  border-left: 6px solid var(--primary);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.intro-text:hover,
+.model-info:hover,
+.privacy-short-info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+}
+
+.intro-text,
+  .model-info,
+  .privacy-short-info {
+    font-size: 0.95rem;
+    padding: 1.2rem;
+  }
+
 /* dezente Glanzlinie am oberen Rand */
 .site-header::before {
   content: "";
@@ -369,7 +397,7 @@ footer a:hover {
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
-  <div class="page-container">
+  <div class="intro-text">
     <h1>Kassen-Lotse: Ihr digitaler Helfer für Anträge & Widersprüche</h1>
 
     <div class="project-info"> <h3>Willkommen bei Kassen-Lotse – Gemeinsam stark durch den Antragsdschungel!</h3>
@@ -736,6 +764,10 @@ footer a:hover {
     <li>
         <a href="hilfe-angehörige.html">Professionelle Hilfe finden</a>
         <small>Wegweiser zu Pflegediensten, Therapeuten und Beratungsstellen.</small>
+    </li>
+    <li>
+        <a href="young-carers.html">Young Carers: Hilfe für pflegende Kinder und Jugendliche</a>
+        <small>Wenn Kinder und Jugendliche pflegen.</small>
     </li>
     <li>
         <a href="mdk-begutachtung-vorbereitung.html">Vorbereitung auf die MDK-Begutachtung</a>
