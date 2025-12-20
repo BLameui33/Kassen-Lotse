@@ -8,6 +8,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Eigenanteil Pflegeheim Rechner",
+  "operatingSystem": "Web",
+  "applicationCategory": "HealthApplication",
+  "description": "Online-Rechner zur unverbindlichen Berechnung des monatlichen Eigenanteils im Pflegeheim unter Berücksichtigung von EEE, Unterkunft und Verpflegung, Investitionskosten und Leistungszuschlägen der Pflegekasse.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
 </head>
 <body>
   <header class="site-header">
@@ -19,25 +35,30 @@
 
     <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Dieser Rechner schätzt deinen <strong>monatlichen Eigenanteil</strong> für einen Heimplatz.
-        Grundlage sind: <em>EEE</em> (einrichtungseinheitlicher Eigenanteil), <em>Unterkunft &amp; Verpflegung</em>,
-        <em>Investitionskosten</em>, <em>Zusatzleistungen</em> und ggf. <em>Ausbildungsumlage</em>.
-      </p>
-      <p>
-        Der <strong>Leistungszuschlag der Pflegekasse</strong> (prozentualer Zuschuss auf den EEE, u. a. abhängig von der Aufenthaltsdauer)
-        kann <strong>automatisch</strong> (per Aufenthaltsmonate) oder <strong>manuell</strong> gesetzt werden.
-      </p>
-      <p>
-        Das Ergebnis ist eine <strong>unverbindliche Orientierung</strong>. Maßgeblich sind Heimvertrag/Kostenaufstellung,
-        Bescheide der Pflegekasse und ggf. Behörden.
-      </p>
-    </div>
+    Mit diesem <strong>Rechner für den Eigenanteil im Pflegeheim</strong> kannst du
+    deine <strong>voraussichtlichen monatlichen Kosten</strong> der stationären Pflege
+    übersichtlich abschätzen.
+  </p>
+  <p>
+    Berücksichtigt werden u.&nbsp;a. der
+    <strong>einrichtungseinheitliche Eigenanteil (EEE)</strong>,
+    <strong>Unterkunft &amp; Verpflegung</strong>,
+    <strong>Investitionskosten</strong>,
+    <strong>Zusatzleistungen</strong> sowie der
+    <strong>Leistungszuschlag der Pflegekasse</strong> auf den EEE.
+  </p>
+  <p>
+    Das Ergebnis dient ausschließlich der <strong>Orientierung</strong> und
+    ersetzt keine verbindliche Kostenaufstellung des Pflegeheims,
+    der Pflegekasse oder des Sozialamts.
+  </p>
+</div>
 
     <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">20.12.2025</span></p>
 </div>
 
     <form id="heim-form" class="pflegegrad-form" aria-describedby="heim_ergebnis" novalidate>
@@ -225,21 +246,7 @@
   <script src="pflegeheim-eigenanteil-rechner.js"></script>
 
   <!-- Strukturierte Daten: HowTo + FAQ -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"HowTo",
-    "name":"Eigenanteil im Pflegeheim berechnen",
-    "description":"EEE, U+V, Investitionskosten, Zuschläge erfassen und Eigenanteil abschätzen.",
-    "step":[
-      {"@type":"HowToStep","name":"Angaben machen","text":"Pflegegrad und bisherige Aufenthaltsmonate eingeben."},
-      {"@type":"HowToStep","name":"Zuschlag festlegen","text":"Automatisch per Aufenthaltsdauer oder manuell in % des EEE."},
-      {"@type":"HowToStep","name":"Kostenbausteine eintragen","text":"EEE, Unterkunft & Verpflegung, Investitionskosten, Zusatzleistungen, Ausbildungsumlage und Zuschüsse."},
-      {"@type":"HowToStep","name":"Eigene Mittel prüfen","text":"Monatliche Mittel für die Deckungsprüfung angeben."},
-      {"@type":"HowToStep","name":"Ergebnis lesen","text":"Eigenanteil, Zuschlagshöhe, Deckung und mögliche Lücke."}
-    ]
-  }
-  </script>
+  
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",

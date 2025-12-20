@@ -8,6 +8,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Pflegegrad-Rechner (inoffizielle Einschätzung)",
+  "operatingSystem": "Web",
+  "applicationCategory": "HealthApplication",
+  "description": "Online-Rechner zur unverbindlichen Einschätzung eines möglichen Pflegegrads anhand der Module 1–6 des Begutachtungsassessments nach SGB XI.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+
 </head>
 <body>
   <!-- Header wie bei deinen Infoseiten -->
@@ -20,14 +36,21 @@
 
     <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Mit diesem Rechner erhältst du eine <strong>erste, unverbindliche Einschätzung</strong> zum möglichen Pflegegrad
-        nach dem Begutachtungssystem mit <strong>Modulen 1–6</strong> (0–100 Punkte).
-      </p>
-      <p>
-        <strong>Wichtig:</strong> Das Ergebnis ist <strong>nicht rechtsverbindlich</strong> und ersetzt keine
-        Begutachtung durch den <strong>Medizinischen Dienst (MD)</strong> bzw. die Pflegekasse.
-      </p>
-    </div>
+    Mit dem <strong>Pflegegrad-Rechner</strong> erhältst du eine
+    <strong>erste, unverbindliche Einschätzung</strong>, welcher Pflegegrad
+    (PG&nbsp;1–5) anhand des offiziellen Begutachtungssystems
+    mit <strong>Modulen&nbsp;1–6</strong> (NBA, 0–100 Punkte) in Betracht kommen könnte.
+  </p>
+  <p>
+    Der Rechner orientiert sich an den Kriterien des
+    <strong>Medizinischen Dienstes (MD)</strong> nach <strong>SGB&nbsp;XI</strong>.
+    Das Ergebnis dient ausschließlich der Orientierung und
+    <strong>ersetzt kein Gutachten</strong> der Pflegekasse.
+  </p>
+</div>
+<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">20.12.2025</span></p>
+</div>
 
     <form id="pflegegrad-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
       <!-- MODUL 1: Mobilität -->
@@ -329,7 +352,7 @@
 </aside>
 
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">20.12.2025</span></p>
 </div>
 
 </div>

@@ -19,6 +19,55 @@
 
   <!-- optional: html2pdf (wird im Original geladen) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Verletztengeld-Rechner",
+  "operatingSystem": "Web",
+  "applicationCategory": "FinanceApplication",
+  "description": "Online-Rechner zur unverbindlichen Berechnung des Verletztengeldes der Berufsgenossenschaft nach Arbeitsunfall oder Berufskrankheit auf Basis des vorherigen Arbeitsentgelts.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"Wie wird Verletztengeld berechnet?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Das Verletztengeld orientiert sich in der Regel an etwa 80 % des maßgeblichen Regelentgelts (Brutto), ist jedoch auf das Netto begrenzt. Zusätzlich können Abzüge zur Renten- und Arbeitslosenversicherung erfolgen."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Wann wird Verletztengeld gezahlt?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Verletztengeld wird meist gezahlt, wenn die Entgeltfortzahlung durch den Arbeitgeber endet, z. B. ab der siebten Woche nach einem Arbeitsunfall oder bei anerkannter Berufskrankheit."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Ist das Ergebnis des Rechners verbindlich?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Nein. Der Rechner dient nur der Orientierung. Verbindlich ist allein die Berechnung und der Bescheid der zuständigen Berufsgenossenschaft."
+      }
+    }
+  ]
+}
+</script>
+
 </head>
 <body>
   <header class="site-header" role="banner">
@@ -30,15 +79,21 @@
 
     <div class="highlight-box" role="region" aria-label="Kurzinfo Verletztengeld">
       <p>
-        Nach einem <strong>Arbeitsunfall</strong> oder bei einer anerkannten <strong>Berufskrankheit</strong> zahlt die
-        Berufsgenossenschaft (BG) in der Regel <strong>Verletztengeld</strong>. Es ersetzt entgangenes Arbeitsentgelt,
-        ist in der Regel höher als Krankengeld und basiert häufig auf ca. <strong>80 % des maßgeblichen Regelentgelts (Brutto)</strong>.
-      </p>
-      <p class="hinweis">
-        WICHTIG: Die konkrete Auszahlung kann <strong>höher oder niedriger</strong> ausfallen — z. B. wegen Deckelung am Netto,
-        sozialversicherungsrechtlichen Abzügen (Renten-/ALV-Beiträge) oder Besonderheiten der jeweiligen BG.
-      </p>
-    </div>
+    Mit diesem <strong>Verletztengeld-Rechner</strong> kannst du unverbindlich abschätzen,
+    wie hoch das <strong>Verletztengeld der Berufsgenossenschaft (BG)</strong>
+    nach einem Arbeitsunfall oder bei anerkannter Berufskrankheit ausfallen kann.
+  </p>
+  <p>
+    Grundlage ist dein <strong>Arbeitsentgelt vor dem Unfall</strong>.
+    Der Rechner orientiert sich an der üblichen Berechnung von
+    <strong>rund 80&nbsp;% des maßgeblichen Regelentgelts</strong>,
+    begrenzt durch das Netto.
+  </p>
+  <p>
+    Die Berechnung dient ausschließlich der <strong>Orientierung</strong>.
+    Maßgeblich sind die Entscheidung und Berechnung der zuständigen Berufsgenossenschaft.
+  </p>
+</div>
 
     <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.

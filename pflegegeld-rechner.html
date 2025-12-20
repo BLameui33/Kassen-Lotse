@@ -8,22 +8,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="styles.css" />
+  
 
   <!-- Schema.org: HowTo + FAQ für bessere SERP-Snippets -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"HowTo",
-    "name":"Pflegegeld 2025 berechnen",
-    "description":"So ermittelst du Pflegegeld und die Kombinationsleistung mit Pflegesachleistungen.",
-    "step":[
-      {"@type":"HowToStep","name":"Pflegegrad wählen","text":"Pflegegeld gibt es ab Pflegegrad 2; Pflegegrad 1 hat kein Pflegegeld."},
-      {"@type":"HowToStep","name":"Versorgungsart wählen","text":"Nur Pflegegeld oder Kombination mit Pflegesachleistungen (ambulante Dienste)."},
-      {"@type":"HowToStep","name":"Sachleistungs-Anteil setzen","text":"Bei Kombination prozentualen Anteil auswählen – Pflegegeld wird anteilig gekürzt."},
-      {"@type":"HowToStep","name":"Ergebnis prüfen","text":"Monatsbeträge für Pflegegeld, Sachleistungen und Summe inkl. Entlastungsbetrag (131 €)."}
-    ]
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Pflegegeld-Rechner 2025",
+  "operatingSystem": "Web",
+  "applicationCategory": "FinanceApplication",
+  "description": "Online-Rechner zur unverbindlichen Berechnung von Pflegegeld und Kombinationsleistungen mit Pflegesachleistungen nach SGB XI für 2025.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
   }
+}
+</script>
+
   </script>
   <script type="application/ld+json">
   {
@@ -46,6 +49,13 @@
         "acceptedAnswer":{"@type":"Answer","text":"Ja, der Entlastungsbetrag beträgt 131 € pro Monat (PG1–PG5). Er ist zweckgebunden für anerkannte Angebote."}
       },
       {
+  "@type":"Question",
+  "name":"Ist das berechnete Pflegegeld verbindlich?",
+  "acceptedAnswer":{
+    "@type":"Answer",
+    "text":"Nein. Die Berechnung dient nur der Orientierung. Maßgeblich sind die Regelungen des SGB XI und der individuelle Bescheid der Pflegekasse."
+  },
+      {
         "@type":"Question",
         "name":"Wie funktioniert die Kombination von Geld- und Sachleistungen?",
         "acceptedAnswer":{"@type":"Answer","text":"Nimmst du z. B. 40 % Sachleistungen in Anspruch, wird das Pflegegeld um 40 % gekürzt. Die Kürzung entspricht dem genutzten Sachleistungs-Anteil."}
@@ -64,18 +74,25 @@
 
     <div class="highlight-box" role="region" aria-label="Einführung">
       <p>
-        Berechne dein <strong>voraussichtliches Pflegegeld</strong> ab 2025 – wahlweise nur Pflegegeld
-        oder als <strong>Kombination mit Pflegesachleistungen</strong> (Pflegedienst).
-      </p>
-      <p>
-        Basis sind die gültigen <strong>Leistungsbeträge der Pflegeversicherung 2025</strong>.
-        Das Ergebnis ist eine <strong>unverbindliche Orientierung</strong> und ersetzt keinen Bescheid deiner Pflegekasse.
-      </p>
-    </div>
+    Mit dem <strong>Pflegegeld-Rechner 2025</strong> kannst du dein
+    <strong>voraussichtliches monatliches Pflegegeld</strong> je Pflegegrad (PG&nbsp;2–5)
+    berechnen – wahlweise als <strong>reines Pflegegeld</strong> oder als
+    <strong>Kombinationsleistung mit Pflegesachleistungen</strong> eines ambulanten Pflegedienstes.
+  </p>
+  <p>
+    Der Rechner berücksichtigt die <strong>gesetzlichen Leistungsbeträge der Pflegeversicherung 2025</strong>
+    sowie den <strong>Entlastungsbetrag von 131&nbsp;€ pro Monat</strong>.
+    Die Ergebnisse dienen ausschließlich der Orientierung und ersetzen keinen
+    verbindlichen Bescheid der Pflegekasse.
+  </p>
+</div>
 
     <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
+<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">20.12.2025</span></p>
+</div>
 
     <form id="pflegegeld-form" class="pflegegrad-form" aria-describedby="pflegegeld-ergebnis" novalidate>
       <fieldset class="pflegegrad-fieldset active-step">
