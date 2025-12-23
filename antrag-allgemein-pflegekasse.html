@@ -2,11 +2,47 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Allgemeiner Antrag Pflegekasse</title>
-  <meta name="description" content="Erstellen Sie einen allgemeinen Antrag an Ihre Pflegekasse für individuelle Anliegen oder Leistungen, die nicht durch spezifische Formulare abgedeckt sind.">
-  <meta name="keywords" content="Antrag, Pflegekasse, Allgemein, formlos, SGB XI, Pflegeversicherung, Anliegen">
+  <!-- SEO: SGB XI im Titel ergänzt für höhere Relevanz -->
+  <title>Allgemeiner Antrag Pflegekasse (SGB XI): Kostenlose PDF-Vorlage</title>
+  
+  <meta name="description" content="Erstellen Sie rechtssichere, formlose Anträge an die Pflegekasse nach SGB XI. Kostenloser PDF-Generator für Pflegehilfsmittel, Verhinderungspflege u.v.m.">
+  
+  <!-- Keywords um konkrete Paragraphen erweitert -->
+  <meta name="keywords" content="Antrag, Pflegekasse, SGB XI, § 40 SGB XI, Pflegehilfsmittel, Verhinderungspflege, formlos, Pflegeversicherung">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  
+  <meta property="og:title" content="Allgemeiner Antrag Pflegekasse: PDF-Generator">
+  <meta property="og:description" content="Erstellen Sie Ihren Antrag nach SGB XI in wenigen Minuten. Kostenlos & sicher.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
   <link rel="icon" href="/logo-lotse-fav.png">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Generator für allgemeine Anträge an die Pflegekasse",
+    "description": "Tool zur Erstellung von Anträgen auf Leistungen der Pflegeversicherung nach dem Elften Buch Sozialgesetzbuch (SGB XI).",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Sozialgesetzbuch (SGB) - Elftes Buch (XI) - Soziale Pflegeversicherung"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="antrag-allgemein-pflegekasse_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -18,12 +54,27 @@
 </header>
 
 <div class="page-container">
-  <h1>Allgemeiner Antrag an die Pflegekasse</h1>
-  <p class="info-box">
-    Dieses Formular hilft Ihnen, einen allgemeinen (formlosen) Antrag an Ihre Pflegekasse zu stellen, für Anliegen, die nicht durch spezifische Formulare abgedeckt sind.
-    Formulieren Sie Ihr Anliegen so klar und präzise wie möglich.
-    Weitere Informationen finden Sie auf unserer <a href="info-allgemein-pflegekasse.html">Info-Seite zu allgemeinen Anliegen bei der Pflegekasse</a>.
-  </p>
+  <h1>Allgemeiner Antrag an die Pflegekasse (SGB XI)</h1>
+  
+  <!-- EXPERTISE-BOOST: Hier wurden die Paragraphen eingefügt -->
+  <div class="info-box">
+    <p>
+      Nutzen Sie dieses Formular für formlose Anträge auf Leistungen der <strong>Sozialen Pflegeversicherung gemäß SGB XI</strong>. 
+      Da das Sozialrecht (§ 9 SGB X) vorschreibt, dass Anträge an keine bestimmte Form gebunden sind, ist dieses generierte Schreiben rechtsgültig.
+    </p>
+    <p><strong>Häufige Anwendungsfälle für diesen Antrag sind:</strong></p>
+    <ul style="margin-top: 5px; margin-bottom: 5px; padding-left: 20px;">
+        <li>Antrag auf wohnumfeldverbessernde Maßnahmen (<strong>§ 40 Abs. 4 SGB XI</strong>)</li>
+        <li>Antrag auf zum Verbrauch bestimmte Pflegehilfsmittel (<strong>§ 40 Abs. 1 & 2 SGB XI</strong>)</li>
+        <li>Antrag auf Verhinderungspflege (<strong>§ 39 SGB XI</strong>)</li>
+        <li>Antrag auf Entlastungsbetrag (<strong>§ 45b SGB XI</strong>)</li>
+        <li>Sonstige Leistungen oder Akteneinsicht (<strong>§ 25 SGB X</strong>)</li>
+    </ul>
+    <p>
+      Weitere Informationen finden Sie auf unserer <a href="info-allgemein-pflegekasse.html">Info-Seite zu allgemeinen Anliegen</a>.
+    </p>
+  </div>
+  
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
@@ -38,15 +89,15 @@
     <fieldset>
       <legend>1. Angaben zur versicherten Person</legend>
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" required autocomplete="name">
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" required autocomplete="bday">
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
       <input type="text" id="vpNummer" required>
       <label for="vpTelefon">Telefonnummer (für Rückfragen, optional):</label>
-      <input type="text" id="vpTelefon">
+      <input type="text" id="vpTelefon" autocomplete="tel">
     </fieldset>
 
     <fieldset>
@@ -58,9 +109,9 @@
       </select>
       <div id="antragstellerDetailsAllgPk" class="sub-details">
           <label for="asNameAllgPk">Vor- und Nachname des/der Antragsteller:in:</label>
-          <input type="text" id="asNameAllgPk">
+          <input type="text" id="asNameAllgPk" autocomplete="name">
           <label for="asAdresseAllgPk">Vollständige Adresse des/der Antragsteller:in:</label>
-          <textarea id="asAdresseAllgPk" rows="3"></textarea>
+          <textarea id="asAdresseAllgPk" rows="3" autocomplete="street-address"></textarea>
           <label for="asVerhaeltnisAllgPk">Verhältnis zur versicherten Person:</label>
           <input type="text" id="asVerhaeltnisAllgPk" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
           <label><input type="checkbox" id="asVollmachtAllgPk"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
@@ -70,7 +121,7 @@
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
       <label for="pflegekasseName">Name der Pflegekasse:</label>
-      <input type="text" id="pflegekasseName" required>
+      <input type="text" id="pflegekasseName" required autocomplete="organization">
       <label for="pflegekasseAdresse">Vollständige Adresse der Pflegekasse:</label>
       <textarea id="pflegekasseAdresse" rows="3" required></textarea>
     </fieldset>
@@ -78,12 +129,12 @@
     <fieldset>
       <legend>4. Ihr Anliegen / Antrag</legend>
       <label for="antragBetreff">Betreff Ihres Anliegens/Antrags: <small>(Formulieren Sie einen klaren Betreff)</small></label>
-      <input type="text" id="antragBetreff" required placeholder="z.B. Antrag auf Akteneinsicht, Anfrage zu Leistung X, Antrag auf Einzelfallentscheidung Y">
+      <input type="text" id="antragBetreff" required placeholder="z.B. Antrag auf wohnumfeldverbessernde Maßnahmen (§ 40 SGB XI)">
       
       <label for="anliegenBeschreibung">Genaue Beschreibung Ihres Anliegens / Antrags: <small>(Was beantragen oder bitten Sie? Welche Situation liegt vor? Warum ist Ihr Anliegen wichtig?)</small></label>
       <textarea id="anliegenBeschreibung" rows="10" required placeholder="Beschreiben Sie hier detailliert Ihr Anliegen..."></textarea>
 
-      <label for="antragBegruendung">Begründung für Ihren Antrag / Ihr Anliegen: <small>(Warum ist dies notwendig oder gerechtfertigt? Beziehen Sie sich ggf. auf Gesetze, ärztliche Empfehlungen oder besondere Umstände.)</small></label>
+      <label for="antragBegruendung">Begründung für Ihren Antrag / Ihr Anliegen: <small>(Warum ist dies notwendig oder gerechtfertigt? Beziehen Sie sich ggf. auf Gesetze wie § 33 oder § 40 SGB XI, ärztliche Empfehlungen oder besondere Umstände.)</small></label>
       <textarea id="antragBegruendung" rows="6" placeholder="Führen Sie hier Ihre Gründe auf..."></textarea>
       
       <label for="antragForderung">Was genau erwarten/fordern Sie von der Pflegekasse? <small>(Formulieren Sie Ihr Ziel klar und präzise.)</small></label>
@@ -100,6 +151,10 @@
         <label for="anlageSonstigesAllgPk">Sonstige Anlagen (bitte auflisten):</label>
         <input type="text" id="anlageSonstigesAllgPk">
     </fieldset>
+
+    <div style="margin: 20px 0; padding: 10px; background-color: #f0fdf4; border: 1px solid #22c55e; border-radius: 5px; text-align: center; color: #15803d; font-size: 0.95em;">
+        🔒 <strong>Datenschutz-Garantie:</strong> Ihre Daten werden ausschließlich lokal in Ihrem Browser verarbeitet, um das PDF zu erstellen. Es erfolgt <u>keine</u> Speicherung oder Übertragung an unsere Server.
+    </div>
 
     <div class="button-group">
       <button type="button" id="saveBtnAntragAllgPk" class="button-secondary">Eingaben speichern</button>

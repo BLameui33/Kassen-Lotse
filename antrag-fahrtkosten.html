@@ -2,10 +2,52 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <!-- SEO: Titel mit Rechtsgrundlage und Nutzen -->
+  <title>Antrag auf Fahrtkostenerstattung (Krankenkasse): PDF Vorlage nach § 60 SGB V</title>
+  
+  <!-- SEO: Description mit Keywords zu Zuzahlung und Anlässen -->
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Fahrtkostenerstattung bei der Krankenkasse (nach § 60 SGB V). Kostenloses PDF-Formular für Fahrten zur Chemo, Dialyse oder Klinik.">
+  
+  <!-- Keywords: SGB V, Eigenanteil, Zuzahlung, Taxi, Mietwagen -->
+  <meta name="keywords" content="Fahrtkostenerstattung, Antrag, Krankenkasse, § 60 SGB V, Krankentransport, Kilometerpauschale, Zuzahlung, Befreiung, Taxi, Mietwagen">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Fahrtkostenerstattung Krankenkasse: PDF-Generator">
+  <meta property="og:description" content="Holen Sie sich Ihr Geld zurück: Antrag auf Fahrkostenerstattung einfach online erstellen.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
   <link rel="icon" href="/logo-lotse-fav.png">
-  <title>Antrag auf Fahrtkostenerstattung</title>
+  
+  <!-- YMYL Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Generator für Fahrtkostenerstattung",
+    "description": "Tool zur Erstellung eines Antrags auf Erstattung von Fahrkosten zur medizinischen Behandlung gemäß § 60 SGB V.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Fahrtkosten (§ 60 SGB V)"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script defer src="fahrtkosten_script.js"></script> <link rel="stylesheet" href="/css/generator.css">
+  <script defer src="fahrtkosten_script.js"></script> 
+  <link rel="stylesheet" href="/css/generator.css">
 </head>
 <body>
 
@@ -14,38 +56,56 @@
 </header>
 
 <div class="page-container">
-  <h1>Antrag auf Fahrtkostenerstattung</h1>
-  <p class="info-box">Füllen Sie dieses Formular aus, um Fahrtkosten für medizinisch notwendige Fahrten bei Ihrer Krankenkasse geltend zu machen. Beachten Sie die Hinweise auf unserer <a href="info-fahrtkosten.html">Informationsseite zur Fahrtkostenerstattung</a>.
-  </p>
+  <h1>Antrag auf Fahrtkostenerstattung (§ 60 SGB V)</h1>
+  
+  <!-- EXPERTISE: Kontext zu § 60 SGB V -->
+  <div class="info-box">
+    <p>
+      Füllen Sie dieses Formular aus, um Fahrtkosten für medizinisch notwendige Fahrten bei Ihrer Krankenkasse geltend zu machen. 
+      Dies betrifft in der Regel Fahrten gemäß <strong>§ 60 SGB V</strong> (Fahrkosten), beispielsweise bei stationären Behandlungen, 
+      Serienbehandlungen (Chemo/Strahlentherapie, Dialyse) oder bei Vorliegen eines Schwerbehindertenausweises (aG, Bl, H) bzw. Pflegegrad 3 (mit Mobilitätseinschränkung), 4 oder 5.
+    </p>
+    <p style="margin-top:5px;">
+      Beachten Sie die Hinweise auf unserer <a href="info-fahrtkosten.html">Informationsseite zur Fahrtkostenerstattung</a>.
+    </p>
+  </div>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
   <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
 </p>
+
+<!-- ÄNDERUNG: Redaktionell geprüft statt Fachlich geprüft -->
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Redaktionell geprüft am:</strong> <span id="pruefdatum">13.12.2025</span></p>
 </div>
 
   <form id="fahrtkostenAntragForm">
     <fieldset>
       <legend>1. Persönliche Angaben</legend>
       <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" required autocomplete="name">
+      
       <label for="adresse">Ihre vollständige Adresse:</label>
-      <textarea id="adresse" rows="3" required></textarea>
+      <textarea id="adresse" rows="3" required autocomplete="street-address"></textarea>
+      
       <label for="geburt">Geburtsdatum:</label>
-      <input type="date" id="geburt" required>
+      <input type="date" id="geburt" required autocomplete="bday">
+      
       <label for="nummer">Versichertennummer:</label>
       <input type="text" id="nummer" required>
+      
       <label for="telefon">Telefonnummer (für Rückfragen, optional):</label>
-      <input type="text" id="telefon">
+      <input type="text" id="telefon" autocomplete="tel">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" required autocomplete="organization">
+      
       <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
       <textarea id="kasseAdresse" rows="3" required></textarea>
     </fieldset>
@@ -55,16 +115,18 @@
       <label for="fahrtgrund">Grund der Fahrten: <small>(z.B. stationäre Behandlung, Serienbehandlung, Facharztbesuch)</small></label>
       <select id="fahrtgrund" required>
           <option value="">Bitte wählen...</option>
-          <option value="Stationäre Krankenhausbehandlung">Stationäre Krankenhausbehandlung</option>
+          <option value="Stationäre Krankenhausbehandlung">Stationäre Krankenhausbehandlung (§ 60 Abs. 2 SGB V)</option>
           <option value="Vor-/Nachstationäre Behandlung">Vor-/Nachstationäre Behandlung</option>
           <option value="Ambulante Operation">Ambulante Operation (inkl. Vor-/Nachsorge)</option>
           <option value="Serienbehandlung (Dialyse, Chemo-, Strahlentherapie)">Serienbehandlung (Dialyse, Chemo-, Strahlentherapie)</option>
-          <option value="Ambulante fachärztliche Behandlung (mit Genehmigung/besondere Indikation)">Ambulante fachärztliche Behandlung (mit Genehmigung/besondere Indikation)</option>
+          <option value="Ambulante fachärztliche Behandlung (mit Genehmigung/besondere Indikation)">Ambulante fachärztliche Behandlung (mit Genehmigung)</option>
           <option value="Reha-/Kurmaßnahme">Reha-/Kurmaßnahme</option>
           <option value="Sonstige medizinisch notwendige Fahrt">Sonstige medizinisch notwendige Fahrt</option>
       </select>
+      
       <label for="behandlungsortName">Name der Klinik / Arztpraxis / Einrichtung:</label>
       <input type="text" id="behandlungsortName" required>
+      
       <label for="behandlungsortAdresse">Anschrift der Klinik / Arztpraxis / Einrichtung:</label>
       <textarea id="behandlungsortAdresse" rows="2" required></textarea>
     </fieldset>
@@ -83,11 +145,14 @@
     <fieldset>
         <legend>5. Bankverbindung für die Erstattung</legend>
         <label for="iban">IBAN:</label>
-        <input type="text" id="iban" required>
+        <!-- Autofill für IBAN wird oft über cc-number oder generische fields erkannt -->
+        <input type="text" id="iban" required autocomplete="on">
+        
         <label for="bic">BIC (optional, meist nur für Ausland):</label>
-        <input type="text" id="bic">
+        <input type="text" id="bic" autocomplete="on">
+        
         <label for="kontoinhaber">Kontoinhaber:in (falls abweichend von Antragsteller:in):</label>
-        <input type="text" id="kontoinhaber">
+        <input type="text" id="kontoinhaber" autocomplete="cc-name">
     </fieldset>
 
     <fieldset>
@@ -101,6 +166,11 @@
         <label for="anlage_sonstiges_fahrtkosten">Sonstige Anlagen (bitte auflisten):</label>
         <input type="text" id="anlage_sonstiges_fahrtkosten" placeholder="z.B. separate Fahrtenaufstellung">
     </fieldset>
+
+    <!-- DATENSCHUTZ HINWEIS -->
+    <div style="margin: 20px 0; padding: 10px; background-color: #f0fdf4; border: 1px solid #22c55e; border-radius: 5px; text-align: center; color: #15803d; font-size: 0.95em;">
+        🔒 <strong>Datenschutz-Garantie:</strong> Ihre Daten werden ausschließlich lokal in Ihrem Browser verarbeitet. Es erfolgt <u>keine</u> Speicherung oder Übertragung an unsere Server.
+    </div>
 
     <div class="button-group">
       <button type="button" id="saveBtnFahrtkosten" class="button-secondary">Eingaben speichern</button>

@@ -2,10 +2,52 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag auf Haushaltshilfe</title>
+  <!-- SEO: Titel mit den wichtigsten Rechtsgrundlagen -->
+  <title>Antrag auf Haushaltshilfe (Krankenkasse): PDF Vorlage (§ 38 & § 24h SGB V)</title>
+  
+  <!-- SEO: Description deckt Krankheit und Schwangerschaft ab -->
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Haushaltshilfe bei der Krankenkasse. Kostenloses PDF-Formular für Fälle von Krankheit (§ 38 SGB V) oder Schwangerschaft (§ 24h SGB V).">
+  
+  <!-- Keywords: Kind unter 12, Schwangerschaft, Zuzahlung -->
+  <meta name="keywords" content="Haushaltshilfe, Antrag, Krankenkasse, § 38 SGB V, § 24h SGB V, Kinderbetreuung, Schwangerschaft, Krankenhausaufenthalt, Zuzahlung, Formular">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Antrag auf Haushaltshilfe erstellen">
+  <meta property="og:description" content="Kostenlose Vorlage für Haushaltshilfe bei Krankheit oder Schwangerschaft.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
   <link rel="icon" href="/logo-lotse-fav.png">
+  
+  <!-- YMYL Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Generator für Antrag auf Haushaltshilfe",
+    "description": "Tool zur Erstellung eines Antrags auf Haushaltshilfe gegenüber der gesetzlichen Krankenversicherung.",
+    "applicationCategory": "FamilyApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Haushaltshilfe (§ 38 SGB V)"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script defer src="haushaltshilfe_script.js"></script> <link rel="stylesheet" href="/css/generator.css">
+  <script defer src="haushaltshilfe_script.js"></script> 
+  <link rel="stylesheet" href="/css/generator.css">
 </head>
 <body>
 
@@ -14,41 +56,57 @@
 </header>
 
 <div class="page-container">
-  <h1>Antrag auf Haushaltshilfe</h1>
-  <p class="info-box">
-    Füllen Sie dieses Formular aus, um Haushaltshilfe bei Ihrer Krankenkasse zu beantragen.
-    Eine ärztliche Bescheinigung über die Notwendigkeit ist in der Regel erforderlich.
-    Lesen Sie bitte auch unsere <a href="info-haushaltshilfe.html">Informationen zu diesem Thema</a>.
-  </p>
+  <h1>Antrag auf Haushaltshilfe (§ 38 / § 24h SGB V)</h1>
+  
+  <!-- EXPERTISE: Unterscheidung der Rechtsgrundlagen -->
+  <div class="info-box">
+    <p>
+      Füllen Sie dieses Formular aus, um Haushaltshilfe bei Ihrer Krankenkasse zu beantragen. 
+      Dies betrifft in der Regel Fälle gemäß <strong>§ 38 SGB V</strong> (bei Krankenhausbehandlung, schwerer Krankheit, wenn ein Kind unter 12 Jahren im Haushalt lebt) 
+      oder <strong>§ 24h SGB V</strong> (bei Schwangerschaft und Entbindung).
+    </p>
+    <p>
+      Eine ärztliche Bescheinigung über die Notwendigkeit ist zwingend erforderlich.
+      Lesen Sie bitte auch unsere <a href="info-haushaltshilfe.html">Informationen zu diesem Thema</a>.
+    </p>
+  </div>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
   <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
 </p>
+
+<!-- ÄNDERUNG: Redaktionell geprüft -->
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Redaktionell geprüft am:</strong> <span id="pruefdatum">13.12.2025</span></p>
 </div>
 
   <form id="haushaltshilfeAntragForm">
     <fieldset>
       <legend>1. Persönliche Angaben der/des Versicherten</legend>
       <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" required autocomplete="name">
+      
       <label for="adresse">Ihre vollständige Adresse:</label>
-      <textarea id="adresse" rows="3" required></textarea>
+      <textarea id="adresse" rows="3" required autocomplete="street-address"></textarea>
+      
       <label for="geburt">Geburtsdatum:</label>
-      <input type="date" id="geburt" required>
+      <input type="date" id="geburt" required autocomplete="bday">
+      
       <label for="nummer">Versichertennummer:</label>
       <input type="text" id="nummer" required>
+      
       <label for="telefon">Telefonnummer (für Rückfragen, optional):</label>
-      <input type="text" id="telefon">
+      <input type="text" id="telefon" autocomplete="tel">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" required autocomplete="organization">
+      
       <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
       <textarea id="kasseAdresse" rows="3" required></textarea>
     </fieldset>
@@ -58,10 +116,10 @@
       <label for="antragGrund">Ich beantrage Haushaltshilfe wegen:</label>
       <select id="antragGrund" required>
           <option value="">Bitte wählen...</option>
-          <option value="Krankenhausaufenthalt">Krankenhausaufenthalt</option>
+          <option value="Krankenhausaufenthalt">Krankenhausaufenthalt (§ 38 SGB V)</option>
           <option value="Ambulante Behandlung/Schwere Erkrankung zu Hause">Ambulante Behandlung/Schwere Erkrankung zu Hause</option>
           <option value="Medizinische Rehabilitationsmaßnahme (Kur)">Medizinische Rehabilitationsmaßnahme (Kur)</option>
-          <option value="Schwangerschaftsbeschwerden/Entbindung">Schwangerschaftsbeschwerden/Entbindung</option>
+          <option value="Schwangerschaftsbeschwerden/Entbindung">Schwangerschaftsbeschwerden/Entbindung (§ 24h SGB V)</option>
           <option value="Sonstiger Grund (bitte unten erläutern)">Sonstiger Grund</option>
       </select>
       <div id="grundDetailsKlinikKur" class="sub-details">
@@ -129,7 +187,7 @@
       </select>
       <div id="durchfuehrungPrivatpersonDetails" class="sub-details">
           <label for="privatpersonName">Name der Privatperson:</label>
-          <input type="text" id="privatpersonName">
+          <input type="text" id="privatpersonName" autocomplete="name">
           <label for="privatpersonVerwandtschaft">Verwandtschaftsverhältnis (falls zutreffend):</label>
           <input type="text" id="privatpersonVerwandtschaft" placeholder="z.B. Nachbarin, Freundin, Tante 3. Grades">
           <label for="privatpersonStundensatz">Ggf. beantragter Stundensatz/Aufwandsentschädigung: <small>(Klären Sie die Höhe mit Ihrer Kasse)</small></label>
@@ -137,7 +195,7 @@
       </div>
       <div id="durchfuehrungDienstDetails" class="sub-details">
           <label for="dienstName">Name des Dienstes:</label>
-          <input type="text" id="dienstName">
+          <input type="text" id="dienstName" autocomplete="organization">
           <label for="dienstAnschrift">Anschrift des Dienstes:</label>
           <textarea id="dienstAnschrift" rows="2"></textarea>
           <label><input type="checkbox" id="dienstKostenvoranschlag"> Kostenvoranschlag des Dienstes liegt bei / wird nachgereicht</label>
@@ -147,11 +205,16 @@
     <fieldset>
       <legend>7. Ärztliche Bescheinigung</legend>
       <label for="arztNameHaushaltshilfe">Name des Arztes/der Ärztin, der/die die Notwendigkeit bescheinigt:</label>
-      <input type="text" id="arztNameHaushaltshilfe" required>
+      <input type="text" id="arztNameHaushaltshilfe" required placeholder="Dr. Med...">
       <label for="datumAerztlicheBescheinigung">Datum der ärztlichen Bescheinigung:</label>
       <input type="date" id="datumAerztlicheBescheinigung" required>
       <p class="info-box">Eine detaillierte ärztliche Bescheinigung über die Notwendigkeit, den Umfang und die voraussichtliche Dauer der Haushaltshilfe ist dem Antrag beizufügen.</p>
     </fieldset>
+
+    <!-- DATENSCHUTZ HINWEIS -->
+    <div style="margin: 20px 0; padding: 10px; background-color: #f0fdf4; border: 1px solid #22c55e; border-radius: 5px; text-align: center; color: #15803d; font-size: 0.95em;">
+        🔒 <strong>Datenschutz-Garantie:</strong> Ihre Daten werden ausschließlich lokal in Ihrem Browser verarbeitet. Es erfolgt <u>keine</u> Speicherung oder Übertragung an unsere Server.
+    </div>
 
     <div class="button-group">
       <button type="button" id="saveBtnHaushaltshilfe" class="button-secondary">Eingaben speichern</button>

@@ -2,8 +2,49 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag: Kostenübernahme nicht-gelistetes/Off-Label Medikament</title>
+  <!-- SEO: Titel mit § 2 Abs. 1a SGB V (Nikolaus-Beschluss) für höchste Relevanz -->
+  <title>Antrag auf Off-Label-Use / Medikamente (Kostenübernahme): PDF Vorlage § 2 Abs. 1a SGB V</title>
+  
+  <!-- SEO: Description mit Fokus auf Ausnahmeregelung und ärztliche Begründung -->
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Kostenübernahme für Off-Label-Use oder neue Medikamente bei der Krankenkasse (Härtefallregelung gem. § 2 Abs. 1a SGB V).">
+  
+  <!-- Keywords: Off-Label-Use, Nikolaus-Beschluss, lebensbedrohlich, Standardtherapie, Härtefall -->
+  <meta name="keywords" content="Off-Label-Use, Antrag, Kostenübernahme, Medikament, § 2 Abs 1a SGB V, Krankenkasse, Nikolaus-Urteil, lebensbedrohliche Erkrankung, keine Standardtherapie, Härtefall">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Antrag auf Off-Label-Use Medikamente erstellen">
+  <meta property="og:description" content="Kostenlose Vorlage zur Antragstellung auf Prüfung einer Kostenübernahme für Medikamente außerhalb der Zulassung in Härtefällen.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
   <link rel="icon" href="/logo-lotse-fav.png">
+  
+  <!-- YMYL Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Generator für Off-Label-Use Antrag",
+    "description": "Tool zur Erstellung eines Antrags auf Kostenübernahme für Medikamente im Off-Label-Use nach § 2 Abs. 1a SGB V.",
+    "applicationCategory": "GovernmentApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Off-Label-Use (§ 2 Abs. 1a SGB V)"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="medikamente_script.js"></script> 
   <link rel="stylesheet" href="/css/generator.css">
@@ -14,42 +55,57 @@
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
-
 <div class="page-container">
-  <h1>Antrag auf Kostenübernahme für ein nicht-gelistetes / Off-Label Medikament</h1>
-  <p class="info-box">
-    Füllen Sie dieses Formular sorgfältig aus. Eine Kostenübernahme für nicht-gelistete Medikamente oder Medikamente im Off-Label-Use ist an strenge Voraussetzungen geknüpft. Eine detaillierte ärztliche Stellungnahme ist entscheidend für den Erfolg Ihres Antrags.
-    Lesen Sie bitte auch unsere <a href="info-medikamente.html">Informationen zu diesem Thema</a>.
-  </p>
+  <h1>Antrag auf Kostenübernahme: Off-Label-Use / Medikamente (§ 2 Abs. 1a SGB V)</h1>
+  
+  <div class="info-box">
+    <p>
+      Füllen Sie dieses Formular sorgfältig aus. Eine Kostenübernahme für nicht-gelistete Medikamente oder Medikamente im <strong>Off-Label-Use</strong> (Anwendung außerhalb der Zulassung) ist an strenge gesetzliche Voraussetzungen geknüpft (gemäß <strong>§ 2 Abs. 1a SGB V</strong>, sog. "Nikolaus-Beschluss").
+    </p>
+    <p>
+      Voraussetzung ist in der Regel eine <strong>lebensbedrohliche oder regelmäßig tödliche Erkrankung</strong>, für die <strong>keine allgemein anerkannte, dem medizinischen Standard entsprechende Behandlung</strong> zur Verfügung steht, sowie eine <strong>auf Indizien gestützte Aussicht auf Erfolg</strong>. Eine detaillierte ärztliche Stellungnahme ist daher zwingend erforderlich.
+    </p>
+    <p style="margin-top:5px;">
+      Lesen Sie bitte auch unsere <a href="info-medikamente.html">Informationen zu diesem Thema</a>.
+    </p>
+  </div>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  <strong>Hinweis:</strong> Dieses Tool ersetzt keine medizinische oder rechtliche Beratung. Es trifft keine Aussagen zur Wirksamkeit, Zweckmäßigkeit oder Erfolgsaussicht von Behandlungen und dient ausschließlich der strukturierten Antragstellung auf Basis ärztlicher Angaben. 
 </p>
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
   <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
 </p>
+
+<!-- ÄNDERUNG: Redaktionell geprüft -->
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Redaktionell geprüft am:</strong> <span id="pruefdatum">23.12.2025</span></p>
 </div>
 
   <form id="medikamentenAntragForm">
     <fieldset>
       <legend>1. Persönliche Angaben</legend>
       <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" required autocomplete="name">
+      
       <label for="adresse">Ihre vollständige Adresse:</label>
-      <textarea id="adresse" rows="3" required></textarea>
+      <textarea id="adresse" rows="3" required autocomplete="street-address"></textarea>
+      
       <label for="geburt">Geburtsdatum:</label>
-      <input type="date" id="geburt" required>
+      <input type="date" id="geburt" required autocomplete="bday">
+      
       <label for="nummer">Versichertennummer:</label>
       <input type="text" id="nummer" required>
+      
       <label for="telefon">Telefonnummer (für Rückfragen, optional):</label>
-      <input type="text" id="telefon">
+      <input type="text" id="telefon" autocomplete="tel">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" required autocomplete="organization">
+      
       <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
       <textarea id="kasseAdresse" rows="3" required></textarea>
     </fieldset>
@@ -58,49 +114,66 @@
       <legend>3. Angaben zum beantragten Medikament</legend>
       <label for="medikamentName">Name des Medikaments: <small>(Handelsname und Wirkstoff, falls bekannt)</small></label>
       <input type="text" id="medikamentName" required>
+      
       <label for="pzn">PZN (Pharmazentralnummer, falls bekannt):</label>
       <input type="text" id="pzn">
+      
       <label for="dosierung">Geplante Dosierung und Darreichungsform:</label>
       <input type="text" id="dosierung" required placeholder="z.B. 2x täglich 50mg Tabletten">
+      
       <label for="behandlungsdauer">Voraussichtliche Behandlungsdauer:</label>
       <input type="text" id="behandlungsdauer" required placeholder="z.B. 6 Monate, dauerhaft">
+      
       <label for="geschaetzteKosten">Geschätzte Kosten pro Monat/Packung (falls bekannt):</label>
       <input type="text" id="geschaetzteKosten" placeholder="z.B. ca. 300 EUR / Monat">
     </fieldset>
 
     <fieldset>
       <legend>4. Medizinische Angaben und Begründung</legend>
-      <label for="diagnose">Genaue Diagnose(n) der zu behandelnden Erkrankung:</label>
+      <!-- YMYL: Diagnose laut Arzt -->
+      <label for="diagnose">Genaue Diagnose(n) laut ärztlichem Befund:</label>
       <textarea id="diagnose" rows="2" required></textarea>
-      <label for="schweregradErkrankung">Beschreibung des Schweregrads der Erkrankung: <small>(Ist sie lebensbedrohlich, oder die Lebensqualität auf Dauer nachhaltig beeinträchtigend?)</small></label>
+      
+      <!-- YMYL: Subjektive Beschreibung vs. medizinische Einordnung -->
+      <label for="schweregradErkrankung">Beschreibung der Erkrankungsschwere: <small>(Schildern Sie die Auswirkungen auf Ihre Lebensqualität. Der medizinische Schweregrad muss im Arztbrief stehen.)</small></label>
       <textarea id="schweregradErkrankung" rows="3" required></textarea>
 
       <label for="arztName">Name des/der behandelnden Arztes/Ärztin (der/die die Notwendigkeit begründet):</label>
-      <input type="text" id="arztName" required>
+      <input type="text" id="arztName" required placeholder="Dr. Med...">
+      
       <label for="arztFachrichtung">Fachrichtung des/der Arztes/Ärztin:</label>
       <input type="text" id="arztFachrichtung" required>
+      
       <label for="arztAnschrift">Anschrift der Arztpraxis:</label>
       <textarea id="arztAnschrift" rows="2" required></textarea>
+      
       <label for="datumAerztlicheStellungnahme">Datum der beigefügten (oder nachzureichenden) ausführlichen ärztlichen Stellungnahme:</label>
       <input type="date" id="datumAerztlicheStellungnahme" required>
       
-      <label for="bisherigeTherapien">Bisherige Behandlungsversuche und deren Ergebnis: <small>(Warum stehen allgemein anerkannte, dem medizinischen Standard entsprechende Behandlungen nicht (mehr) zur Verfügung?)</small></label>
+      <!-- YMYL: Fokus auf "Ausschöpfung der Standards" -->
+      <label for="bisherigeTherapien">Angaben zu bisherigen Standardtherapien: <small>(Warum stehen allgemein anerkannte Behandlungen laut Ihrem Arzt nicht (mehr) zur Verfügung? z.B. Unverträglichkeit, Therapieversagen)</small></label>
       <textarea id="bisherigeTherapien" rows="5" required placeholder="Auflistung der bisherigen Therapien, warum diese nicht erfolgreich waren, nicht vertragen wurden oder nicht geeignet sind."></textarea>
       
-      <label for="begruendeteAussicht">Begründete Aussicht auf Erfolg mit dem beantragten Medikament: <small>(Welcher Nutzen wird erwartet? Gibt es Hinweise aus Studien oder Fachliteratur? Dies sollte primär aus der ärztlichen Stellungnahme hervorgehen, hier können Sie die Kernpunkte zusammenfassen.)</small></label>
+      <!-- YMYL: Verweis auf ärztliche Prognose -->
+      <label for="begruendeteAussicht">Begründung der Erfolgsaussicht durch den Arzt: <small>(Zusammenfassung der ärztlichen Einschätzung: Gibt es Studien, Einzelfallberichte oder Forschungsergebnisse, auf die sich Ihr Arzt stützt?)</small></label>
       <textarea id="begruendeteAussicht" rows="5" required placeholder="Zusammenfassung der erwarteten positiven Effekte, basierend auf ärztlicher Einschätzung."></textarea>
     </fieldset>
     
     <fieldset>
         <legend>5. Beizufügende Anlagen</legend>
         <p class="info-box">Welche Unterlagen fügen Sie diesem Antrag bei? Eine detaillierte ärztliche Stellungnahme ist entscheidend!</p>
-        <label><input type="checkbox" name="anlagen_medikament" value="Ausführliche ärztliche Stellungnahme zur Notwendigkeit" checked required> Ausführliche ärztliche Stellungnahme zur Notwendigkeit</label>
+        <label><input type="checkbox" name="anlagen_medikament" value="Ausführliche ärztliche Stellungnahme zur Notwendigkeit" checked required> Ausführliche ärztliche Stellungnahme zur Notwendigkeit (Zwingend!)</label>
         <label><input type="checkbox" name="anlagen_medikament" value="Kopie des Rezepts für das Medikament (falls ausgestellt)"> Kopie des Rezepts für das Medikament (falls ausgestellt)</label>
         <label><input type="checkbox" name="anlagen_medikament" value="Kostenvoranschlag der Apotheke (falls vorhanden)"> Kostenvoranschlag der Apotheke (falls vorhanden)</label>
         <label><input type="checkbox" name="anlagen_medikament" value="Ggf. Kopien von relevanten Studienergebnissen/Fachliteratur"> Ggf. Kopien von relevanten Studienergebnissen/Fachliteratur</label>
         <label for="anlage_sonstiges_medikament">Sonstige Anlagen (bitte auflisten):</label>
         <input type="text" id="anlage_sonstiges_medikament" placeholder="z.B. frühere Arztbriefe, Befunde">
     </fieldset>
+
+    <!-- DATENSCHUTZ HINWEIS -->
+    <div style="margin: 20px 0; padding: 10px; background-color: #f0fdf4; border: 1px solid #22c55e; border-radius: 5px; text-align: center; color: #15803d; font-size: 0.95em;">
+        🔒 <strong>Datenschutz-Garantie:</strong> Ihre Daten werden ausschließlich lokal in Ihrem Browser verarbeitet. Es erfolgt <u>keine</u> Speicherung oder Übertragung an unsere Server.
+    </div>
 
     <div class="button-group">
       <button type="button" id="saveBtnMedikamente" class="button-secondary">Eingaben speichern</button>

@@ -2,10 +2,48 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag auf Kostenübernahme für ein Hilfsmittel</title>
+  <title>Antrag auf Hilfsmittel (Kostenübernahme): PDF Vorlage nach § 33 SGB V</title>
+  
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Kostenübernahme für medizinische Hilfsmittel (Rollstuhl, Hörgerät, Prothese) gem. § 33 SGB V. Kostenloser PDF-Generator.">
+  
+  <meta name="keywords" content="Hilfsmittel, Antrag, Kostenübernahme, § 33 SGB V, Krankenkasse, Rezept, Verordnung, Hilfsmittelverzeichnis, Sanitätshaus, Zuzahlung">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Hilfsmittel-Antrag erstellen (§ 33 SGB V)">
+  <meta property="og:description" content="Kostenlose Vorlage für die Beantragung von medizinischen Hilfsmitteln bei der Krankenkasse.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
   <link rel="icon" href="/logo-lotse-fav.png">
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Generator für Hilfsmittel-Antrag",
+    "description": "Tool zur Erstellung eines Antrags auf Kostenübernahme für Hilfsmittel gemäß § 33 SGB V.",
+    "applicationCategory": "MedicalApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Versorgung mit Hilfsmitteln (§ 33 SGB V)"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script defer src="hilfsmittel_script.js"></script> <link rel="stylesheet" href="/css/generator.css">
+  <script defer src="hilfsmittel_script.js"></script> 
+  <link rel="stylesheet" href="/css/generator.css">
 </head>
 <body>
 
@@ -14,40 +52,54 @@
 </header>
 
 <div class="page-container">
-  <h1>Antrag auf Kostenübernahme für ein Hilfsmittel</h1>
-  <p class="info-box">
-    Füllen Sie dieses Formular sorgfältig aus, um Ihren Antrag auf Kostenübernahme für ein medizinisches Hilfsmittel zu erstellen. Dieses Schreiben können Sie zusammen mit Ihrer ärztlichen Verordnung und ggf. einem Kostenvoranschlag bei Ihrer Krankenkasse einreichen.
-    <br><strong>Hinweis:</strong> Benötigen Sie mehrere unterschiedliche Hilfsmittel, erstellen Sie bitte für jedes Hilfsmittel einen separaten Antrag, um die Bearbeitung durch Ihre Krankenkasse zu erleichtern.
-  </p>
+  <h1>Antrag auf Hilfsmittel (§ 33 SGB V)</h1>
+  
+  <div class="info-box">
+    <p>
+      Füllen Sie dieses Formular sorgfältig aus, um Ihren Antrag auf Kostenübernahme für ein medizinisches Hilfsmittel gemäß <strong>§ 33 SGB V</strong> zu erstellen.
+      Dies gilt für Sehhilfen, Hörhilfen, Körperersatzstücke, orthopädische und andere Hilfsmittel (oft gelistet im Hilfsmittelverzeichnis).
+    </p>
+    <p>
+      Dieses Schreiben können Sie zusammen mit Ihrer ärztlichen Verordnung (Rezept) und ggf. einem Kostenvoranschlag bei Ihrer Krankenkasse einreichen.
+      <br><strong>Hinweis:</strong> Benötigen Sie mehrere unterschiedliche Hilfsmittel, erstellen Sie bitte für jedes Hilfsmittel einen separaten Antrag.
+    </p>
+  </div>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
   <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
 </p>
+
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Redaktionell geprüft am:</strong> <span id="pruefdatum">13.12.2025</span></p>
 </div>
 
   <form id="hilfsmittelAntragForm">
     <fieldset>
       <legend>1. Persönliche Angaben</legend>
       <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" required autocomplete="name">
+      
       <label for="adresse">Ihre vollständige Adresse: <small>(Straße, Hausnummer, PLZ, Ort)</small></label>
-      <textarea id="adresse" rows="3" required></textarea>
+      <textarea id="adresse" rows="3" required autocomplete="street-address"></textarea>
+      
       <label for="geburt">Geburtsdatum:</label>
-      <input type="date" id="geburt" required>
+      <input type="date" id="geburt" required autocomplete="bday">
+      
       <label for="nummer">Versichertennummer: <small>(Finden Sie auf Ihrer Gesundheitskarte)</small></label>
       <input type="text" id="nummer" required>
+      
       <label for="telefon">Telefonnummer (für Rückfragen, optional):</label>
-      <input type="text" id="telefon">
+      <input type="text" id="telefon" autocomplete="tel">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
       <label for="kasse">Name der Krankenkasse:</label>
-      <input type="text" id="kasse" required>
+      <input type="text" id="kasse" required autocomplete="organization">
+      
       <label for="kassenAdresse">Vollständige Adresse der Krankenkasse:</label>
       <textarea id="kassenAdresse" rows="3" required></textarea>
     </fieldset>
@@ -55,26 +107,36 @@
     <fieldset>
       <legend>3. Angaben zum ärztlich verordneten Hilfsmittel</legend>
       <label for="hilfsmittel_bezeichnung">Genaue Bezeichnung des Hilfsmittels: <small>(Wie auf der Verordnung/Rezept angegeben)</small></label>
-      <input type="text" id="hilfsmittel_bezeichnung" required>
+      <input type="text" id="hilfsmittel_bezeichnung" required placeholder="z.B. Aktiv-Rollstuhl, Hörgerät links">
+      
       <label for="hilfsmittel_nummer">Hilfsmittelpositionsnummer (HMV-Nr.): <small>(Falls auf der Verordnung angegeben oder bekannt)</small></label>
-      <input type="text" id="hilfsmittel_nummer">
-      <label for="hilfsmittel_menge">Benötigte Menge/Stückzahl:</label>
+      <input type="text" id="hilfsmittel_nummer" placeholder="z.B. 18.xx.xx.xxxx">
+      
+      <!-- YMYL-Optimierung: "Verordnete Menge" statt "Benötigte Menge" -->
+      <label for="hilfsmittel_menge">Verordnete Menge/Stückzahl:</label>
       <input type="number" id="hilfsmittel_menge" min="1" value="1" required>
 
       <label for="arzt_name">Name des/der verordnenden Arztes/Ärztin:</label>
-      <input type="text" id="arzt_name" required>
+      <input type="text" id="arzt_name" required placeholder="Dr. Med...">
+      
       <label for="arzt_anschrift">Anschrift der Arztpraxis:</label>
       <textarea id="arzt_anschrift" rows="2" required></textarea>
+      
       <label for="verordnung_datum">Datum der ärztlichen Verordnung/des Rezepts:</label>
       <input type="date" id="verordnung_datum" required>
     </fieldset>
 
     <fieldset>
-      <legend>4. Begründung und Notwendigkeit</legend>
-      <label for="diagnose">Medizinische Diagnose(n), die das Hilfsmittel erforderlich machen: <small>(Kurz und prägnant, wie vom Arzt mitgeteilt oder auf der Verordnung stehend)</small></label>
+      <legend>4. Begründung und Versorgungssituation</legend>
+      
+      <!-- YMYL-Optimierung: Faktischer Bezug zur ärztlichen Diagnose -->
+      <label for="diagnose">Medizinische Diagnose(n) laut ärztlicher Verordnung: <small>(Bitte übernehmen Sie die Angaben vom Rezept oder Attest)</small></label>
       <textarea id="diagnose" rows="3" required></textarea>
-      <label for="begruendung_notwendigkeit">Ausführliche Begründung der Notwendigkeit: <small>(Warum benötigen Sie dieses spezielle Hilfsmittel? Wie verbessert es Ihren Alltag, Ihre Gesundheit oder Teilhabe? Gibt es günstigere Alternativen und warum sind diese ggf. nicht geeignet?)</small></label>
+      
+      <!-- YMYL-Optimierung: Subjektive Schilderung statt objektiver Feststellung -->
+      <label for="begruendung_notwendigkeit">Ergänzende Angaben zur persönlichen Versorgungssituation: <small>(Schildern Sie die konkreten Einschränkungen im Alltag und das Ziel der Versorgung aus Ihrer Sicht. Warum ist das Standard-Modell ggf. nicht ausreichend?)</small></label>
       <textarea id="begruendung_notwendigkeit" rows="6" required></textarea>
+      
        <label for="erstversorgung">Handelt es sich um eine Erstversorgung mit diesem Hilfsmittel?</label>
       <select id="erstversorgung">
         <option value="Ja" selected>Ja</option>
@@ -83,7 +145,9 @@
       <div id="folgeversorgung_details" style="display:none;">
         <label for="bisheriges_hilfsmittel">Falls Folgeversorgung: Welches Hilfsmittel hatten Sie bisher?</label>
         <input type="text" id="bisheriges_hilfsmittel">
-        <label for="grund_neubeschaffung">Grund für die Neubeschaffung: <small>(z.B. defekt, nicht mehr passend, medizinische Gründe)</small></label>
+        
+        <!-- YMYL-Optimierung: Faktischer Grund statt pauschale Neubeschaffung -->
+        <label for="grund_neubeschaffung">Anlass für die Ersatzbeschaffung: <small>(z.B. Funktionsuntüchtigkeit, geänderte Körpermaße)</small></label>
         <input type="text" id="grund_neubeschaffung">
       </div>
     </fieldset>
@@ -97,7 +161,7 @@
       </select>
       <div id="leistungserbringer_details" style="display:none;">
         <label for="leistungserbringer_name">Name des Leistungserbringers:</label>
-        <input type="text" id="leistungserbringer_name">
+        <input type="text" id="leistungserbringer_name" autocomplete="organization">
         <label for="leistungserbringer_anschrift">Anschrift des Leistungserbringers:</label>
         <textarea id="leistungserbringer_anschrift" rows="2"></textarea>
         <label for="kostenvoranschlag_datum">Liegt ein Kostenvoranschlag bei? <small>(Wenn ja, bitte Datum eintragen)</small></label>
@@ -115,13 +179,20 @@
         <input type="text" id="anlage_sonstiges_text" placeholder="z.B. medizinische Gutachten, Begründungsschreiben des Arztes">
     </fieldset>
 
+    <!-- DATENSCHUTZ HINWEIS -->
+    <div style="margin: 20px 0; padding: 10px; background-color: #f0fdf4; border: 1px solid #22c55e; border-radius: 5px; text-align: center; color: #15803d; font-size: 0.95em;">
+        🔒 <strong>Datenschutz-Garantie:</strong> Ihre Daten werden ausschließlich lokal in Ihrem Browser verarbeitet. Es erfolgt <u>keine</u> Speicherung oder Übertragung an unsere Server.
+    </div>
+
     <div class="button-group">
       <button type="button" id="saveBtnHilfsmittel" class="action-button">Eingaben speichern</button>
       <button type="button" id="loadBtnHilfsmittel" class="action-button">Gespeicherte Eingaben laden</button>
       <button type="submit">📄 Antragschreiben erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopup" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+</div> 
+
+<div id="spendenPopup" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; padding: 1rem;">
   <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width:100%; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.25);">
     <h2 style="font-size: 1.5em; margin-top:0; margin-bottom: 1rem;">Danke für deine Nutzung 💛</h2>
@@ -135,6 +206,7 @@
     <button id="closePopupBtnHilfsmittel" style="margin-top: 1.5rem; background: none; border: 1px solid #ccc; color: #555; font-weight: normal; cursor: pointer; padding: 0.6rem 1.2rem; border-radius: 5px; font-size: 0.9em;">Schließen</button>
   </div>
 </div>
+
 
 <footer>
   <div class="mini-footer-hint">

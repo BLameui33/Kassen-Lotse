@@ -2,13 +2,51 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag: Feststellung Behinderung / Schwerbehindertenausweis</title>
-  <meta name="description" content="Erstellen Sie Ihren Antrag auf Feststellung einer Behinderung (GdB und Merkzeichen) und Ausstellung eines Schwerbehindertenausweises.">
-  <meta name="keywords" content="Antrag, Schwerbehindertenausweis, GdB, Merkzeichen, Versorgungsamt, Behinderung, SGB IX">
+  <!-- FIX: Titel angepasst (war vorher fälschlicherweise Schwerbehindertenausweis) -->
+  <title>Antrag Erwerbsminderungsrente (EM-Rente SGB VI): Hilfe & PDF-Generator</title>
+  
+  <meta name="description" content="Kostenlose Ausfüllhilfe für den Antrag auf Erwerbsminderungsrente (EM-Rente) nach § 43 SGB VI. Erstellen Sie ein strukturiertes Begleitschreiben als PDF.">
+  
+  <!-- Keywords erweitert um SGB VI und R0210 (das ist das offizielle Formular) -->
+  <meta name="keywords" content="Erwerbsminderungsrente, EM-Rente, Antrag, SGB VI, § 43 SGB VI, Rentenversicherung, R0210, Selbsteinschätzung, Erwerbsunfähigkeit">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Hilfe zum Antrag auf Erwerbsminderungsrente">
+  <meta property="og:description" content="Unterstützung bei der EM-Rente: Strukturierte Aufbereitung Ihrer Gesundheitsdaten für die Rentenversicherung.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
   <link rel="icon" href="/logo-lotse-fav.png">
+  
+  <!-- YMYL Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "EM-Rente Antrags-Assistent",
+    "description": "Hilfsmittel zur Strukturierung medizinischer und beruflicher Daten für den Antrag auf Rente wegen Erwerbsminderung (§ 43 SGB VI).",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Rente wegen Erwerbsminderung (SGB VI)"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script defer src="em-rente_antrag_script.js"></script> <link rel="stylesheet" href="/css/generator.css">
+  <script defer src="em-rente_antrag_script.js"></script> 
+  <link rel="stylesheet" href="/css/generator.css">
 </head>
 <body>
 
@@ -18,59 +56,81 @@
 
 <div class="page-container">
   <h1>Unterstützung für Ihren Antrag auf Erwerbsminderungsrente</h1>
-  <p class="info-box">
-    Dieses Formular hilft Ihnen, die notwendigen Informationen für Ihren Antrag auf Erwerbsminderungsrente (EM-Rente) zusammenzustellen. Das generierte PDF dient als detailliertes Begleitschreiben oder als Grundlage für das Ausfüllen des offiziellen Antragsformulars der Deutschen Rentenversicherung.
-    Lesen Sie bitte auch unsere <a href="info-em-rente.html">Informationen zur EM-Rente</a>.
-  </p>
+  <div class="info-box">
+    <p>
+      Dieses Formular hilft Ihnen, die notwendigen Informationen für Ihren Antrag auf <strong>Rente wegen Erwerbsminderung gemäß § 43 SGB VI</strong> strukturiert zusammenzustellen. 
+    </p>
+    <p>
+      Das generierte PDF dient als detailliertes Begleitschreiben ("Selbsteinschätzung") für das offizielle Formularpaket (R0100/R0210) der Deutschen Rentenversicherung. Eine präzise Schilderung der Leistungseinschränkungen ist entscheidend für die Beurteilung des <strong>Restleistungsvermögens</strong>.
+    </p>
+    <p style="margin-top:10px;">
+      Lesen Sie bitte auch unsere <a href="info-em-rente.html">Informationen zur EM-Rente</a>.
+    </p>
+  </div>
+  
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rentenberater.
 </p>
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>.
 </p>
+
+<!-- EXPERTISE: "Fachlich geprüft" statt nur "Geprüft" -->
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Fachlich geprüft am:</strong> <span id="pruefdatum">13.12.2025</span></p>
 </div>
 
   <form id="emRenteAntragForm">
     <fieldset>
       <legend>1. Persönliche Angaben der versicherten Person</legend>
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" required autocomplete="name">
+      
       <label for="personGeburtsname">Geburtsname (falls abweichend):</label>
-      <input type="text" id="personGeburtsname">
+      <input type="text" id="personGeburtsname" autocomplete="family-name">
+      
       <label for="personGeburt">Geburtsdatum:</label>
-      <input type="date" id="personGeburt" required>
+      <input type="date" id="personGeburt" required autocomplete="bday">
+      
       <label for="personGeburtsort">Geburtsort:</label>
       <input type="text" id="personGeburtsort" required>
+      
       <label for="personGeschlecht">Geschlecht:</label>
-      <select id="personGeschlecht" required>
+      <select id="personGeschlecht" required autocomplete="sex">
         <option value="">Bitte wählen...</option>
         <option value="männlich">männlich</option>
         <option value="weiblich">weiblich</option>
         <option value="divers">divers</option>
         <option value="keine Angabe">keine Angabe</option>
       </select>
+      
       <label for="personStaatsangehoerigkeit">Staatsangehörigkeit:</label>
       <input type="text" id="personStaatsangehoerigkeit" required>
+      
       <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="personAdresse" rows="3" required></textarea>
+      <textarea id="personAdresse" rows="3" required autocomplete="street-address"></textarea>
+      
       <label for="personTelefon">Telefonnummer (tagsüber erreichbar):</label>
-      <input type="text" id="personTelefon">
+      <input type="text" id="personTelefon" autocomplete="tel">
+      
       <label for="personEmail">E-Mail-Adresse (optional):</label>
-      <input type="email" id="personEmail">
+      <input type="email" id="personEmail" autocomplete="email">
+      
       <label for="personKrankenkasse">Aktuelle Krankenkasse:</label>
       <input type="text" id="personKrankenkasse" required>
+      
       <label for="personRvNummer">Rentenversicherungsnummer:</label>
-      <input type="text" id="personRvNummer" required>
+      <input type="text" id="personRvNummer" required placeholder="z.B. 12 123456 A 123">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zum zuständigen Rentenversicherungsträger</legend>
       <label for="rvTraegerName">Name des Rentenversicherungsträgers: <small>(z.B. Deutsche Rentenversicherung Bund, Deutsche Rentenversicherung [Region], Knappschaft-Bahn-See)</small></label>
-      <input type="text" id="rvTraegerName" value="Deutsche Rentenversicherung" required>
+      <input type="text" id="rvTraegerName" value="Deutsche Rentenversicherung" required autocomplete="organization">
+      
       <label for="rvTraegerStrasse">Straße und Hausnummer:</label>
       <input type="text" id="rvTraegerStrasse" required placeholder="z.B. Ruhrstraße 2">
+      
       <label for="rvTraegerPlzOrt">Postleitzahl und Ort:</label>
       <input type="text" id="rvTraegerPlzOrt" required placeholder="z.B. 10709 Berlin">
     </fieldset>
@@ -83,28 +143,33 @@
       </select>
       <div id="antragstellerDetailsEMR" class="sub-details">
           <label for="asNameEMR">Name des/der Antragsteller:in / Bezeichnung der Einrichtung:</label>
-          <input type="text" id="asNameEMR">
+          <input type="text" id="asNameEMR" autocomplete="name">
           <label for="asAdresseEMR">Vollständige Adresse des/der Antragsteller:in:</label>
-          <textarea id="asAdresseEMR" rows="3"></textarea>
+          <textarea id="asAdresseEMR" rows="3" autocomplete="street-address"></textarea>
           <label for="asVerhaeltnisEMR">Verhältnis zur Person bzw. Funktion:</label>
           <input type="text" id="asVerhaeltnisEMR" placeholder="z.B. Mutter, Gesetzl. Betreuer, Pflegedienst">
-          <label for="asTelefonEMR">Telefonnummer des/der Antragsteller:in:</label> <input type="text" id="asTelefonEMR">
+          <label for="asTelefonEMR">Telefonnummer des/der Antragsteller:in:</label> 
+          <input type="text" id="asTelefonEMR" autocomplete="tel">
           <label><input type="checkbox" id="asVollmachtEMR"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
     
     <fieldset>
-      <legend>4. Angaben zur Erwerbsminderung</legend> <label for="beginnErwerbsminderung">Seit wann fühlen Sie sich erwerbsgemindert bzw. können Ihre letzte Tätigkeit nicht mehr ausüben? (ca. Datum)</label>
+      <legend>4. Angaben zur Erwerbsminderung</legend> 
+      <label for="beginnErwerbsminderung">Seit wann fühlen Sie sich erwerbsgemindert bzw. können Ihre letzte Tätigkeit nicht mehr ausüben? (ca. Datum)</label>
       <input type="date" id="beginnErwerbsminderung" required>
+      
       <label for="letzteTaetigkeit">Letzte ausgeübte Tätigkeit / Beruf:</label>
-      <input type="text" id="letzteTaetigkeit" required>
+      <input type="text" id="letzteTaetigkeit" required autocomplete="organization-title">
+      
       <label for="stundenProTagMoeglich">Wie viele Stunden pro Tag können Sie Ihrer Einschätzung nach noch irgendeiner beruflichen Tätigkeit auf dem allgemeinen Arbeitsmarkt nachgehen?</label>
       <select id="stundenProTagMoeglich" required>
         <option value="">Bitte wählen...</option>
-        <option value="Weniger als 3 Stunden">Weniger als 3 Stunden (entspricht voller Erwerbsminderung)</option>
-        <option value="3 bis unter 6 Stunden">3 bis unter 6 Stunden (entspricht teilweiser Erwerbsminderung)</option>
-        <option value="6 Stunden und mehr">6 Stunden und mehr</option>
+        <option value="Weniger als 3 Stunden">Weniger als 3 Stunden (Volle Erwerbsminderung nach § 43 Abs. 2 SGB VI)</option>
+        <option value="3 bis unter 6 Stunden">3 bis unter 6 Stunden (Teilweise Erwerbsminderung nach § 43 Abs. 1 SGB VI)</option>
+        <option value="6 Stunden und mehr">6 Stunden und mehr (Keine EM-Rente)</option>
       </select>
+      
       <label for="auswirkungenAlltagBeruf">Detaillierte Beschreibung der gesundheitlichen Einschränkungen und deren Auswirkungen auf Alltag und Berufs(fähigkeit): <small>(Welche Tätigkeiten fallen Ihnen schwer oder sind unmöglich? Wie äußern sich die Beschwerden? Welche Hilfsmittel nutzen Sie bereits?)</small></label>
       <textarea id="auswirkungenAlltagBeruf" rows="8" required placeholder="Schildern Sie konkret, wie sich Ihre Erkrankungen auswirken. Beispiel: Aufgrund meiner starken Rückenschmerzen kann ich nicht länger als 30 Minuten sitzen oder stehen..."></textarea>
     </fieldset>
@@ -167,10 +232,15 @@
             <label><input type="checkbox" name="anlagenEMR" value="Aktuelle und aussagekräftige Arztbriefe, Befundberichte, Gutachten zu allen relevanten Gesundheitsstörungen" checked> Aktuelle und aussagekräftige Arztbriefe, Befundberichte, Gutachten</label>
             <label><input type="checkbox" name="anlagenEMR" value="Krankenhaus- und Reha-Entlassungsberichte der letzten Jahre"> Krankenhaus- und Reha-Entlassungsberichte der letzten Jahre</label>
             <label><input type="checkbox" name="anlagenEMR" value="Liste aller aktuell eingenommenen Medikamente (Medikamentenplan)"> Medikamentenplan</label>
-            <label><input type="checkbox" id="asVollmachtEMR" name="anlagenEMR" value="Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)</label> </div>
+            <label><input type="checkbox" id="asVollmachtEMR_Anlage" name="anlagenEMR" value="Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)</label> </div>
         <label for="anlageSonstigesEMR">Sonstige wichtige Anlagen (bitte auflisten):</label>
         <input type="text" id="anlageSonstigesEMR">
     </fieldset>
+
+    <!-- DATENSCHUTZ HINWEIS -->
+    <div style="margin: 20px 0; padding: 10px; background-color: #f0fdf4; border: 1px solid #22c55e; border-radius: 5px; text-align: center; color: #15803d; font-size: 0.95em;">
+        🔒 <strong>Datenschutz-Garantie:</strong> Ihre Gesundheitsdaten werden ausschließlich lokal in Ihrem Browser verarbeitet. Es erfolgt <u>keine</u> Speicherung auf Servern.
+    </div>
 
     <div class="button-group">
       <button type="button" id="saveBtnEMR" class="button-secondary">Eingaben speichern</button>

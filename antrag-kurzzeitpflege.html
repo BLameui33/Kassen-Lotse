@@ -2,11 +2,49 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag auf Kurzzeitpflege</title>
-  <meta name="description" content="Erstellen Sie Ihren Antrag auf Kostenübernahme für Kurzzeitpflege bei Ihrer Pflegekasse.">
-  <meta name="keywords" content="Antrag, Kurzzeitpflege, Pflegekasse, §42 SGB XI, Pflegeheim, Entlastung, Gemeinsamer Jahresbetrag">
+  <!-- SEO: Titel mit Rechtsgrundlage und neuem Jahresbetrag -->
+  <title>Antrag auf Kurzzeitpflege (Pflegekasse): PDF Vorlage (§ 42 SGB XI)</title>
+  
+  <!-- SEO: Description mit Fokus auf Entlastung und Budget -->
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Kurzzeitpflege bei der Pflegekasse gem. § 42 SGB XI. Berücksichtigt automatisch den Gemeinsamen Jahresbetrag (3.539 €). Kostenloses PDF.">
+  
+  <!-- Keywords: Gemeinsamer Jahresbetrag, Verhinderungspflege, Entlastungsbetrag, Pflegeheim -->
+  <meta name="keywords" content="Antrag, Kurzzeitpflege, Pflegekasse, § 42 SGB XI, Gemeinsamer Jahresbetrag, Verhinderungspflege, Pflegeheim, Entlastung, Übergangspflege">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:title" content="Antrag Kurzzeitpflege erstellen (§ 42 SGB XI)">
+  <meta property="og:description" content="Kostenlose Vorlage für Kurzzeitpflege. Inklusive Optimierung für den Gemeinsamen Jahresbetrag.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+
   <link rel="icon" href="/logo-lotse-fav.png">
+  
+  <!-- YMYL Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Generator für Kurzzeitpflege-Antrag",
+    "description": "Tool zur Erstellung eines Antrags auf Leistungen der Kurzzeitpflege gemäß § 42 SGB XI.",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse"
+    },
+    "about": {
+      "@type": "Thing",
+      "name": "Kurzzeitpflege (§ 42 SGB XI)"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="kurzzeitpflege_antrag_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -18,36 +56,50 @@
 </header>
 
 <div class="page-container">
-  <h1>Antrag auf Leistungen der Kurzzeitpflege</h1>
-  <p class="info-box">
-    Mit diesem Formular beantragen Sie Leistungen der Kurzzeitpflege bei Ihrer Pflegekasse.
-    <br><br>
-    <strong>Neu ab 01.07.2025 (für alle ab PG2):</strong> Kurzzeit- und Verhinderungspflege werden zum <strong>Gemeinsamen Jahresbetrag (3.539 €)</strong> zusammengefasst. 
-    Dieser Antrag berücksichtigt automatisch die für Sie günstigste Rechtslage (neues Budget oder bisherige Übertragungsregelung).
-    <br>
-    Lesen Sie bitte auch unsere <a href="info-kurzzeitpflege.html">Informationen zur Kurzzeitpflege</a>.
-  </p>
+  <h1>Antrag auf Leistungen der Kurzzeitpflege (§ 42 SGB XI)</h1>
+  
+  <div class="info-box">
+    <p>
+      Mit diesem Formular beantragen Sie Leistungen der Kurzzeitpflege bei Ihrer Pflegekasse gemäß <strong>§ 42 SGB XI</strong>. 
+      Diese Leistung dient der zeitlich begrenzten stationären Versorgung, wenn die häusliche Pflege vorübergehend nicht möglich ist.
+    </p>
+    <p style="margin-top: 10px;">
+      <strong>Wichtige Neuregelung (Gemeinsamer Jahresbetrag):</strong><br>
+      Ab dem 01.07.2025 stehen für alle Pflegebedürftigen ab Pflegegrad 2 ein <strong>Gemeinsamer Jahresbetrag von bis zu 3.539 €</strong> zur Verfügung, der flexibel für Kurzzeit- und Verhinderungspflege genutzt werden kann. 
+      Unser Formular formuliert den Antrag so, dass sowohl der Gemeinsame Jahresbetrag als auch – hilfsweise – bestehende Übergangs- oder Übertragungsregelungen berücksichtigt werden können.
+    </p>
+    <p style="margin-top: 10px;">
+      Lesen Sie bitte auch unsere <a href="info-kurzzeitpflege.html">Informationen zur Kurzzeitpflege</a>.
+    </p>
+  </div>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
   <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
 </p>
+
+<!-- ÄNDERUNG: Redaktionell geprüft -->
 <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  <p><strong>Redaktionell geprüft am:</strong> <span id="pruefdatum">23.12.2025</span></p>
 </div>
 
   <form id="kurzzeitpflegeAntragForm">
     <fieldset>
       <legend>1. Angaben zur pflegebedürftigen Person</legend>
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" required autocomplete="name">
+      
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" required autocomplete="bday">
+      
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+      
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
       <input type="text" id="vpNummer" required>
+      
       <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad (mind. PG 2 erforderlich):</label>
       <select id="vpPflegegrad" required>
           <option value="">Bitte wählen...</option>
@@ -56,8 +108,9 @@
           <option value="Pflegegrad 4">Pflegegrad 4</option>
           <option value="Pflegegrad 5">Pflegegrad 5</option>
       </select>
+      
       <label for="vpTelefon">Telefonnummer (für Rückfragen, optional):</label>
-      <input type="text" id="vpTelefon">
+      <input type="text" id="vpTelefon" autocomplete="tel">
     </fieldset>
 
     <fieldset>
@@ -69,9 +122,9 @@
       </select>
       <div id="antragstellerDetailsKZP" class="sub-details">
           <label for="asNameKZP">Vor- und Nachname des/der Antragsteller:in:</label>
-          <input type="text" id="asNameKZP">
+          <input type="text" id="asNameKZP" autocomplete="name">
           <label for="asAdresseKZP">Vollständige Adresse des/der Antragsteller:in:</label>
-          <textarea id="asAdresseKZP" rows="3"></textarea>
+          <textarea id="asAdresseKZP" rows="3" autocomplete="street-address"></textarea>
           <label for="asVerhaeltnisKZP">Verhältnis zur pflegebedürftigen Person:</label>
           <input type="text" id="asVerhaeltnisKZP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
           <label><input type="checkbox" id="asVollmachtKZP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
@@ -81,14 +134,16 @@
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
       <label for="kasseName">Name der Pflegekasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" required autocomplete="organization">
+      
       <label for="kasseAdresse">Vollständige Adresse der Pflegekasse:</label>
       <textarea id="kasseAdresse" rows="3" required></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Grund für den Antrag auf Kurzzeitpflege</legend>
-      <label for="grundKurzzeitpflege">Hauptsächlicher Grund für die Notwendigkeit der Kurzzeitpflege:</label>
+      <!-- YMYL-Optimierung: "Anlass" statt "Grund für Notwendigkeit" -->
+      <label for="grundKurzzeitpflege">Anlass für die Beantragung der Kurzzeitpflege:</label>
       <select id="grundKurzzeitpflege" required>
           <option value="">Bitte wählen...</option>
           <option value="Nach einem Krankenhausaufenthalt">Nach einem Krankenhausaufenthalt</option>
@@ -101,6 +156,7 @@
         <label for="grundKurzzeitpflegeSonstigesText">Erläuterung zu "Sonstiger Grund":</label>
         <textarea id="grundKurzzeitpflegeSonstigesText" rows="2"></textarea>
       </div>
+      
       <label for="kurzbeschreibungSituationKZP">Kurze Beschreibung der aktuellen Situation, die Kurzzeitpflege erforderlich macht:</label>
       <textarea id="kurzbeschreibungSituationKZP" rows="4" required placeholder="z.B. Nach Entlassung aus dem Krankenhaus [Name] am TT.MM.JJJJ ist die häusliche Pflege noch nicht ausreichend organisiert. / Die Hauptpflegeperson [Name] ist vom TT.MM.JJJJ bis TT.MM.JJJJ erkrankt/im Urlaub."></textarea>
     </fieldset>
@@ -108,13 +164,17 @@
     <fieldset>
       <legend>5. Angaben zur geplanten Kurzzeitpflege</legend>
       <label for="einrichtungNameKZP">Name der Kurzzeitpflegeeinrichtung:</label>
-      <input type="text" id="einrichtungNameKZP" required>
+      <input type="text" id="einrichtungNameKZP" required autocomplete="organization">
+      
       <label for="einrichtungAdresseKZP">Anschrift der Einrichtung:</label>
       <textarea id="einrichtungAdresseKZP" rows="2" required></textarea>
+      
       <label for="zeitraumKurzzeitpflegeVon">Geplanter Beginn der Kurzzeitpflege:</label>
       <input type="date" id="zeitraumKurzzeitpflegeVon" required>
+      
       <label for="zeitraumKurzzeitpflegeBis">Geplantes Ende der Kurzzeitpflege:</label>
       <input type="date" id="zeitraumKurzzeitpflegeBis" required>
+      
       <label><input type="checkbox" id="platzReserviertKZP"> Ein Platz in der genannten Einrichtung ist für diesen Zeitraum bereits reserviert/zugesagt.</label>
     </fieldset>
 
@@ -124,7 +184,7 @@
         <input type="checkbox" id="kombiVerhinderungspflegeKZP" checked> 
         <strong>Maximale Leistung beantragen (Gemeinsamer Jahresbetrag / Übertrag)</strong>
       </label>
-      <p class="info-box"><small>Hinweis: Wenn diese Option gewählt wird, beantragen Sie automatisch den neuen Gemeinsamen Jahresbetrag (3.539 €). Falls dieser für Sie noch nicht gilt, wird die Übertragung ungenutzter Verhinderungspflegemittel (bis 100% / 1.612 €) beantragt.</small></p>
+      <p class="info-box"><small>Hinweis: Wenn diese Option gewählt wird, beantragen Sie die Nutzung des Gemeinsamen Jahresbetrags (bis zu 3.539 €). Sollte dieser für Sie noch nicht gelten (Übergangsrecht), wird hilfsweise die Übertragung ungenutzter Mittel der Verhinderungspflege beantragt.</small></p>
     </fieldset>
     
     <fieldset>
@@ -138,6 +198,11 @@
         <label for="anlageSonstigesKZP">Sonstige Anlagen:</label>
         <input type="text" id="anlageSonstigesKZP">
     </fieldset>
+
+    <!-- DATENSCHUTZ HINWEIS -->
+    <div style="margin: 20px 0; padding: 10px; background-color: #f0fdf4; border: 1px solid #22c55e; border-radius: 5px; text-align: center; color: #15803d; font-size: 0.95em;">
+        🔒 <strong>Datenschutz-Garantie:</strong> Ihre Daten werden ausschließlich lokal in Ihrem Browser verarbeitet. Es erfolgt <u>keine</u> Speicherung oder Übertragung an unsere Server.
+    </div>
 
     <div class="button-group">
       <button type="button" id="saveBtnKurzzeitpflege" class="button-secondary">Eingaben speichern</button>
