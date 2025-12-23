@@ -2,92 +2,152 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Meldung eines Arbeitsunfalls erstellen | Kassen-Lotse</title>
-  <meta name="description" content="Erstellen Sie eine formelle Meldung über einen Arbeitsunfall oder Wegeunfall für die zuständige Berufsgenossenschaft (Unfallversicherung). Sichern Sie Ihre Ansprüche auf Leistungen.">
-  <meta name="keywords" content="Arbeitsunfall, Wegeunfall, Unfallmeldung, Berufsgenossenschaft, DGUV, Verletztengeld, Antrag, Vorlage, Generator">
+  <title>Meldung Arbeitsunfall / Wegeunfall | Berufsgenossenschaft | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie eine formelle Meldung eines Arbeitsunfalls oder Wegeunfalls an die zuständige Berufsgenossenschaft/Unfallkasse. Präzise Angaben helfen bei der Anerkennung und Leistungsgewährung. Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Meldung eines Arbeitsunfalls / Wegeunfalls",
+    "description": "Generator für eine formelle Unfallmeldung an Berufsgenossenschaft/Unfallkasse.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Arbeitsunfall" },
+      { "@type": "Thing", "name": "Wegeunfall" },
+      { "@type": "Thing", "name": "Berufsgenossenschaft" },
+      { "@type": "Thing", "name": "Unfallkasse" },
+      { "@type": "Thing", "name": "SGB VII" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="arbeitsunfall_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
-
 </head>
 <body>
 
 <header class="site-header">
-    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+  <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
 <div class="page-container">
   <h1>Meldung eines Arbeits- / Wegeunfalls</h1>
-  <p class="info-box info">
-    Nutzen Sie dieses Formular, um einen Arbeits- oder Wegeunfall formell bei Ihrer zuständigen Berufsgenossenschaft zu melden. Eine lückenlose und präzise Schilderung des Unfallhergangs ist entscheidend für die Anerkennung und die Gewährung von Leistungen.
-  </p>
-<p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="arbeitsunfallForm">
+  <p class="info-box info">
+    Nutzen Sie dieses Formular, um einen Arbeits- oder Wegeunfall formell bei Ihrer zuständigen Berufsgenossenschaft/Unfallkasse zu melden.
+    <strong>Praxis-Hinweis:</strong> Ein Arbeitsunfall liegt nach § 8 SGB VII vor, wenn ein zeitlich begrenztes, von außen auf den Körper einwirkendes Ereignis im Zusammenhang mit einer versicherten Tätigkeit zu einem Gesundheitsschaden (oder Tod) führt. 
+    <strong>Praxis-Hinweis:</strong> Bei Wegeunfällen ist grundsätzlich der unmittelbare Weg zur/von der Arbeit versichert; typische mitversicherte Abweichungen können z.B. Kinderbetreuung, Fahrgemeinschaften, Umleitungen oder ein längerer aber schnellerer Weg sein. 
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Speichern“ und „Laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="arbeitsunfallForm" autocomplete="on">
     <fieldset>
       <legend>1. Ihre Angaben (Versicherte/r)</legend>
+
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" name="personName" required autocomplete="name">
+
       <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="personAdresse" rows="2" required></textarea>
+      <textarea id="personAdresse" name="personAdresse" rows="2" required autocomplete="street-address"></textarea>
+
       <label for="geburtsdatum">Geburtsdatum:</label>
-      <input type="date" id="geburtsdatum" required>
-      <label for="versicherungsnummer">Ihre Rentenversicherungsnummer:</label>
-      <input type="text" id="versicherungsnummer" required>
+      <input type="date" id="geburtsdatum" name="geburtsdatum" required autocomplete="bday">
+
+      <label for="versicherungsnummer">Versichertennummer (falls bekannt):</label>
+      <input type="text" id="versicherungsnummer" name="versicherungsnummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zum Arbeitgeber</legend>
+
       <label for="arbeitgeberName">Name des Arbeitgebers:</label>
-      <input type="text" id="arbeitgeberName" required>
+      <input type="text" id="arbeitgeberName" name="arbeitgeberName" required autocomplete="organization">
+
       <label for="arbeitgeberAdresse">Anschrift des Arbeitgebers:</label>
-      <textarea id="arbeitgeberAdresse" rows="3" required></textarea>
+      <textarea id="arbeitgeberAdresse" name="arbeitgeberAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
-    
+
     <fieldset>
-      <legend>3. Zuständige Berufsgenossenschaft (BG)</legend>
+      <legend>3. Zuständige Berufsgenossenschaft (BG) / Unfallkasse</legend>
+
       <label for="bgName">Name der Berufsgenossenschaft / Unfallkasse:</label>
-      <input type="text" id="bgName" required>
+      <input type="text" id="bgName" name="bgName" required autocomplete="organization">
+
       <label for="bgAdresse">Anschrift der Berufsgenossenschaft:</label>
-      <textarea id="bgAdresse" rows="3" required></textarea>
+      <textarea id="bgAdresse" name="bgAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Details zum Unfall</legend>
+
       <label for="unfallDatum">Datum des Unfalls:</label>
-      <input type="date" id="unfallDatum" required>
+      <input type="date" id="unfallDatum" name="unfallDatum" required autocomplete="off">
+
       <label for="unfallZeit">Uhrzeit des Unfalls:</label>
-      <input type="time" id="unfallZeit" required>
+      <input type="time" id="unfallZeit" name="unfallZeit" required autocomplete="off">
+
       <label for="unfallOrt">Genauer Ort des Unfalls:
-          <small>z.B. "Betriebsgelände, Halle 3, an der Fräsmaschine", "Auf dem Heimweg in der Bahnhofstraße, Höhe Hausnummer 5"</small>
+          <small>z.B. „Betriebsgelände, Halle 3, an der Maschine …“ / „Auf dem Heimweg in …, Höhe Hausnummer …“</small>
       </label>
-      <textarea id="unfallOrt" rows="2" required></textarea>
+      <textarea id="unfallOrt" name="unfallOrt" rows="2" required autocomplete="off"></textarea>
+
       <label for="unfallhergang">Detaillierte Schilderung des Unfallhergangs:
-        <small>Was haben Sie getan? Was ist genau passiert? Wie kam es zur Verletzung?</small>
+        <small>Was wurde getan? Was ist genau passiert? Wie kam es zur Verletzung?</small>
       </label>
-      <textarea id="unfallhergang" required></textarea>
+      <textarea id="unfallhergang" name="unfallhergang" required autocomplete="off"></textarea>
+
       <label for="verletzungArt">Art der Verletzung(en):</label>
-      <input type="text" id="verletzungArt" required placeholder="z.B. Schnittwunde am linken Unterarm, Bruch des rechten Sprunggelenks">
+      <input type="text" id="verletzungArt" name="verletzungArt" required placeholder="z.B. Schnittwunde am linken Unterarm, Bruch des rechten Sprunggelenks" autocomplete="off">
     </fieldset>
-    
+
     <fieldset>
         <legend>5. Zeugen und Erstbehandlung</legend>
-        <label for="zeugen">Zeugen des Unfalls (Name, Anschrift, falls bekannt):</label>
-        <textarea id="zeugen" rows="2" placeholder="Max Mustermann, Kollege aus der Abteilung"></textarea>
+
+        <label for="zeugen">Zeugen (Name, Anschrift, falls bekannt):</label>
+        <textarea id="zeugen" name="zeugen" rows="2" placeholder="Max Mustermann, Kollege aus der Abteilung" autocomplete="off"></textarea>
+
         <label for="erstarzt">Erstbehandelnder Arzt / Krankenhaus (Name, Anschrift):
             <small>Hier geben Sie den Durchgangsarzt (D-Arzt) oder das Krankenhaus an, wo Sie zuerst behandelt wurden.</small>
         </label>
-        <textarea id="erstarzt" rows="2" required></textarea>
+        <textarea id="erstarzt" name="erstarzt" rows="2" required autocomplete="off"></textarea>
     </fieldset>
 
     <div class="button-group">
@@ -100,8 +160,8 @@
 
 <div id="spendenPopup" class="popup-overlay">
   <div class="popup-content">
-      <h2>Klageschrift erstellt!</h2>
-      <p>Wir wünschen Ihnen viel Erfolg! Wenn Ihnen dieses Tool geholfen hat, diesen wichtigen Schritt zu gehen, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
+      <h2>Meldung erstellt!</h2>
+      <p>Wenn Ihnen dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
       <form action="https://www.paypal.com/donate" method="post" target="_blank">
           <input type="hidden" name="business" value="info@kassen-lotse.de" />
           <input type="hidden" name="item_name" value="Unterstützung für das Projekt Kassen-Lotse" />

@@ -2,11 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Pflegegrad-Einstufung</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen Pflegegradbescheid Ihrer Pflegekasse, wenn Sie mit der Einstufung nicht einverstanden sind.">
-  <meta name="keywords" content="Widerspruch, Pflegegrad, Pflegekasse, MDK, Begutachtung, Einstufung, Ablehnung, SGB XI">
+  <title>Widerspruch Pflegegrad | Begutachtung & Einstufung | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen einen Pflegegrad-Bescheid der Pflegekasse (Einstufung/Begutachtung). Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Pflegegrad-Einstufung",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen einen Pflegegrad-Bescheid der Pflegekasse.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Pflegegrad" },
+      { "@type": "Thing", "name": "Pflegekasse" },
+      { "@type": "Thing", "name": "Pflegebegutachtung" },
+      { "@type": "Thing", "name": "Medizinischer Dienst" },
+      { "@type": "Thing", "name": "SGB XI" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="widerspruch-pflegegrad_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,72 +46,103 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch gegen Pflegegrad-Bescheid</h1>
+
   <p class="info-box warning">
-    Sind Sie mit dem festgestellten Pflegegrad nicht einverstanden? Hier können Sie einen Widerspruch erstellen.
-    Beachten Sie die Widerspruchsfrist (i.d.R. ein Monat nach Erhalt des Bescheids).
+    Sind Sie mit dem festgestellten Pflegegrad nicht einverstanden, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Der Pflegegrad wird mithilfe eines Begutachtungsinstruments ermittelt, das in sechs Module gegliedert ist; diese Module werden unterschiedlich gewichtet (z.B. Selbstversorgung 40 %, Mobilität 10 %). 
+    <strong>Praxis-Hinweis:</strong> Im Widerspruch ist es oft besonders wirksam, konkrete Abweichungen zum Gutachten anhand dieser Module (Alltagssituationen, Häufigkeit, benötigte Hilfe) nachvollziehbar darzustellen. 
+
     Lesen Sie auch unsere <a href="info-pflegegrad.html">Informationen zu Pflegegrad und Pflegeleistungen</a>.
   </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchPflegegradForm">
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchPflegegradForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur pflegebedürftigen Person</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
-      <input type="text" id="vpNummer" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
-      <legend>2. Widerspruchsführer:in (falls abweichend von der pflegebedürftigen Person)</legend>
+      <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentisch">Wird der Widerspruch von der pflegebedürftigen Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentisch">
+      <select id="widerspruchfuehrerIdentisch" name="widerspruchfuehrerIdentisch" autocomplete="off">
           <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
           <option value="nein">Nein, von einer anderen Person (z.B. Angehöriger, Betreuer)</option>
       </select>
+
       <div id="widerspruchfuehrerDetails" class="sub-details">
           <label for="wfName">Vor- und Nachname des/der Widerspruchsführer:in:</label>
-          <input type="text" id="wfName">
+          <input type="text" id="wfName" name="wfName" autocomplete="name">
+
           <label for="wfAdresse">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdresse" rows="3"></textarea>
+          <textarea id="wfAdresse" name="wfAdresse" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnis">Verhältnis zur pflegebedürftigen Person:</label>
-          <input type="text" id="wfVerhaeltnis" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
-          <label><input type="checkbox" id="wfVollmacht"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnis" name="wfVerhaeltnis" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmacht" name="wfVollmacht"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
+
       <label for="pflegekasseName">Name der Pflegekasse:</label>
-      <input type="text" id="pflegekasseName" required>
+      <input type="text" id="pflegekasseName" name="pflegekasseName" required autocomplete="organization">
+
       <label for="pflegekasseAdresse">Vollständige Adresse der Pflegekasse:</label>
-      <textarea id="pflegekasseAdresse" rows="3" required></textarea>
+      <textarea id="pflegekasseAdresse" name="pflegekasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum angefochtenen Pflegegrad-Bescheid</legend>
+
       <label for="datumPflegegradbescheid">Datum des Pflegegrad-Bescheids:</label>
-      <input type="date" id="datumPflegegradbescheid" required>
+      <input type="date" id="datumPflegegradbescheid" name="datumPflegegradbescheid" required autocomplete="off">
+
       <label for="aktenzeichenPflegegrad">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenPflegegrad">
+      <input type="text" id="aktenzeichenPflegegrad" name="aktenzeichenPflegegrad" autocomplete="off">
+
       <label for="festgestellterPflegegrad">Festgestellter Pflegegrad laut Bescheid:</label>
-      <select id="festgestellterPflegegrad" required>
+      <select id="festgestellterPflegegrad" name="festgestellterPflegegrad" required autocomplete="off">
         <option value="">Bitte wählen...</option>
         <option value="Kein Pflegegrad">Kein Pflegegrad festgestellt</option>
         <option value="Pflegegrad 1">Pflegegrad 1</option>
@@ -89,8 +151,9 @@
         <option value="Pflegegrad 4">Pflegegrad 4</option>
         <option value="Pflegegrad 5">Pflegegrad 5</option>
       </select>
+
       <label for="beantragterErwarteterPflegegrad">Beantragter bzw. aus Ihrer Sicht korrekter Pflegegrad (optional):</label>
-      <select id="beantragterErwarteterPflegegrad">
+      <select id="beantragterErwarteterPflegegrad" name="beantragterErwarteterPflegegrad" autocomplete="off">
         <option value="">(Optional auswählen)</option>
         <option value="Pflegegrad 1">Pflegegrad 1</option>
         <option value="Pflegegrad 2">Pflegegrad 2</option>
@@ -99,22 +162,29 @@
         <option value="Pflegegrad 5">Pflegegrad 5</option>
       </select>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Erläutern Sie hier detailliert, warum Sie die Einstufung für nicht korrekt halten. Gehen Sie auf die einzelnen Bereiche der Begutachtung ein (Mobilität, kognitive Fähigkeiten, Selbstversorgung etc.), in denen der Hilfebedarf Ihrer Meinung nach nicht ausreichend berücksichtigt wurde. Verweisen Sie auf Ihr Pflegetagebuch (falls geführt) und ggf. auf (neue) ärztliche Unterlagen.</p>
-      <label for="begruendungWiderspruchPflegegrad">Ausführliche Begründung, warum der festgestellte Pflegegrad nicht dem tatsächlichen Hilfebedarf entspricht:</label>
-      <textarea id="begruendungWiderspruchPflegegrad" rows="15" required placeholder="Schildern Sie konkrete Alltagssituationen und den benötigten Hilfebedarf. Wo sehen Sie Abweichungen zum Gutachten des MD/Medicproof?"></textarea>
+
+      <p class="info-box">
+        Erläutern Sie, warum die Einstufung aus Ihrer Sicht nicht dem tatsächlichen Hilfebedarf entspricht.
+        Sinnvoll ist es, die Begründung entlang der Module zu strukturieren (z.B. Mobilität, Selbstversorgung, Umgang mit therapiebedingten Anforderungen, Alltagsgestaltung) und jeweils konkrete Alltagssituationen zu schildern. 
+      </p>
+
+      <label for="begruendungWiderspruchPflegegrad">Ausführliche Begründung:</label>
+      <textarea id="begruendungWiderspruchPflegegrad" name="begruendungWiderspruchPflegegrad" rows="15" required placeholder="Schildern Sie konkrete Alltagssituationen und den benötigten Hilfebedarf. Wo sehen Sie Abweichungen zum Gutachten des Medizinischen Dienstes/Medicproof?" autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
-        <label for="forderungWiderspruchPflegegrad">Formulieren Sie klar Ihr Ziel: <small>(z.B. "Ich beantrage die Aufhebung des Bescheides und die Feststellung von Pflegegrad X.", "Ich beantrage eine erneute Begutachtung unter Berücksichtigung der von mir dargelegten Aspekte.")</small></label>
-        <textarea id="forderungWiderspruchPflegegrad" rows="3" required placeholder="z.B. Ich beantrage die Feststellung von Pflegegrad [Ihr Wunschgrad] oder hilfsweise eine erneute Begutachtung."></textarea>
+
+        <label for="forderungWiderspruchPflegegrad">Formulieren Sie klar Ihr Ziel: <small>(z.B. Feststellung eines höheren Pflegegrades oder erneute Begutachtung.)</small></label>
+        <textarea id="forderungWiderspruchPflegegrad" name="forderungWiderspruchPflegegrad" rows="3" required placeholder="z.B. Ich beantrage die Feststellung von Pflegegrad ... oder hilfsweise eine erneute Begutachtung." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
-        <legend>7. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <legend>7. Beizufügende Anlagen (optional)</legend>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenPflegegrad" value="Kopie des angefochtenen Pflegegrad-Bescheids"> Kopie des angefochtenen Pflegegrad-Bescheids</label>
             <label><input type="checkbox" name="anlagenPflegegrad" value="Pflegetagebuch"> Pflegetagebuch</label>
@@ -122,8 +192,9 @@
             <label><input type="checkbox" name="anlagenPflegegrad" value="Neue medizinische Befunde/Berichte"> Neue medizinische Befunde/Berichte</label>
             <label><input type="checkbox" id="anlageVollmachtPG" name="anlagenPflegegrad" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesPflegegrad">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesPflegegrad">
+        <input type="text" id="anlageSonstigesPflegegrad" name="anlageSonstigesPflegegrad" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -132,7 +203,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchPG" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchPG" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

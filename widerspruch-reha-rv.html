@@ -2,11 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Reha-Antrag (Rentenversicherung)</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen abgelehnten Antrag auf medizinische oder berufliche Rehabilitation bei der Deutschen Rentenversicherung.">
-  <meta name="keywords" content="Widerspruch, Reha, Rehabilitation, Rentenversicherung, DRV, Ablehnung, Gutachten, SGB VI">
+  <title>Widerspruch Reha-Antrag DRV (SGB VI) | Medizinisch & LTA | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen die Ablehnung einer medizinischen Reha oder Leistungen zur Teilhabe am Arbeitsleben (LTA) durch die Deutsche Rentenversicherung. Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Reha-Antrag (Rentenversicherung)",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen die Ablehnung einer medizinischen oder beruflichen Rehabilitation durch die Deutsche Rentenversicherung.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Deutsche Rentenversicherung" },
+      { "@type": "Thing", "name": "Medizinische Rehabilitation" },
+      { "@type": "Thing", "name": "Leistungen zur Teilhabe am Arbeitsleben" },
+      { "@type": "Thing", "name": "SGB VI" },
+      { "@type": "Thing", "name": "Widerspruch" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="reha-rv_widerspruch_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,110 +46,151 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch gegen Ablehnung des Reha-Antrags (Rentenversicherung)</h1>
-  <p class="info-box warning">
-    Wurde Ihr Antrag auf medizinische oder berufliche Rehabilitation von der Rentenversicherung abgelehnt? Hier können Sie einen Widerspruch erstellen.
-    Beachten Sie die Widerspruchsfrist (i.d.R. ein Monat)! Lesen Sie auch unsere <a href="info-reha-rv.html">Informationen zu Reha-Leistungen der Rentenversicherung</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchRehaRvForm">
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf medizinische oder berufliche Rehabilitation (LTA) von der Rentenversicherung abgelehnt, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Nach § 9 SGB VI haben Leistungen zur Teilhabe (Reha/LTA) Vorrang vor Rentenleistungen („Teilhabe vor Rente“) – im Widerspruch hilft es oft, genau zu begründen, wie die beantragte Maßnahme die Erwerbsfähigkeit erhalten/wiederherstellen soll. 
+    <strong>Praxis-Hinweis:</strong> Bei medizinischer Reha können Versicherte auch Reha-Einrichtungen vorschlagen; die Rentenversicherung prüft dann u.a. Qualität/Kriterien und muss die Auswahl nachvollziehbar begründen. 
+
+    Lesen Sie auch unsere <a href="info-reha-rv.html">Informationen zu Reha-Leistungen der Rentenversicherung</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchRehaRvForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur versicherten Person</legend>
+
       <label for="personNameRehaRvW">Vor- und Nachname:</label>
-      <input type="text" id="personNameRehaRvW" required>
+      <input type="text" id="personNameRehaRvW" name="personNameRehaRvW" required autocomplete="name">
+
       <label for="personGeburtsdatumRehaRvW">Geburtsdatum:</label>
-      <input type="date" id="personGeburtsdatumRehaRvW" required>
+      <input type="date" id="personGeburtsdatumRehaRvW" name="personGeburtsdatumRehaRvW" required autocomplete="bday">
+
       <label for="personAdresseRehaRvW">Vollständige Adresse:</label>
-      <textarea id="personAdresseRehaRvW" rows="3" required></textarea>
+      <textarea id="personAdresseRehaRvW" name="personAdresseRehaRvW" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="personRvNummerRehaRvW">Rentenversicherungsnummer:</label>
-      <input type="text" id="personRvNummerRehaRvW" required>
+      <input type="text" id="personRvNummerRehaRvW" name="personRvNummerRehaRvW" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentischRehaRv">Wird der Widerspruch von der oben genannten Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentischRehaRv">
+      <select id="widerspruchfuehrerIdentischRehaRv" name="widerspruchfuehrerIdentischRehaRv" autocomplete="off">
           <option value="ja" selected>Ja</option>
           <option value="nein">Nein, von einer anderen Person/Einrichtung</option>
       </select>
+
       <div id="widerspruchfuehrerDetailsRehaRv" class="sub-details">
           <label for="wfNameRehaRv">Name des/der Widerspruchsführer:in / Bezeichnung der Einrichtung:</label>
-          <input type="text" id="wfNameRehaRv">
+          <input type="text" id="wfNameRehaRv" name="wfNameRehaRv" autocomplete="name">
+
           <label for="wfAdresseRehaRv">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdresseRehaRv" rows="3"></textarea>
+          <textarea id="wfAdresseRehaRv" name="wfAdresseRehaRv" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnisRehaRv">Verhältnis zur Person bzw. Funktion:</label>
-          <input type="text" id="wfVerhaeltnisRehaRv" placeholder="z.B. Mutter, Gesetzl. Betreuer">
-          <label><input type="checkbox" id="wfVollmachtRehaRv"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnisRehaRv" name="wfVerhaeltnisRehaRv" placeholder="z.B. Mutter, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmachtRehaRv" name="wfVollmachtRehaRv"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zum zuständigen Rentenversicherungsträger</legend>
+
       <label for="rvTraegerNameWiderspruch">Name des Rentenversicherungsträgers:</label>
-      <input type="text" id="rvTraegerNameWiderspruch" value="Deutsche Rentenversicherung" required>
+      <input type="text" id="rvTraegerNameWiderspruch" name="rvTraegerNameWiderspruch" value="Deutsche Rentenversicherung" required autocomplete="organization">
+
       <label for="rvTraegerAdresseWiderspruch">Vollständige Adresse des Rentenversicherungsträgers:</label>
-      <textarea id="rvTraegerAdresseWiderspruch" rows="3" required placeholder="z.B. Deutsche Rentenversicherung Bund, 10709 Berlin"></textarea>
+      <textarea id="rvTraegerAdresseWiderspruch" name="rvTraegerAdresseWiderspruch" rows="3" required placeholder="z.B. Deutsche Rentenversicherung Bund, 10709 Berlin" autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum abgelehnten Reha-Antrag</legend>
+
       <label for="datumUrsprAntragRehaRv">Datum Ihres ursprünglichen Reha-Antrags:</label>
-      <input type="date" id="datumUrsprAntragRehaRv" required>
+      <input type="date" id="datumUrsprAntragRehaRv" name="datumUrsprAntragRehaRv" required autocomplete="off">
+
       <label for="rehaArtAbgelehnt">Art der beantragten und abgelehnten Reha-Maßnahme:</label>
-      <select id="rehaArtAbgelehnt" required>
+      <select id="rehaArtAbgelehnt" name="rehaArtAbgelehnt" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Medizinische Rehabilitation">Medizinische Rehabilitation</option>
           <option value="Berufliche Rehabilitation (Leistungen zur Teilhabe am Arbeitsleben - LTA)">Berufliche Rehabilitation (LTA)</option>
           <option value="Medizinische und berufliche Rehabilitation (kombiniert)">Medizinische und berufliche Rehabilitation (kombiniert)</option>
           <option value="Sonstige Reha-Maßnahme">Sonstige Reha-Maßnahme</option>
       </select>
-      <label for="rehaZielortAbgelehnt">Ggf. Name der Reha-Einrichtung (falls im Antrag genannt und relevant für Ablehnung):</label>
-      <input type="text" id="rehaZielortAbgelehnt" placeholder="z.B. Rehaklinik Musterstadt">
+
+      <label for="rehaZielortAbgelehnt">Ggf. Name der Reha-Einrichtung (falls im Antrag genannt und relevant):</label>
+      <input type="text" id="rehaZielortAbgelehnt" name="rehaZielortAbgelehnt" placeholder="z.B. Rehaklinik Musterstadt" autocomplete="off">
+
       <label for="datumAblehnungsbescheidRehaRv">Datum des Ablehnungsbescheids der Rentenversicherung:</label>
-      <input type="date" id="datumAblehnungsbescheidRehaRv" required>
+      <input type="date" id="datumAblehnungsbescheidRehaRv" name="datumAblehnungsbescheidRehaRv" required autocomplete="off">
+
       <label for="aktenzeichenRehaRv">Aktenzeichen / Geschäftszeichen des Bescheids:</label>
-      <input type="text" id="aktenzeichenRehaRv" required>
-      <label for="hauptablehnungsgrundRehaRv">Hauptgrund/-gründe für die Ablehnung laut Rentenversicherung: <small>(Fassen Sie die Kernaussage des Ablehnungsschreibens zusammen)</small></label>
-      <textarea id="hauptablehnungsgrundRehaRv" rows="3" required placeholder="z.B. Medizinische Voraussetzungen nicht erfüllt; Erwerbsfähigkeit nicht gefährdet/gemindert; Versicherungsrechtliche Voraussetzungen nicht erfüllt; Ambulante Maßnahmen seien ausreichend."></textarea>
+      <input type="text" id="aktenzeichenRehaRv" name="aktenzeichenRehaRv" required autocomplete="off">
+
+      <label for="hauptablehnungsgrundRehaRv">Hauptgrund/-gründe für die Ablehnung laut Rentenversicherung: <small>(Kernaussage zusammenfassen)</small></label>
+      <textarea id="hauptablehnungsgrundRehaRv" name="hauptablehnungsgrundRehaRv" rows="3" required placeholder="z.B. Medizinische Voraussetzungen nicht erfüllt; Erwerbsfähigkeit nicht gefährdet/gemindert; versicherungsrechtliche Voraussetzungen nicht erfüllt; ambulante Maßnahmen ausreichend." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Legen Sie hier detailliert dar, warum die Ablehnung Ihrer Ansicht nach nicht gerechtfertigt ist. Beziehen Sie sich auf Ihre gesundheitliche Situation, die Auswirkungen auf Ihre Erwerbsfähigkeit und auf beigefügte (ggf. neue) ärztliche Unterlagen.</p>
 
-      <label for="argumentGesundheitszustandRehaRv">Darlegung Ihres aktuellen Gesundheitszustands und der Notwendigkeit der Reha: <small>(Warum ist die Reha aus medizinischer Sicht zwingend erforderlich, um Ihre Erwerbsfähigkeit zu erhalten, zu bessern oder wiederherzustellen? Was sagt Ihr Arzt/Ihre Ärztin dazu? Verweisen Sie auf aktuelle ärztliche Atteste.)</small></label>
-      <textarea id="argumentGesundheitszustandRehaRv" rows="6" required placeholder="z.B. Meine Erkrankung [Name] hat sich verschlechtert und schränkt meine Leistungsfähigkeit im Beruf [Beruf] erheblich ein. Ohne die beantragte Reha-Maßnahme droht eine dauerhafte Erwerbsminderung. Dies wird durch das beiliegende Attest von Dr. [Name] vom TT.MM.JJJJ bestätigt."></textarea>
+      <p class="info-box">
+        Legen Sie dar, warum die Ablehnung aus Ihrer Sicht nicht zutreffend ist, und beziehen Sie sich auf medizinische Unterlagen sowie die Auswirkungen auf Ihre Erwerbsfähigkeit.
+        Hilfreich ist oft, den Zusammenhang „Diagnose → konkrete Funktions-/Leistungseinschränkung → Einschränkung im Beruf → Reha-Ziel“ klar zu beschreiben. 
+      </p>
 
-      <label for="argumentErwerbsfaehigkeitRehaRv">Auswirkungen auf Ihre Erwerbsfähigkeit und warum andere Maßnahmen nicht (mehr) ausreichen: <small>(Warum ist Ihre Erwerbsfähigkeit konkret gefährdet oder gemindert? Wurden ambulante Maßnahmen bereits ausgeschöpft oder sind sie nicht zielführend?)</small></label>
-      <textarea id="argumentErwerbsfaehigkeitRehaRv" rows="5" required placeholder="z.B. Trotz intensiver ambulanter Physiotherapie und medikamentöser Behandlung ist keine Besserung eingetreten. Die beantragte stationäre Reha ist nun die einzige erfolgversprechende Maßnahme, um meine Erwerbsfähigkeit für den Beruf [Beruf] zu erhalten."></textarea>
-      
-      <label for="argumentZieleRehaRv">Welche konkreten Ziele sollen mit der Reha erreicht werden und wie realistisch sind diese? <small>(Bezugnahme auf die Prognose Ihrer Ärzte)</small></label>
-      <textarea id="argumentZieleRehaRv" rows="4" placeholder="z.B. Ziel der Reha ist die Reduktion meiner chronischen Schmerzen, um wieder [konkrete Tätigkeit] ausüben zu können. Mein Arzt sieht hierfür eine gute Prognose."></textarea>
+      <label for="argumentGesundheitszustandRehaRv">Gesundheitszustand & Notwendigkeit der Reha:</label>
+      <textarea id="argumentGesundheitszustandRehaRv" name="argumentGesundheitszustandRehaRv" rows="6" required placeholder="z.B. Erkrankung/Verlauf, aktuelle Einschränkungen, ärztliche Prognose; warum Reha erforderlich ist, um Erwerbsfähigkeit zu erhalten/wiederherzustellen." autocomplete="off"></textarea>
 
-      <label for="ergaenzendeArgumenteRehaRvWiderspruch">Weitere/ergänzende Argumente und Erläuterungen zu den Ablehnungsgründen der Rentenversicherung:</label>
-      <textarea id="ergaenzendeArgumenteRehaRvWiderspruch" rows="5" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere wichtige Aspekte anführen."></textarea>
+      <label for="argumentErwerbsfaehigkeitRehaRv">Auswirkungen auf Erwerbsfähigkeit & warum andere Maßnahmen nicht ausreichen:</label>
+      <textarea id="argumentErwerbsfaehigkeitRehaRv" name="argumentErwerbsfaehigkeitRehaRv" rows="5" required placeholder="z.B. ambulant ausgeschöpft; stationäre/strukturierte Reha erforderlich; sonst Risiko dauerhafter Erwerbsminderung." autocomplete="off"></textarea>
+
+      <label for="argumentZieleRehaRv">Konkrete Reha-Ziele und Prognose (optional):</label>
+      <textarea id="argumentZieleRehaRv" name="argumentZieleRehaRv" rows="4" placeholder="z.B. Belastbarkeit steigern, Schmerz reduzieren, berufliche Tätigkeiten wieder möglich; Prognose laut Arzt." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeArgumenteRehaRvWiderspruch">Weitere/ergänzende Argumente:</label>
+      <textarea id="ergaenzendeArgumenteRehaRvWiderspruch" name="ergaenzendeArgumenteRehaRvWiderspruch" rows="5" placeholder="Hier können Sie auf einzelne Punkte des Ablehnungsschreibens eingehen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchRehaRv">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchRehaRv" rows="3" required placeholder="z.B. Ich beantrage die Aufhebung des Bescheides und die Genehmigung der beantragten [medizinischen/beruflichen] Rehabilitationsmaßnahme. / Ich beantrage eine erneute ärztliche Begutachtung."></textarea>
+        <textarea id="forderungWiderspruchRehaRv" name="forderungWiderspruchRehaRv" rows="3" required placeholder="z.B. Aufhebung des Bescheids und Bewilligung der beantragten Reha/LTA oder erneute Begutachtung." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
         <legend>7. Beizufügende Anlagen (Kopien sind ausreichend)</legend>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenRehaRvWiderspruch" value="Kopie des angefochtenen Bescheids der Rentenversicherung"> Kopie des angefochtenen Bescheids</label>
             <label><input type="checkbox" name="anlagenRehaRvWiderspruch" value="Kopie des ursprünglichen Reha-Antrags und des ärztlichen Befundberichts"> Kopie des ursprünglichen Reha-Antrags und des ärztlichen Befundberichts</label>
@@ -126,8 +198,9 @@
             <label><input type="checkbox" name="anlagenRehaRvWiderspruch" value="Aktuelle medizinische Befundberichte (seit Antragstellung)"> Aktuelle medizinische Befundberichte (seit Antragstellung)</label>
             <label><input type="checkbox" id="anlageVollmachtRehaRvWiderspruch" name="anlagenRehaRvWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesRehaRvWiderspruch">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesRehaRvWiderspruch">
+        <input type="text" id="anlageSonstigesRehaRvWiderspruch" name="anlageSonstigesRehaRvWiderspruch" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -136,7 +209,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchRehaRv" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchRehaRv" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

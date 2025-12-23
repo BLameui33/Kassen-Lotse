@@ -2,11 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Krankengeld</title>
-  <meta name="description" content="Erstellen Sie einen fundierten Widerspruch gegen Entscheidungen Ihrer Krankenkasse bezüglich des Krankengeldes.">
-  <meta name="keywords" content="Widerspruch, Krankengeld, Krankenkasse, MDK, Arbeitsunfähigkeit, Ablehnung, Einstellung, Berechnung">
+  <title>Widerspruch Krankengeld | Muster & Vorlage | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs bei Problemen mit Krankengeld (Ablehnung, Einstellung, Berechnung, MD/sozialmedizinische Beurteilung). Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Krankengeld",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen Entscheidungen der Krankenkasse zum Krankengeld.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Krankengeld" },
+      { "@type": "Thing", "name": "Arbeitsunfähigkeit" },
+      { "@type": "Thing", "name": "Krankenkasse" },
+      { "@type": "Thing", "name": "Medizinischer Dienst" },
+      { "@type": "Thing", "name": "Widerspruch" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="widerspruch-krankengeld_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,104 +46,142 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch in Krankengeld-Angelegenheiten</h1>
-  <p class="info-box warning">
-    Wurde Ihre Krankengeldzahlung eingestellt, abgelehnt, falsch berechnet oder sind Sie mit einer Entscheidung des MDK nicht einverstanden? Nutzen Sie dieses Formular, um Widerspruch einzulegen.
-    Beachten Sie die Widerspruchsfrist (i.d.R. ein Monat). Lesen Sie auch unsere <a href="info-krankengeld.html">Informationen zum Krankengeld</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchKrankengeldForm">
+  <p class="info-box warning">
+    Wurde Ihre Krankengeldzahlung eingestellt, abgelehnt, falsch berechnet oder sind Sie mit einer sozialmedizinischen Einschätzung (z.B. durch den Medizinischen Dienst) nicht einverstanden, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Krankengeld setzt grundsätzlich eine Arbeitsunfähigkeit infolge Krankheit voraus; eine klare, aktuelle ärztliche Einschätzung zur fortbestehenden AU ist deshalb oft zentral. 
+    <strong>Praxis-Hinweis:</strong> Der Medizinische Dienst beurteilt Arbeitsunfähigkeit sozialmedizinisch und übermittelt seine Stellungnahme an die Krankenkasse – hilfreich ist es, konkret zu benennen, welche Befunde/Alltagseinschränkungen aus Ihrer Sicht nicht ausreichend berücksichtigt wurden. 
+
+    Lesen Sie auch unsere <a href="info-krankengeld.html">Informationen zum Krankengeld</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchKrankengeldForm" autocomplete="on">
     <fieldset>
       <legend>1. Ihre Persönlichen Angaben</legend>
+
       <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" name="name" required autocomplete="name">
+
       <label for="adresse">Ihre vollständige Adresse:</label>
-      <textarea id="adresse" rows="3" required></textarea>
+      <textarea id="adresse" name="adresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="geburt">Geburtsdatum:</label>
-      <input type="date" id="geburt" required>
+      <input type="date" id="geburt" name="geburt" required autocomplete="bday">
+
       <label for="nummer">Versichertennummer:</label>
-      <input type="text" id="nummer" required>
+      <input type="text" id="nummer" name="nummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
+
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zum angefochtenen Bescheid/Entscheidung</legend>
+
       <label for="datumEntscheidungKG">Datum des Bescheids/Schreibens der Krankenkasse:</label>
-      <input type="date" id="datumEntscheidungKG" required>
+      <input type="date" id="datumEntscheidungKG" name="datumEntscheidungKG" required autocomplete="off">
+
       <label for="aktenzeichenKG">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenKG">
+      <input type="text" id="aktenzeichenKG" name="aktenzeichenKG" autocomplete="off">
+
       <label for="gegenstandEntscheidungKG">Gegenstand der Entscheidung (wogegen richtet sich der Widerspruch?):</label>
-      <select id="gegenstandEntscheidungKG" required>
+      <select id="gegenstandEntscheidungKG" name="gegenstandEntscheidungKG" required autocomplete="off">
         <option value="">Bitte wählen...</option>
         <option value="Einstellung der Krankengeldzahlung">Einstellung der Krankengeldzahlung</option>
         <option value="Ablehnung der Krankengeldzahlung">Ablehnung der Krankengeldzahlung</option>
-        <option value="Festgestellte Arbeitsfähigkeit durch den MDK">Festgestellte Arbeitsfähigkeit durch den MDK</option>
+        <option value="Festgestellte Arbeitsfähigkeit durch den Medizinischen Dienst">Festgestellte Arbeitsfähigkeit durch den Medizinischen Dienst</option>
         <option value="Fehlerhafte Berechnung der Krankengeldhöhe">Fehlerhafte Berechnung der Krankengeldhöhe</option>
         <option value="Anrechnung von Einkommen auf das Krankengeld">Anrechnung von Einkommen auf das Krankengeld</option>
         <option value="Sonstiges (bitte unten erläutern)">Sonstiges (bitte unten erläutern)</option>
       </select>
+
       <div id="gegenstandSonstigesKGDetails" style="display:none;">
         <label for="gegenstandSonstigesKGText">Erläuterung zu "Sonstiges":</label>
-        <textarea id="gegenstandSonstigesKGText" rows="2"></textarea>
+        <textarea id="gegenstandSonstigesKGText" name="gegenstandSonstigesKGText" rows="2" autocomplete="off"></textarea>
       </div>
+
       <label for="beginnArbeitsunfaehigkeitKG">Beginn der Arbeitsunfähigkeit, auf die sich das Krankengeld bezieht:</label>
-      <input type="date" id="beginnArbeitsunfaehigkeitKG" required>
+      <input type="date" id="beginnArbeitsunfaehigkeitKG" name="beginnArbeitsunfaehigkeitKG" required autocomplete="off">
+
       <label for="diagnoseHauptKG">Hauptdiagnose(n) für die Arbeitsunfähigkeit:</label>
-      <input type="text" id="diagnoseHauptKG" required placeholder="z.B. Mittelgradige depressive Episode, Bandscheibenvorfall L5/S1">
-      <label for="zeitraumKrankengeldStreitig">Zeitraum, für den das Krankengeld strittig ist/eingestellt wurde: <small>(Falls zutreffend, z.B. "ab TT.MM.JJJJ" oder "TT.MM.JJJJ - TT.MM.JJJJ")</small></label>
-      <input type="text" id="zeitraumKrankengeldStreitig" placeholder="z.B. ab 01.07.2025">
+      <input type="text" id="diagnoseHauptKG" name="diagnoseHauptKG" required placeholder="z.B. Mittelgradige depressive Episode, Bandscheibenvorfall L5/S1" autocomplete="off">
+
+      <label for="zeitraumKrankengeldStreitig">Zeitraum, für den das Krankengeld strittig ist/eingestellt wurde: <small>(z.B. „ab TT.MM.JJJJ“ oder „TT.MM.JJJJ - TT.MM.JJJJ“)</small></label>
+      <input type="text" id="zeitraumKrankengeldStreitig" name="zeitraumKrankengeldStreitig" placeholder="z.B. ab 01.07.2025" autocomplete="off">
     </fieldset>
-    
+
     <fieldset>
       <legend>4. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Erläutern Sie hier detailliert, warum die Entscheidung der Krankenkasse aus Ihrer Sicht nicht korrekt ist. Beziehen Sie sich auf ärztliche Atteste und ggf. auf Fehler im Bescheid oder in der MDK-Begutachtung.</p>
 
-      <label for="argumentFortbestehendeAUKG">Darlegung der fortbestehenden Arbeitsunfähigkeit und medizinische Gründe: <small>(Was sagt Ihr behandelnder Arzt/Ihre Ärztin zur aktuellen Arbeitsunfähigkeit? Welche Diagnosen liegen vor? Verweisen Sie auf aktuelle ärztliche Atteste.)</small></label>
-      <textarea id="argumentFortbestehendeAUKG" rows="5" required placeholder="z.B. Meine Arbeitsunfähigkeit aufgrund von [Diagnose] besteht unverändert fort, wie durch das beiliegende Attest von Dr. [Arztname] vom TT.MM.JJJJ bestätigt wird."></textarea>
+      <p class="info-box">
+        Erläutern Sie nachvollziehbar, warum die Entscheidung aus Ihrer Sicht nicht zutreffend ist.
+        Häufig hilfreich sind aktuelle ärztliche Unterlagen sowie eine kurze, konkrete Beschreibung, welche Tätigkeiten am Arbeitsplatz (oder auch der Arbeitsweg) wegen der Erkrankung aktuell nicht möglich sind. 
+      </p>
 
-      <label for="argumentFehlerImBescheidKG">Fehler im Bescheid oder in der MDK-Begutachtung (falls zutreffend): <small>(Wurden wichtige Aspekte nicht berücksichtigt? Gab es formale Fehler? Stimmen die im MDK-Gutachten getroffenen Feststellungen nicht mit Ihrem tatsächlichen Gesundheitszustand überein?)</small></label>
-      <textarea id="argumentFehlerImBescheidKG" rows="5" placeholder="z.B. Das MDK-Gutachten vom TT.MM.JJJJ berücksichtigt nicht die gravierenden Nebenwirkungen von Medikament X. / In Ihrem Bescheid wurde die Dauer meiner Vorerkrankungen nicht korrekt einbezogen."></textarea>
-      
-      <label for="ergaenzendeBegruendungKG">Weitere/ergänzende Begründung Ihres Widerspruchs:</label>
-      <textarea id="ergaenzendeBegruendungKG" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere Aspekte anfügen, z.B. zur Berechnung der Krankengeldhöhe."></textarea>
+      <label for="argumentFortbestehendeAUKG">Darlegung der fortbestehenden Arbeitsunfähigkeit und medizinische Gründe: <small>(Verweisen Sie auf aktuelle ärztliche Atteste/Befunde.)</small></label>
+      <textarea id="argumentFortbestehendeAUKG" name="argumentFortbestehendeAUKG" rows="5" required placeholder="z.B. Die AU besteht fort; siehe Attest/Befund von Dr. ... vom ... mit Beschreibung der Einschränkungen." autocomplete="off"></textarea>
+
+      <label for="argumentFehlerImBescheidKG">Fehler im Bescheid oder in der Begutachtung (optional): <small>(z.B. fehlende Befunde, unvollständige Darstellung, Missverständnisse.)</small></label>
+      <textarea id="argumentFehlerImBescheidKG" name="argumentFehlerImBescheidKG" rows="5" placeholder="z.B. In der Einschätzung vom ... wurden Befunde/Behandlungen nicht berücksichtigt; siehe ... / Die Annahme, ich könne Tätigkeit X ausüben, trifft nicht zu, weil ..." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeBegruendungKG">Weitere/ergänzende Begründung:</label>
+      <textarea id="ergaenzendeBegruendungKG" name="ergaenzendeBegruendungKG" rows="6" placeholder="Hier können Sie auf einzelne Punkte eingehen, z.B. zur Berechnung der Krankengeldhöhe oder zu Unterlagen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>5. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchKG">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchKG" rows="3" required placeholder="z.B. Ich beantrage die Aufhebung des Bescheides und die Fortzahlung des Krankengeldes. / Ich beantrage eine Neuberechnung des Krankengeldes. / Ich beantrage eine erneute ärztliche Begutachtung."></textarea>
+        <textarea id="forderungWiderspruchKG" name="forderungWiderspruchKG" rows="3" required placeholder="z.B. Fortzahlung des Krankengeldes / erneute Entscheidung / Neuberechnung." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
-        <legend>6. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <legend>6. Beizufügende Anlagen (optional)</legend>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenKrankengeld" value="Kopie des angefochtenen Bescheids"> Kopie des angefochtenen Bescheids</label>
             <label><input type="checkbox" name="anlagenKrankengeld" value="Aktuelle(s) ärztliche(s) Attest(e) / Stellungnahme(n) zur Arbeitsunfähigkeit"> Aktuelle(s) ärztliche(s) Attest(e) / Stellungnahme(n) zur Arbeitsunfähigkeit</label>
-            <label><input type="checkbox" name="anlagenKrankengeld" value="Kopien der lückenlosen Arbeitsunfähigkeitsbescheinigungen"> Kopien der lückenlosen Arbeitsunfähigkeitsbescheinigungen</label>
-            <label><input type="checkbox" name="anlagenKrankengeld" value="Ggf. Kopie des MDK-Gutachtens (falls vorhanden)"> Ggf. Kopie des MDK-Gutachtens (falls vorhanden)</label>
+            <label><input type="checkbox" name="anlagenKrankengeld" value="Kopien der Arbeitsunfähigkeitsbescheinigungen (ggf. lückenlos)"> Kopien der Arbeitsunfähigkeitsbescheinigungen (ggf. lückenlos)</label>
+            <label><input type="checkbox" name="anlagenKrankengeld" value="Ggf. Unterlagen zur Begutachtung/sozialmedizinischen Einschätzung (falls vorhanden)"> Ggf. Unterlagen zur Begutachtung/sozialmedizinischen Einschätzung (falls vorhanden)</label>
             <label><input type="checkbox" name="anlagenKrankengeld" value="Ggf. Lohnabrechnungen (bei Streit um Berechnung)"> Ggf. Lohnabrechnungen (bei Streit um Berechnung)</label>
         </div>
+
         <label for="anlageSonstigesKrankengeld">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesKrankengeld">
+        <input type="text" id="anlageSonstigesKrankengeld" name="anlageSonstigesKrankengeld" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -121,7 +190,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchKG" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchKG" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

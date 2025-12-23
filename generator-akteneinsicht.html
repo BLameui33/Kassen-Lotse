@@ -2,11 +2,40 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag auf Akteneinsicht erstellen | Kassen-Lotse</title>
-  <meta name="description" content="Erstellen Sie einen formellen Antrag auf Akteneinsicht (§ 25 SGB X) bei jeder Sozialbehörde (Krankenkasse, Jobcenter etc.), um die Grundlage für Ihren Widerspruch oder Ihre Klage zu schaffen.">
-  <meta name="keywords" content="Akteneinsicht, § 25 SGB X, Akte anfordern, Widerspruch, Sozialrecht, Behörde, Antrag, Generator, Vorlage">
+  <title>Antrag auf Akteneinsicht (§ 25 SGB X) | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie einen Antrag auf Akteneinsicht nach § 25 SGB X bei Sozialbehörden (z.B. Krankenkasse, Pflegekasse, Jobcenter). So erhalten Sie die Entscheidungsgrundlagen für Widerspruch oder Klage. Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Antrag auf Akteneinsicht (§ 25 SGB X)",
+    "description": "Generator für einen formellen Antrag auf Akteneinsicht nach § 25 SGB X zur Vorbereitung von Widerspruch oder Klage.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Akteneinsicht" },
+      { "@type": "Thing", "name": "§ 25 SGB X" },
+      { "@type": "Thing", "name": "Sozialverwaltungsverfahren" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="akteneinsicht_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -14,53 +43,75 @@
 <body>
 
 <header class="site-header">
-    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+  <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
 <div class="page-container">
   <h1>Antrag auf Akteneinsicht (§ 25 SGB X)</h1>
-  <p class="info-box info">
-    Bevor Sie einen Widerspruch oder eine Klage begründen, sollten Sie wissen, auf welcher Grundlage die Behörde entschieden hat. Mit diesem Antrag fordern Sie die vollständige Verwaltungsakte an, die Ihr Verfahren betrifft. Dies ist Ihr gutes Recht.
-  </p>
-<p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="akteneinsichtForm">
+  <p class="info-box info">
+    Wenn ein Bescheid unklar ist oder ein Widerspruch/eine Klage vorbereitet wird, hilft Akteneinsicht: So wird sichtbar, welche Unterlagen, Stellungnahmen und Bewertungen die Behörde herangezogen hat.
+    <strong>Praxis-Hinweis:</strong> Nach § 25 Abs. 1 SGB X ist Akteneinsicht zu gewähren, soweit die Kenntnis der Akten zur Geltendmachung oder Verteidigung rechtlicher Interessen erforderlich ist; ausgenommen sind bis zum Abschluss des Verwaltungsverfahrens insbesondere Entscheidungsentwürfe und Vorarbeiten. 
+    <strong>Praxis-Hinweis:</strong> Nach § 25 Abs. 5 SGB X können Beteiligte Auszüge/Abschriften fertigen oder Ablichtungen erhalten; bei elektronischer Akte kann die Behörde u.a. Ausdrucke, Bildschirmansicht, elektronische Dokumente oder elektronischen Zugriff ermöglichen und darf dafür angemessenen Aufwendungsersatz verlangen. 
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Speichern“ und „Laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="akteneinsichtForm" autocomplete="on">
     <fieldset>
       <legend>1. Ihre Angaben</legend>
+
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" name="personName" required autocomplete="name">
+
       <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="personAdresse" rows="2" required></textarea>
+      <textarea id="personAdresse" name="personAdresse" rows="2" required autocomplete="street-address"></textarea>
+
       <label for="geburtsdatum">Geburtsdatum:</label>
-      <input type="date" id="geburtsdatum" required>
+      <input type="date" id="geburtsdatum" name="geburtsdatum" required autocomplete="bday">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Behörde</legend>
-      <label for="behoerdeName">Name der Behörde (z.B. AOK, Jobcenter Musterstadt):</label>
-      <input type="text" id="behoerdeName" required>
+
+      <label for="behoerdeName">Name der Behörde (z.B. Krankenkasse, Pflegekasse, Jobcenter):</label>
+      <input type="text" id="behoerdeName" name="behoerdeName" required autocomplete="organization">
+
       <label for="behoerdeAdresse">Anschrift der Behörde:</label>
-      <textarea id="behoerdeAdresse" rows="3" required></textarea>
+      <textarea id="behoerdeAdresse" name="behoerdeAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Details zum Verfahren</legend>
+
       <label for="aktenzeichen">Aktenzeichen / Geschäftszeichen / Versicherungsnummer:</label>
-      <input type="text" id="aktenzeichen" required>
+      <input type="text" id="aktenzeichen" name="aktenzeichen" required autocomplete="off" inputmode="text">
+
       <label for="gegenstand">Gegenstand des Verfahrens:
         <small>Geben Sie hier an, worum es geht.</small>
       </label>
-      <input type="text" id="gegenstand" required placeholder="z.B. Antrag auf Pflegegrad vom TT.MM.JJJJ / Widerspruch gegen GdB-Bescheid vom TT.MM.JJJJ">
+      <input type="text" id="gegenstand" name="gegenstand" required placeholder="z.B. Pflegegrad-Antrag vom TT.MM.JJJJ / Widerspruch gegen Bescheid vom TT.MM.JJJJ" autocomplete="off">
     </fieldset>
-    
+
     <div class="button-group">
       <button type="button" id="saveBtnAkte" class="button-secondary">Speichern</button>
       <button type="button" id="loadBtnAkte" class="button-secondary">Laden</button>

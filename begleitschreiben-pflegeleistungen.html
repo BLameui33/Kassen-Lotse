@@ -2,11 +2,41 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Begleitschreiben: Antrag auf Pflegeleistungen</title>
-  <meta name="description" content="Erstellen Sie ein persönliches Begleitschreiben für Ihren Antrag auf Leistungen der Pflegeversicherung.">
-  <meta name="keywords" content="Begleitschreiben, Pflegeleistungen, Antrag, Pflegekasse, Pflegegrad">
+  <title>Begleitschreiben Pflegeleistungen (Pflegegrad-Antrag) | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Begleitschreibens zum Antrag auf Leistungen der Pflegeversicherung (Pflegegrad). Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Begleitschreiben: Antrag auf Pflegeleistungen",
+    "description": "Formular zur Erstellung eines Begleitschreibens zum Antrag auf Leistungen der Pflegeversicherung (Pflegegrad).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Pflegeleistungen" },
+      { "@type": "Thing", "name": "Pflegegrad" },
+      { "@type": "Thing", "name": "Pflegekasse" },
+      { "@type": "Thing", "name": "Pflegebegutachtung" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="begleitschreiben-pflegeleistungen_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,72 +45,98 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Begleitschreiben zum Antrag auf Pflegeleistungen</h1>
+
   <p class="info-box">
-    Dieses Formular hilft Ihnen, ein persönliches Begleitschreiben zu Ihrem offiziellen Antrag auf Pflegeleistungen (oder dem von unserem Tool erstellten Antrag) zu verfassen.
-    Es dient dazu, Ihr Anliegen kurz vorzustellen und die eingereichten Unterlagen aufzulisten.
+    Dieses Formular unterstützt Sie dabei, ein Begleitschreiben zu Ihrem Antrag auf Pflegeleistungen zu erstellen.
+    Das Schreiben dient vor allem dazu, Ihr Anliegen kurz einzuordnen und die eingereichten Unterlagen übersichtlich aufzulisten; die inhaltliche Prüfung erfolgt im Verfahren der Pflegekasse (inkl. Begutachtung). 
     Weitere Informationen finden Sie auf unserer <a href="info-pflegegrad.html">Info-Seite zu Pflegegrad und Pflegeleistungen</a>.
   </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Das erzeugte Begleitschreiben ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Einreichen von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten kann eine anerkannte Beratungsstelle oder anwaltliche Unterstützung sinnvoll sein.
+  </p>
+
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+<div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+  <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
 </div>
 
-  <form id="pflegeBegleitschreibenForm">
+  <form id="pflegeBegleitschreibenForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur versicherten Person (Person, die Pflege benötigt)</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer (Kranken-/Pflegekasse):</label>
-      <input type="text" id="vpNummer" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Antragsteller:in (falls abweichend und im Begleitschreiben zu nennen)</legend>
+
       <label for="antragstellerIdentischBS">Wird das Begleitschreiben im Namen der versicherten Person verfasst oder von einer anderen Person?</label>
-      <select id="antragstellerIdentischBS">
+      <select id="antragstellerIdentischBS" name="antragstellerIdentischBS" autocomplete="off">
           <option value="ja" selected>Im Namen der versicherten Person selbst</option>
           <option value="nein">Von einer anderen Person (z.B. Angehöriger, Betreuer)</option>
       </select>
+
       <div id="antragstellerDetailsBS" class="sub-details">
           <label for="asNameBS">Vor- und Nachname des/der Verfasser:in des Begleitschreibens:</label>
-          <input type="text" id="asNameBS">
+          <input type="text" id="asNameBS" name="asNameBS" autocomplete="name">
+
           <label for="asVerhaeltnisBS">Verhältnis zur versicherten Person:</label>
-          <input type="text" id="asVerhaeltnisBS" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
+          <input type="text" id="asVerhaeltnisBS" name="asVerhaeltnisBS" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer" autocomplete="off">
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
+
       <label for="kasseName">Name der Pflegekasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Vollständige Adresse der Pflegekasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Bezug zum Hauptantrag</legend>
-      <label for="datumHauptantragPflege">Datum des Hauptantrags auf Pflegeleistungen: <small>(Das Datum, an dem Sie den offiziellen Antrag der Kasse oder unseren generierten Antrag datieren/einreichen)</small></label>
-      <input type="date" id="datumHauptantragPflege" required>
-      <label for="kurzeAnmerkungBegleitschreiben">Persönliche Anmerkung oder wichtiger Hinweis für die Pflegekasse: <small>(Nutzen Sie dieses Feld, um kurz auf besondere Dringlichkeit, spezielle Umstände oder Kernanliegen hinzuweisen. Details stehen im Hauptantrag und den Attesten.)</small></label>
-      <textarea id="kurzeAnmerkungBegleitschreiben" rows="5" placeholder="z.B. Aufgrund der rapiden Verschlechterung des Zustandes bitten wir um eine zeitnahe Bearbeitung und Begutachtung. Die Situation zu Hause ist äußerst belastend, da..."></textarea>
+
+      <label for="datumHauptantragPflege">Datum des Hauptantrags auf Pflegeleistungen: <small>(Das Datum, an dem Sie den offiziellen Antrag der Kasse oder einen generierten Antrag datieren/einreichen)</small></label>
+      <input type="date" id="datumHauptantragPflege" name="datumHauptantragPflege" required autocomplete="off">
+
+      <label for="kurzeAnmerkungBegleitschreiben">Persönliche Anmerkung oder wichtiger Hinweis für die Pflegekasse: <small>(Nutzen Sie dieses Feld für kurze Hinweise, z.B. besondere Umstände oder eine gewünschte zeitnahe Terminierung. Details gehören in den Hauptantrag und in Unterlagen.)</small></label>
+      <textarea id="kurzeAnmerkungBegleitschreiben" name="kurzeAnmerkungBegleitschreiben" rows="5" placeholder="z.B. Die Versorgungssituation hat sich kurzfristig verändert; wir bitten um zeitnahe Bearbeitung und Terminvereinbarung zur Begutachtung. ..." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
         <legend>5. Diesem Begleitschreiben und dem Hauptantrag beigefügte Anlagen</legend>
+
         <p class="info-box">Welche Unterlagen reichen Sie insgesamt ein?</p>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenBegleitschreibenPflege" value="Antrag auf Leistungen der Pflegeversicherung (z.B. Formular der Kasse)" checked> Antrag auf Leistungen der Pflegeversicherung (z.B. Formular der Kasse / unser erstellter Antrag)</label>
             <label><input type="checkbox" name="anlagenBegleitschreibenPflege" value="Ärztliche Berichte / Atteste / Befunde"> Ärztliche Berichte / Atteste / Befunde</label>
@@ -89,8 +145,9 @@
             <label><input type="checkbox" name="anlagenBegleitschreibenPflege" value="Pflegetagebuch (falls geführt)"> Pflegetagebuch (falls geführt)</label>
             <label><input type="checkbox" id="anlageVollmachtBS" name="anlagenBegleitschreibenPflege" value="Vollmacht / Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht / Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesBegleitschreibenPflege">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesBegleitschreibenPflege">
+        <input type="text" id="anlageSonstigesBegleitschreibenPflege" name="anlageSonstigesBegleitschreibenPflege" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -103,8 +160,8 @@
 
 <div id="spendenPopupPflegeBS" class="popup-overlay">
   <div class="popup-content">
-    <h2>Danke für deine Nutzung 💛</h2>
-    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <h2>Danke für deine Nutzung</h2>
+    <p>Wenn dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
     <form action="https://www.paypal.com/donate" method="post" target="_blank">
       <input type="hidden" name="business" value="info@kassen-lotse.de" />
       <input type="hidden" name="charset" value="utf-8">

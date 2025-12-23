@@ -2,11 +2,44 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag/Abrechnung Verhinderungspflege (PUEG Update)</title>
-  <meta name="description" content="Erstellen Sie Ihren Antrag auf Leistungen der Verhinderungspflege (Gemeinsamer Jahresbetrag) oder reichen Sie Kosten zur Erstattung ein.">
-  <meta name="keywords" content="Antrag, Verhinderungspflege, Gemeinsamer Jahresbetrag, Ersatzpflege, Abrechnung, Pflegekasse, §39 SGB XI, §42a SGB XI">
+  <title>Antrag Verhinderungspflege / Gemeinsamer Jahresbetrag (ab 07/2025) | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Vorbereitung eines Antrags auf Verhinderungspflege und zur Abrechnung/Erstattung von Kosten – inkl. Gemeinsamer Jahresbetrag ab 01.07.2025 (PG 2+). Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Antrag/Abrechnung Verhinderungspflege / Gemeinsamer Jahresbetrag",
+    "description": "Formular zur Vorbereitung eines Antrags auf Verhinderungspflege und zur Abrechnung/Erstattung von Kosten – inkl. Gemeinsamer Jahresbetrag ab 01.07.2025 (PG 2+).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Verhinderungspflege" },
+      { "@type": "Thing", "name": "Kurzzeitpflege" },
+      { "@type": "Thing", "name": "Gemeinsamer Jahresbetrag (§ 42a SGB XI)" },
+      { "@type": "Thing", "name": "Pflegegrad" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse Redaktion"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="verhinderungspflege_antrag_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,44 +48,63 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Antrag auf Verhinderungspflege / Gemeinsamer Jahresbetrag</h1>
-  
+
   <p class="info-box">
-    <strong>Neu ab 01.07.2025 (für alle ab PG2):</strong> Verhinderungs- und Kurzzeitpflege werden zum <strong>Gemeinsamen Jahresbetrag</strong> zusammengefasst. 
-    Es stehen Ihnen bis zu <strong>3.539 Euro</strong> flexibel zur Verfügung. Die Vorpflegezeit von 6 Monaten entfällt im neuen Recht.
+    <strong>Stand ab 01.07.2025 (Pflegegrad 2+):</strong> Verhinderungs- und Kurzzeitpflege werden über einen gemeinsamen Jahresbetrag gebündelt.
+    Der gemeinsame Jahresbetrag kann bis zu <strong>3.539 Euro</strong> pro Kalenderjahr betragen; außerdem entfällt ab diesem Zeitpunkt die bisherige sechsmonatige Vorpflegezeit für die erstmalige Inanspruchnahme der Verhinderungspflege. 
     <br><br>
-    Mit diesem Formular beantragen Sie automatisch die für Sie günstigste Auszahlung (neuer Jahresbetrag oder klassische Kombinationsleistung).
+    Dieses Formular hilft dabei, die Angaben für den Antrag bzw. die Kostenerstattung strukturiert zusammenzustellen (Zeiträume, Ersatzpflege-Art, Kosten, Anlagen).
+    Bitte prüfen Sie das erzeugte Schreiben vor dem Einreichen und passen Sie es bei Bedarf an.
   </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Speichern“ und „Laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Das erstellte PDF ist ein Vorschlag auf Basis Ihrer Eingaben und muss vor dem Versand von Ihnen inhaltlich geprüft werden.
+    Bei Unsicherheiten kann eine anerkannte Beratungsstelle oder anwaltliche Unterstützung sinnvoll sein.
+  </p>
+
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
 
   <p class="highlight-box" style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 10px; margin-top: 10px;">
-  <strong>Tipp:</strong> Sie können Rechnungen sammeln und einmal jährlich einreichen oder jede Rechnung einzeln abrechnen. Dieser Generator unterstützt beides.
+    <strong>Tipp:</strong> Sie können Belege gesammelt (z. B. jährlich) oder jeweils einzeln zur Erstattung einreichen – je nach Vorgehen Ihrer Pflegekasse und Ihrem Bedarf.
+    Dieser Generator unterstützt beide Varianten bei der Erstellung eines Begleitschreibens.
   </p>
 
-  <form id="verhinderungspflegeAntragForm">
+  <form id="verhinderungspflegeAntragForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur pflegebedürftigen Person</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
-      <input type="text" id="vpNummer" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
+
       <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad (mind. PG 2 erforderlich):</label>
-      <select id="vpPflegegrad" required>
+      <select id="vpPflegegrad" name="vpPflegegrad" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Pflegegrad 2">Pflegegrad 2</option>
           <option value="Pflegegrad 3">Pflegegrad 3</option>
@@ -63,61 +115,71 @@
 
     <fieldset>
       <legend>2. Antragsteller:in (falls abweichend)</legend>
+
       <label for="antragstellerIdentischVP">Wird der Antrag von der pflegebedürftigen Person selbst gestellt?</label>
-      <select id="antragstellerIdentischVP">
+      <select id="antragstellerIdentischVP" name="antragstellerIdentischVP" autocomplete="off">
           <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
           <option value="nein">Nein, von einer anderen Person</option>
       </select>
+
       <div id="antragstellerDetailsVP" class="sub-details">
           <label for="asNameVP">Vor- und Nachname des/der Antragsteller:in:</label>
-          <input type="text" id="asNameVP">
+          <input type="text" id="asNameVP" name="asNameVP" autocomplete="name">
+
           <label for="asVerhaeltnisVP">Verhältnis zur pflegebedürftigen Person:</label>
-          <input type="text" id="asVerhaeltnisVP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
-          <label><input type="checkbox" id="asVollmachtVP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="asVerhaeltnisVP" name="asVerhaeltnisVP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="asVollmachtVP" name="asVollmachtVP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
+
       <label for="kasseName">Name der Pflegekasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Vollständige Adresse der Pflegekasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zur Verhinderung der Hauptpflegeperson</legend>
+
       <label for="hauptpflegepersonName">Name der Hauptpflegeperson, die verhindert ist/war:</label>
-      <input type="text" id="hauptpflegepersonName" required>
+      <input type="text" id="hauptpflegepersonName" name="hauptpflegepersonName" required autocomplete="name">
+
       <label for="verhinderungGrund">Grund der Verhinderung:</label>
-      <select id="verhinderungGrund" required>
+      <select id="verhinderungGrund" name="verhinderungGrund" required autocomplete="off">
         <option value="">Bitte wählen...</option>
         <option value="Urlaub">Urlaub</option>
         <option value="Krankheit der Pflegeperson">Krankheit der Pflegeperson</option>
         <option value="Sonstige Erholungsgründe">Sonstige Erholungsgründe</option>
         <option value="Andere wichtige Gründe">Andere wichtige Gründe (bitte unten erläutern)</option>
       </select>
+
       <div id="verhinderungGrundSonstigesDetails" class="sub-details">
         <label for="verhinderungGrundSonstigesText">Erläuterung zu "Andere wichtige Gründe":</label>
-        <textarea id="verhinderungGrundSonstigesText" rows="2"></textarea>
+        <textarea id="verhinderungGrundSonstigesText" name="verhinderungGrundSonstigesText" rows="2" autocomplete="off"></textarea>
       </div>
-      
+
       <div class="row-inputs">
         <div>
            <label for="verhinderungZeitraumVon">Verhinderung vom:</label>
-           <input type="date" id="verhinderungZeitraumVon" required>
+           <input type="date" id="verhinderungZeitraumVon" name="verhinderungZeitraumVon" required autocomplete="off">
         </div>
         <div>
            <label for="verhinderungZeitraumBis">Verhinderung bis:</label>
-           <input type="date" id="verhinderungZeitraumBis" required>
+           <input type="date" id="verhinderungZeitraumBis" name="verhinderungZeitraumBis" required autocomplete="off">
         </div>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>5. Durchführung der Ersatzpflege</legend>
+
       <label for="ersatzpflegeDurch">Die Ersatzpflege wurde/wird durchgeführt von:</label>
-      <select id="ersatzpflegeDurch" required>
+      <select id="ersatzpflegeDurch" name="ersatzpflegeDurch" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Nahe Angehörige (bis 2. Grad oder verschwägert)">Nahe Angehörige (bis 2. Grad oder verschwägert)</option>
           <option value="Andere Privatperson (z.B. Nachbar, Freund)">Andere Privatperson (z.B. Nachbar, Freund)</option>
@@ -126,68 +188,72 @@
       </select>
 
       <div id="ersatzpflegeNaheAngehoerigeDetails" class="sub-details">
-          <p class="small-text"><strong>Hinweis:</strong> Die Erstattung ist i.d.R. auf das 1,5-fache des Pflegegeldes begrenzt. Zusätzlich können Fahrtkosten und Verdienstausfall bis zum Gesamtbudget (3.539 € im neuen Recht) geltend gemacht werden.</p>
+          <p class="small-text"><strong>Hinweis:</strong> Bei Ersatzpflege durch nahe Angehörige können je nach Konstellation besondere Begrenzungen/Regeln gelten (z. B. Orientierung am Pflegegeld sowie mögliche zusätzliche Erstattung von nachgewiesenen Aufwendungen wie Fahrtkosten oder Verdienstausfall). Maßgeblich sind die Vorgaben Ihrer Pflegekasse und die Umstände im Einzelfall.</p>
           <label for="epNameNahe">Name der Ersatzpflegeperson:</label>
-          <input type="text" id="epNameNahe">
+          <input type="text" id="epNameNahe" name="epNameNahe" autocomplete="name">
           <label for="epVerwandtschaftNahe">Verwandtschaftsverhältnis:</label>
-          <input type="text" id="epVerwandtschaftNahe" placeholder="z.B. Sohn, Schwester">
+          <input type="text" id="epVerwandtschaftNahe" name="epVerwandtschaftNahe" placeholder="z.B. Sohn, Schwester" autocomplete="off">
           <label for="epKostenFahrtkosten">Fahrtkosten (EUR):</label>
-          <input type="number" id="epKostenFahrtkosten" step="0.01" placeholder="0.00">
+          <input type="number" id="epKostenFahrtkosten" name="epKostenFahrtkosten" step="0.01" placeholder="0.00" inputmode="decimal" autocomplete="off">
           <label for="epKostenVerdienstausfall">Verdienstausfall (EUR):</label>
-          <input type="number" id="epKostenVerdienstausfall" step="0.01" placeholder="0.00">
-          <label><input type="checkbox" id="epNachweisVerdienstausfall"> Nachweis über Verdienstausfall liegt bei.</label>
+          <input type="number" id="epKostenVerdienstausfall" name="epKostenVerdienstausfall" step="0.01" placeholder="0.00" inputmode="decimal" autocomplete="off">
+          <label><input type="checkbox" id="epNachweisVerdienstausfall" name="epNachweisVerdienstausfall"> Nachweis über Verdienstausfall liegt bei.</label>
       </div>
 
       <div id="ersatzpflegeAnderePrivatpersonDetails" class="sub-details">
-          <p class="small-text"><strong>Hinweis:</strong> Hier kann das volle Budget genutzt werden.</p>
+          <p class="small-text"><strong>Hinweis:</strong> Die Erstattung richtet sich nach den nachgewiesenen Kosten und dem verfügbaren Jahresbudget (sowie den Vorgaben Ihrer Pflegekasse).</p>
           <label for="epNamePrivat">Name der Ersatzpflegeperson:</label>
-          <input type="text" id="epNamePrivat">
+          <input type="text" id="epNamePrivat" name="epNamePrivat" autocomplete="name">
           <label for="epAnzahlStundenPrivat">Geleistete Stunden (gesamt):</label>
-          <input type="number" id="epAnzahlStundenPrivat" min="0">
+          <input type="number" id="epAnzahlStundenPrivat" name="epAnzahlStundenPrivat" min="0" autocomplete="off">
           <label for="epStundensatzPrivat">Stundensatz (EUR):</label>
-          <input type="number" id="epStundensatzPrivat" step="0.01" placeholder="0.00">
+          <input type="number" id="epStundensatzPrivat" name="epStundensatzPrivat" step="0.01" placeholder="0.00" inputmode="decimal" autocomplete="off">
           <label for="epGesamtkostenPrivat">Gesamtkosten (EUR):</label>
-          <input type="number" id="epGesamtkostenPrivat" step="0.01" placeholder="0.00">
+          <input type="number" id="epGesamtkostenPrivat" name="epGesamtkostenPrivat" step="0.01" placeholder="0.00" inputmode="decimal" autocomplete="off">
       </div>
 
       <div id="ersatzpflegeDienstDetails" class="sub-details">
           <label for="dienstName">Name des Pflegedienstes/der Einrichtung:</label>
-          <input type="text" id="dienstName">
+          <input type="text" id="dienstName" name="dienstName" autocomplete="organization">
           <label for="dienstKosten">Kosten laut Rechnung (EUR):</label>
-          <input type="number" id="dienstKosten" step="0.01" placeholder="0.00">
-          <label><input type="checkbox" id="dienstRechnungAnbei"> Rechnung liegt bei.</label>
+          <input type="number" id="dienstKosten" name="dienstKosten" step="0.01" placeholder="0.00" inputmode="decimal" autocomplete="off">
+          <label><input type="checkbox" id="dienstRechnungAnbei" name="dienstRechnungAnbei"> Rechnung liegt bei.</label>
       </div>
-      
+
       <div class="row-inputs">
         <div>
            <label for="vpZeitraumVon">Zeitraum Ersatzpflege von:</label>
-           <input type="date" id="vpZeitraumVon" required>
+           <input type="date" id="vpZeitraumVon" name="vpZeitraumVon" required autocomplete="off">
         </div>
         <div>
            <label for="vpZeitraumBis">Zeitraum Ersatzpflege bis:</label>
-           <input type="date" id="vpZeitraumBis" required>
+           <input type="date" id="vpZeitraumBis" name="vpZeitraumBis" required autocomplete="off">
         </div>
       </div>
-      <label><input type="checkbox" id="vpStundenweise"> Stundenweise Verhinderungspflege (unter 8 Std./Tag) <br><small>Wichtig: Bei stundenweiser Pflege wird das Pflegegeld <strong>nicht</strong> gekürzt.</small></label>
+
+      <label><input type="checkbox" id="vpStundenweise" name="vpStundenweise"> Stundenweise Verhinderungspflege (unter 8 Std./Tag) <br><small>Hinweis: Ob und in welchem Umfang das Pflegegeld in Ihrem Fall beeinflusst wird, hängt von den konkreten Voraussetzungen ab. Bei stundenweiser Verhinderungspflege wird es häufig nicht gekürzt.</small></label>
     </fieldset>
 
     <fieldset>
       <legend>6. Budget & Gemeinsamer Jahresbetrag</legend>
       <label class="checkbox-label-large">
-        <input type="checkbox" id="kombiKurzzeitpflege" checked> 
-        <strong>Maximale Leistung beantragen (Gemeinsamer Jahresbetrag / Übertrag)</strong><br>
-        <span style="font-weight: normal; font-size: 0.9em;">Hiermit beantrage ich die Nutzung des <strong>Gemeinsamen Jahresbetrags (3.539 €)</strong> bzw. – falls dieser noch nicht anwendbar ist – die Übertragung von 100% der ungenutzten Mittel der Kurzzeitpflege auf die Verhinderungspflege (§ 42a SGB XI n.F. bzw. § 40 SGB XI a.F.).</span>
+        <input type="checkbox" id="kombiKurzzeitpflege" name="kombiKurzzeitpflege" checked>
+        <strong>Leistungsrahmen ausschöpfen (Gemeinsamer Jahresbetrag / Nutzung vorhandener Mittel)</strong><br>
+        <span style="font-weight: normal; font-size: 0.9em;">Hiermit beantrage ich die Berücksichtigung des <strong>Gemeinsamen Jahresbetrags</strong> nach § 42a SGB XI (soweit anwendbar) bzw. die Berücksichtigung der nach den jeweils geltenden Regeln nutzbaren Mittel.</span>
       </label>
     </fieldset>
 
     <fieldset>
         <legend>7. Bankverbindung für Erstattung</legend>
+
         <label for="iban">IBAN:</label>
-        <input type="text" id="iban" required>
+        <input type="text" id="iban" name="iban" required autocomplete="off" inputmode="text">
+
         <label for="bic">BIC (optional):</label>
-        <input type="text" id="bic">
+        <input type="text" id="bic" name="bic" autocomplete="off" inputmode="text">
+
         <label for="kontoinhaber">Kontoinhaber:in (falls abweichend):</label>
-        <input type="text" id="kontoinhaber">
+        <input type="text" id="kontoinhaber" name="kontoinhaber" autocomplete="name">
     </fieldset>
 
     <fieldset>
@@ -199,7 +265,7 @@
             <label><input type="checkbox" id="anlageVollmachtVP" name="anlagenVerhinderungspflege" value="Vollmacht/Betreuungsurkunde"> Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)</label>
         </div>
         <label for="anlageSonstigesVP">Sonstige Anlagen:</label>
-        <input type="text" id="anlageSonstigesVP">
+        <input type="text" id="anlageSonstigesVP" name="anlageSonstigesVP" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -212,7 +278,7 @@
 
 <div id="spendenPopupVerhinderungspflege" class="popup-overlay">
   <div class="popup-content">
-    <h2>Danke für deine Nutzung 💛</h2>
+    <h2>Danke für die Nutzung</h2>
     <p>Der Kassen-Lotse ist kostenlos. Hilf uns, ihn aktuell zu halten!</p>
     <form action="https://www.paypal.com/donate" method="post" target="_blank">
       <input type="hidden" name="business" value="info@kassen-lotse.de" />

@@ -2,11 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Kurzzeitpflege</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen abgelehnten Antrag auf Kurzzeitpflege bei Ihrer Pflegekasse.">
-  <meta name="keywords" content="Widerspruch, Kurzzeitpflege, Pflegekasse, Ablehnung, §42 SGB XI, Kostenübernahme">
+  <title>Widerspruch Kurzzeitpflege (§ 42 SGB XI) | Pflegekasse | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen Ablehnung oder Kürzung von Kurzzeitpflege durch die Pflegekasse (§ 42 SGB XI). Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Kurzzeitpflege",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen Ablehnung oder Kürzung von Kurzzeitpflege durch die Pflegekasse (§ 42 SGB XI).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Kurzzeitpflege" },
+      { "@type": "Thing", "name": "Pflegekasse" },
+      { "@type": "Thing", "name": "Pflegegrad" },
+      { "@type": "Thing", "name": "§ 42 SGB XI" },
+      { "@type": "Thing", "name": "Widerspruch" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="kurzzeitpflege_widerspruch_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,37 +46,59 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch gegen Ablehnung/Kürzung der Kurzzeitpflege</h1>
-  <p class="info-box warning">
-    Wurde Ihr Antrag auf Kurzzeitpflege abgelehnt oder die Kostenübernahme gekürzt? Hier können Sie einen Widerspruch erstellen.
-    Beachten Sie die Widerspruchsfrist! Lesen Sie auch unsere <a href="info-kurzzeitpflege.html">Informationen zur Kurzzeitpflege</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchKurzzeitpflegeForm">
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf Kurzzeitpflege abgelehnt oder wurde die Kostenübernahme gekürzt, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Kurzzeitpflege ist eine Leistung der Pflegeversicherung nach § 42 SGB XI und setzt grundsätzlich einen festgestellten Pflegegrad voraus (typischerweise ab Pflegegrad 2). 
+    <strong>Praxis-Hinweis:</strong> Bei „Kürzungen“ lohnt es sich, genau zu prüfen, ob die Pflegekasse pflegebedingte Aufwendungen korrekt berücksichtigt und ob die aktuellen Leistungsbeträge (mit den Anpassungen ab 01.01.2025) zugrunde gelegt wurden. 
+
+    Lesen Sie auch unsere <a href="info-kurzzeitpflege.html">Informationen zur Kurzzeitpflege</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong> Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchKurzzeitpflegeForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur pflegebedürftigen Person</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
-      <input type="text" id="vpNummer" required>
-      <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad (mind. PG 2 erforderlich):</label>
-      <select id="vpPflegegrad" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
+
+      <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad:</label>
+      <select id="vpPflegegrad" name="vpPflegegrad" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Pflegegrad 2">Pflegegrad 2</option>
           <option value="Pflegegrad 3">Pflegegrad 3</option>
@@ -56,71 +109,90 @@
 
     <fieldset>
       <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentischKZP">Wird der Widerspruch von der pflegebedürftigen Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentischKZP">
+      <select id="widerspruchfuehrerIdentischKZP" name="widerspruchfuehrerIdentischKZP" autocomplete="off">
           <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
           <option value="nein">Nein, von einer anderen Person</option>
       </select>
+
       <div id="widerspruchfuehrerDetailsKZP" class="sub-details">
           <label for="wfNameKZP">Vor- und Nachname des/der Widerspruchsführer:in:</label>
-          <input type="text" id="wfNameKZP">
+          <input type="text" id="wfNameKZP" name="wfNameKZP" autocomplete="name">
+
           <label for="wfAdresseKZP">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdresseKZP" rows="3"></textarea>
+          <textarea id="wfAdresseKZP" name="wfAdresseKZP" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnisKZP">Verhältnis zur pflegebedürftigen Person:</label>
-          <input type="text" id="wfVerhaeltnisKZP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
-          <label><input type="checkbox" id="wfVollmachtKZP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnisKZP" name="wfVerhaeltnisKZP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmachtKZP" name="wfVollmachtKZP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
+
       <label for="pflegekasseName">Name der Pflegekasse:</label>
-      <input type="text" id="pflegekasseName" required>
+      <input type="text" id="pflegekasseName" name="pflegekasseName" required autocomplete="organization">
+
       <label for="pflegekasseAdresse">Vollständige Adresse der Pflegekasse:</label>
-      <textarea id="pflegekasseAdresse" rows="3" required></textarea>
+      <textarea id="pflegekasseAdresse" name="pflegekasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum abgelehnten Antrag auf Kurzzeitpflege</legend>
+
       <label for="datumUrsprAntragKZP">Datum Ihres ursprünglichen Antrags auf Kurzzeitpflege:</label>
-      <input type="date" id="datumUrsprAntragKZP" required>
-      <label for="zeitraumAbgelehnteKZP">Beantragter/Abgelehnter Zeitraum der Kurzzeitpflege:</label>
-      <input type="text" id="zeitraumAbgelehnteKZP" required placeholder="z.B. 01.08.2025 - 15.08.2025">
+      <input type="date" id="datumUrsprAntragKZP" name="datumUrsprAntragKZP" required autocomplete="off">
+
+      <label for="zeitraumAbgelehnteKZP">Beantragter/abgelehnter Zeitraum der Kurzzeitpflege:</label>
+      <input type="text" id="zeitraumAbgelehnteKZP" name="zeitraumAbgelehnteKZP" required placeholder="z.B. 01.08.2025 - 15.08.2025" autocomplete="off">
+
       <label for="einrichtungAbgelehnteKZP">Name der Kurzzeitpflegeeinrichtung (falls im Antrag genannt):</label>
-      <input type="text" id="einrichtungAbgelehnteKZP" placeholder="Name und Ort der Einrichtung">
+      <input type="text" id="einrichtungAbgelehnteKZP" name="einrichtungAbgelehnteKZP" placeholder="Name und Ort der Einrichtung" autocomplete="off">
+
       <label for="datumAblehnungsbescheidKZP">Datum des Ablehnungs-/Kürzungsbescheids der Pflegekasse:</label>
-      <input type="date" id="datumAblehnungsbescheidKZP" required>
+      <input type="date" id="datumAblehnungsbescheidKZP" name="datumAblehnungsbescheidKZP" required autocomplete="off">
+
       <label for="aktenzeichenKZP">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenKZP">
-      <label for="hauptablehnungsgrundKZP">Hauptgrund/-gründe für die Ablehnung/Kürzung laut Pflegekasse: <small>(Fassen Sie die Kernaussage des Schreibens zusammen)</small></label>
-      <textarea id="hauptablehnungsgrundKZP" rows="3" required placeholder="z.B. Voraussetzungen nicht erfüllt; Kosten nicht im Rahmen; andere Versorgungsmöglichkeiten vorrangig."></textarea>
+      <input type="text" id="aktenzeichenKZP" name="aktenzeichenKZP" autocomplete="off">
+
+      <label for="hauptablehnungsgrundKZP">Hauptgrund/-gründe für die Ablehnung/Kürzung laut Pflegekasse: <small>(Kernaussage zusammenfassen)</small></label>
+      <textarea id="hauptablehnungsgrundKZP" name="hauptablehnungsgrundKZP" rows="3" required placeholder="z.B. Voraussetzungen nicht erfüllt; Kosten nicht im Rahmen; andere Versorgungsmöglichkeiten vorrangig." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Erläutern Sie hier detailliert, warum die Ablehnung/Kürzung Ihrer Ansicht nach nicht gerechtfertigt ist und die Kurzzeitpflege notwendig ist. Beziehen Sie sich auf die ärztliche Notwendigkeit, die Pflegesituation zu Hause oder die Notwendigkeit der Entlastung.</p>
 
-      <label for="argumentNotwendigkeitKZP">Darlegung der (weiterhin) bestehenden Notwendigkeit der Kurzzeitpflege: <small>(Warum ist die Kurzzeitpflege zwingend erforderlich? Welche Situation liegt vor – z.B. nach Krankenhaus, Krise, Entlastung der Pflegeperson? Was sagt ggf. der Arzt?)</small></label>
-      <textarea id="argumentNotwendigkeitKZP" rows="5" required placeholder="z.B. Nach dem Krankenhausaufenthalt ist eine sofortige Rückkehr nach Hause ohne professionelle Unterstützung nicht möglich. Die Kurzzeitpflege dient der Stabilisierung und Vorbereitung auf die häusliche Pflege."></textarea>
+      <p class="info-box">
+        Erläutern Sie nachvollziehbar, warum die Ablehnung/Kürzung aus Ihrer Sicht nicht zutreffend ist und warum Kurzzeitpflege im beantragten Zeitraum erforderlich ist.
+        Hilfreich ist oft eine kurze, konkrete Darstellung der Versorgungslage zu Hause (wer kann was wann leisten?) sowie der Anlass (z.B. Entlassung, Krisensituation, Ausfall der Pflegeperson). 
+      </p>
 
-      <label for="argumentKeineAlternativenKZP">Warum sind andere Versorgungsmöglichkeiten (z.B. Verhinderungspflege zu Hause, ambulante Dienste) nicht ausreichend oder aktuell nicht möglich? <small>(Falls die Kasse Alternativen vorschlägt.)</small></label>
-      <textarea id="argumentKeineAlternativenKZP" rows="4" placeholder="z.B. Eine Verhinderungspflege zu Hause kann den aktuellen intensiven Betreuungsbedarf nicht abdecken. / Ambulante Dienste sind kurzfristig nicht in dem benötigten Umfang verfügbar."></textarea>
-      
-      <label for="argumentKostenKombinationKZP">Argumente bezüglich der Kostenübernahme und ggf. der Kombination mit Verhinderungspflege: <small>(Wurde die Möglichkeit der Kombination mit ungenutzten Mitteln der Verhinderungspflege geprüft? Sind die geltend gemachten pflegebedingten Kosten im Rahmen?)</small></label>
-      <textarea id="argumentKostenKombinationKZP" rows="4" placeholder="z.B. Es bestehen noch ungenutzte Mittel aus der Verhinderungspflege, die für die Finanzierung der Kurzzeitpflege herangezogen werden können und sollen. / Die Kosten der Einrichtung für die pflegebedingten Aufwendungen entsprechen den Sätzen."></textarea>
+      <label for="argumentNotwendigkeitKZP">Darlegung der Notwendigkeit der Kurzzeitpflege: <small>(Situation: nach Krankenhaus, Krise, Ausfall/Entlastung Pflegeperson etc.)</small></label>
+      <textarea id="argumentNotwendigkeitKZP" name="argumentNotwendigkeitKZP" rows="5" required placeholder="z.B. Nach dem Krankenhausaufenthalt ist eine Rückkehr nach Hause ohne Übergangsversorgung nicht möglich; Kurzzeitpflege zur Stabilisierung/Organisation der Anschlussversorgung." autocomplete="off"></textarea>
 
-      <label for="ergaenzendeArgumenteKZP">Weitere/ergänzende Argumente und Erläuterungen zu den Ablehnungsgründen der Pflegekasse:</label>
-      <textarea id="ergaenzendeArgumenteKZP" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere wichtige Aspekte anführen."></textarea>
+      <label for="argumentKeineAlternativenKZP">Warum sind Alternativen aktuell nicht ausreichend/ möglich? <small>(Falls die Kasse Alternativen nennt.)</small></label>
+      <textarea id="argumentKeineAlternativenKZP" name="argumentKeineAlternativenKZP" rows="4" placeholder="z.B. Ambulante Dienste kurzfristig nicht verfügbar; Bedarf ist vorübergehend so hoch, dass häusliche Versorgung nicht sicher ist." autocomplete="off"></textarea>
+
+      <label for="argumentKostenKombinationKZP">Argumente zu Kosten/Leistungsrahmen und ggf. Kombination mit anderen Mitteln:</label>
+      <textarea id="argumentKostenKombinationKZP" name="argumentKostenKombinationKZP" rows="4" placeholder="z.B. Bitte prüfen Sie, ob (nicht ausgeschöpfte) Mittel aus anderen Pflegeleistungen zur Deckung herangezogen werden können; pflegebedingte Aufwendungen sind anhand Kostenvoranschlag dargestellt." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeArgumenteKZP">Weitere/ergänzende Argumente:</label>
+      <textarea id="ergaenzendeArgumenteKZP" name="ergaenzendeArgumenteKZP" rows="6" placeholder="Hier können Sie auf einzelne Punkte des Ablehnungsschreibens eingehen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchKZP">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchKZP" rows="3" required placeholder="z.B. Ich beantrage die vollumfängliche Kostenübernahme für die Kurzzeitpflege im Zeitraum XY. / Ich beantrage die Anerkennung der Kombination mit Verhinderungspflegemitteln."></textarea>
+        <textarea id="forderungWiderspruchKZP" name="forderungWiderspruchKZP" rows="3" required placeholder="z.B. Vollständige Kostenübernahme/Leistungsbewilligung für den Zeitraum ... / Korrektur der Kürzung." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
-        <legend>7. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <legend>7. Beizufügende Anlagen (optional)</legend>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenKurzzeitpflegeWiderspruch" value="Kopie des angefochtenen Ablehnungsbescheids"> Kopie des angefochtenen Ablehnungsbescheids</label>
             <label><input type="checkbox" name="anlagenKurzzeitpflegeWiderspruch" value="Kopie des ursprünglichen Antrags auf Kurzzeitpflege"> Kopie des ursprünglichen Antrags auf Kurzzeitpflege</label>
@@ -129,8 +201,9 @@
             <label><input type="checkbox" name="anlagenKurzzeitpflegeWiderspruch" value="Reservierungsbestätigung / Kostenvoranschlag der Kurzzeitpflegeeinrichtung"> Reservierungsbestätigung / Kostenvoranschlag der Einrichtung</label>
             <label><input type="checkbox" id="anlageVollmachtKZPWiderspruch" name="anlagenKurzzeitpflegeWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesKZPWiderspruch">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesKZPWiderspruch">
+        <input type="text" id="anlageSonstigesKZPWiderspruch" name="anlageSonstigesKZPWiderspruch" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -139,7 +212,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchKZP" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchKZP" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

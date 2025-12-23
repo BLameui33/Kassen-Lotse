@@ -2,11 +2,45 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag: Feststellung Behinderung / Schwerbehindertenausweis</title>
-  <meta name="description" content="Erstellen Sie Ihren Antrag auf Feststellung einer Behinderung (GdB und Merkzeichen) und Ausstellung eines Schwerbehindertenausweises.">
-  <meta name="keywords" content="Antrag, Schwerbehindertenausweis, GdB, Merkzeichen, Versorgungsamt, Behinderung, SGB IX">
+
+  <title>Antrag Schwerbehindertenausweis (GdB/Merkzeichen) | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Vorbereitung eines Antrags auf Feststellung einer Behinderung (GdB/Merkzeichen) und ggf. Ausstellung eines Schwerbehindertenausweises beim zuständigen Versorgungsamt. Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Antrag auf Feststellung einer Behinderung / Schwerbehindertenausweis",
+    "description": "Formular zur Vorbereitung eines Antrags auf Feststellung einer Behinderung (GdB/Merkzeichen) und ggf. Ausstellung eines Schwerbehindertenausweises beim zuständigen Versorgungsamt.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Schwerbehindertenausweis" },
+      { "@type": "Thing", "name": "Grad der Behinderung (GdB)" },
+      { "@type": "Thing", "name": "Merkzeichen" },
+      { "@type": "Thing", "name": "SGB IX" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse Redaktion"
+    }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="schwerbehindertenausweis_antrag_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,125 +49,172 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Antrag auf Feststellung einer Behinderung / Schwerbehindertenausweis</h1>
+
   <p class="info-box">
-    Mit diesem Formular können Sie die Feststellung des Grades Ihrer Behinderung (GdB) und ggf. von Merkzeichen sowie die Ausstellung eines Schwerbehindertenausweises beim zuständigen Versorgungsamt beantragen.
-    Es dient als umfassende Datensammlung und kann als Grundlage für den offiziellen Antrag oder als detailliertes Begleitschreiben verwendet werden.
-    Lesen Sie bitte auch unsere <a href="info-schwerbehindertenausweis.html">Informationen zu diesem Thema</a>.
+    Mit diesem Formular können Sie Angaben für einen Antrag auf Feststellung des Grades der Behinderung (GdB) und ggf. von Merkzeichen zusammenstellen sowie die Ausstellung eines Schwerbehindertenausweises beim zuständigen Versorgungsamt vorbereiten.
+    Das Tool unterstützt bei der Strukturierung Ihrer Informationen (z. B. Gesundheitsstörungen, Auswirkungen im Alltag, Behandler, Anlagen) und kann als Grundlage für den offiziellen Antrag oder als Begleitschreiben dienen.
+    Hintergrundwissen und Hinweise zur Vorbereitung finden Sie hier: <a href="info-schwerbehindertenausweis.html">Informationen zu diesem Thema</a>.
   </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen eine lokale Speicherung im Browser (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur inhaltlichen Prüfung:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Das erzeugte PDF ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Einreichen von Ihnen geprüft und bei Bedarf ergänzt oder korrigiert werden.
+    Bei Unsicherheiten kann eine anerkannte Beratungsstelle oder anwaltliche Unterstützung sinnvoll sein.
+  </p>
+
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+<div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+  <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
 </div>
 
-  <form id="schwerbehindertenAntragForm">
+  <form id="schwerbehindertenAntragForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur Person, für die der Antrag gestellt wird</legend>
+
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" name="personName" required autocomplete="name">
+
       <label for="personGeburtsname">Geburtsname (falls abweichend):</label>
-      <input type="text" id="personGeburtsname">
+      <input type="text" id="personGeburtsname" name="personGeburtsname" autocomplete="additional-name">
+
       <label for="personGeburt">Geburtsdatum:</label>
-      <input type="date" id="personGeburt" required>
+      <input type="date" id="personGeburt" name="personGeburt" required autocomplete="bday">
+
       <label for="personGeburtsort">Geburtsort:</label>
-      <input type="text" id="personGeburtsort" required>
+      <input type="text" id="personGeburtsort" name="personGeburtsort" required autocomplete="off">
+
       <label for="personGeschlecht">Geschlecht:</label>
-      <select id="personGeschlecht" required>
+      <select id="personGeschlecht" name="personGeschlecht" required autocomplete="sex">
         <option value="">Bitte wählen...</option>
         <option value="männlich">männlich</option>
         <option value="weiblich">weiblich</option>
         <option value="divers">divers</option>
         <option value="keine Angabe">keine Angabe</option>
       </select>
+
       <label for="personStaatsangehoerigkeit">Staatsangehörigkeit:</label>
-      <input type="text" id="personStaatsangehoerigkeit" required>
+      <input type="text" id="personStaatsangehoerigkeit" name="personStaatsangehoerigkeit" required autocomplete="country-name">
+
       <label for="personAdresse">Vollständige Adresse (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="personAdresse" rows="3" required></textarea>
+      <textarea id="personAdresse" name="personAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="personTelefon">Telefonnummer (tagsüber erreichbar):</label>
-      <input type="text" id="personTelefon">
+      <input type="text" id="personTelefon" name="personTelefon" autocomplete="tel" inputmode="tel">
+
       <label for="personEmail">E-Mail-Adresse (optional):</label>
-      <input type="email" id="personEmail">
+      <input type="email" id="personEmail" name="personEmail" autocomplete="email">
+
       <label for="personKrankenkasse">Krankenkasse und Versichertennummer:</label>
-      <input type="text" id="personKrankenkasse" required placeholder="z.B. AOK Musterstadt, VSNR: 1234567890">
+      <input type="text" id="personKrankenkasse" name="personKrankenkasse" required placeholder="z.B. AOK Musterstadt, VSNR: 1234567890" autocomplete="off">
     </fieldset>
 
     <fieldset>
       <legend>2. Antragsteller:in (falls abweichend von oben genannter Person)</legend>
+
       <label for="antragstellerIdentischSBA">Wird der Antrag von der oben genannten Person selbst gestellt?</label>
-      <select id="antragstellerIdentischSBA">
+      <select id="antragstellerIdentischSBA" name="antragstellerIdentischSBA" autocomplete="off">
           <option value="ja" selected>Ja</option>
           <option value="nein">Nein, von einer anderen Person/Einrichtung</option>
       </select>
+
       <div id="antragstellerDetailsSBA" class="sub-details">
           <label for="asNameSBA">Name des/der Antragsteller:in / Bezeichnung der Einrichtung:</label>
-          <input type="text" id="asNameSBA">
+          <input type="text" id="asNameSBA" name="asNameSBA" autocomplete="name">
+
           <label for="asAdresseSBA">Vollständige Adresse des/der Antragsteller:in:</label>
-          <textarea id="asAdresseSBA" rows="3"></textarea>
+          <textarea id="asAdresseSBA" name="asAdresseSBA" rows="3" autocomplete="street-address"></textarea>
+
           <label for="asVerhaeltnisSBA">Verhältnis zur Person bzw. Funktion:</label>
-          <input type="text" id="asVerhaeltnisSBA" placeholder="z.B. Mutter, Gesetzl. Betreuer, Pflegedienst">
+          <input type="text" id="asVerhaeltnisSBA" name="asVerhaeltnisSBA" placeholder="z.B. Mutter, Gesetzl. Betreuer, Pflegedienst" autocomplete="off">
+
           <label for="asTelefonSBA">Telefonnummer des/der Antragsteller:in:</label>
-          <input type="text" id="asTelefonSBA">
-          <label><input type="checkbox" id="asVollmachtSBA"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="asTelefonSBA" name="asTelefonSBA" autocomplete="tel" inputmode="tel">
+
+          <label><input type="checkbox" id="asVollmachtSBA" name="asVollmachtSBA"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
-    
+
     <fieldset>
       <legend>3. Angaben zu den Gesundheitsstörungen</legend>
-      <p class="info-box">Bitte führen Sie hier alle Gesundheitsstörungen auf, die berücksichtigt werden sollen. Die genaue Bezeichnung und der Beginn der Störung sind wichtig. Fügen Sie aussagekräftige ärztliche Unterlagen bei!</p>
+
+      <p class="info-box">
+        Bitte führen Sie hier alle Gesundheitsstörungen auf, die berücksichtigt werden sollen.
+        Für die behördliche Prüfung sind eine möglichst klare Bezeichnung, ein ungefährer Beginn sowie passende Unterlagen (z. B. Arztbriefe/Befunde) hilfreich.
+      </p>
+
       <div class="gesundheitsstoerung-block">
         <label for="gesundheitsstoerung1_bezeichnung">Bezeichnung der Gesundheitsstörung 1:</label>
-        <input type="text" id="gesundheitsstoerung1_bezeichnung" required>
+        <input type="text" id="gesundheitsstoerung1_bezeichnung" name="gesundheitsstoerung1_bezeichnung" required autocomplete="off">
+
         <label for="gesundheitsstoerung1_beginn">Beginn der Störung 1 (ca. Monat/Jahr):</label>
-        <input type="text" id="gesundheitsstoerung1_beginn" placeholder="z.B. 03/2020">
+        <input type="text" id="gesundheitsstoerung1_beginn" name="gesundheitsstoerung1_beginn" placeholder="z.B. 03/2020" autocomplete="off">
       </div>
+
       <div class="gesundheitsstoerung-block" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
         <label for="gesundheitsstoerung2_bezeichnung">Bezeichnung der Gesundheitsstörung 2 (optional):</label>
-        <input type="text" id="gesundheitsstoerung2_bezeichnung">
+        <input type="text" id="gesundheitsstoerung2_bezeichnung" name="gesundheitsstoerung2_bezeichnung" autocomplete="off">
+
         <label for="gesundheitsstoerung2_beginn">Beginn der Störung 2 (ca. Monat/Jahr):</label>
-        <input type="text" id="gesundheitsstoerung2_beginn" placeholder="z.B. 08/2021">
+        <input type="text" id="gesundheitsstoerung2_beginn" name="gesundheitsstoerung2_beginn" placeholder="z.B. 08/2021" autocomplete="off">
       </div>
+
       <div class="gesundheitsstoerung-block" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
         <label for="gesundheitsstoerung3_bezeichnung">Bezeichnung der Gesundheitsstörung 3 (optional):</label>
-        <input type="text" id="gesundheitsstoerung3_bezeichnung">
+        <input type="text" id="gesundheitsstoerung3_bezeichnung" name="gesundheitsstoerung3_bezeichnung" autocomplete="off">
+
         <label for="gesundheitsstoerung3_beginn">Beginn der Störung 3 (ca. Monat/Jahr):</label>
-        <input type="text" id="gesundheitsstoerung3_beginn">
+        <input type="text" id="gesundheitsstoerung3_beginn" name="gesundheitsstoerung3_beginn" autocomplete="off">
       </div>
-      <label for="auswirkungenGesundheitsstoerungen">Auswirkungen der Gesundheitsstörungen auf Ihren Alltag/Ihre Leistungsfähigkeit: <small>(Beschreiben Sie detailliert, wie sich Ihre Beeinträchtigungen in verschiedenen Lebensbereichen äußern, z.B. Mobilität, Selbstversorgung, soziale Kontakte, Beruf)</small></label>
-      <textarea id="auswirkungenGesundheitsstoerungen" rows="6" required placeholder="z.B. Längere Gehstrecken sind nur mit Pausen möglich. Anziehen dauert länger. Konzentration bei der Arbeit fällt schwer."></textarea>
+
+      <label for="auswirkungenGesundheitsstoerungen">Auswirkungen der Gesundheitsstörungen auf Ihren Alltag/Ihre Leistungsfähigkeit: <small>(Beschreiben Sie, wie sich Beeinträchtigungen z.B. bei Mobilität, Selbstversorgung, sozialen Kontakten, Haushalt, Beruf zeigen)</small></label>
+      <textarea id="auswirkungenGesundheitsstoerungen" name="auswirkungenGesundheitsstoerungen" rows="6" required placeholder="z.B. Längere Gehstrecken sind nur mit Pausen möglich. Anziehen dauert länger. Konzentration bei der Arbeit fällt schwer." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Behandelnde Ärzte, Krankenhäuser, Rehabilitationseinrichtungen</legend>
-      <p class="info-box">Bitte geben Sie alle Ärzte, Krankenhäuser etc. an, die Ihre Gesundheitsstörungen behandeln oder behandelt haben (möglichst der letzten 2-5 Jahre). Das Versorgungsamt kann dort ggf. Befundberichte anfordern. Entbinden Sie die Ärzte von der Schweigepflicht (siehe Anlagen).</p>
+      <p class="info-box">Bitte geben Sie Stellen an, die Ihre Gesundheitsstörungen behandeln oder behandelt haben (oft hilfreich: letzte 2–5 Jahre). Das Versorgungsamt kann dort ggf. Befundberichte anfordern. Entbinden Sie die Ärzte von der Schweigepflicht (siehe Anlagen).</p>
+
       <div class="arzt-block">
         <label for="arzt1_name">Name und Fachrichtung Arzt/Einrichtung 1:</label>
-        <input type="text" id="arzt1_name" required placeholder="Dr. Max Mustermann, Orthopäde">
+        <input type="text" id="arzt1_name" name="arzt1_name" required placeholder="Dr. Max Mustermann, Orthopäde" autocomplete="organization">
+
         <label for="arzt1_anschrift">Anschrift Arzt/Einrichtung 1:</label>
-        <textarea id="arzt1_anschrift" rows="2" required></textarea>
+        <textarea id="arzt1_anschrift" name="arzt1_anschrift" rows="2" required autocomplete="street-address"></textarea>
+
         <label for="arzt1_behandlungszeitraum">Behandlungszeitraum bei Arzt/Einrichtung 1:</label>
-        <input type="text" id="arzt1_behandlungszeitraum" required placeholder="z.B. seit 01/2019 oder 03/2022 - 05/2022">
+        <input type="text" id="arzt1_behandlungszeitraum" name="arzt1_behandlungszeitraum" required placeholder="z.B. seit 01/2019 oder 03/2022 - 05/2022" autocomplete="off">
       </div>
+
       <div class="arzt-block" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
         <label for="arzt2_name">Name und Fachrichtung Arzt/Einrichtung 2 (optional):</label>
-        <input type="text" id="arzt2_name" placeholder="Klinikum Beispielstadt, Kardiologie">
+        <input type="text" id="arzt2_name" name="arzt2_name" placeholder="Klinikum Beispielstadt, Kardiologie" autocomplete="organization">
+
         <label for="arzt2_anschrift">Anschrift Arzt/Einrichtung 2:</label>
-        <textarea id="arzt2_anschrift" rows="2"></textarea>
+        <textarea id="arzt2_anschrift" name="arzt2_anschrift" rows="2" autocomplete="street-address"></textarea>
+
         <label for="arzt2_behandlungszeitraum">Behandlungszeitraum bei Arzt/Einrichtung 2:</label>
-        <input type="text" id="arzt2_behandlungszeitraum" placeholder="z.B. seit 06/2020 oder 01/2023 (einmalig)">
+        <input type="text" id="arzt2_behandlungszeitraum" name="arzt2_behandlungszeitraum" placeholder="z.B. seit 06/2020 oder 01/2023 (einmalig)" autocomplete="off">
       </div>
       </fieldset>
 
     <fieldset>
       <legend>5. Beantragte Merkzeichen (falls zutreffend)</legend>
-      <p class="info-box">Hier können Sie angeben, ob Sie die Feststellung bestimmter Merkzeichen beantragen. Eine Begründung, warum die Voraussetzungen für das jeweilige Merkzeichen erfüllt sind, ist hilfreich und sollte sich aus Ihren ärztlichen Unterlagen ergeben.</p>
+      <p class="info-box">Hier können Sie angeben, ob Sie die Feststellung bestimmter Merkzeichen beantragen. Eine kurze Begründung kann hilfreich sein; die Nachweise ergeben sich typischerweise aus Befunden/Arztberichten.</p>
+
       <div class="checkbox-group">
           <label><input type="checkbox" name="merkzeichen" value="G"> G (Erhebliche Gehbehinderung)</label>
           <label><input type="checkbox" name="merkzeichen" value="aG"> aG (Außergewöhnliche Gehbehinderung)</label>
@@ -142,34 +223,41 @@
           <label><input type="checkbox" name="merkzeichen" value="Bl"> Bl (Blindheit)</label>
           <label><input type="checkbox" name="merkzeichen" value="Gl"> Gl (Gehörlosigkeit)</label>
           <label><input type="checkbox" name="merkzeichen" value="RF"> RF (Ermäßigung/Befreiung Rundfunkbeitrag)</label>
-          </div>
-      <label for="begruendungMerkzeichen">Kurze Begründung für beantragte Merkzeichen (optional): <small>(Die genaue Begründung sollte aus den ärztlichen Unterlagen hervorgehen)</small></label>
-      <textarea id="begruendungMerkzeichen" rows="3" placeholder="z.B. Für Merkzeichen G: Kann aufgrund von [Erkrankung] nur noch maximal 500 Meter am Stück gehen."></textarea>
+      </div>
+
+      <label for="begruendungMerkzeichen">Kurze Begründung für beantragte Merkzeichen (optional): <small>(Details sollten durch Unterlagen nachvollziehbar sein)</small></label>
+      <textarea id="begruendungMerkzeichen" name="begruendungMerkzeichen" rows="3" placeholder="z.B. Für Merkzeichen G: Kann aufgrund von [Erkrankung] nur noch maximal 500 Meter am Stück gehen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Frühere Anträge / Bestehender Ausweis</legend>
+
         <label for="fruehererAntragSBA">Wurde bereits früher ein Antrag auf Feststellung einer Behinderung gestellt oder liegt ein Schwerbehindertenausweis vor/lag vor?</label>
-        <select id="fruehererAntragSBA">
+        <select id="fruehererAntragSBA" name="fruehererAntragSBA" autocomplete="off">
             <option value="nein" selected>Nein</option>
             <option value="ja">Ja</option>
         </select>
+
         <div id="fruehererAntragDetailsSBA" class="sub-details">
             <label for="fruehererAntragAktenzeichen">Aktenzeichen des früheren Antrags/Ausweises:</label>
-            <input type="text" id="fruehererAntragAktenzeichen">
+            <input type="text" id="fruehererAntragAktenzeichen" name="fruehererAntragAktenzeichen" autocomplete="off">
+
             <label for="fruehererAntragBehoerde">Zuständige Behörde des früheren Antrags/Ausweises:</label>
-            <input type="text" id="fruehererAntragBehoerde">
+            <input type="text" id="fruehererAntragBehoerde" name="fruehererAntragBehoerde" autocomplete="organization">
+
             <label for="fruehererGdB">Festgestellter GdB und Merkzeichen (falls bekannt):</label>
-            <input type="text" id="fruehererGdB" placeholder="z.B. GdB 50, Merkzeichen G">
+            <input type="text" id="fruehererGdB" name="fruehererGdB" placeholder="z.B. GdB 50, Merkzeichen G" autocomplete="off">
         </div>
-        <p class="info-box"><small>Wenn Sie eine Verschlimmerung beantragen, ist dies ein Neufeststellungsantrag, bei dem alle Gesundheitsstörungen erneut bewertet werden.</small></p>
+
+        <p class="info-box"><small>Wenn Sie eine Verschlimmerung beantragen, wird in der Praxis häufig eine erneute Bewertung der Gesundheitsstörungen vorgenommen. Die konkrete Vorgehensweise hängt vom Einzelfall und der zuständigen Behörde ab.</small></p>
     </fieldset>
 
     <fieldset>
         <legend>7. Einverständniserklärungen und Anlagen</legend>
-        <label><input type="checkbox" id="einverstaendnisAerzteSBA" required> Ich entbinde die von mir genannten Ärzte, Krankenhäuser und sonstigen Stellen von der Schweigepflicht gegenüber dem zuständigen Versorgungsamt und den von ihm beauftragten ärztlichen Gutachtern.</label>
-        <label><input type="checkbox" id="einverstaendnisDatennutzungSBA" required> Ich bin damit einverstanden, dass das Versorgungsamt die für die Entscheidung notwendigen Unterlagen bei den von mir genannten Stellen anfordert und meine Daten im Rahmen des Verfahrens verarbeitet werden.</label>
-        
+
+        <label><input type="checkbox" id="einverstaendnisAerzteSBA" name="einverstaendnisAerzteSBA" required> Ich entbinde die von mir genannten Ärzte, Krankenhäuser und sonstigen Stellen von der Schweigepflicht gegenüber dem zuständigen Versorgungsamt und den von ihm beauftragten ärztlichen Gutachtern.</label>
+        <label><input type="checkbox" id="einverstaendnisDatennutzungSBA" name="einverstaendnisDatennutzungSBA" required> Ich bin damit einverstanden, dass das Versorgungsamt die für die Entscheidung notwendigen Unterlagen bei den von mir genannten Stellen anfordert und meine Daten im Rahmen des Verfahrens verarbeitet werden.</label>
+
         <p style="margin-top:1.5rem;"><strong>Beizufügende Anlagen (Kopien sind ausreichend):</strong></p>
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenSBA" value="Aktuelle und aussagekräftige Arztbriefe, Befundberichte, Gutachten"> Aktuelle und aussagekräftige Arztbriefe, Befundberichte, Gutachten</label>
@@ -177,8 +265,9 @@
             <label><input type="checkbox" name="anlagenSBA" value="Reha-Entlassungsberichte"> Reha-Entlassungsberichte</label>
             <label><input type="checkbox" id="anlageVollmachtSBA" name="anlagenSBA" value="Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)"> Vollmacht/Betreuungsurkunde (falls Antrag durch Dritte)</label>
         </div>
+
         <label for="anlageSonstigesSBA">Sonstige wichtige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesSBA">
+        <input type="text" id="anlageSonstigesSBA" name="anlageSonstigesSBA" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -191,8 +280,8 @@
 
 <div id="spendenPopupSBA" class="popup-overlay">
   <div class="popup-content">
-    <h2>Danke für deine Nutzung 💛</h2>
-    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <h2>Danke für die Nutzung</h2>
+    <p>Wenn dieses Tool hilfreich war, unterstützt eine kleine Spende den laufenden Betrieb und die Weiterentwicklung:</p>
     <form action="https://www.paypal.com/donate" method="post" target="_blank">
       <input type="hidden" name="business" value="info@kassen-lotse.de" />
       <input type="hidden" name="charset" value="utf-8">

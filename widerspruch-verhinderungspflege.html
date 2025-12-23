@@ -2,11 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Verhinderungspflege</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen abgelehnten Antrag auf Verhinderungspflege oder eine strittige Abrechnung bei Ihrer Pflegekasse.">
-  <meta name="keywords" content="Widerspruch, Verhinderungspflege, Ersatzpflege, Pflegekasse, Ablehnung, §39 SGB XI, Kostenübernahme">
+  <title>Widerspruch Verhinderungspflege (§ 39 SGB XI) | Pflegekasse | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen Ablehnung oder Kürzung von Verhinderungspflege (Ersatzpflege) bzw. strittige Abrechnungen bei der Pflegekasse (§ 39 SGB XI). Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Verhinderungspflege",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen die Ablehnung oder Kürzung von Verhinderungspflege (Ersatzpflege) durch die Pflegekasse (§ 39 SGB XI).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Verhinderungspflege" },
+      { "@type": "Thing", "name": "Ersatzpflege" },
+      { "@type": "Thing", "name": "Pflegekasse" },
+      { "@type": "Thing", "name": "§ 39 SGB XI" },
+      { "@type": "Thing", "name": "Widerspruch" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="verhinderungspflege_widerspruch_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,37 +46,60 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch: Ablehnung/Kürzung Verhinderungspflege</h1>
-  <p class="info-box warning">
-    Wurde Ihr Antrag auf Verhinderungspflege oder die Erstattung der Kosten hierfür abgelehnt oder gekürzt? Hier können Sie einen Widerspruch erstellen.
-    Beachten Sie die Widerspruchsfrist! Lesen Sie auch unsere <a href="info-verhinderungspflege.html">Informationen zur Verhinderungspflege</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchVerhinderungspflegeForm">
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf Verhinderungspflege (Ersatzpflege) oder die Erstattung der Kosten hierfür abgelehnt oder gekürzt, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Verhinderungspflege ist eine Leistung bei Verhinderung der Pflegeperson und betrifft die Sicherstellung der häuslichen Pflege in dem Zeitraum, in dem die Hauptpflegeperson ausfällt (§ 39 SGB XI). 
+    <strong>Praxis-Hinweis:</strong> Bei Kürzungen/Deckelungen lohnt es sich zu prüfen, ob die Pflegekasse die seit 01.01.2025 wertfortgeschriebenen Leistungsbeträge nach § 39 i.V.m. § 30 SGB XI zugrunde gelegt hat (nicht mehr alte Pauschalen). 
+
+    Lesen Sie auch unsere <a href="info-verhinderungspflege.html">Informationen zur Verhinderungspflege</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchVerhinderungspflegeForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur pflegebedürftigen Person</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
-      <input type="text" id="vpNummer" required>
-      <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad (mind. PG 2 erforderlich):</label>
-      <select id="vpPflegegrad" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
+
+      <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad:</label>
+      <select id="vpPflegegrad" name="vpPflegegrad" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Pflegegrad 2">Pflegegrad 2</option>
           <option value="Pflegegrad 3">Pflegegrad 3</option>
@@ -56,81 +110,101 @@
 
     <fieldset>
       <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentischVP">Wird der Widerspruch von der pflegebedürftigen Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentischVP">
+      <select id="widerspruchfuehrerIdentischVP" name="widerspruchfuehrerIdentischVP" autocomplete="off">
           <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
           <option value="nein">Nein, von einer anderen Person</option>
       </select>
+
       <div id="widerspruchfuehrerDetailsVP" class="sub-details">
           <label for="wfNameVP">Vor- und Nachname des/der Widerspruchsführer:in:</label>
-          <input type="text" id="wfNameVP">
+          <input type="text" id="wfNameVP" name="wfNameVP" autocomplete="name">
+
           <label for="wfAdresseVP">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdresseVP" rows="3"></textarea>
+          <textarea id="wfAdresseVP" name="wfAdresseVP" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnisVP">Verhältnis zur pflegebedürftigen Person:</label>
-          <input type="text" id="wfVerhaeltnisVP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
-          <label><input type="checkbox" id="wfVollmachtVP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnisVP" name="wfVerhaeltnisVP" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmachtVP" name="wfVollmachtVP"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
+
       <label for="pflegekasseName">Name der Pflegekasse:</label>
-      <input type="text" id="pflegekasseName" required>
+      <input type="text" id="pflegekasseName" name="pflegekasseName" required autocomplete="organization">
+
       <label for="pflegekasseAdresse">Vollständige Adresse der Pflegekasse:</label>
-      <textarea id="pflegekasseAdresse" rows="3" required></textarea>
+      <textarea id="pflegekasseAdresse" name="pflegekasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum abgelehnten Antrag/strittigen Bescheid (Verhinderungspflege)</legend>
-      <label for="datumUrsprAntragVP">Datum Ihres ursprünglichen Antrags/Ihrer Abrechnung für Verhinderungspflege:</label>
-      <input type="date" id="datumUrsprAntragVP" required>
+
+      <label for="datumUrsprAntragVP">Datum Ihres ursprünglichen Antrags/Ihrer Abrechnung:</label>
+      <input type="date" id="datumUrsprAntragVP" name="datumUrsprAntragVP" required autocomplete="off">
+
       <label for="zeitraumVPGeltendGemacht">Zeitraum, für den Verhinderungspflege beantragt/abgerechnet und (teil-)abgelehnt wurde:</label>
-      <input type="text" id="zeitraumVPGeltendGemacht" required placeholder="z.B. 01.07.2025 - 15.07.2025 oder stundenweise am TT.MM.JJJJ">
-      <label for="personErsatzpflegeAbgelehnt">Name der Ersatzpflegeperson/des Dienstes, deren/dessen Kosten strittig sind (falls zutreffend):</label>
-      <input type="text" id="personErsatzpflegeAbgelehnt" placeholder="z.B. Max Mustermann (Nachbar), Pflegedienst Sonnenschein">
-      <label for="datumAblehnungsbescheidVP">Datum des Ablehnungs-/Kürzungsbescheids der Pflegekasse:</label>
-      <input type="date" id="datumAblehnungsbescheidVP" required>
-      <label for="aktenzeichenVP">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenVP">
-      <label for="hauptablehnungsgrundVP">Hauptgrund/-gründe für die Ablehnung/Kürzung laut Pflegekasse: <small>(Fassen Sie die Kernaussage des Schreibens zusammen)</small></label>
-      <textarea id="hauptablehnungsgrundVP" rows="3" required placeholder="z.B. Vorpflegezeit nicht erfüllt; Kosten für nahe Angehörige übersteigen 1,5-faches Pflegegeld; Nachweise unvollständig; Notwendigkeit der Verhinderung nicht anerkannt."></textarea>
+      <input type="text" id="zeitraumVPGeltendGemacht" name="zeitraumVPGeltendGemacht" required placeholder="z.B. 01.07.2025 - 15.07.2025 oder stundenweise am TT.MM.JJJJ" autocomplete="off">
+
+      <label for="personErsatzpflegeAbgelehnt">Ersatzpflegeperson/Dienst (falls zutreffend):</label>
+      <input type="text" id="personErsatzpflegeAbgelehnt" name="personErsatzpflegeAbgelehnt" placeholder="z.B. Max Mustermann, Pflegedienst Sonnenschein" autocomplete="off">
+
+      <label for="datumAblehnungsbescheidVP">Datum des Ablehnungs-/Kürzungsbescheids:</label>
+      <input type="date" id="datumAblehnungsbescheidVP" name="datumAblehnungsbescheidVP" required autocomplete="off">
+
+      <label for="aktenzeichenVP">Aktenzeichen / Geschäftszeichen (falls vorhanden):</label>
+      <input type="text" id="aktenzeichenVP" name="aktenzeichenVP" autocomplete="off">
+
+      <label for="hauptablehnungsgrundVP">Hauptgrund/-gründe laut Pflegekasse: <small>(Kernaussage zusammenfassen)</small></label>
+      <textarea id="hauptablehnungsgrundVP" name="hauptablehnungsgrundVP" rows="3" required placeholder="z.B. Vorpflegezeit; Nachweise; Kosten (nahe Angehörige); Verhinderung nicht anerkannt; Betragsgrenzen." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Erläutern Sie hier detailliert, warum die Ablehnung/Kürzung nicht gerechtfertigt ist. Beziehen Sie sich auf die gesetzlichen Voraussetzungen der Verhinderungspflege (§ 39 SGB XI) und Ihre individuelle Situation.</p>
 
-      <label for="argumentVorpflegezeitErfuelltVP">Darlegung, dass die sechsmonatige Vorpflegezeit erfüllt war (falls dies ein Ablehnungsgrund war): <small>(Seit wann wird die pflegebedürftige Person von der Hauptpflegeperson bereits im häuslichen Umfeld gepflegt?)</small></label>
-      <textarea id="argumentVorpflegezeitErfuelltVP" rows="3" placeholder="z.B. Herr/Frau [Name Hauptpflegeperson] pflegt Herrn/Frau [Name Pflegebedürftiger] bereits seit dem TT.MM.JJJJ ununterbrochen zu Hause."></textarea>
+      <p class="info-box">
+        Erläutern Sie, warum die Ablehnung/Kürzung aus Ihrer Sicht nicht zutreffend ist und belegen Sie die Verhinderung sowie die entstandenen Kosten.
+        Häufig entscheidend ist eine klare Trennung: (1) Voraussetzungen/Grund der Verhinderung, (2) Zeitraum/Umfang, (3) wer hat gepflegt, (4) welche Kosten sind entstanden und wie sind sie belegt. 
+      </p>
 
-      <label for="argumentKostenberechnungVP">Begründung zur Angemessenheit/Notwendigkeit der geltend gemachten Kosten: <small>(Bei nahen Angehörigen: Wurden Fahrtkosten oder Verdienstausfall nachgewiesen? Bei anderen Personen/Diensten: Entsprechen die Kosten den Vereinbarungen/sind sie ortsüblich? Wurde die Kombi-Möglichkeit mit Kurzzeitpflege berücksichtigt?)</small></label>
-      <textarea id="argumentKostenberechnungVP" rows="5" placeholder="z.B. Die geltend gemachten Fahrtkosten für meine Schwester (nahe Angehörige) sind nachweislich entstanden. / Die Vergütung für Frau Müller (Nachbarin) ist angemessen und wurde vorab vereinbart. / Es wurde die Umwandlung von Mitteln der Kurzzeitpflege beantragt."></textarea>
-      
-      <label for="argumentNotwendigkeitVerhinderungVP">Erneute Darlegung der Gründe für die unaufschiebbare Verhinderung der Hauptpflegeperson im strittigen Zeitraum:</label>
-      <textarea id="argumentNotwendigkeitVerhinderungVP" rows="4" required placeholder="z.B. Die Hauptpflegeperson war nachweislich im Krankenhaus/auf Erholungsurlaub (siehe Belege). / Die stundenweise Entlastung war zwingend erforderlich aufgrund von..."></textarea>
+      <label for="argumentVorpflegezeitErfuelltVP">Vorpflegezeit (falls Ablehnungsgrund):</label>
+      <textarea id="argumentVorpflegezeitErfuelltVP" name="argumentVorpflegezeitErfuelltVP" rows="3" placeholder="z.B. Pflege durch Hauptpflegeperson seit TT.MM.JJJJ im häuslichen Umfeld." autocomplete="off"></textarea>
 
-      <label for="ergaenzendeArgumenteVP">Weitere/ergänzende Argumente und Erläuterungen zu den Ablehnungsgründen der Pflegekasse:</label>
-      <textarea id="ergaenzendeArgumenteVP" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere wichtige Aspekte anführen."></textarea>
+      <label for="argumentKostenberechnungVP">Kosten/Abrechnung/Angemessenheit (inkl. Nachweise):</label>
+      <textarea id="argumentKostenberechnungVP" name="argumentKostenberechnungVP" rows="5" placeholder="z.B. Quittungen/Rechnung, Verdienstausfall/Fahrtkosten; ggf. Hinweis auf korrekte Leistungsbeträge ab 2025." autocomplete="off"></textarea>
+
+      <label for="argumentNotwendigkeitVerhinderungVP">Gründe der Verhinderung im strittigen Zeitraum:</label>
+      <textarea id="argumentNotwendigkeitVerhinderungVP" name="argumentNotwendigkeitVerhinderungVP" rows="4" required placeholder="z.B. Krankenhaus, Krankheit, Kur/Erholung, Termine; bei stundenweise: warum Entlastung erforderlich war (mit Belegen)." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeArgumenteVP">Weitere/ergänzende Argumente:</label>
+      <textarea id="ergaenzendeArgumenteVP" name="ergaenzendeArgumenteVP" rows="6" placeholder="Hier können Sie auf einzelne Punkte des Ablehnungsschreibens eingehen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchVP">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchVP" rows="3" required placeholder="z.B. Ich beantrage die vollumfängliche Kostenübernahme für die Verhinderungspflege im Zeitraum XY in Höhe von XX Euro. / Ich beantrage die Anerkennung der Vorpflegezeit."></textarea>
+        <textarea id="forderungWiderspruchVP" name="forderungWiderspruchVP" rows="3" required placeholder="z.B. volle Erstattung/Kostenübernahme für Zeitraum ... in Höhe von ... EUR; Korrektur der Kürzung." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
-        <legend>7. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <legend>7. Beizufügende Anlagen (optional)</legend>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Kopie des angefochtenen Ablehnungsbescheids"> Kopie des angefochtenen Ablehnungsbescheids</label>
-            <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Kopie des ursprünglichen Antrags/der Abrechnung für Verhinderungspflege"> Kopie des ursprünglichen Antrags/der Abrechnung für Verhinderungspflege</label>
-            <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Nachweise über die entstandenen Kosten (Rechnungen, Quittungen)"> Nachweise über die entstandenen Kosten (Rechnungen, Quittungen)</label>
-            <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Nachweis über Verdienstausfall/Fahrtkosten (bei nahen Angehörigen)"> Nachweis über Verdienstausfall/Fahrtkosten (bei nahen Angehörigen)</label>
-            <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Belege für die Verhinderung der Pflegeperson (z.B. Krankmeldung, Reisebuchung)"> Belege für die Verhinderung der Pflegeperson</label>
+            <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Kopie des ursprünglichen Antrags/der Abrechnung für Verhinderungspflege"> Kopie des ursprünglichen Antrags/der Abrechnung</label>
+            <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Nachweise über die entstandenen Kosten (Rechnungen, Quittungen)"> Kosten-Nachweise (Rechnungen/Quittungen)</label>
+            <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Nachweis über Verdienstausfall/Fahrtkosten (bei nahen Angehörigen)"> Verdienstausfall/Fahrtkosten (falls zutreffend)</label>
+            <label><input type="checkbox" name="anlagenVerhinderungspflegeWiderspruch" value="Belege für die Verhinderung der Pflegeperson (z.B. Krankmeldung, Reisebuchung)"> Belege zur Verhinderung (falls vorhanden)</label>
             <label><input type="checkbox" id="anlageVollmachtVPWiderspruch" name="anlagenVerhinderungspflegeWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesVPWiderspruch">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesVPWiderspruch">
+        <input type="text" id="anlageSonstigesVPWiderspruch" name="anlageSonstigesVPWiderspruch" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -139,7 +213,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchVP" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchVP" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

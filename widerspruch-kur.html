@@ -2,11 +2,41 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Kurantrag</title>
-  <meta name="description" content="Erstellen Sie einen fundierten Widerspruch gegen einen abgelehnten Kurantrag bei Ihrer Krankenkasse.">
-  <meta name="keywords" content="Widerspruch, Kur, Reha, Ablehnung, Krankenkasse, Rechtsmittel, SGB V">
+  <title>Widerspruch Kurantrag (Vorsorge/Reha/Mutter-Kind) | Muster | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen die Ablehnung einer Kurmaßnahme (Vorsorge, Reha, Mutter-/Vater-Kind) durch die Krankenkasse. Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Kurantrag",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen die Ablehnung eines Kurantrags (Vorsorge/Reha/Mutter-/Vater-Kind) bei der Krankenkasse.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Medizinische Vorsorgeleistung" },
+      { "@type": "Thing", "name": "Medizinische Rehabilitation" },
+      { "@type": "Thing", "name": "Mutter-Kind-Kur" },
+      { "@type": "Thing", "name": "Widerspruch" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="widerspruch-kur_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,87 +45,120 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch gegen Ablehnung des Kurantrags</h1>
-  <p class="info-box warning">
-    Wurde Ihr Kurantrag (Vorsorge, Reha, Mutter/Vater-Kind-Kur) abgelehnt? Hier können Sie einen fundierten Widerspruch erstellen.
-    Beachten Sie die Widerspruchsfrist (i.d.R. ein Monat) und lesen Sie ggf. unsere <a href="info-kur.html">Informationen zum Thema Kur</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchKurForm">
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf eine Kurmaßnahme (z.B. Vorsorge, Reha, Mutter-/Vater-Kind) abgelehnt, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Bei Vorsorgeleistungen ist häufig ein zentraler Punkt, ob die üblichen ambulanten Leistungen nicht ausreichen oder wegen besonderer beruflicher/familiärer Umstände nicht durchgeführt werden können. 
+    <strong>Praxis-Hinweis:</strong> Bei Reha-Leistungen bestimmt die Kasse Art/Dauer/Einrichtung nach medizinischen Erfordernissen – dabei ist das Wunsch- und Wahlrecht zu berücksichtigen, wenn es gut begründet ist. 
+
+    Lesen Sie ggf. auch unsere <a href="info-kur.html">Informationen zum Thema Kur</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchKurForm" autocomplete="on">
     <fieldset>
       <legend>1. Ihre Persönlichen Angaben</legend>
+
       <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" name="name" required autocomplete="name">
+
       <label for="adresse">Ihre vollständige Adresse:</label>
-      <textarea id="adresse" rows="3" required></textarea>
+      <textarea id="adresse" name="adresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="nummer">Versichertennummer:</label>
-      <input type="text" id="nummer" required>
+      <input type="text" id="nummer" name="nummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
+
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zum abgelehnten Kurantrag</legend>
+
       <label for="ursprAntragDatumKur">Datum Ihres ursprünglichen Kurantrags:</label>
-      <input type="date" id="ursprAntragDatumKur" required>
+      <input type="date" id="ursprAntragDatumKur" name="ursprAntragDatumKur" required autocomplete="off">
+
       <label for="kurArtAbgelehnt">Art der beantragten und abgelehnten Kurmaßnahme:</label>
-      <select id="kurArtAbgelehnt" required>
+      <select id="kurArtAbgelehnt" name="kurArtAbgelehnt" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Medizinische Vorsorgeleistung (§ 23 SGB V)">Medizinische Vorsorgeleistung (§ 23 SGB V)</option>
           <option value="Medizinische Rehabilitationsleistung (§ 40 SGB V)">Medizinische Rehabilitationsleistung (§ 40 SGB V)</option>
           <option value="Mutter-Kind-Kur (bzw. Vater-Kind-Kur, §§ 24, 41 SGB V)">Mutter-Kind-Kur (bzw. Vater-Kind-Kur, §§ 24, 41 SGB V)</option>
           <option value="Sonstige Kurmaßnahme">Sonstige Kurmaßnahme</option>
       </select>
+
       <label for="kurZielortAbgelehnt">Name der Kureinrichtung (falls im Antrag genannt und relevant für Ablehnung):</label>
-      <input type="text" id="kurZielortAbgelehnt" placeholder="z.B. Rehaklinik Musterstadt">
+      <input type="text" id="kurZielortAbgelehnt" name="kurZielortAbgelehnt" placeholder="z.B. Rehaklinik Musterstadt" autocomplete="off">
+
       <label for="ablehnungsbescheidDatumKur">Datum des Ablehnungsbescheids der Krankenkasse:</label>
-      <input type="date" id="ablehnungsbescheidDatumKur" required>
+      <input type="date" id="ablehnungsbescheidDatumKur" name="ablehnungsbescheidDatumKur" required autocomplete="off">
+
       <label for="aktenzeichenKur">Aktenzeichen / Vorgangsnummer des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenKur">
+      <input type="text" id="aktenzeichenKur" name="aktenzeichenKur" autocomplete="off">
     </fieldset>
-    
+
     <fieldset>
       <legend>4. Begründung Ihres Widerspruchs – Ihre Argumente</legend>
-      <p class="info-box">Formulieren Sie hier Ihre Argumente gegen die Ablehnung. Beziehen Sie sich auf die ärztliche(n) Stellungnahme(n) und die konkreten Ablehnungsgründe Ihrer Krankenkasse. Führen Sie aus, warum die Voraussetzungen für die Kurmaßnahme aus Ihrer Sicht erfüllt sind.</p>
+
+      <p class="info-box">
+        Formulieren Sie hier Ihre Argumente gegen die Ablehnung und beziehen Sie sich auf ärztliche Stellungnahmen sowie die konkreten Ablehnungsgründe.
+        Hilfreich ist es oft, die bisherige Behandlung/ambulanten Maßnahmen kurz chronologisch darzustellen (Was wurde wann versucht? Mit welchem Ergebnis?) und dann den Nutzen/Ziel der Kur konkret zu benennen. 
+      </p>
 
       <label for="hauptablehnungsgrund">Was war der Hauptgrund für die Ablehnung laut Krankenkasse? <small>(Fassen Sie kurz zusammen)</small></label>
-      <textarea id="hauptablehnungsgrund" rows="3" required placeholder="z.B. Die medizinische Notwendigkeit sei nicht ausreichend dargelegt; ambulante Maßnahmen seien vorrangig und nicht ausgeschöpft; die gewünschte Klinik habe keinen Vertrag."></textarea>
+      <textarea id="hauptablehnungsgrund" name="hauptablehnungsgrund" rows="3" required placeholder="z.B. Medizinische Notwendigkeit nicht ausreichend dargelegt; ambulante Maßnahmen vorrangig; Einrichtung/Belegung/Vertrag." autocomplete="off"></textarea>
 
-      <label for="argumentMedizinischeNotwendigkeitKur">Darlegung der weiterhin bestehenden oder verstärkten medizinischen Notwendigkeit der Kur: <small>(Warum ist die Kur aus medizinischer Sicht zwingend erforderlich? Was sagt Ihr Arzt/Ihre Ärztin dazu – ggf. auf (neue) Atteste verweisen.)</small></label>
-      <textarea id="argumentMedizinischeNotwendigkeitKur" rows="5" required placeholder="z.B. Trotz ambulanter Behandlung hat sich mein Zustand XY verschlechtert. Dr. Z hat erneut die Dringlichkeit der Kurmaßnahme in der Einrichtung Y bestätigt, um eine Chronifizierung zu verhindern..."></textarea>
+      <label for="argumentMedizinischeNotwendigkeitKur">Darlegung der medizinischen Notwendigkeit der Kur: <small>(Warum ist die Maßnahme aus medizinischer Sicht erforderlich? Verweisen Sie auf Atteste/Befunde.)</small></label>
+      <textarea id="argumentMedizinischeNotwendigkeitKur" name="argumentMedizinischeNotwendigkeitKur" rows="5" required placeholder="z.B. Trotz ambulanter Behandlung besteht weiterhin ...; Ärztliche Stellungnahme vom ... liegt bei." autocomplete="off"></textarea>
 
-      <label for="argumentKeineAlternativenKur">Warum sind andere/ambulante Maßnahmen nicht (mehr) ausreichend oder zielführend? <small>(Wurden ambulante Maßnahmen bereits ausgeschöpft? Warum ist eine stationäre Maßnahme notwendig?)</small></label>
-      <textarea id="argumentKeineAlternativenKur" rows="4" required placeholder="z.B. Alle lokalen ambulanten Therapiemöglichkeiten wurden über X Monate ohne nachhaltigen Erfolg ausgeschöpft. Eine intensive stationäre Behandlung ist nun erforderlich, um..."></textarea>
-      
-      <label for="argumentPersoenlicheAuswirkungenKur">Welche schwerwiegenden Auswirkungen hat die Nichtdurchführung der Kur auf Ihre Gesundheit, Ihren Alltag, Ihre Arbeitsfähigkeit oder Ihre familiäre Situation?</label>
-      <textarea id="argumentPersoenlicheAuswirkungenKur" rows="4" required placeholder="z.B. Ohne die Kur droht eine Verschlechterung meines Gesundheitszustandes, die meine Arbeitsfähigkeit gefährdet und die Betreuung meiner Kinder unmöglich macht..."></textarea>
+      <label for="argumentKeineAlternativenKur">Warum sind andere/ambulante Maßnahmen nicht (mehr) ausreichend oder zielführend? <small>(Warum ist eine intensivere Maßnahme notwendig?)</small></label>
+      <textarea id="argumentKeineAlternativenKur" name="argumentKeineAlternativenKur" rows="4" required placeholder="z.B. Ambulante Therapie über ... Monate ohne nachhaltigen Erfolg; stationäres/strukturierteres Setting notwendig, um ..." autocomplete="off"></textarea>
 
-      <label for="ergaenzendeArgumenteKur">Weitere Argumente und Erläuterungen zu den Ablehnungsgründen der Krankenkasse:</label>
-      <textarea id="ergaenzendeArgumenteKur" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere Aspekte anfügen."></textarea>
+      <label for="argumentPersoenlicheAuswirkungenKur">Welche Auswirkungen hat die Nichtdurchführung der Kur auf Gesundheit/Alltag/Arbeitsfähigkeit/Familie?</label>
+      <textarea id="argumentPersoenlicheAuswirkungenKur" name="argumentPersoenlicheAuswirkungenKur" rows="4" required placeholder="z.B. Fortdauernde Einschränkungen; drohende Verschlechterung; Risiko längerer AU; Überlastung in der Familie." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeArgumenteKur">Weitere Argumente und Erläuterungen:</label>
+      <textarea id="ergaenzendeArgumenteKur" name="ergaenzendeArgumenteKur" rows="6" placeholder="Hier können Sie auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere Aspekte ergänzen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>5. Forderung und Fristsetzung</legend>
+
         <label for="fristsetzungDatum">Ich bitte um eine Entscheidung bis spätestens zum (optional): <small>(Wenn Sie kein Datum angeben, wird automatisch eine Frist von ca. 4 Wochen gesetzt)</small></label>
-        <input type="date" id="fristsetzungDatum">
+        <input type="date" id="fristsetzungDatum" name="fristsetzungDatum" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -104,7 +167,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchKur" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchKur" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

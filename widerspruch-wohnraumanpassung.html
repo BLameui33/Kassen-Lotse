@@ -2,11 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Wohnraumanpassung</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen abgelehnten Antrag auf Zuschuss für wohnumfeldverbessernde Maßnahmen bei Ihrer Pflegekasse.">
-  <meta name="keywords" content="Widerspruch, Wohnraumanpassung, Pflegekasse, Zuschuss, Ablehnung, §40 SGB XI, barrierefrei">
+  <title>Widerspruch Wohnraumanpassung (§ 40 SGB XI) | Pflegekasse | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen die Ablehnung eines Zuschusses für wohnumfeldverbessernde Maßnahmen (Wohnraumanpassung) durch die Pflegekasse (§ 40 SGB XI). Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Wohnraumanpassung",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen die Ablehnung eines Zuschusses für wohnumfeldverbessernde Maßnahmen (§ 40 SGB XI).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Wohnumfeldverbessernde Maßnahmen" },
+      { "@type": "Thing", "name": "Wohnraumanpassung" },
+      { "@type": "Thing", "name": "Pflegekasse" },
+      { "@type": "Thing", "name": "§ 40 SGB XI" },
+      { "@type": "Thing", "name": "Widerspruch" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="wohnraumanpassung_widerspruch_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,37 +46,60 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch: Ablehnung Zuschuss Wohnraumanpassung</h1>
-  <p class="info-box warning">
-    Wurde Ihr Antrag auf einen Zuschuss für wohnumfeldverbessernde Maßnahmen abgelehnt? Hier können Sie Widerspruch erstellen.
-    Beachten Sie die Widerspruchsfrist! Lesen Sie auch unsere <a href="info-wohnraumanpassung.html">Informationen zur Wohnraumanpassung</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchWohnraumanpassungForm">
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf einen Zuschuss für wohnumfeldverbessernde Maßnahmen abgelehnt, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Nach § 40 SGB XI kommen Zuschüsse in Betracht, wenn die Maßnahme im Einzelfall die häusliche Pflege ermöglicht oder erheblich erleichtert oder eine möglichst selbstständige Lebensführung wiederherstellt - im Widerspruch sollte genau dieser Effekt (z.B. Sturzvermeidung, Transfers, Toilettengang, Pflegeabläufe) konkret beschrieben und belegt werden. 
+    <strong>Praxis-Hinweis:</strong> § 40 SGB XI regelt zudem eine Zuschuss-Obergrenze je Maßnahme sowie Sonderregeln, wenn mehrere Pflegebedürftige in einer gemeinsamen Wohnung leben (Gesamtbetrag je Maßnahme begrenzt und ggf. anteilige Aufteilung). 
+
+    Lesen Sie auch unsere <a href="info-wohnraumanpassung.html">Informationen zur Wohnraumanpassung</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">23.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchWohnraumanpassungForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur pflegebedürftigen Person</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse (Ort der Maßnahme):</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
-      <input type="text" id="vpNummer" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
+
       <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad:</label>
-      <select id="vpPflegegrad" required>
+      <select id="vpPflegegrad" name="vpPflegegrad" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Pflegegrad 1">Pflegegrad 1</option>
           <option value="Pflegegrad 2">Pflegegrad 2</option>
@@ -58,80 +112,99 @@
 
     <fieldset>
       <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentischWohn">Wird der Widerspruch von der pflegebedürftigen Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentischWohn">
+      <select id="widerspruchfuehrerIdentischWohn" name="widerspruchfuehrerIdentischWohn" autocomplete="off">
           <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
           <option value="nein">Nein, von einer anderen Person</option>
       </select>
+
       <div id="widerspruchfuehrerDetailsWohn" class="sub-details">
           <label for="wfNameWohn">Vor- und Nachname des/der Widerspruchsführer:in:</label>
-          <input type="text" id="wfNameWohn">
+          <input type="text" id="wfNameWohn" name="wfNameWohn" autocomplete="name">
+
           <label for="wfAdresseWohn">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdresseWohn" rows="3"></textarea>
+          <textarea id="wfAdresseWohn" name="wfAdresseWohn" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnisWohn">Verhältnis zur pflegebedürftigen Person:</label>
-          <input type="text" id="wfVerhaeltnisWohn" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
-          <label><input type="checkbox" id="wfVollmachtWohn"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnisWohn" name="wfVerhaeltnisWohn" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmachtWohn" name="wfVollmachtWohn"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
+
       <label for="pflegekasseName">Name der Pflegekasse:</label>
-      <input type="text" id="pflegekasseName" required>
+      <input type="text" id="pflegekasseName" name="pflegekasseName" required autocomplete="organization">
+
       <label for="pflegekasseAdresse">Vollständige Adresse der Pflegekasse:</label>
-      <textarea id="pflegekasseAdresse" rows="3" required></textarea>
+      <textarea id="pflegekasseAdresse" name="pflegekasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum abgelehnten Antrag auf Wohnraumanpassung</legend>
-      <label for="datumUrsprAntragWohn">Datum Ihres ursprünglichen Antrags auf Wohnraumanpassung:</label>
-      <input type="date" id="datumUrsprAntragWohn" required>
-      <label for="massnahmeAbgelehntWohn">Abgelehnte Maßnahme(n) zur Wohnraumanpassung: <small>(Kurze Beschreibung, z.B. Umbau Bad, Treppenlift)</small></label>
-      <textarea id="massnahmeAbgelehntWohn" rows="3" required placeholder="z.B. Barrierefreier Umbau des Badezimmers (bodengleiche Dusche), Installation eines Treppenlifts vom EG zum OG"></textarea>
-      <label for="datumAblehnungsbescheidWohn">Datum des Ablehnungsbescheids der Pflegekasse:</label>
-      <input type="date" id="datumAblehnungsbescheidWohn" required>
-      <label for="aktenzeichenWohn">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenWohn">
-      <label for="hauptablehnungsgrundWohn">Hauptgrund/-gründe für die Ablehnung laut Pflegekasse: <small>(Fassen Sie die Kernaussage des Ablehnungsschreibens zusammen)</small></label>
-      <textarea id="hauptablehnungsgrundWohn" rows="3" required placeholder="z.B. Maßnahme sei nicht notwendig; Kosten seien unverhältnismäßig; andere Möglichkeiten nicht ausgeschöpft."></textarea>
+
+      <label for="datumUrsprAntragWohn">Datum Ihres ursprünglichen Antrags:</label>
+      <input type="date" id="datumUrsprAntragWohn" name="datumUrsprAntragWohn" required autocomplete="off">
+
+      <label for="massnahmeAbgelehntWohn">Abgelehnte Maßnahme(n): <small>(Kurze Beschreibung, z.B. Umbau Bad, Treppenlift)</small></label>
+      <textarea id="massnahmeAbgelehntWohn" name="massnahmeAbgelehntWohn" rows="3" required placeholder="z.B. Barrierefreier Umbau Bad (bodengleiche Dusche), Treppenlift EG→OG" autocomplete="off"></textarea>
+
+      <label for="datumAblehnungsbescheidWohn">Datum des Ablehnungsbescheids:</label>
+      <input type="date" id="datumAblehnungsbescheidWohn" name="datumAblehnungsbescheidWohn" required autocomplete="off">
+
+      <label for="aktenzeichenWohn">Aktenzeichen / Geschäftszeichen (falls vorhanden):</label>
+      <input type="text" id="aktenzeichenWohn" name="aktenzeichenWohn" autocomplete="off">
+
+      <label for="hauptablehnungsgrundWohn">Hauptgrund/-gründe laut Pflegekasse: <small>(Kernaussage zusammenfassen)</small></label>
+      <textarea id="hauptablehnungsgrundWohn" name="hauptablehnungsgrundWohn" rows="3" required placeholder="z.B. nicht notwendig; unverhältnismäßig; Alternativen ausreichend; Unterlagen fehlen." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Erläutern Sie hier detailliert, warum die Ablehnung nicht gerechtfertigt ist und die Maßnahme(n) notwendig sind, um die häusliche Pflege zu ermöglichen/erleichtern oder eine selbstständigere Lebensführung zu erhalten.</p>
 
-      <label for="argumentNotwendigkeitWohn">Darlegung der (weiterhin) bestehenden Notwendigkeit der Wohnraumanpassung(en): <small>(Warum ist/sind die spezifische(n) Maßnahme(n) für die Pflegesituation oder Selbstständigkeit unerlässlich? Beziehen Sie sich auf ärztliche Empfehlungen, Pflegegutachten oder konkrete Alltagsprobleme.)</small></label>
-      <textarea id="argumentNotwendigkeitWohn" rows="5" required placeholder="z.B. Der Einbau der bodengleichen Dusche ist zwingend erforderlich, da ich aufgrund meiner eingeschränkten Mobilität (Pflegegrad X) die Badewanne nicht mehr sicher benutzen kann und eine erhebliche Sturzgefahr besteht. Dies wurde auch von meinem Hausarzt Dr. Y am TT.MM.JJJJ attestiert."></textarea>
+      <p class="info-box">
+        Erläutern Sie nachvollziehbar, warum die Maßnahme(n) notwendig sind, um häusliche Pflege zu ermöglichen/erleichtern oder Selbstständigkeit zu erhalten.
+        Hilfreich ist oft: (1) konkretes Problem im Alltag, (2) konkrete Gefahr/Belastung (z.B. Sturz, Transfers), (3) warum gerade diese Maßnahme es löst, (4) warum Alternativen nicht reichen, (5) Belege/Atteste/Fotos. 
+      </p>
 
-      <label for="argumentKeineAlternativenWohn">Warum sind andere, ggf. kostengünstigere Lösungen nicht ausreichend oder ungeeignet? <small>(Falls die Kasse Alternativen vorschlägt oder die Notwendigkeit der gewählten Maßnahme anzweifelt.)</small></label>
-      <textarea id="argumentKeineAlternativenWohn" rows="4" placeholder="z.B. Ein Duschhocker allein löst das Problem des gefährlichen Ein- und Ausstiegs aus der Wanne nicht. / Kleinere Hilfsmittel wurden bereits ohne Erfolg erprobt."></textarea>
-      
-      <label for="argumentVerhaeltnismaessigkeitKostenWohn">Argumente zur Verhältnismäßigkeit der Kosten (falls die Kosten als zu hoch abgelehnt wurden): <small>(Stellen Sie den Nutzen der Maßnahme den Kosten gegenüber. Vergleichen Sie ggf. mit den Kosten alternativer Versorgungsformen wie Heimunterbringung.)</small></label>
-      <textarea id="argumentVerhaeltnismaessigkeitKostenWohn" rows="4" placeholder="z.B. Die Kosten für den Umbau ermöglichen es mir, weiterhin zu Hause versorgt zu werden, was langfristig kostengünstiger ist als eine stationäre Unterbringung. / Die Maßnahme steigert meine Selbstständigkeit erheblich und reduziert den Bedarf an personeller Unterstützung."></textarea>
+      <label for="argumentNotwendigkeitWohn">Notwendigkeit der Wohnraumanpassung(en):</label>
+      <textarea id="argumentNotwendigkeitWohn" name="argumentNotwendigkeitWohn" rows="5" required placeholder="z.B. Sturzgefahr/Transfers/Toilettengang; ärztliche Empfehlung; Pflegegutachten; konkrete Situationen." autocomplete="off"></textarea>
 
-      <label for="ergaenzendeArgumenteWohn">Weitere/ergänzende Argumente und Erläuterungen zu den Ablehnungsgründen der Pflegekasse:</label>
-      <textarea id="ergaenzendeArgumenteWohn" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere wichtige Aspekte anführen."></textarea>
+      <label for="argumentKeineAlternativenWohn">Warum sind Alternativen nicht ausreichend?</label>
+      <textarea id="argumentKeineAlternativenWohn" name="argumentKeineAlternativenWohn" rows="4" placeholder="z.B. Hilfsmittel reichen nicht; nur Umbau schafft sichere Nutzung; Test bereits erfolglos." autocomplete="off"></textarea>
+
+      <label for="argumentVerhaeltnismaessigkeitKostenWohn">Verhältnismäßigkeit der Kosten (optional):</label>
+      <textarea id="argumentVerhaeltnismaessigkeitKostenWohn" name="argumentVerhaeltnismaessigkeitKostenWohn" rows="4" placeholder="z.B. Sicherung der häuslichen Versorgung; Entlastung; Vermeidung höherer Folgekosten." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeArgumenteWohn">Weitere/ergänzende Argumente:</label>
+      <textarea id="ergaenzendeArgumenteWohn" name="ergaenzendeArgumenteWohn" rows="6" placeholder="Hier können Sie auf einzelne Punkte des Ablehnungsschreibens eingehen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchWohn">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchWohn" rows="3" required placeholder="z.B. Ich beantrage die Aufhebung des Bescheides und die Genehmigung des Zuschusses für [Maßnahme]. / Ich beantrage die Übernahme der Kosten bis zur Höhe von 4.000 Euro."></textarea>
+        <textarea id="forderungWiderspruchWohn" name="forderungWiderspruchWohn" rows="3" required placeholder="z.B. Aufhebung des Bescheids und Bewilligung des Zuschusses für ... / Kostenübernahme bis zur gesetzlichen Höhe." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
-        <legend>7. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <legend>7. Beizufügende Anlagen (optional)</legend>
+
         <div class="checkbox-group">
-            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Kopie des angefochtenen Ablehnungsbescheids"> Kopie des angefochtenen Ablehnungsbescheids</label>
-            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Kopie des ursprünglichen Antrags und der Kostenvoranschläge"> Kopie des ursprünglichen Antrags und der Kostenvoranschläge</label>
-            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Neue(s) bzw. ergänzende(s) ärztliche(s) Attest(e) / Stellungnahme(n)"> Neue(s) bzw. ergänzende(s) ärztliche(s) Attest(e) / Stellungnahme(n)</label>
-            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Ggf. Stellungnahme von Ergotherapeuten, Pflegedienst oder Pflegeberatung"> Ggf. Stellungnahme von Ergotherapeuten, Pflegedienst oder Pflegeberatung</label>
-            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Aktuelle Fotos der Wohnsituation / des Problems"> Aktuelle Fotos der Wohnsituation / des Problems</label>
-            <label><input type="checkbox" id="anlageVollmachtWohnWiderspruch" name="anlagenWohnWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
-            <label><input type="checkbox" id="anlageZustimmungVermieterWiderspruch" name="anlagenWohnWiderspruch" value="Erneute/Bestätigte Zustimmung des Vermieters (falls dies ein Ablehnungsgrund war)"> Erneute/Bestätigte Zustimmung des Vermieters (falls relevant)</label>
+            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Kopie des angefochtenen Ablehnungsbescheids"> Kopie des Ablehnungsbescheids</label>
+            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Kopie des ursprünglichen Antrags und der Kostenvoranschläge"> Antrag & Kostenvoranschläge</label>
+            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Neue(s) bzw. ergänzende(s) ärztliche(s) Attest(e) / Stellungnahme(n)"> Ärztliche Atteste/Stellungnahmen</label>
+            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Ggf. Stellungnahme von Ergotherapeuten, Pflegedienst oder Pflegeberatung"> Stellungnahme Ergo/Pflegedienst/Pflegeberatung</label>
+            <label><input type="checkbox" name="anlagenWohnWiderspruch" value="Aktuelle Fotos der Wohnsituation / des Problems"> Fotos der Wohnsituation</label>
+            <label><input type="checkbox" id="anlageVollmachtWohnWiderspruch" name="anlagenWohnWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde</label>
+            <label><input type="checkbox" id="anlageZustimmungVermieterWiderspruch" name="anlagenWohnWiderspruch" value="Erneute/Bestätigte Zustimmung des Vermieters (falls dies ein Ablehnungsgrund war)"> Zustimmung Vermieter (falls relevant)</label>
         </div>
+
         <label for="anlageSonstigesWohnWiderspruch">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesWohnWiderspruch">
+        <input type="text" id="anlageSonstigesWohnWiderspruch" name="anlageSonstigesWohnWiderspruch" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -140,7 +213,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchWohn" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchWohn" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

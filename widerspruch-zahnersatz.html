@@ -2,11 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Zahnersatz-Festzuschuss</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen Bescheid Ihrer Krankenkasse bezüglich des Festzuschusses für Zahnersatz oder der Härtefallregelung.">
-  <meta name="keywords" content="Widerspruch, Zahnersatz, Festzuschuss, HKP, Krankenkasse, Härtefall, Ablehnung">
+  <title>Widerspruch Zahnersatz-Festzuschuss (HKP) | Härtefall | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen Bescheide der Krankenkasse zum Heil- und Kostenplan (HKP) für Zahnersatz: Festzuschuss, Bonusheft, Härtefall. Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Zahnersatz-Festzuschuss",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen einen Bescheid der Krankenkasse zum Festzuschuss/Härtefall beim Zahnersatz (HKP).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Zahnersatz" },
+      { "@type": "Thing", "name": "Festzuschuss" },
+      { "@type": "Thing", "name": "Bonusheft" },
+      { "@type": "Thing", "name": "Härtefallregelung" },
+      { "@type": "Thing", "name": "Heil- und Kostenplan (HKP)" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="widerspruch-zahnersatz_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,110 +46,150 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch zum Bescheid für Zahnersatz</h1>
-  <p class="info-box warning">
-    Sind Sie mit der Entscheidung Ihrer Krankenkasse zu Ihrem Heil- und Kostenplan (HKP) für Zahnersatz nicht einverstanden (z.B. Höhe des Festzuschusses, Ablehnung Härtefall)? Nutzen Sie dieses Formular für Ihren Widerspruch.
-    Beachten Sie die Widerspruchsfrist! Lesen Sie auch unsere <a href="info-zahnersatz.html">Informationen zum Zahnersatz</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchZahnersatzForm">
+  <p class="info-box warning">
+    Sind Sie mit der Entscheidung Ihrer Krankenkasse zu Ihrem Heil- und Kostenplan (HKP) nicht einverstanden (z.B. Höhe des Festzuschusses, Bonus, Härtefall), kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Der befundbezogene Festzuschuss orientiert sich an der Regelversorgung und beträgt grundsätzlich 60% des festgesetzten Betrags; mit Bonusheft kann er auf 70% (5 Jahre) bzw. 75% (10 Jahre) steigen, wenn die Voraussetzungen erfüllt sind. 
+    <strong>Praxis-Hinweis:</strong> Bei unzumutbarer Belastung (Härtefall/gleitende Härtefallregelung) sind nach § 55 SGB V zusätzliche Beträge möglich; die Erstattung ist insgesamt auf die tatsächlich entstandenen Kosten begrenzt. 
+
+    Lesen Sie auch unsere <a href="info-zahnersatz.html">Informationen zum Zahnersatz</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. b. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchZahnersatzForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur versicherten Person</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer:</label>
-      <input type="text" id="vpNummer" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentischZE">Wird der Widerspruch von der versicherten Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentischZE">
+      <select id="widerspruchfuehrerIdentischZE" name="widerspruchfuehrerIdentischZE" autocomplete="off">
           <option value="ja" selected>Ja, von der versicherten Person selbst</option>
           <option value="nein">Nein, von einer anderen Person</option>
       </select>
+
       <div id="widerspruchfuehrerDetailsZE" class="sub-details">
           <label for="wfNameZE">Vor- und Nachname des/der Widerspruchsführer:in:</label>
-          <input type="text" id="wfNameZE">
+          <input type="text" id="wfNameZE" name="wfNameZE" autocomplete="name">
+
           <label for="wfAdresseZE">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdresseZE" rows="3"></textarea>
+          <textarea id="wfAdresseZE" name="wfAdresseZE" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnisZE">Verhältnis zur versicherten Person:</label>
-          <input type="text" id="wfVerhaeltnisZE" placeholder="z.B. Tochter, Ehemann">
-          <label><input type="checkbox" id="wfVollmachtZE"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnisZE" name="wfVerhaeltnisZE" placeholder="z.B. Tochter, Ehemann" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmachtZE" name="wfVollmachtZE"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Krankenkasse</legend>
+
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum angefochtenen Bescheid (Zahnersatz)</legend>
-      <label for="datumHkpEinreichung">Datum der ursprünglichen Einreichung des Heil- und Kostenplans (HKP) (falls bekannt):</label>
-      <input type="date" id="datumHkpEinreichung">
-      <label for="datumBescheidZahnersatz">Datum des Bescheids der Krankenkasse zum Zahnersatz:</label>
-      <input type="date" id="datumBescheidZahnersatz" required>
-      <label for="aktenzeichenZahnersatz">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenZahnersatz">
-      <label for="gegenstandBescheidZahnersatz">Gegenstand des Bescheids / Wogegen richtet sich der Widerspruch konkret? <small>(z.B. Höhe des Festzuschusses, Ablehnung Härtefallantrag, Nichtanerkennung Bonus)</small></label>
-      <textarea id="gegenstandBescheidZahnersatz" rows="3" required placeholder="z.B. Die Höhe des bewilligten Festzuschusses ist nicht korrekt. / Mein Antrag auf Härtefallregelung wurde abgelehnt."></textarea>
+
+      <label for="datumHkpEinreichung">Datum der Einreichung des HKP (falls bekannt):</label>
+      <input type="date" id="datumHkpEinreichung" name="datumHkpEinreichung" autocomplete="off">
+
+      <label for="datumBescheidZahnersatz">Datum des Bescheids der Krankenkasse:</label>
+      <input type="date" id="datumBescheidZahnersatz" name="datumBescheidZahnersatz" required autocomplete="off">
+
+      <label for="aktenzeichenZahnersatz">Aktenzeichen / Geschäftszeichen (falls vorhanden):</label>
+      <input type="text" id="aktenzeichenZahnersatz" name="aktenzeichenZahnersatz" autocomplete="off">
+
+      <label for="gegenstandBescheidZahnersatz">Wogegen richtet sich der Widerspruch konkret?</label>
+      <textarea id="gegenstandBescheidZahnersatz" name="gegenstandBescheidZahnersatz" rows="3" required placeholder="z.B. Festzuschuss zu niedrig; Bonus nicht berücksichtigt; Härtefall abgelehnt." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Erläutern Sie hier detailliert Ihre Gründe. Beziehen Sie sich auf Ihren Heil- und Kostenplan, Ihr Bonusheft, ggf. Einkommensnachweise oder spezifische medizinische Notwendigkeiten.</p>
 
-      <label for="argumentFestzuschussHoehe">Begründung, warum der Festzuschuss Ihrer Meinung nach zu niedrig ist oder falsch berechnet wurde: <small>(z.B. falsche Befundnummer angesetzt, Bonusheft nicht korrekt berücksichtigt, Rechenfehler)</small></label>
-      <textarea id="argumentFestzuschussHoehe" rows="4" placeholder="Beispiel: Mein Bonusheft weist eine lückenlose Vorsorge über 10 Jahre nach, es wurde jedoch nur der Zuschuss für 5 Jahre gewährt."></textarea>
+      <p class="info-box">
+        Begründen Sie nachvollziehbar, warum der Bescheid aus Ihrer Sicht nicht korrekt ist (z.B. Bonusheft, Befundnummer/Regelversorgung, Härtefall-/Einkommensnachweise, medizinische Gründe).
+        Häufig hilfreich: konkret benennen, welcher Befund im HKP vorliegt, welcher Bonusstatus nachgewiesen ist und welche Unterlagen der Kasse ggf. fehlen bzw. falsch bewertet wurden. 
+      </p>
 
-      <label for="argumentHaertefall">Begründung, warum die Härtefallregelung angewendet werden sollte (falls zutreffend): <small>(Beziehen Sie sich auf Ihre Einkommenssituation und die beigefügten Nachweise. Erklären Sie, warum die Belastung unzumutbar ist.)</small></label>
-      <textarea id="argumentHaertefall" rows="4" placeholder="Beispiel: Meine monatlichen Einkünfte liegen unter der aktuellen Grenze für die Härtefallregelung. Die entsprechenden Nachweise sind beigefügt."></textarea>
-      
-      <label for="argumentMedizinischeNotwendigkeitSpezifischeVersorgung">Begründung für die medizinische Notwendigkeit einer bestimmten (ggf. von der Regelversorgung abweichenden) Versorgung, falls dies die Zuschusshöhe beeinflusst oder strittig ist:</label>
-      <textarea id="argumentMedizinischeNotwendigkeitSpezifischeVersorgung" rows="4" placeholder="Beispiel: Aufgrund meiner nachgewiesenen Metallallergie ist die Regelversorgung mit einer Nichtedelmetallkrone medizinisch nicht vertretbar."></textarea>
+      <label for="argumentFestzuschussHoehe">Warum ist der Festzuschuss zu niedrig/falsch berechnet?</label>
+      <textarea id="argumentFestzuschussHoehe" name="argumentFestzuschussHoehe" rows="4" placeholder="z.B. falsche Befundzuordnung; Bonusheft (5/10 Jahre) nicht berücksichtigt; Rechenfehler." autocomplete="off"></textarea>
 
-      <label for="ergaenzendeArgumenteZahnersatz">Weitere/ergänzende Argumente und Erläuterungen zu den Ablehnungsgründen der Krankenkasse:</label>
-      <textarea id="ergaenzendeArgumenteZahnersatz" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Bescheids eingehen oder weitere Aspekte anführen."></textarea>
+      <label for="argumentHaertefall">Warum sollte die Härtefallregelung angewendet werden? (falls zutreffend)</label>
+      <textarea id="argumentHaertefall" name="argumentHaertefall" rows="4" placeholder="z.B. Einkommen unter Grenze; Leistungsbezug (Bürgergeld/Sozialhilfe etc.); Nachweise beigefügt." autocomplete="off"></textarea>
+
+      <label for="argumentMedizinischeNotwendigkeitSpezifischeVersorgung">Medizinische Gründe für eine bestimmte Versorgung (optional):</label>
+      <textarea id="argumentMedizinischeNotwendigkeitSpezifischeVersorgung" name="argumentMedizinischeNotwendigkeitSpezifischeVersorgung" rows="4" placeholder="z.B. Allergie/Unverträglichkeit; funktionelle Gründe; zahnärztliche Stellungnahme." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeArgumenteZahnersatz">Weitere/ergänzende Argumente:</label>
+      <textarea id="ergaenzendeArgumenteZahnersatz" name="ergaenzendeArgumenteZahnersatz" rows="6" placeholder="Hier können Sie auf einzelne Punkte des Bescheids eingehen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchZahnersatz">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchZahnersatz" rows="3" required placeholder="z.B. Ich beantrage die Neuberechnung und Gewährung des korrekten Festzuschusses. / Ich beantrage die Anerkennung als Härtefall und Übernahme der Kosten für die Regelversorgung."></textarea>
+        <textarea id="forderungWiderspruchZahnersatz" name="forderungWiderspruchZahnersatz" rows="3" required placeholder="z.B. Neuberechnung des Festzuschusses; Anerkennung Bonus; Anerkennung Härtefall und Kostenübernahme im Rahmen der Regelversorgung." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
-        <legend>7. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <legend>7. Beizufügende Anlagen (optional)</legend>
+
         <div class="checkbox-group">
-            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Kopie des angefochtenen Bescheids der Krankenkasse"> Kopie des angefochtenen Bescheids der Krankenkasse</label>
-            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Kopie des Heil- und Kostenplans (HKP)"> Kopie des Heil- und Kostenplans (HKP)</label>
-            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Kopie des Bonushefts"> Kopie des Bonushefts</label>
-            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Einkommensnachweise (bei Antrag auf Härtefallregelung)"> Einkommensnachweise (bei Antrag auf Härtefallregelung)</label>
-            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Ggf. (neue) zahnärztliche Stellungnahme / Attest"> Ggf. (neue) zahnärztliche Stellungnahme / Attest</label>
+            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Kopie des angefochtenen Bescheids der Krankenkasse"> Kopie des Bescheids</label>
+            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Kopie des Heil- und Kostenplans (HKP)"> Kopie des HKP</label>
+            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Kopie des Bonushefts"> Kopie Bonusheft</label>
+            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Einkommensnachweise (bei Antrag auf Härtefallregelung)"> Einkommensnachweise (Härtefall)</label>
+            <label><input type="checkbox" name="anlagenZahnersatzWiderspruch" value="Ggf. (neue) zahnärztliche Stellungnahme / Attest"> Zahnärztliche Stellungnahme (falls vorhanden)</label>
             <label><input type="checkbox" id="anlageVollmachtZEWiderspruch" name="anlagenZahnersatzWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesZahnersatzWiderspruch">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesZahnersatzWiderspruch">
+        <input type="text" id="anlageSonstigesZahnersatzWiderspruch" name="anlageSonstigesZahnersatzWiderspruch" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -127,7 +198,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchZE" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchZE" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
@@ -147,7 +220,7 @@
   <p>Brauchen Sie mehr Unterstützung bei Anträgen, Behördenbriefen oder komplexen Schreiben?</p>
   <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
   </div>
-    <p>&copy; 2025 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="info-zahnersatz.html">Infos Zahnersatz</a> | <a href="impressum.html">Impressum</a></p>
+    <p>&copy; 2025 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="info-zahnersatz.html">Infos Zahnersatz</a> | <a href="datenschutz.html">Über uns</a> | <a href="impressum.html">Impressum</a></p>
 </footer>
 
 </body>

@@ -2,134 +2,200 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Generator für Betreuungsverfügung</title>
-  <meta name="description" content="Erstellen Sie eine individuelle Betreuungsverfügung, um Wünsche für eine eventuell notwendige gerichtliche Betreuung festzulegen.">
-  <meta name="keywords" content="Betreuungsverfügung, Generator, Vorsorge, Betreuung, Gericht, rechtliche Betreuung">
+  <title>Betreuungsverfügung erstellen | Wünsche ans Betreuungsgericht | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie eine Betreuungsverfügung: Legen Sie fest, wer im Fall einer gerichtlichen Betreuung als Betreuer bestellt werden soll (oder nicht) und welche Wünsche gelten. Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="betreuungsverfuegung_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Generator für Betreuungsverfügung",
+    "description": "Generator für eine Betreuungsverfügung zur Berücksichtigung Ihrer Wünsche im Betreuungsverfahren.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Betreuungsverfügung" },
+      { "@type": "Thing", "name": "Betreuungsgericht" },
+      { "@type": "Thing", "name": "Rechtliche Betreuung" },
+      { "@type": "Thing", "name": "BGB § 1814" },
+      { "@type": "Thing", "name": "BGB § 1816" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
 </head>
 <body>
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Betreuungsverfügung erstellen</h1>
+
   <p class="info-box">
-    Mit einer Betreuungsverfügung können Sie Wünsche äußern, wer vom Betreuungsgericht als Ihr rechtlicher Betreuer bestellt werden soll, falls dies einmal notwendig wird und Sie keine (umfassende) Vorsorgevollmacht haben. Sie können auch festlegen, wer nicht Betreuer werden soll.
+    Mit einer Betreuungsverfügung können Sie Wünsche äußern, wer vom Betreuungsgericht als rechtliche Betreuerin bzw. rechtlicher Betreuer bestellt werden soll, falls dies notwendig wird.
+    <strong>Praxis-Hinweis:</strong> Nach § 1814 BGB darf ein Betreuer nur bestellt werden, wenn dies erforderlich ist; außerdem darf gegen den freien Willen des Volljährigen kein Betreuer bestellt werden. 
+    <strong>Praxis-Hinweis:</strong> Nach § 1816 BGB soll das Betreuungsgericht dem Wunsch nach einer bestimmten Person grundsätzlich entsprechen, sofern diese geeignet ist; wer von einem Betreuungsverfahren erfährt und eine Betreuungsverfügung besitzt, muss sie dem Betreuungsgericht übermitteln.
     Weitere Informationen finden Sie auf unserer <a href="info-vollmachten.html">Info-Seite zu Vollmachten & Verfügungen</a>.
   </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="betreuungsverfuegungForm">
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand/Verwahren von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="betreuungsverfuegungForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur Person, die die Verfügung erstellt</legend>
+
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" name="personName" required autocomplete="name">
+
       <label for="personGeburtsdatum">Geburtsdatum:</label>
-      <input type="date" id="personGeburtsdatum" required>
+      <input type="date" id="personGeburtsdatum" name="personGeburtsdatum" required autocomplete="bday">
+
       <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="personAdresse" rows="3" required></textarea>
+      <textarea id="personAdresse" name="personAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="personTelefon">Telefon (optional):</label>
-      <input type="text" id="personTelefon">
+      <input type="text" id="personTelefon" name="personTelefon" autocomplete="tel">
     </fieldset>
 
     <fieldset>
       <legend>2. Vorgeschlagene Betreuerperson(en)</legend>
       <p class="info-box">Benennen Sie hier die Person(en), die Sie sich als Betreuer wünschen. Sie können auch eine Reihenfolge festlegen.</p>
-      
+
       <div id="wunschbetreuer1">
         <h3 style="font-size:1.1em; margin-top:0;">Gewünschte Betreuerperson 1:</h3>
+
         <label for="wb1Name">Vor- und Nachname:</label>
-        <input type="text" id="wb1Name" required>
+        <input type="text" id="wb1Name" name="wb1Name" required autocomplete="name">
+
         <label for="wb1Geburtsdatum">Geburtsdatum:</label>
-        <input type="date" id="wb1Geburtsdatum">
+        <input type="date" id="wb1Geburtsdatum" name="wb1Geburtsdatum" autocomplete="bday">
+
         <label for="wb1Adresse">Anschrift:</label>
-        <textarea id="wb1Adresse" rows="3"></textarea>
+        <textarea id="wb1Adresse" name="wb1Adresse" rows="3" autocomplete="street-address"></textarea>
+
         <label for="wb1Telefon">Telefon (optional):</label>
-        <input type="text" id="wb1Telefon">
+        <input type="text" id="wb1Telefon" name="wb1Telefon" autocomplete="tel">
+
         <label for="wb1Verhaeltnis">Verhältnis zu Ihnen (optional):</label>
-        <input type="text" id="wb1Verhaeltnis" placeholder="z.B. Ehepartner, Kind, Freund">
+        <input type="text" id="wb1Verhaeltnis" name="wb1Verhaeltnis" placeholder="z.B. Ehepartner, Kind, Freund" autocomplete="off">
       </div>
 
       <div id="wunschbetreuer2Wrapper" class="sub-details" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
         <h3 style="font-size:1.1em; margin-top:0;">Gewünschte Betreuerperson 2 (optional, ggf. als Ersatz):</h3>
+
         <label for="wb2Name">Vor- und Nachname:</label>
-        <input type="text" id="wb2Name">
+        <input type="text" id="wb2Name" name="wb2Name" autocomplete="name">
+
         <label for="wb2Geburtsdatum">Geburtsdatum:</label>
-        <input type="date" id="wb2Geburtsdatum">
+        <input type="date" id="wb2Geburtsdatum" name="wb2Geburtsdatum" autocomplete="bday">
+
         <label for="wb2Adresse">Anschrift:</label>
-        <textarea id="wb2Adresse" rows="3"></textarea>
+        <textarea id="wb2Adresse" name="wb2Adresse" rows="3" autocomplete="street-address"></textarea>
+
         <label for="wb2Telefon">Telefon (optional):</label>
-        <input type="text" id="wb2Telefon">
+        <input type="text" id="wb2Telefon" name="wb2Telefon" autocomplete="tel">
+
         <label for="wb2Verhaeltnis">Verhältnis zu Ihnen (optional):</label>
-        <input type="text" id="wb2Verhaeltnis">
+        <input type="text" id="wb2Verhaeltnis" name="wb2Verhaeltnis" autocomplete="off">
       </div>
+
       <button type="button" id="addWunschbetreuerBtn" style="margin-top:1rem; background-color: #5cb85c; color:white;">Weitere gewünschte Betreuerperson hinzufügen</button>
       <button type="button" id="removeWunschbetreuerBtn" class="button-secondary" style="display:none; margin-top:1rem;">Zweite gewünschte Betreuerperson entfernen</button>
     </fieldset>
 
     <fieldset>
       <legend>3. Abgelehnte Betreuerperson(en) (optional)</legend>
-      <label for="abgelehnteBetreuer">Person(en), die auf keinen Fall als Betreuer bestellt werden sollen: <small>(Name, ggf. kurze Begründung, warum diese Person nicht geeignet ist)</small></label>
-      <textarea id="abgelehnteBetreuer" rows="3" placeholder="z.B. Max Mustermann, weil ..."></textarea>
+
+      <label for="abgelehnteBetreuer">Person(en), die auf keinen Fall als Betreuer bestellt werden sollen: <small>(Name, ggf. kurze Begründung)</small></label>
+      <textarea id="abgelehnteBetreuer" name="abgelehnteBetreuer" rows="3" placeholder="z.B. Max Mustermann, weil ..." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Wünsche zur Durchführung der Betreuung</legend>
-      <label for="wuenscheLebensgestaltung">Wünsche zur Lebensgestaltung: <small>(z.B. Wo möchten Sie wohnen? Welche Gewohnheiten sind Ihnen wichtig?)</small></label>
-      <textarea id="wuenscheLebensgestaltung" rows="4" placeholder="z.B. Ich möchte so lange wie möglich in meiner eigenen Wohnung bleiben. / Mir ist mein wöchentlicher Kirchenbesuch wichtig."></textarea>
-      
-      <label for="wuenscheVermoegenssorge">Wünsche zur Vermögenssorge: <small>(z.B. Bestimmte Geldanlagen sollen erhalten bleiben, Schenkungen an bestimmte Personen)</small></label>
-      <textarea id="wuenscheVermoegenssorge" rows="3" placeholder="z.B. Mein Sparbuch bei der Musterbank soll nicht aufgelöst werden. / Meine Enkel sollen weiterhin ihr monatliches Taschengeld erhalten."></textarea>
 
-      <label for="wuenscheGesundheitssorge">Wünsche zur Gesundheitssorge: <small>(Ergänzend zu einer Patientenverfügung oder falls keine vorhanden ist. Betrifft nicht Entscheidungen über Leben und Tod, sondern z.B. Präferenzen für Ärzte, Therapien)</small></label>
-      <textarea id="wuenscheGesundheitssorge" rows="3" placeholder="z.B. Ich möchte weiterhin von Dr. Hausmann behandelt werden. / Ich lehne alternative Heilmethoden ab."></textarea>
-      
-      <label for="wuenscheAufgabenkreise">Sollen bestimmte Aufgabenkreise für den Betreuer besonders hervorgehoben oder ausgeschlossen werden?</label>
-      <textarea id="wuenscheAufgabenkreise" rows="3" placeholder="z.B. Die Betreuung soll sich insbesondere auf die Gesundheitssorge konzentrieren. / Die Vermögenssorge soll nur eingeschränkt erfolgen."></textarea>
+      <label for="wuenscheLebensgestaltung">Wünsche zur Lebensgestaltung:</label>
+      <textarea id="wuenscheLebensgestaltung" name="wuenscheLebensgestaltung" rows="4" placeholder="z.B. So lange wie möglich zu Hause wohnen; bestimmte Gewohnheiten." autocomplete="off"></textarea>
+
+      <label for="wuenscheVermoegenssorge">Wünsche zur Vermögenssorge:</label>
+      <textarea id="wuenscheVermoegenssorge" name="wuenscheVermoegenssorge" rows="3" placeholder="z.B. Bestimmte Anlagen erhalten; regelmäßige Zuwendungen." autocomplete="off"></textarea>
+
+      <label for="wuenscheGesundheitssorge">Wünsche zur Gesundheitssorge:</label>
+      <textarea id="wuenscheGesundheitssorge" name="wuenscheGesundheitssorge" rows="3" placeholder="z.B. bevorzugte Ärzte; Behandlungspräferenzen." autocomplete="off"></textarea>
+
+      <label for="wuenscheAufgabenkreise">Aufgabenkreise hervorheben oder ausschließen?</label>
+      <textarea id="wuenscheAufgabenkreise" name="wuenscheAufgabenkreise" rows="3" placeholder="z.B. Schwerpunkt Gesundheitssorge; Vermögenssorge nur eingeschränkt." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Ergänzung zu Vorsorgevollmacht / Patientenverfügung (falls vorhanden)</legend>
+
       <label for="infoVorsorgevollmacht">Haben Sie bereits eine Vorsorgevollmacht erstellt?</label>
-      <select id="infoVorsorgevollmacht">
+      <select id="infoVorsorgevollmacht" name="infoVorsorgevollmacht" autocomplete="off">
         <option value="nein" selected>Nein</option>
         <option value="ja_umfassend">Ja, eine umfassende</option>
         <option value="ja_teilweise">Ja, aber nur für bestimmte Bereiche</option>
       </select>
+
       <div id="detailsVorsorgevollmacht" class="sub-details">
         <label for="infoVollmachtWo">Wo wird die Vorsorgevollmacht aufbewahrt / Wer weiß davon?</label>
-        <input type="text" id="infoVollmachtWo" placeholder="z.B. Bei meinem Sohn Max, im Zentralen Vorsorgeregister">
+        <input type="text" id="infoVollmachtWo" name="infoVollmachtWo" placeholder="z.B. Bei meinem Sohn Max, im Zentralen Vorsorgeregister" autocomplete="off">
       </div>
 
       <label for="infoPatientenverfuegung">Haben Sie bereits eine Patientenverfügung erstellt?</label>
-      <select id="infoPatientenverfuegung">
+      <select id="infoPatientenverfuegung" name="infoPatientenverfuegung" autocomplete="off">
         <option value="nein" selected>Nein</option>
         <option value="ja">Ja</option>
       </select>
-       <div id="detailsPatientenverfuegung" class="sub-details">
+
+      <div id="detailsPatientenverfuegung" class="sub-details">
         <label for="infoPatientenverfuegungWo">Wo wird die Patientenverfügung aufbewahrt / Wer weiß davon?</label>
-        <input type="text" id="infoPatientenverfuegungWo" placeholder="z.B. Bei meinem Hausarzt, Kopie bei meiner Tochter">
+        <input type="text" id="infoPatientenverfuegungWo" name="infoPatientenverfuegungWo" placeholder="z.B. Bei meinem Hausarzt, Kopie bei meiner Tochter" autocomplete="off">
       </div>
-      <p class="info-box"><small>Hinweis: Eine Vorsorgevollmacht geht einer gesetzlichen Betreuung in den von ihr umfassten Bereichen vor. Diese Betreuungsverfügung greift also vorrangig dann, wenn keine oder keine ausreichende Vorsorgevollmacht besteht.</small></p>
+
+      <p class="info-box"><small>Hinweis: Eine Vorsorgevollmacht geht einer gerichtlichen Betreuung in den von ihr umfassten Bereichen grundsätzlich vor; eine Betreuung ist insbesondere nicht erforderlich, wenn Angelegenheiten durch Bevollmächtigte oder andere Hilfen erledigt werden können (§ 1814 Abs. 3 BGB).</small></p>
     </fieldset>
 
     <fieldset>
         <legend>6. Schlussbemerkungen</legend>
-        <label><input type="checkbox" id="eigenhaendigUnterschreibenBV" required> Ich werde dieses Dokument nach dem Ausdrucken eigenhändig unterschreiben und mit Ort und Datum versehen.</label>
+        <label><input type="checkbox" id="eigenhaendigUnterschreibenBV" name="eigenhaendigUnterschreibenBV" required> Ich werde dieses Dokument nach dem Ausdrucken eigenhändig unterschreiben und mit Ort und Datum versehen.</label>
     </fieldset>
 
     <div class="button-group">

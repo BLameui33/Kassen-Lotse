@@ -2,11 +2,40 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Begleitschreiben zum Kurantrag erstellen</title>
-  <meta name="description" content="Erstellen Sie ein persönliches Begleitschreiben für Ihren Kurantrag bei der Krankenkasse.">
-  <meta name="keywords" content="Begleitschreiben, Kur, Reha, Antrag, Krankenkasse, Vorlage">
+  <title>Begleitschreiben zum Kurantrag (Krankenkasse) | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Begleitschreibens für einen Kurantrag bei der Krankenkasse (Vorsorge/Reha). Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Begleitschreiben zum Kurantrag erstellen",
+    "description": "Formular zur Erstellung eines Begleitschreibens für einen Kurantrag bei der Krankenkasse (Vorsorge/Reha).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Medizinische Vorsorgeleistungen (§ 23 SGB V)" },
+      { "@type": "Thing", "name": "Leistungen zur medizinischen Rehabilitation (§ 40 SGB V)" },
+      { "@type": "Thing", "name": "Mutter-/Vater-Kind-Maßnahmen" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="kur-begleitschreiben_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,82 +44,112 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Begleitschreiben zum Kurantrag erstellen</h1>
+
   <p class="info-box">
-    Nutzen Sie dieses Formular, um ein persönliches Begleitschreiben für Ihren offiziellen Kurantrag bei der Krankenkasse zu erstellen. Es hilft Ihnen, Ihre Situation darzulegen und die beigefügten Unterlagen zu strukturieren.
+    Dieses Formular unterstützt Sie dabei, ein Begleitschreiben zu Ihrem Kurantrag bei der Krankenkasse zu erstellen.
+    Es hilft beim strukturierten Darlegen Ihrer Situation (aus Ihrer Sicht) und beim Auflisten der beigefügten Unterlagen; die medizinische Begründung ergibt sich in der Regel aus dem ärztlichen Attest bzw. den Unterlagen.
     Weitere Informationen finden Sie auf unserer <a href="info-kur.html">Info-Seite zum Thema Kur</a>.
   </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Das erzeugte Begleitschreiben ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Einreichen von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten kann eine anerkannte Beratungsstelle oder anwaltliche Unterstützung sinnvoll sein.
+  </p>
+
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+<div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+  <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">23.12.2025</span></p>
 </div>
 
-  <form id="kurBegleitschreibenForm">
+  <form id="kurBegleitschreibenForm" autocomplete="on">
     <fieldset>
       <legend>1. Ihre Persönlichen Angaben</legend>
+
       <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" name="name" required autocomplete="name">
+
       <label for="adresse">Ihre vollständige Adresse:</label>
-      <textarea id="adresse" rows="3" required></textarea>
+      <textarea id="adresse" name="adresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="geburt">Geburtsdatum:</label>
-      <input type="date" id="geburt" required>
+      <input type="date" id="geburt" name="geburt" required autocomplete="bday">
+
       <label for="nummer">Versichertennummer:</label>
-      <input type="text" id="nummer" required>
+      <input type="text" id="nummer" name="nummer" required autocomplete="off" inputmode="text">
+
       <label for="telefon">Telefonnummer (für Rückfragen, optional):</label>
-      <input type="text" id="telefon">
+      <input type="text" id="telefon" name="telefon" autocomplete="tel" inputmode="tel">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
+
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur beantragten Kurmaßnahme</legend>
+
       <label for="kurArt">Art der beantragten Kurmaßnahme:</label>
-      <select id="kurArt" required>
+      <select id="kurArt" name="kurArt" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Medizinische Vorsorgeleistung (§ 23 SGB V)">Medizinische Vorsorgeleistung (§ 23 SGB V)</option>
           <option value="Medizinische Rehabilitationsleistung (§ 40 SGB V)">Medizinische Rehabilitationsleistung (§ 40 SGB V)</option>
           <option value="Mutter-Kind-Kur (bzw. Vater-Kind-Kur, §§ 24, 41 SGB V)">Mutter-Kind-Kur (bzw. Vater-Kind-Kur, §§ 24, 41 SGB V)</option>
           <option value="Sonstige Kurmaßnahme">Sonstige Kurmaßnahme</option>
       </select>
+
       <label for="kurZielortKlinik">Name und ggf. Ort der gewünschten/vorgeschlagenen Kureinrichtung (falls bekannt):</label>
-      <input type="text" id="kurZielortKlinik" placeholder="z.B. Rehaklinik Musterstadt, Kurhaus Seeblick">
-      <label for="kurBeantragterZeitraum">Beantragter/Vorgeschlagener Zeitraum für die Kur: <small>(z.B. "ca. 3 Wochen ab Mitte Juli", "01.08.2025 - 22.08.2025")</small></label>
-      <input type="text" id="kurBeantragterZeitraum" required>
+      <input type="text" id="kurZielortKlinik" name="kurZielortKlinik" placeholder="z.B. Rehaklinik Musterstadt, Kurhaus Seeblick" autocomplete="off">
+
+      <label for="kurBeantragterZeitraum">Beantragter/Vorgeschlagener Zeitraum für die Kur: <small>(z.B. „ca. 3 Wochen ab Mitte Juli“, „01.08.2025 - 22.08.2025“)</small></label>
+      <input type="text" id="kurBeantragterZeitraum" name="kurBeantragterZeitraum" required autocomplete="off">
+
       <label for="datumAerztlichesAttestKur">Datum des beigefügten ärztlichen Attests/Gutachtens zur Kur:</label>
-      <input type="date" id="datumAerztlichesAttestKur" required>
+      <input type="date" id="datumAerztlichesAttestKur" name="datumAerztlichesAttestKur" required autocomplete="off">
+
       <label for="hauptdiagnoseKur">Hauptdiagnose(n) bzw. Hauptgrund für die Kur (kurz): <small>(Details stehen im ärztlichen Attest)</small></label>
-      <input type="text" id="hauptdiagnoseKur" required placeholder="z.B. Chronisches Rückenleiden, Erschöpfungssyndrom">
+      <input type="text" id="hauptdiagnoseKur" name="hauptdiagnoseKur" required placeholder="z.B. Chronisches Rückenleiden, Erschöpfungssyndrom" autocomplete="off">
     </fieldset>
-    
+
     <fieldset>
       <legend>4. Ihre persönliche Situation und Motivation (für das Begleitschreiben)</legend>
-      <label for="persoenlicheBegruendungKur">Warum ist diese Kur für Sie persönlich wichtig? <small>(Beschreiben Sie kurz Ihre aktuelle Situation, wie sich Ihre Beschwerden im Alltag auswirken und welche Ziele Sie mit der Kur verbinden. Dies ergänzt die ärztliche Sicht.)</small></label>
-      <textarea id="persoenlicheBegruendungKur" rows="6" required placeholder="z.B. Auswirkungen auf Familie/Beruf, Hoffnung auf Linderung bestimmter Symptome, Wunsch nach Wiederherstellung der Arbeitsfähigkeit..."></textarea>
+
+      <label for="persoenlicheBegruendungKur">Warum ist diese Kur für Sie persönlich wichtig? <small>(Beschreiben Sie kurz Ihre aktuelle Situation, Auswirkungen im Alltag/Beruf/Familie und Ihre Ziele. Dies ergänzt die ärztlichen Unterlagen.)</small></label>
+      <textarea id="persoenlicheBegruendungKur" name="persoenlicheBegruendungKur" rows="6" required placeholder="z.B. Auswirkungen auf Familie/Beruf, Belastungen im Alltag, Ziele wie Stabilisierung, bessere Bewältigung, Entlastung..." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>5. Diesem Begleitschreiben und dem offiziellen Kurantrag beigefügte Anlagen</legend>
+
         <p class="info-box">Welche Unterlagen reichen Sie zusammen mit diesem Begleitschreiben und dem offiziellen Antrag Ihrer Krankenkasse ein?</p>
+
         <label><input type="checkbox" id="anlage_offiziellerKurantrag" name="anlagenKur" value="Vollständig ausgefüllter Kurantrag der Krankenkasse" checked> Vollständig ausgefüllter Kurantrag der Krankenkasse</label>
         <label><input type="checkbox" id="anlage_aerztlichesAttest" name="anlagenKur" value="Ärztliches Attest/Gutachten zur Notwendigkeit der Kur" checked> Ärztliches Attest/Gutachten zur Notwendigkeit der Kur</label>
         <label><input type="checkbox" id="anlage_weitereBefunde" name="anlagenKur" value="Ggf. weitere relevante medizinische Befunde/Berichte"> Ggf. weitere relevante medizinische Befunde/Berichte</label>
         <label><input type="checkbox" id="anlage_kostenvoranschlagKlinik" name="anlagenKur" value="Ggf. Informationen/Kostenvoranschlag der Kureinrichtung"> Ggf. Informationen/Kostenvoranschlag der Kureinrichtung</label>
+
         <label for="anlageSonstigesKur">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesKur" placeholder="z.B. spezielle Berichte, Nachweise">
+        <input type="text" id="anlageSonstigesKur" name="anlageSonstigesKur" placeholder="z.B. spezielle Berichte, Nachweise" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -99,10 +158,12 @@
       <button type="submit" class="button-primary">📄 Begleitschreiben-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupKurBegleitschreiben" class="popup-overlay">
+</div>
+
+<div id="spendenPopupKurBegleitschreiben" class="popup-overlay">
   <div class="popup-content">
-    <h2>Danke für deine Nutzung 💛</h2>
-    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <h2>Danke für deine Nutzung</h2>
+    <p>Wenn dieses Tool hilfreich war, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
     <form action="https://www.paypal.com/donate" method="post" target="_blank">
       <input type="hidden" name="business" value="info@kassen-lotse.de" />
       <input type="hidden" name="charset" value="utf-8">

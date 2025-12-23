@@ -2,11 +2,41 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Allgemeiner Widerspruch Pflegekasse</title>
-  <meta name="description" content="Erstellen Sie einen allgemeinen Widerspruch gegen einen Bescheid Ihrer Pflegekasse für individuelle Anliegen.">
-  <meta name="keywords" content="Widerspruch, Pflegekasse, Allgemein, Bescheid, SGB XI, Pflegeversicherung, Anliegen">
+  <title>Widerspruch Pflegekasse (allgemein) | Muster & Vorlage | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines allgemeinen Widerspruchs gegen einen Bescheid der Pflegekasse (SGB XI). Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Allgemeiner Widerspruch Pflegekasse",
+    "description": "Formular zur Erstellung eines allgemeinen Widerspruchs gegen einen Bescheid der Pflegekasse.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Widerspruch" },
+      { "@type": "Thing", "name": "Pflegekasse" },
+      { "@type": "Thing", "name": "Bescheid" },
+      { "@type": "Thing", "name": "Widerspruchsfrist" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="widerspruch-allgemein-pflegekasse_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,95 +45,127 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Allgemeiner Widerspruch gegen einen Bescheid der Pflegekasse</h1>
+
   <p class="info-box warning">
-    Dieses Formular hilft Ihnen, einen allgemeinen Widerspruch gegen einen Bescheid Ihrer Pflegekasse zu formulieren, der nicht durch unsere spezifischeren Widerspruchsformulare abgedeckt ist.
-    Achten Sie genau auf die in Ihrem Bescheid genannte Widerspruchsfrist (meist ein Monat!).
+    Dieses Formular unterstützt Sie dabei, einen allgemeinen Widerspruch gegen einen Bescheid Ihrer Pflegekasse zu formulieren, wenn kein spezielleres Musterschreiben passt.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie <strong>einen Monat nach Erhalt/Zugang</strong>. 
     Lesen Sie auch unsere <a href="info-allgemein-pflegekasse.html">allgemeinen Informationen zum Widerspruchsverfahren bei der Pflegekasse</a>.
   </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
   <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Wenn eine Frist knapp ist oder der Fall komplex ist, kann eine anerkannte Beratungsstelle oder anwaltliche Unterstützung sinnvoll sein.
+  </p>
+
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+<div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+  <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
 </div>
 
-  <form id="widerspruchAllgPkForm">
+  <form id="widerspruchAllgPkForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur versicherten Person</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
-      <input type="text" id="vpNummer" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentischAllgPk">Wird der Widerspruch von der versicherten Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentischAllgPk">
+      <select id="widerspruchfuehrerIdentischAllgPk" name="widerspruchfuehrerIdentischAllgPk" autocomplete="off">
           <option value="ja" selected>Ja, von der versicherten Person selbst</option>
           <option value="nein">Nein, von einer anderen Person</option>
       </select>
+
       <div id="widerspruchfuehrerDetailsAllgPk" class="sub-details">
           <label for="wfNameAllgPk">Vor- und Nachname des/der Widerspruchsführer:in:</label>
-          <input type="text" id="wfNameAllgPk">
+          <input type="text" id="wfNameAllgPk" name="wfNameAllgPk" autocomplete="name">
+
           <label for="wfAdresseAllgPk">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdresseAllgPk" rows="3"></textarea>
+          <textarea id="wfAdresseAllgPk" name="wfAdresseAllgPk" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnisAllgPk">Verhältnis zur versicherten Person:</label>
-          <input type="text" id="wfVerhaeltnisAllgPk" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
-          <label><input type="checkbox" id="wfVollmachtAllgPk"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnisAllgPk" name="wfVerhaeltnisAllgPk" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmachtAllgPk" name="wfVollmachtAllgPk"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
-      <label for="pflegekasseNameW">Name der Pflegekasse:</label> <input type="text" id="pflegekasseNameW" required>
+
+      <label for="pflegekasseNameW">Name der Pflegekasse:</label>
+      <input type="text" id="pflegekasseNameW" name="pflegekasseNameW" required autocomplete="organization">
+
       <label for="pflegekasseAdresseW">Vollständige Adresse der Pflegekasse:</label>
-      <textarea id="pflegekasseAdresseW" rows="3" required></textarea>
+      <textarea id="pflegekasseAdresseW" name="pflegekasseAdresseW" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum Bescheid, gegen den Sie Widerspruch einlegen</legend>
+
       <label for="entscheidungDatumPk">Datum des Bescheides/Schreibens der Pflegekasse:</label>
-      <input type="date" id="entscheidungDatumPk" required>
+      <input type="date" id="entscheidungDatumPk" name="entscheidungDatumPk" required autocomplete="off">
+
       <label for="aktenzeichenEntscheidungPk">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenEntscheidungPk">
+      <input type="text" id="aktenzeichenEntscheidungPk" name="aktenzeichenEntscheidungPk" autocomplete="off">
+
       <label for="gegenstandEntscheidungPk">Gegenstand des Bescheids / Worum ging es in der Entscheidung? <small>(Beschreiben Sie kurz und präzise, welche Entscheidung Sie anfechten)</small></label>
-      <textarea id="gegenstandEntscheidungPk" rows="3" required placeholder="z.B. Ablehnung meines Antrags auf XYZ vom TT.MM.JJJJ, Festsetzung von Zuzahlungen für Y, etc."></textarea>
+      <textarea id="gegenstandEntscheidungPk" name="gegenstandEntscheidungPk" rows="3" required placeholder="z.B. Ablehnung eines Antrags, teilweise Bewilligung, Festsetzung von Zuzahlungen, ..." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <label for="begruendungWiderspruchAllgPK">Warum ist die Entscheidung Ihrer Pflegekasse aus Ihrer Sicht nicht korrekt? <small>(Erläutern Sie hier ausführlich Ihre Gründe. Beziehen Sie sich auf den Sachverhalt, ggf. auf ärztliche Meinungen, frühere Zusagen oder rechtliche Aspekte, falls bekannt. Fügen Sie ggf. Kopien von Beweismitteln bei und erwähnen Sie diese.)</small></label>
-      <textarea id="begruendungWiderspruchAllgPK" rows="10" required></textarea>
+
+      <label for="begruendungWiderspruchAllgPK">Warum ist die Entscheidung Ihrer Pflegekasse aus Ihrer Sicht nicht korrekt? <small>(Beschreiben Sie den Sachverhalt nachvollziehbar. Verweisen Sie auf Unterlagen und fügen Sie Kopien bei.)</small></label>
+      <textarea id="begruendungWiderspruchAllgPK" name="begruendungWiderspruchAllgPK" rows="10" required autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchAllgPK">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchAllgPK" rows="3" required placeholder="z.B. Ich beantrage die Aufhebung des genannten Bescheides und die vollumfängliche Genehmigung meines ursprünglichen Antrags auf XYZ. / Ich beantrage die Neubewertung von..."></textarea>
+        <textarea id="forderungWiderspruchAllgPK" name="forderungWiderspruchAllgPK" rows="3" required placeholder="z.B. Ich beantrage die Überprüfung und Änderung des Bescheids sowie eine erneute Entscheidung unter Berücksichtigung meiner Angaben." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
         <legend>7. Beizufügende Anlagen (optional)</legend>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenAllgPk_W" value="Kopie des angefochtenen Bescheids"> Kopie des angefochtenen Bescheids</label>
             <label><input type="checkbox" name="anlagenAllgPk_W" value="Kopie des ursprünglichen Antrags/Schriftverkehrs"> Kopie des ursprünglichen Antrags/Schriftverkehrs</label>
             <label><input type="checkbox" name="anlagenAllgPk_W" value="Ärztliche Atteste / Stellungnahmen"> Ärztliche Atteste / Stellungnahmen</label>
             <label><input type="checkbox" id="anlageVollmachtAllgPk_W" name="anlagenAllgPk_W" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesAllgPk_W">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesAllgPk_W">
+        <input type="text" id="anlageSonstigesAllgPk_W" name="anlageSonstigesAllgPk_W" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -116,8 +178,8 @@
 
 <div id="spendenPopupWiderspruchAllgPk" class="popup-overlay">
   <div class="popup-content">
-    <h2>Danke für deine Nutzung 💛</h2>
-    <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
+    <h2>Danke für deine Nutzung</h2>
+    <p>Wenn dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
     <form action="https://www.paypal.com/donate" method="post" target="_blank">
       <input type="hidden" name="business" value="info@kassen-lotse.de" />
       <input type="hidden" name="charset" value="utf-8">

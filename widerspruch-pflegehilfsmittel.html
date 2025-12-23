@@ -2,11 +2,41 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Pflegehilfsmittel</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen abgelehnten Antrag auf Pflegehilfsmittel bei Ihrer Pflegekasse.">
-  <meta name="keywords" content="Widerspruch, Pflegehilfsmittel, Pflegekasse, Ablehnung, §40 SGB XI, zum Verbrauch, technisch">
+  <title>Widerspruch Pflegehilfsmittel (§ 40 SGB XI) | Pflegekasse | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen die Ablehnung von Pflegehilfsmitteln (zum Verbrauch oder technische Pflegehilfsmittel) durch die Pflegekasse (§ 40 SGB XI). Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch Pflegehilfsmittel",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen die Ablehnung von Pflegehilfsmitteln durch die Pflegekasse (§ 40 SGB XI).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Pflegehilfsmittel" },
+      { "@type": "Thing", "name": "Pflegekasse" },
+      { "@type": "Thing", "name": "§ 40 SGB XI" },
+      { "@type": "Thing", "name": "Widerspruch" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="pflegehilfsmittel_widerspruch_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,37 +45,60 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch gegen Ablehnung von Pflegehilfsmitteln</h1>
-  <p class="info-box warning">
-    Wurde Ihr Antrag auf Pflegehilfsmittel (z.B. Pauschale für Verbrauchsprodukte oder ein technisches Hilfsmittel) abgelehnt? Nutzen Sie dieses Formular, um Widerspruch einzulegen.
-    Beachten Sie die Widerspruchsfrist! Lesen Sie auch unsere <a href="info-pflegehilfsmittel.html">Informationen zu Pflegehilfsmitteln</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchPflegeHMForm">
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf Pflegehilfsmittel (z.B. Pauschale für Verbrauchsprodukte oder ein technisches Pflegehilfsmittel) abgelehnt, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Pflegehilfsmittel sollen die Pflege erleichtern, Beschwerden lindern oder eine selbstständigere Lebensführung ermöglichen – genau diese Ziele sollten im Widerspruch anhand Ihrer Pflegesituation konkret belegt werden (z.B. Transfer, Lagerung, Inkontinenz, Hygiene, Sturzrisiko). 
+    <strong>Praxis-Hinweis:</strong> Bei Ablehnung/Kürzung wegen „Leistungsbetrag“ kann es relevant sein, dass § 40 SGB XI Leistungsbeträge in Verbindung mit § 30 SGB XI vorsieht und diese ab 01.01.2025 wertfortgeschrieben wurden (wichtig bei falscher Deckelung/alten Pauschalen). 
+
+    Lesen Sie auch unsere <a href="info-pflegehilfsmittel.html">Informationen zu Pflegehilfsmitteln</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchPflegeHMForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur pflegebedürftigen Person</legend>
+
       <label for="vpName">Vor- und Nachname:</label>
-      <input type="text" id="vpName" required>
+      <input type="text" id="vpName" name="vpName" required autocomplete="name">
+
       <label for="vpGeburt">Geburtsdatum:</label>
-      <input type="date" id="vpGeburt" required>
+      <input type="date" id="vpGeburt" name="vpGeburt" required autocomplete="bday">
+
       <label for="vpAdresse">Vollständige Adresse:</label>
-      <textarea id="vpAdresse" rows="3" required></textarea>
+      <textarea id="vpAdresse" name="vpAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vpNummer">Versichertennummer (Pflegekasse):</label>
-      <input type="text" id="vpNummer" required>
+      <input type="text" id="vpNummer" name="vpNummer" required autocomplete="off" inputmode="text">
+
       <label for="vpPflegegrad">Aktuell festgestellter Pflegegrad:</label>
-      <select id="vpPflegegrad" required>
+      <select id="vpPflegegrad" name="vpPflegegrad" required autocomplete="off">
           <option value="">Bitte wählen...</option>
           <option value="Pflegegrad 1">Pflegegrad 1</option>
           <option value="Pflegegrad 2">Pflegegrad 2</option>
@@ -58,66 +111,84 @@
 
     <fieldset>
       <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentischPflegeHM">Wird der Widerspruch von der pflegebedürftigen Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentischPflegeHM">
+      <select id="widerspruchfuehrerIdentischPflegeHM" name="widerspruchfuehrerIdentischPflegeHM" autocomplete="off">
           <option value="ja" selected>Ja, von der pflegebedürftigen Person selbst</option>
           <option value="nein">Nein, von einer anderen Person</option>
       </select>
+
       <div id="widerspruchfuehrerDetailsPflegeHM" class="sub-details">
           <label for="wfNamePflegeHM">Vor- und Nachname des/der Widerspruchsführer:in:</label>
-          <input type="text" id="wfNamePflegeHM">
+          <input type="text" id="wfNamePflegeHM" name="wfNamePflegeHM" autocomplete="name">
+
           <label for="wfAdressePflegeHM">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdressePflegeHM" rows="3"></textarea>
+          <textarea id="wfAdressePflegeHM" name="wfAdressePflegeHM" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnisPflegeHM">Verhältnis zur pflegebedürftigen Person:</label>
-          <input type="text" id="wfVerhaeltnisPflegeHM" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer">
-          <label><input type="checkbox" id="wfVollmachtPflegeHM"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnisPflegeHM" name="wfVerhaeltnisPflegeHM" placeholder="z.B. Tochter, Ehemann, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmachtPflegeHM" name="wfVollmachtPflegeHM"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zur Pflegekasse</legend>
+
       <label for="pflegekasseName">Name der Pflegekasse:</label>
-      <input type="text" id="pflegekasseName" required>
+      <input type="text" id="pflegekasseName" name="pflegekasseName" required autocomplete="organization">
+
       <label for="pflegekasseAdresse">Vollständige Adresse der Pflegekasse:</label>
-      <textarea id="pflegekasseAdresse" rows="3" required></textarea>
+      <textarea id="pflegekasseAdresse" name="pflegekasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum abgelehnten Antrag auf Pflegehilfsmittel</legend>
+
       <label for="datumUrsprAntragPflegeHM">Datum Ihres ursprünglichen Antrags auf Pflegehilfsmittel:</label>
-      <input type="date" id="datumUrsprAntragPflegeHM" required>
-      <label for="beantragtesPflegeHMAbgelehnt">Beantragte(s) Pflegehilfsmittel, das/die abgelehnt wurde(n): <small>(z.B. Pauschale für Verbrauchsprodukte, Pflegebett Modell X, Rollator Y)</small></label>
-      <textarea id="beantragtesPflegeHMAbgelehnt" rows="3" required placeholder="Genaue Bezeichnung(en)"></textarea>
+      <input type="date" id="datumUrsprAntragPflegeHM" name="datumUrsprAntragPflegeHM" required autocomplete="off">
+
+      <label for="beantragtesPflegeHMAbgelehnt">Beantragte(s) Pflegehilfsmittel, das/die abgelehnt wurde(n): <small>(z.B. Pauschale für Verbrauchsprodukte oder technisches Pflegehilfsmittel)</small></label>
+      <textarea id="beantragtesPflegeHMAbgelehnt" name="beantragtesPflegeHMAbgelehnt" rows="3" required placeholder="Genaue Bezeichnung(en)" autocomplete="off"></textarea>
+
       <label for="datumAblehnungsbescheidPflegeHM">Datum des Ablehnungsbescheids der Pflegekasse:</label>
-      <input type="date" id="datumAblehnungsbescheidPflegeHM" required>
+      <input type="date" id="datumAblehnungsbescheidPflegeHM" name="datumAblehnungsbescheidPflegeHM" required autocomplete="off">
+
       <label for="aktenzeichenPflegeHM">Aktenzeichen / Geschäftszeichen des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenPflegeHM">
-      <label for="hauptablehnungsgrundPflegeHM">Hauptgrund/-gründe für die Ablehnung laut Pflegekasse: <small>(Fassen Sie die Kernaussage des Ablehnungsschreibens zusammen)</small></label>
-      <textarea id="hauptablehnungsgrundPflegeHM" rows="3" required placeholder="z.B. Medizinische Notwendigkeit nicht ausreichend dargelegt; Hilfsmittel nicht im Verzeichnis; andere Versorgungsmöglichkeiten seien ausreichend."></textarea>
+      <input type="text" id="aktenzeichenPflegeHM" name="aktenzeichenPflegeHM" autocomplete="off">
+
+      <label for="hauptablehnungsgrundPflegeHM">Hauptgrund/-gründe für die Ablehnung laut Pflegekasse: <small>(Kernaussage zusammenfassen)</small></label>
+      <textarea id="hauptablehnungsgrundPflegeHM" name="hauptablehnungsgrundPflegeHM" rows="3" required placeholder="z.B. Notwendigkeit nicht ausreichend dargelegt; andere Versorgung ausreichend; Leistungshöhe/Umfang." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Erläutern Sie hier detailliert, warum die Ablehnung Ihrer Ansicht nach nicht gerechtfertigt ist und das/die Pflegehilfsmittel notwendig sind, um die Pflege zu erleichtern, Beschwerden zu lindern oder eine selbstständigere Lebensführung zu ermöglichen.</p>
 
-      <label for="argumentNotwendigkeitPflegeHM">Darlegung der Notwendigkeit des/der beantragten Pflegehilfsmittel(s): <small>(Warum ist das Hilfsmittel/die Pauschale für die Pflegesituation unerlässlich? Welche konkreten Erleichterungen oder Verbesserungen würde es bringen? Beziehen Sie sich ggf. auf Empfehlungen von Ärzten, Pflegediensten oder Pflegeberatern.)</small></label>
-      <textarea id="argumentNotwendigkeitPflegeHM" rows="5" required placeholder="z.B. Das beantragte Pflegebett ist zur Vermeidung von Druckgeschwüren und zur Erleichterung der täglichen Umlagerung zwingend erforderlich, wie auch von Dr. Mustermann attestiert. / Die Pauschale für Verbrauchsprodukte wird dringend benötigt, da aufgrund der Inkontinenz ein hoher Bedarf an Einlagen und Desinfektionsmitteln besteht."></textarea>
+      <p class="info-box">
+        Erläutern Sie nachvollziehbar, warum die Ablehnung aus Ihrer Sicht nicht zutreffend ist und welches konkrete Problem das Pflegehilfsmittel in der Pflegesituation löst.
+        Hilfreich ist oft, kurz „vorher/nachher“ zu beschreiben (ohne Hilfsmittel: Risiko/Mehraufwand/Schmerzen; mit Hilfsmittel: sichere Pflege, Entlastung, weniger Beschwerden). 
+      </p>
 
-      <label for="argumentKeineAlternativenPflegeHM">Warum sind andere Lösungen oder vorhandene Mittel nicht ausreichend oder geeignet? <small>(Falls die Kasse alternative Versorgungsmöglichkeiten vorschlägt oder die Notwendigkeit anzweifelt.)</small></label>
-      <textarea id="argumentKeineAlternativenPflegeHM" rows="4" placeholder="z.B. Die von Ihnen vorgeschlagene Alternative XY ist für meine spezifische Situation nicht praktikabel, weil... / Die bisherigen Maßnahmen reichen nicht aus, um eine menschenwürdige Pflege sicherzustellen, da..."></textarea>
-      
-      <label for="ergaenzendeArgumentePflegeHM">Weitere/ergänzende Argumente und Erläuterungen zu den Ablehnungsgründen der Pflegekasse:</label>
-      <textarea id="ergaenzendeArgumentePflegeHM" rows="6" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Ablehnungsschreibens eingehen oder weitere wichtige Aspekte anführen."></textarea>
+      <label for="argumentNotwendigkeitPflegeHM">Darlegung der Notwendigkeit:</label>
+      <textarea id="argumentNotwendigkeitPflegeHM" name="argumentNotwendigkeitPflegeHM" rows="5" required placeholder="z.B. Pflegebett zur Lagerung/Druckentlastung/Transfersicherheit; Verbrauchsprodukte wegen Inkontinenz/Hygiene/Infektionsschutz – mit konkreten Bedarfen." autocomplete="off"></textarea>
+
+      <label for="argumentKeineAlternativenPflegeHM">Warum sind Alternativen nicht ausreichend/geeignet?</label>
+      <textarea id="argumentKeineAlternativenPflegeHM" name="argumentKeineAlternativenPflegeHM" rows="4" placeholder="z.B. Alternative ist nicht sicher/praktikabel; vorhandenes Hilfsmittel reicht nicht; ambulante Hilfe nicht verfügbar." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeArgumentePflegeHM">Weitere/ergänzende Argumente:</label>
+      <textarea id="ergaenzendeArgumentePflegeHM" name="ergaenzendeArgumentePflegeHM" rows="6" placeholder="Hier können Sie auf einzelne Punkte des Ablehnungsschreibens eingehen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchPflegeHM">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchPflegeHM" rows="3" required placeholder="z.B. Ich beantrage die Genehmigung der Pauschale für zum Verbrauch bestimmte Pflegehilfsmittel. / Ich beantrage die Kostenübernahme für das Pflegebett Modell X. / Ich beantrage eine erneute Prüfung meines Antrags."></textarea>
+        <textarea id="forderungWiderspruchPflegeHM" name="forderungWiderspruchPflegeHM" rows="3" required placeholder="z.B. Genehmigung der Pauschale / Kostenübernahme für technisches Pflegehilfsmittel / erneute Prüfung." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
-        <legend>7. Beizufügende Anlagen (optional, aber oft entscheidend)</legend>
+        <legend>7. Beizufügende Anlagen (optional)</legend>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenPflegeHMWiderspruch" value="Kopie des angefochtenen Ablehnungsbescheids"> Kopie des angefochtenen Ablehnungsbescheids</label>
             <label><input type="checkbox" name="anlagenPflegeHMWiderspruch" value="Kopie des ursprünglichen Antrags auf Pflegehilfsmittel"> Kopie des ursprünglichen Antrags auf Pflegehilfsmittel</label>
@@ -126,8 +197,9 @@
             <label><input type="checkbox" name="anlagenPflegeHMWiderspruch" value="Fotos (z.B. von der Pflegesituation oder dem defekten alten Hilfsmittel)"> Fotos</label>
             <label><input type="checkbox" id="anlageVollmachtPflegeHMWiderspruch" name="anlagenPflegeHMWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesPflegeHMWiderspruch">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesPflegeHMWiderspruch">
+        <input type="text" id="anlageSonstigesPflegeHMWiderspruch" name="anlageSonstigesPflegeHMWiderspruch" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -136,7 +208,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchPflegeHM" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchPflegeHM" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

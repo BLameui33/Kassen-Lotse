@@ -2,11 +2,43 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Schwerbehindertenausweis / GdB-Feststellung</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen Bescheid des Versorgungsamtes bezüglich des Grades der Behinderung (GdB) oder von Merkzeichen.">
-  <meta name="keywords" content="Widerspruch, Schwerbehindertenausweis, GdB, Grad der Behinderung, Merkzeichen, Versorgungsamt, Ablehnung, SGB IX">
+  <title>Widerspruch GdB/Merkzeichen (Schwerbehindertenausweis) | § 152 SGB IX | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen Bescheide zur Feststellung des Grades der Behinderung (GdB) und von Merkzeichen (Versorgungsamt/Landesbehörde). Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Widerspruch Schwerbehindertenausweis / GdB-Feststellung",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen einen Bescheid zur Feststellung von GdB und Merkzeichen.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Grad der Behinderung (GdB)" },
+      { "@type": "Thing", "name": "Merkzeichen" },
+      { "@type": "Thing", "name": "Schwerbehindertenausweis" },
+      { "@type": "Thing", "name": "Versorgungsamt" },
+      { "@type": "Thing", "name": "§ 152 SGB IX" },
+      { "@type": "Thing", "name": "Versorgungsmedizin-Verordnung (VersMedV)" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="schwerbehindertenausweis_widerspruch_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,112 +47,153 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch zum Bescheid über GdB/Merkzeichen</h1>
-  <p class="info-box warning">
-    Wurde Ihr Antrag auf Feststellung einer Behinderung (Grad der Behinderung - GdB) oder von Merkzeichen vom Versorgungsamt abgelehnt oder nicht in dem von Ihnen erwarteten Umfang festgestellt? Hier können Sie einen Widerspruch erstellen.
-    Beachten Sie die Widerspruchsfrist (i.d.R. ein Monat)! Lesen Sie auch unsere <a href="info-schwerbehindertenausweis.html">Informationen zum Schwerbehindertenausweis</a>.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchSBAForm">
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf Feststellung des Grades der Behinderung (GdB) oder von Merkzeichen abgelehnt oder nicht im erwarteten Umfang festgestellt, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> Der GdB wird nach Zehnergraden abgestuft festgestellt; eine Feststellung erfolgt nur, wenn mindestens ein GdB von 20 vorliegt (§ 152 SGB IX). 
+    <strong>Praxis-Hinweis:</strong> Die Maßstäbe, nach denen GdB und Merkzeichen medizinisch bewertet werden, ergeben sich aus der Versorgungsmedizin-Verordnung (VersMedV) inklusive der Anlage mit den „Versorgungsmedizinischen Grundsätzen“ (u.a. Teil D zu Merkzeichen). 
+
+    Lesen Sie auch unsere <a href="info-schwerbehindertenausweis.html">Informationen zum Schwerbehindertenausweis</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchSBAForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur Person, deren Bescheid angefochten wird</legend>
+
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" name="personName" required autocomplete="name">
+
       <label for="personGeburt">Geburtsdatum:</label>
-      <input type="date" id="personGeburt" required>
+      <input type="date" id="personGeburt" name="personGeburt" required autocomplete="bday">
+
       <label for="personAdresse">Vollständige Adresse:</label>
-      <textarea id="personAdresse" rows="3" required></textarea>
-      <label for="personAktenzeichenVS">Aktenzeichen des Versorgungsamtes (falls bekannt, aus früheren Bescheiden):</label>
-      <input type="text" id="personAktenzeichenVS">
+      <textarea id="personAdresse" name="personAdresse" rows="3" required autocomplete="street-address"></textarea>
+
+      <label for="personAktenzeichenVS">Aktenzeichen der Behörde (falls bekannt, aus früheren Bescheiden):</label>
+      <input type="text" id="personAktenzeichenVS" name="personAktenzeichenVS" autocomplete="off">
     </fieldset>
 
     <fieldset>
       <legend>2. Widerspruchsführer:in (falls abweichend)</legend>
+
       <label for="widerspruchfuehrerIdentischSBA">Wird der Widerspruch von der oben genannten Person selbst eingelegt?</label>
-      <select id="widerspruchfuehrerIdentischSBA">
+      <select id="widerspruchfuehrerIdentischSBA" name="widerspruchfuehrerIdentischSBA" autocomplete="off">
           <option value="ja" selected>Ja</option>
           <option value="nein">Nein, von einer anderen Person/Einrichtung</option>
       </select>
+
       <div id="widerspruchfuehrerDetailsSBA" class="sub-details">
           <label for="wfNameSBA">Name des/der Widerspruchsführer:in / Bezeichnung der Einrichtung:</label>
-          <input type="text" id="wfNameSBA">
+          <input type="text" id="wfNameSBA" name="wfNameSBA" autocomplete="name">
+
           <label for="wfAdresseSBA">Vollständige Adresse des/der Widerspruchsführer:in:</label>
-          <textarea id="wfAdresseSBA" rows="3"></textarea>
+          <textarea id="wfAdresseSBA" name="wfAdresseSBA" rows="3" autocomplete="street-address"></textarea>
+
           <label for="wfVerhaeltnisSBA">Verhältnis zur Person bzw. Funktion:</label>
-          <input type="text" id="wfVerhaeltnisSBA" placeholder="z.B. Mutter, Gesetzl. Betreuer">
-          <label><input type="checkbox" id="wfVollmachtSBA"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
+          <input type="text" id="wfVerhaeltnisSBA" name="wfVerhaeltnisSBA" placeholder="z.B. Mutter, gesetzl. Betreuer" autocomplete="off">
+
+          <label><input type="checkbox" id="wfVollmachtSBA" name="wfVollmachtSBA"> Eine entsprechende Vollmacht/Bestallung liegt bei bzw. wird nachgereicht.</label>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>3. Angaben zum zuständigen Versorgungsamt (oder der entsprechenden Landesbehörde)</legend>
+      <legend>3. Angaben zur zuständigen Behörde</legend>
+
       <label for="versorgungsamtName">Name der Behörde:</label>
-      <input type="text" id="versorgungsamtName" required placeholder="z.B. Versorgungsamt Musterstadt, Landesamt für Soziales...">
+      <input type="text" id="versorgungsamtName" name="versorgungsamtName" required placeholder="z.B. Versorgungsamt / Landesamt für Soziales ..." autocomplete="organization">
+
       <label for="versorgungsamtAdresse">Vollständige Adresse der Behörde:</label>
-      <textarea id="versorgungsamtAdresse" rows="3" required></textarea>
+      <textarea id="versorgungsamtAdresse" name="versorgungsamtAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>4. Angaben zum angefochtenen Bescheid</legend>
-      <label for="datumBescheidSBA">Datum des Bescheides des Versorgungsamtes:</label>
-      <input type="date" id="datumBescheidSBA" required>
+
+      <label for="datumBescheidSBA">Datum des Bescheids:</label>
+      <input type="date" id="datumBescheidSBA" name="datumBescheidSBA" required autocomplete="off">
+
       <label for="aktenzeichenBescheidSBA">Aktenzeichen / Geschäftszeichen des Bescheids:</label>
-      <input type="text" id="aktenzeichenBescheidSBA" required>
+      <input type="text" id="aktenzeichenBescheidSBA" name="aktenzeichenBescheidSBA" required autocomplete="off">
+
       <label for="festgestellterGdB">Festgestellter Grad der Behinderung (GdB) laut Bescheid:</label>
-      <input type="number" id="festgestellterGdB" min="0" max="100" step="10" placeholder="z.B. 30, 50, oder 0 wenn abgelehnt">
-      <label for="festgestellteMerkzeichen">Festgestellte Merkzeichen laut Bescheid (falls zutreffend, mit Komma trennen):</label>
-      <input type="text" id="festgestellteMerkzeichen" placeholder="z.B. G, B">
-      <label for="abgelehntePunkteSBA">Was wurde im Bescheid abgelehnt oder nicht wie beantragt festgestellt? <small>(z.B. zu niedriger GdB, Nichtanerkennung von Merkzeichen X, Ablehnung der Schwerbehinderteneigenschaft)</small></label>
-      <textarea id="abgelehntePunkteSBA" rows="3" required placeholder="z.B. Der GdB wurde nur mit 30 statt der beantragten 50 festgestellt. Das Merkzeichen G wurde nicht anerkannt."></textarea>
+      <input type="number" id="festgestellterGdB" name="festgestellterGdB" min="0" max="100" step="10" placeholder="z.B. 30, 50 oder 0" autocomplete="off">
+
+      <label for="festgestellteMerkzeichen">Festgestellte Merkzeichen (mit Komma trennen):</label>
+      <input type="text" id="festgestellteMerkzeichen" name="festgestellteMerkzeichen" placeholder="z.B. G, B" autocomplete="off">
+
+      <label for="abgelehntePunkteSBA">Was wurde abgelehnt oder nicht wie beantragt festgestellt?</label>
+      <textarea id="abgelehntePunkteSBA" name="abgelehntePunkteSBA" rows="3" required placeholder="z.B. GdB zu niedrig; Merkzeichen nicht anerkannt; Schwerbehinderteneigenschaft abgelehnt." autocomplete="off"></textarea>
     </fieldset>
-    
+
     <fieldset>
       <legend>5. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Legen Sie hier detailliert dar, warum Sie die Entscheidung des Versorgungsamtes für nicht korrekt halten. Beziehen Sie sich auf Ihre Gesundheitsstörungen, deren Auswirkungen im Alltag und auf beigefügte (ggf. neue) ärztliche Unterlagen.</p>
 
-      <label for="argumentGesundheitszustandSBA">Aktueller Gesundheitszustand und Auswirkungen der Behinderung(en): <small>(Beschreiben Sie, wie sich Ihre gesundheitlichen Einschränkungen im Alltag, im Berufsleben oder in sozialen Bereichen konkret auswirken. Gab es seit dem Antrag eine Verschlechterung oder neue Diagnosen?)</small></label>
-      <textarea id="argumentGesundheitszustandSBA" rows="6" required placeholder="z.B. Meine Gehfähigkeit hat sich seit Antragstellung weiter verschlechtert. Ich kann nur noch X Meter gehen. Die Schmerzen durch Y sind täglich vorhanden und schränken mich bei Z stark ein."></textarea>
+      <p class="info-box">
+        Beschreiben Sie die Gesundheitsstörungen und vor allem deren konkrete Auswirkungen im Alltag möglichst nachvollziehbar (Häufigkeit, Dauer, Belastbarkeit, Hilfebedarf).
+        Häufig überzeugend ist eine Struktur „Diagnosen/Befunde → Funktionsbeeinträchtigungen → Teilhabeeinschränkungen (z.B. Gehen, Treppen, Orientierung, Kommunikation) → beantragter GdB/Merkzeichen“. 
+      </p>
 
-      <label for="argumentAbweichungGutachtenSBA">Warum weicht die Einschätzung des Versorgungsamtes (ggf. basierend auf deren Gutachten) von Ihrer Selbsteinschätzung und der Ihrer Ärzte ab? <small>(Beziehen Sie sich auf konkrete Punkte im Bescheid oder im Gutachten, falls es Ihnen vorliegt.)</small></label>
-      <textarea id="argumentAbweichungGutachtenSBA" rows="5" placeholder="z.B. Im Gutachten wurde die Auswirkung meiner psychischen Erkrankung nicht ausreichend gewürdigt. / Die Einschränkung XY wurde nicht berücksichtigt, obwohl sie ärztlich attestiert ist."></textarea>
-      
-      <label for="argumentMerkzeichenSBA">Begründung für die Notwendigkeit beantragter (aber nicht zuerkannter) Merkzeichen: <small>(Falls zutreffend)</small></label>
-      <textarea id="argumentMerkzeichenSBA" rows="4" placeholder="z.B. Das Merkzeichen G ist notwendig, da ich aufgrund meiner [Erkrankung] erhebliche Schwierigkeiten habe, Wegstrecken von üblicher Länge zu Fuß zurückzulegen."></textarea>
+      <label for="argumentGesundheitszustandSBA">Gesundheitszustand & Auswirkungen:</label>
+      <textarea id="argumentGesundheitszustandSBA" name="argumentGesundheitszustandSBA" rows="6" required placeholder="z.B. Gehstrecken, Pausenbedarf, Schmerzen, Anfälle, Fatigue, psychische Einschränkungen, Hilfebedarf – mit Beispielen." autocomplete="off"></textarea>
 
-      <label for="ergaenzendeArgumenteSBA">Weitere/ergänzende Argumente und Erläuterungen:</label>
-      <textarea id="ergaenzendeArgumenteSBA" rows="5" placeholder="Hier können Sie spezifisch auf einzelne Punkte des Bescheids eingehen oder weitere wichtige Aspekte anführen."></textarea>
+      <label for="argumentAbweichungGutachtenSBA">Abweichungen zum Bescheid/Gutachten (optional):</label>
+      <textarea id="argumentAbweichungGutachtenSBA" name="argumentAbweichungGutachtenSBA" rows="5" placeholder="z.B. Befund X fehlt; Einschränkung Y wurde nicht bewertet; Alltagseinschränkung Z wurde unterschätzt." autocomplete="off"></textarea>
+
+      <label for="argumentMerkzeichenSBA">Begründung beantragter Merkzeichen (falls zutreffend):</label>
+      <textarea id="argumentMerkzeichenSBA" name="argumentMerkzeichenSBA" rows="4" placeholder="z.B. Gründe für Merkzeichen G/B/… mit konkreten Alltagssituationen." autocomplete="off"></textarea>
+
+      <label for="ergaenzendeArgumenteSBA">Weitere/ergänzende Argumente:</label>
+      <textarea id="ergaenzendeArgumenteSBA" name="ergaenzendeArgumenteSBA" rows="5" placeholder="Hier können Sie auf einzelne Punkte des Bescheids eingehen." autocomplete="off"></textarea>
     </fieldset>
 
     <fieldset>
         <legend>6. Was möchten Sie mit dem Widerspruch erreichen?</legend>
+
         <label for="forderungWiderspruchSBA">Formulieren Sie klar Ihr Ziel:</label>
-        <textarea id="forderungWiderspruchSBA" rows="3" required placeholder="z.B. Ich beantrage die Feststellung eines GdB von mindestens 50 und die Zuerkennung des Merkzeichens G. / Ich beantrage eine erneute ärztliche Begutachtung."></textarea>
+        <textarea id="forderungWiderspruchSBA" name="forderungWiderspruchSBA" rows="3" required placeholder="z.B. Feststellung eines höheren GdB und Zuerkennung bestimmter Merkzeichen / erneute Begutachtung." autocomplete="off"></textarea>
     </fieldset>
 
      <fieldset>
         <legend>7. Beizufügende Anlagen (Kopien sind ausreichend)</legend>
+
         <div class="checkbox-group">
             <label><input type="checkbox" name="anlagenSBAWiderspruch" value="Kopie des angefochtenen Bescheids des Versorgungsamtes"> Kopie des angefochtenen Bescheids</label>
             <label><input type="checkbox" name="anlagenSBAWiderspruch" value="Kopie des ursprünglichen Antrags (falls zur Hand)"> Kopie des ursprünglichen Antrags (falls zur Hand)</label>
             <label><input type="checkbox" name="anlagenSBAWiderspruch" value="Neue(s) bzw. ergänzende(s) ärztliche(s) Attest(e) / Stellungnahme(n)"> Neue(s) bzw. ergänzende(s) ärztliche(s) Attest(e) / Stellungnahme(n)</label>
             <label><input type="checkbox" name="anlagenSBAWiderspruch" value="Ggf. Entlassungsberichte (Krankenhaus, Reha) seit letztem Bescheid"> Ggf. Entlassungsberichte seit letztem Bescheid</label>
-            <label><input type="checkbox" name="anlagenSBAWiderspruch" value="Ggf. eigenes ausführliches Beschwerdeprotokoll / Tagebuch"> Ggf. eigenes ausführliches Beschwerdeprotokoll / Tagebuch</label>
+            <label><input type="checkbox" name="anlagenSBAWiderspruch" value="Ggf. eigenes Beschwerdeprotokoll / Tagebuch"> Ggf. eigenes Beschwerdeprotokoll / Tagebuch</label>
             <label><input type="checkbox" id="anlageVollmachtSBAWiderspruch" name="anlagenSBAWiderspruch" value="Vollmacht/Betreuungsurkunde (falls Widerspruch durch Dritte)"> Vollmacht/Betreuungsurkunde (falls zutreffend)</label>
         </div>
+
         <label for="anlageSonstigesSBAWiderspruch">Sonstige Anlagen (bitte auflisten):</label>
-        <input type="text" id="anlageSonstigesSBAWiderspruch">
+        <input type="text" id="anlageSonstigesSBAWiderspruch" name="anlageSonstigesSBAWiderspruch" autocomplete="off">
     </fieldset>
 
     <div class="button-group">
@@ -129,7 +202,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchSBA" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchSBA" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>

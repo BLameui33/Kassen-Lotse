@@ -2,11 +2,42 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch: Kostenübernahme Medikament</title>
-  <meta name="description" content="Erstellen Sie Ihren Widerspruch gegen einen abgelehnten Antrag auf Kostenübernahme für ein nicht-gelistetes oder Off-Label-Medikament.">
-  <meta name="keywords" content="Widerspruch, Medikament, nicht-gelistet, Off-Label-Use, Krankenkasse, Ablehnung, §2 Abs 1a SGB V">
+  <title>Widerspruch Medikament (Off-Label / nicht gelistet) | § 2 Abs. 1a SGB V | Kassen-Lotse</title>
+  <meta name="description" content="Formular zur Erstellung eines Widerspruchs gegen die Ablehnung einer Medikamenten-Kostenübernahme (z.B. Off-Label / besondere Einzelfälle) durch die Krankenkasse. Kostenlos, ohne Registrierung. Hinweis: Fristen beachten.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
+
+  <!-- Schema.org (Trust/YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch: Kostenübernahme Medikament",
+    "description": "Formular zur Erstellung eines Widerspruchs gegen die Ablehnung einer Medikamenten-Kostenübernahme (z.B. Off-Label / besondere Einzelfälle) durch die Krankenkasse.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Arzneimittel" },
+      { "@type": "Thing", "name": "Off-Label-Use" },
+      { "@type": "Thing", "name": "Kostenübernahme" },
+      { "@type": "Thing", "name": "§ 2 Abs. 1a SGB V" },
+      { "@type": "Thing", "name": "Widerspruch" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="widerspruch-medikamente_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
@@ -15,69 +46,101 @@
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Widerspruch: Kostenübernahme nicht-gelistetes/Off-Label Medikament</h1>
-  <p class="info-box warning">
-    Wurde Ihr Antrag auf Kostenübernahme für ein spezielles Medikament abgelehnt? Hier können Sie einen Widerspruch erstellen.
-    Beachten Sie die Widerspruchsfrist (i.d.R. ein Monat) und lesen Sie die <a href="info-medikamente.html">Informationen zu diesem Thema</a> sorgfältig.
-  </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="widerspruchMedikamenteForm">
+  <p class="info-box warning">
+    Wurde Ihr Antrag auf Kostenübernahme für ein spezielles Medikament abgelehnt, kann ein Widerspruch in Betracht kommen.
+    Achten Sie auf die Rechtsbehelfsbelehrung im Bescheid und die dort genannte Frist; häufig beträgt sie einen Monat.
+
+    <strong>Praxis-Hinweis:</strong> In vielen Fällen steht im Mittelpunkt, ob die Voraussetzungen des § 2 Abs. 1a SGB V vorliegen (schwerwiegende Erkrankung, keine Standardleistung verfügbar, und eine „nicht ganz entfernt liegende“ Aussicht auf Heilung oder spürbar positive Einwirkung). 
+    <strong>Praxis-Hinweis:</strong> § 2 Abs. 1a SGB V sieht zudem vor, dass die Krankenkasse für solche Leistungen grundsätzlich vor Behandlungsbeginn eine Kostenübernahmeerklärung erteilt, wenn Versicherte oder Behandelnde dies beantragen - diese zeitliche Komponente kann bei der Argumentation relevant sein. 
+
+    Beachten Sie außerdem unsere <a href="info-medikamente.html">Informationen zu diesem Thema</a>.
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong>
+    Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor dem Versand von Ihnen geprüft und ggf. angepasst werden.
+    Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">23.12.2025</span></p>
+  </div>
+
+  <form id="widerspruchMedikamenteForm" autocomplete="on">
     <fieldset>
       <legend>1. Ihre Persönlichen Angaben</legend>
+
       <label for="name">Vor- und Nachname:</label>
-      <input type="text" id="name" required>
+      <input type="text" id="name" name="name" required autocomplete="name">
+
       <label for="adresse">Ihre vollständige Adresse:</label>
-      <textarea id="adresse" rows="3" required></textarea>
+      <textarea id="adresse" name="adresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="nummer">Versichertennummer:</label>
-      <input type="text" id="nummer" required>
+      <input type="text" id="nummer" name="nummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
+
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Vollständige Adresse der Krankenkasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zum abgelehnten Antrag auf Medikamenten-Kostenübernahme</legend>
+
       <label for="ursprAntragDatumMedikament">Datum Ihres ursprünglichen Antrags (falls bekannt):</label>
-      <input type="date" id="ursprAntragDatumMedikament">
+      <input type="date" id="ursprAntragDatumMedikament" name="ursprAntragDatumMedikament" autocomplete="off">
+
       <label for="abgelehntesMedikamentName">Name des abgelehnten Medikaments (Handelsname und/oder Wirkstoff):</label>
-      <input type="text" id="abgelehntesMedikamentName" required>
+      <input type="text" id="abgelehntesMedikamentName" name="abgelehntesMedikamentName" required autocomplete="off">
+
       <label for="ablehnungsbescheidDatumMedikament">Datum des Ablehnungsbescheids der Krankenkasse:</label>
-      <input type="date" id="ablehnungsbescheidDatumMedikament" required>
+      <input type="date" id="ablehnungsbescheidDatumMedikament" name="ablehnungsbescheidDatumMedikament" required autocomplete="off">
+
       <label for="aktenzeichenMedikament">Aktenzeichen / Vorgangsnummer des Bescheids (falls vorhanden):</label>
-      <input type="text" id="aktenzeichenMedikament">
+      <input type="text" id="aktenzeichenMedikament" name="aktenzeichenMedikament" autocomplete="off">
     </fieldset>
-    
+
     <fieldset>
       <legend>4. Begründung Ihres Widerspruchs</legend>
-      <p class="info-box">Eine überzeugende Begründung ist hier besonders wichtig. Gehen Sie detailliert auf die Ablehnungsgründe Ihrer Krankenkasse ein. Erläutern Sie erneut (ggf. mit Verweis auf eine neue/ergänzende ärztliche Stellungnahme), warum die Voraussetzungen für eine Kostenübernahme (z.B. nach § 2 Abs. 1a SGB V oder den Prinzipien des "Nikolaus-Beschlusses") erfüllt sind. Beachten Sie insbesondere folgende Punkte:</p>
+
+      <p class="info-box">
+        Gehen Sie detailliert auf die Ablehnungsgründe ein und verweisen Sie auf ärztliche Stellungnahmen und Nachweise.
+        <strong>Praxis-Hinweis:</strong> Oft überzeugt eine klare Struktur: (1) Diagnose/Schweregrad, (2) ausgeschöpfte oder ungeeignete Standardtherapien, (3) Begründung der Erfolgsaussicht (z.B. Leitlinie/Studienlage/Einzelfallargumentation), (4) konkrete Therapieplanung (Dosis, Dauer, Monitoring). 
+      </p>
+
       <ul>
-          <li>Handelt es sich um eine schwerwiegende (ggf. lebensbedrohliche) Erkrankung?</li>
+          <li>Handelt es sich um eine lebensbedrohliche oder vergleichbar schwerwiegende Erkrankung?</li>
           <li>Warum stehen keine Standardtherapien (mehr) zur Verfügung oder sind ungeeignet?</li>
-          <li>Welche begründete Aussicht auf einen Behandlungserfolg (Heilung oder positive Beeinflussung des Krankheitsverlaufs) besteht durch das beantragte Medikament?</li>
+          <li>Welche begründete Aussicht auf Behandlungserfolg besteht durch das beantragte Medikament?</li>
       </ul>
 
-      <label for="kernpunkteAerztlicheStellungnahme">Kernpunkte der ärztlichen Stellungnahme zur Notwendigkeit des Medikaments: <small>(Fassen Sie hier die wichtigsten Argumente Ihres Arztes/Ihrer Ärztin zusammen, z.B. warum keine Standardtherapie geeignet ist und welche Erfolgsaussichten bestehen. Details entnimmt die Kasse der beigefügten Stellungnahme.)</small></label>
-      <textarea id="kernpunkteAerztlicheStellungnahme" rows="4" required placeholder="z.B. Laut ärztlicher Stellungnahme von Dr. Mustermann vom TT.MM.JJJJ ist aufgrund von [Grund] keine Standardtherapie für meine Erkrankung '[Name der Erkrankung]' verfügbar/ausgeschöpft. Es besteht eine begründete Aussicht auf einen Behandlungserfolg mit dem beantragten Medikament, da [kurze Begründung des Arztes]..."></textarea>
-      
-      <label for="widerspruchBegruendungMedikament">Zusätzliche/ausführliche Begründung Ihres Widerspruchs: <small>(Gehen Sie hier detailliert auf die Ablehnungsgründe der Kasse ein, die nicht bereits durch die oben genannten Punkte abgedeckt sind. Legen Sie ggf. neue Nachweise oder eine weitere Stellungnahme Ihres Arztes bei und erwähnen Sie diese hier.)</small></label>
-      <textarea id="widerspruchBegruendungMedikament" rows="8" required></textarea>
+      <label for="kernpunkteAerztlicheStellungnahme">Kernpunkte der ärztlichen Stellungnahme zur Notwendigkeit des Medikaments: <small>(Kurz zusammenfassen; Details stehen in der beigefügten Stellungnahme.)</small></label>
+      <textarea id="kernpunkteAerztlicheStellungnahme" name="kernpunkteAerztlicheStellungnahme" rows="4" required placeholder="z.B. Ärztliche Stellungnahme vom ...: Standardtherapien sind ausgeschöpft/ungeeignet, weil ...; begründete Erfolgsaussicht, weil ...; Risiko-Nutzen-Abwägung im Einzelfall ..." autocomplete="off"></textarea>
+
+      <label for="widerspruchBegruendungMedikament">Zusätzliche/ausführliche Begründung: <small>(Gehen Sie auf weitere Ablehnungsgründe ein und verweisen Sie auf neue Nachweise.)</small></label>
+      <textarea id="widerspruchBegruendungMedikament" name="widerspruchBegruendungMedikament" rows="8" required autocomplete="off"></textarea>
     </fieldset>
 
     <div class="button-group">
@@ -86,7 +149,9 @@
       <button type="submit" class="button-danger">📄 Widerspruchs-PDF erstellen</button>
     </div>
   </form>
-</div> <div id="spendenPopupWiderspruchMedikamente" class="popup-overlay">
+</div>
+
+<div id="spendenPopupWiderspruchMedikamente" class="popup-overlay">
   <div class="popup-content">
     <h2>Danke für deine Nutzung 💛</h2>
     <p>Wenn dir dieses Tool geholfen hat, unterstütze das Projekt gerne mit einer kleinen Spende:</p>
