@@ -2,81 +2,149 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag auf Zuzahlungsbefreiung erstellen | Kassen-Lotse</title>
-  <meta name="description" content="Erstellen Sie Ihren Antrag auf Befreiung von Zuzahlungen bei Ihrer Krankenkasse. Berechnen Sie Ihre persönliche Belastungsgrenze und fordern Sie zu viel gezahlte Beträge zurück.">
-  <meta name="keywords" content="Zuzahlungsbefreiung, Belastungsgrenze, Antrag, Krankenkasse, Zuzahlung, chronisch krank, § 62 SGB V, Vorlage, Generator">
+  <title>Antrag auf Zuzahlungsbefreiung | Belastungsgrenze § 62 SGB V | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie Ihren Antrag auf Befreiung von Zuzahlungen bei der Krankenkasse. Belastungsgrenze nach § 62 SGB V (2% bzw. 1% bei schwerwiegend chronisch Kranken). Optional: Orientierungs-Berechnung und Antrag auf Erstattung. Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="zuzahlungsbefreiung_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
+
+  <!-- Schema.org (YMYL/Health + Legal) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Antrag auf Zuzahlungsbefreiung erstellen",
+    "description": "Generator für einen Antrag auf Zuzahlungsbefreiung nach § 62 SGB V (Belastungsgrenze 2% / 1% bei schwerwiegend chronisch Kranken).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Zuzahlung" },
+      { "@type": "Thing", "name": "Zuzahlungsbefreiung" },
+      { "@type": "Thing", "name": "Belastungsgrenze" },
+      { "@type": "Thing", "name": "SGB V § 62" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
 </head>
 <body>
 
 <header class="site-header">
-    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+  <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
 <div class="page-container">
   <h1>Antrag auf Befreiung von Zuzahlungen</h1>
+
   <p class="info-box info">
-    Jeder gesetzlich Versicherte muss Zuzahlungen leisten, aber nur bis zu einer persönlichen Belastungsgrenze. Diese liegt bei 2% (bei chronisch Kranken bei 1%) der jährlichen Bruttoeinnahmen. Mit diesem Tool können Sie die Befreiung beantragen, wenn Sie die Grenze erreicht haben oder im Voraus zahlen möchten.
+    Gesetzlich Versicherte müssen Zuzahlungen nur bis zur persönlichen Belastungsgrenze leisten (§ 62 Abs. 1 S. 1 SGB V). 
+    Die Belastungsgrenze beträgt grundsätzlich 2% der jährlichen Bruttoeinnahmen zum Lebensunterhalt; für Versicherte, die wegen derselben schwerwiegenden Krankheit in Dauerbehandlung sind, beträgt sie 1% (§ 62 Abs. 1 S. 2 SGB V). 
+    Wird die Belastungsgrenze innerhalb eines Kalenderjahres erreicht, muss die Krankenkasse eine Bescheinigung ausstellen, dass für den Rest des Jahres keine Zuzahlungen mehr zu leisten sind (§ 62 Abs. 1 S. 1 SGB V). 
   </p>
-<p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
+
+  <p class="info-box">
+    <strong>Hinweis „chronisch krank“ (1%-Regelung):</strong>
+    Das Nähere zur Definition einer schwerwiegenden chronischen Erkrankung bestimmt der Gemeinsame Bundesausschuss (G-BA) in Richtlinien (§ 62 Abs. 1 S. 7 SGB V). 
+    Das BMG beschreibt als Faustregel u.a.: mindestens 1 Jahr lang mindestens ein Arztbesuch pro Quartal wegen derselben Krankheit und zusätzlich bestimmte Kriterien (z.B. Pflegegrad 3-5 oder GdB/MdE ≥ 60 oder vergleichbar schwerer Verlauf mit kontinuierlichem Behandlungsbedarf). 
+  </p>
+
+  <p class="info-box">
+    <strong>Wichtig zur Berechnung:</strong>
+    Bei der Ermittlung werden Zuzahlungen und Bruttoeinnahmen u.a. von Versicherten, Ehegatten/Lebenspartnern und (mit-)versicherten Kindern im gemeinsamen Haushalt zusammengerechnet (§ 62 Abs. 2 S. 1 SGB V). 
+    Dabei sind bestimmte Abzüge/Freibeträge zu berücksichtigen (z.B. für Angehörige und Kinder) (§ 62 Abs. 2 S. 2-3 SGB V). 
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Speichern“ und „Laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung.
+    Die Berechnung in diesem Tool dient nur der Orientierung; maßgeblich ist die Prüfung der Krankenkasse anhand Ihrer Nachweise (§ 62 SGB V). 
+  </p>
+
   <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
-  
-  <form id="zuzahlungsbefreiungForm">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="zuzahlungsbefreiungForm" autocomplete="on">
     <fieldset>
       <legend>1. Ihre Angaben (Versicherte/r)</legend>
+
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" name="personName" required autocomplete="name">
+
       <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="personAdresse" rows="2" required></textarea>
+      <textarea id="personAdresse" name="personAdresse" rows="2" required autocomplete="street-address"></textarea>
+
       <label for="versicherungsnummer">Krankenversicherungsnummer:</label>
-      <input type="text" id="versicherungsnummer" required>
+      <input type="text" id="versicherungsnummer" name="versicherungsnummer" required autocomplete="off" inputmode="text">
+
       <label for="geburtsdatum">Geburtsdatum:</label>
-      <input type="date" id="geburtsdatum" required>
+      <input type="date" id="geburtsdatum" name="geburtsdatum" required autocomplete="bday">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
+
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Anschrift der Krankenkasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Berechnung Ihrer Belastungsgrenze (optional)</legend>
-      <small>Diese Berechnung dient nur Ihrer Orientierung. Die Krankenkasse prüft die genauen Werte anhand Ihrer Nachweise.</small>
-      <label for="bruttoeinkommen">Jährliche Bruttoeinnahmen aller Haushaltsangehörigen:</label>
-      <input type="number" id="bruttoeinkommen" step="0.01" placeholder="z.B. 25000.00">
+
+      <small>Diese Berechnung dient nur Ihrer Orientierung. Die Krankenkasse prüft die genauen Werte anhand Ihrer Nachweise (§ 62 SGB V).</small> 
+
+      <label for="bruttoeinkommen">Jährliche Bruttoeinnahmen zum Lebensunterhalt (Haushalt) in €:</label>
+      <input type="number" id="bruttoeinkommen" name="bruttoeinkommen" step="0.01" min="0" placeholder="z.B. 25000.00" inputmode="decimal" autocomplete="off">
+
       <div class="checkbox-group">
-        <label><input type="checkbox" id="chronischKrank"> Ich bin schwerwiegend chronisch krank (1%-Regelung).</label>
+        <label><input type="checkbox" id="chronischKrank" name="chronischKrank"> Ich bin schwerwiegend chronisch krank (1%-Regelung).</label>
       </div>
-      <label for="bereitsGezahlt">Bereits geleistete Zuzahlungen in diesem Jahr in €:</label>
-      <input type="number" id="bereitsGezahlt" step="0.01" placeholder="0.00">
+
+      <label for="bereitsGezahlt">Bereits geleistete Zuzahlungen im aktuellen Kalenderjahr in €:</label>
+      <input type="number" id="bereitsGezahlt" name="bereitsGezahlt" step="0.01" min="0" placeholder="0.00" inputmode="decimal" autocomplete="off">
+
       <div id="ergebnis-container" class="berechnungs-ergebnis" style="display: none;">
         Ihre geschätzte Belastungsgrenze: <span id="belastungsgrenze">0,00 €</span>
       </div>
     </fieldset>
-    
+
     <fieldset>
       <legend>4. Art des Antrags</legend>
       <div class="radio-group">
-        <label><input type="radio" name="antragArt" value="befreiung" required> <strong>Befreiung für den Rest des Jahres:</strong> Ich habe meine Belastungsgrenze bereits erreicht.</label>
-        <label><input type="radio" name="antragArt" value="vorauszahlung" required> <strong>Befreiung durch Vorauszahlung:</strong> Ich möchte meine Belastungsgrenze im Voraus bezahlen.</label>
-        <label><input type="radio" name="antragArt" value="rueckerstattung" required> <strong>Rückerstattung für vergangenes Jahr:</strong> Ich habe letztes Jahr zu viel bezahlt.</label>
+        <label><input type="radio" name="antragArt" value="befreiung" required> <strong>Befreiung für den Rest des Jahres:</strong> Belastungsgrenze im laufenden Jahr erreicht (Bescheinigung nach § 62 Abs. 1 SGB V).</label>
+        <label><input type="radio" name="antragArt" value="vorauszahlung" required> <strong>Befreiung durch Vorauszahlung:</strong> Ich möchte die Belastungsgrenze vorab zahlen (bitte Zahlungsweg mitteilen).</label>
+        <label><input type="radio" name="antragArt" value="rueckerstattung" required> <strong>Erstattung:</strong> Ich beantrage Erstattung von Zuzahlungen oberhalb der Belastungsgrenze (z.B. für das vergangene Jahr).</label>
       </div>
+      <p class="info-box">
+        <small>Hinweis: Die Befreiungsbescheinigung darf keine Angaben über Einkommen enthalten (§ 62 Abs. 3 S. 2 SGB V).</small> 
+      </p>
     </fieldset>
-    
+
     <div class="button-group">
       <button type="button" id="saveBtnZuzahlung" class="button-secondary">Speichern</button>
       <button type="button" id="loadBtnZuzahlung" class="button-secondary">Laden</button>
@@ -88,7 +156,7 @@
 <div id="spendenPopup" class="popup-overlay">
   <div class="popup-content">
       <h2>Antrag erstellt!</h2>
-      <p>Wir hoffen, es klappt mit der Befreiung! Wenn Ihnen dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
+      <p>Wenn Ihnen dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
       <form action="https://www.paypal.com/donate" method="post" target="_blank">
           <input type="hidden" name="business" value="info@kassen-lotse.de" />
           <input type="hidden" name="item_name" value="Unterstützung für das Projekt Kassen-Lotse" />
@@ -101,10 +169,10 @@
 
 <footer>
   <div class="mini-footer-hint">
-  <p>Brauchen Sie mehr Unterstützung bei Anträgen, Behördenbriefen oder komplexen Schreiben?</p>
-  <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
+    <p>Brauchen Sie mehr Unterstützung bei Anträgen, Behördenbriefen oder komplexen Schreiben?</p>
+    <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
   </div>
-    <p>&copy; 2025 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="datenschutz.html">Datenschutz</a> | <a href="impressum.html">Impressum</a></p>
+  <p>&copy; 2025 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="datenschutz.html">Datenschutz</a> | <a href="impressum.html">Impressum</a></p>
 </footer>
 
 </body>

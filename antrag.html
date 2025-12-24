@@ -2,42 +2,51 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Kostenerstattungs-Antrag Psychotherapie</title>
-  <meta name="description" content="Antrag auf Kostenerstattung für Psychotherapie: Kontaktversuche, Begründung und PDF-Erzeugung.">
+  <title>Kostenerstattung Psychotherapie beantragen | § 13 Abs. 3 SGB V | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie einen Antrag auf Kostenerstattung für ambulante Psychotherapie bei der gesetzlichen Krankenkasse (Systemversagen/zu Unrecht abgelehnt) nach § 13 Abs. 3 SGB V. Mit Dokumentation der Therapeutensuche und PDF-Erzeugung. Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <!-- Optional: du kannst komplexe Logik in eine separate Datei auslagern -->
   <script defer src="kostenerstattung_psychotherapie_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
-  <style>
-    /* kleine Ergänzungen, damit bestimmte Elemente aus dem Original gut aussehen */
-    .protokoll-anzeige-bereich legend {
-      font-size: 1.05em;
-      color: #444;
-      font-weight: 600;
-    }
-    .protokoll-anzeige-eintrag {
-      background-color: #f8f9fa;
-      border: 1px solid #e9ecef;
-      padding: 10px;
-      margin-bottom: 8px;
-      border-radius: 6px;
-      font-size: 0.95em;
-    }
-    .protokoll-hinweis {
-      font-size: 0.95em;
-      color: #555;
-      margin-bottom: 1rem;
-      background-color: #eef7ff;
-      padding: 8px;
-      border-radius: 4px;
-      border-left: 3px solid #0070f3;
-    }
-  </style>
-</head>
-<body>
 
+  <style>
+    .protokoll-anzeige-bereich legend { font-size: 1.05em; color:#444; font-weight:600; }
+    .protokoll-anzeige-eintrag { background:#f8f9fa; border:1px solid #e9ecef; padding:10px; margin-bottom:8px; border-radius:6px; font-size:.95em; }
+    .protokoll-hinweis { font-size:.95em; color:#555; margin-bottom:1rem; background:#eef7ff; padding:8px; border-radius:4px; border-left:3px solid #0070f3; }
+  </style>
+
+  <!-- Schema.org (YMYL/Health + Legal) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Kostenerstattungs-Antrag Psychotherapie",
+    "description": "Generator für einen Antrag auf Kostenerstattung für Psychotherapie nach § 13 Abs. 3 SGB V inklusive Dokumentation von Kontaktversuchen.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Kostenerstattung" },
+      { "@type": "Thing", "name": "Psychotherapie" },
+      { "@type": "Thing", "name": "SGB V § 13" }
+    ],
+    "lastReviewed": "2025-12-23",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+</head>
+
+<body>
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
   </header>
@@ -45,186 +54,195 @@
   <div class="page-container">
     <h1>Antrag auf Kostenerstattung Psychotherapie</h1>
 
+    <p class="info-box info">
+      Dieses Tool erstellt ein Anschreiben für einen Antrag auf Kostenerstattung, wenn eine notwendige psychotherapeutische Behandlung nicht rechtzeitig als Kassenleistung verfügbar ist oder die Krankenkasse eine Leistung zu Unrecht abgelehnt hat (§ 13 Abs. 3 SGB V). 
+      <strong>Wichtig:</strong> Ein Kostenerstattungsanspruch setzt nach § 13 Abs. 3 SGB V u.a. voraus, dass für die selbstbeschaffte Leistung bereits Kosten entstanden sind und die Leistung notwendig war. 
+      <strong>Wichtig:</strong> Kosten für selbstbeschaffte Leistungen, die durch einen Psychotherapeuten erbracht werden, sind nur erstattungsfähig, sofern dieser die Voraussetzungen des § 95c erfüllt (§ 13 Abs. 3 S. 3 SGB V). 
+    </p>
+
     <p class="info-box">
-      Füllen Sie dieses Formular sorgfältig aus, um Ihren Antrag auf Kostenerstattung für Psychotherapie zu erstellen. Ihre Eingaben können Sie im Browser zwischenspeichern.
+      <strong>Hinweis zum Kostenrisiko:</strong> Bevor eine Behandlung bei einer Privatpraxis startet, sollte die Krankenkasse möglichst schriftlich zur Kostenübernahme aufgefordert werden; ohne Zusage kann ein Kostenrisiko bestehen, weil § 13 Abs. 3 SGB V an „entstandene Kosten“ und weitere Voraussetzungen anknüpft. 
+      <strong>Tipp:</strong> Dokumentation der Suche (Kontaktversuche, Wartezeiten, Absagen) erhöht die Nachvollziehbarkeit, ob die Leistung „nicht rechtzeitig“ erbracht werden konnte. 
     </p>
 
-    <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-      <strong>Hinweis:</strong> Unsere Inhalte und Formulare ersetzen keine Rechtsberatung. Sie dienen der allgemeinen Unterstützung. Für verbindliche Auskünfte wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
+    <p class="info-box">
+      <strong>Hinweis zur Datenspeicherung:</strong> „Speichern/Laden“ nutzt den localStorage im Browser (gerät-/browserbezogen); eine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse erfolgt dadurch nicht.
     </p>
 
-    <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <p class="info-box" style="background-color:#fff8e1; border-left:4px solid #ff9800; padding:10px; margin-top:10px;">
+      <strong>Wichtiger Hinweis:</strong> Unsere Inhalte/Formulare ersetzen keine Rechtsberatung und keine medizinische Beratung.
+      Für verbindliche Einschätzungen (z.B. Dringlichkeit/Indikation, Vorgehen bei Ablehnung) wenden Sie sich bitte an eine Beratungsstelle oder anwaltliche Hilfe.
+    </p>
+
+    <p class="highlight-box" style="background-color:#fff3f3; border-left:4px solid #e53935; padding:10px; margin-top:10px;">
       <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App funktioniert der Download nicht zuverlässig.
     </p>
-    <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-    <form id="antragForm">
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+      <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">23.12.2025</span></p>
+    </div>
+
+    <form id="antragForm" autocomplete="on">
       <fieldset>
         <legend>Persönliche Angaben</legend>
+
         <label for="name">Vor- und Nachname:</label>
-        <input type="text" id="name" required>
+        <input type="text" id="name" name="name" required autocomplete="name">
 
         <label for="adresse">Ihre vollständige Adresse: <small>(Straße, Hausnummer, PLZ, Ort)</small></label>
-        <textarea id="adresse" required></textarea>
+        <textarea id="adresse" name="adresse" required autocomplete="street-address"></textarea>
 
         <label for="geburt">Geburtsdatum:</label>
-        <input type="date" id="geburt" required>
+        <input type="date" id="geburt" name="geburt" required autocomplete="bday">
 
         <label for="nummer">Versichertennummer:</label>
-        <input type="text" id="nummer" required>
+        <input type="text" id="nummer" name="nummer" required autocomplete="off" inputmode="text">
       </fieldset>
 
       <fieldset>
         <legend>Krankenkasse</legend>
+
         <label for="kasse">Name der Krankenkasse:</label>
-        <input type="text" id="kasse" required>
+        <input type="text" id="kasse" name="kasse" required autocomplete="organization">
 
         <label for="kassenAdresse">Vollständige Adresse der Krankenkasse:</label>
-        <textarea id="kassenAdresse" required></textarea>
+        <textarea id="kassenAdresse" name="kassenAdresse" required autocomplete="street-address"></textarea>
       </fieldset>
 
       <fieldset>
         <legend>Angaben zur Therapiebedürftigkeit</legend>
+
         <label for="beschwerden_diagnose">Kurze Beschreibung Ihrer Beschwerden/Diagnose:</label>
-        <textarea id="beschwerden_diagnose" rows="5" required></textarea>
+        <textarea id="beschwerden_diagnose" name="beschwerden_diagnose" rows="5" required autocomplete="off"></textarea>
       </fieldset>
 
       <fieldset>
         <legend>Nachweis der Therapeutensuche (manuelle Eingabe)</legend>
-        <p class="info-box">Bitte dokumentieren Sie hier Ihre vergeblichen Versuche, einen Therapieplatz bei kassenzugelassenen Psychotherapeut:innen zu finden. Mindestens 5 Versuche sind erforderlich. Maximal 10 können eingetragen werden.</p>
+        <p class="info-box">
+          Bitte dokumentieren Sie hier Ihre Versuche, einen Therapieplatz bei kassenzugelassenen Psychotherapeut:innen zu finden.
+          Die Anzahl „mindestens 5“ ist eine praktische Mindestgröße, aber rechtlich ist entscheidend, ob die Leistung im konkreten Fall nicht rechtzeitig erreichbar war. 
+        </p>
 
-        <!-- Kontaktversuche 0..9 (IDs bleiben erhalten) -->
-        <!-- Wir behalten die gleiche Struktur wie zuvor, damit bestehende JS/Tools kompatibel bleiben -->
         <div id="kontaktversucheContainer">
-          <!-- Kontakt 1..10: je eine kleine Gruppe -->
-          <!-- Für Platzsparnis hier nur eine Vorlage (du hast bereits alle Felder, wir füllen sie in JS) -->
-          <!-- -> wir geben alle Felder einzeln (wie Original), damit Save/Load exakt funktioniert -->
-          <!-- Kontakt 1 -->
           <fieldset>
             <legend>Kontaktversuch 1 (Pflicht)</legend>
             <label for="kontakt_name_0">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_0" required>
+            <input type="text" id="kontakt_name_0" name="kontakt_name_0" required autocomplete="off">
             <label for="kontakt_datum_0">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_0" required>
+            <input type="date" id="kontakt_datum_0" name="kontakt_datum_0" required autocomplete="off">
             <label for="kontakt_art_0">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_0" required>
+            <input type="text" id="kontakt_art_0" name="kontakt_art_0" required autocomplete="off">
             <label for="kontakt_ergebnis_0">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_0" required>
+            <input type="text" id="kontakt_ergebnis_0" name="kontakt_ergebnis_0" required autocomplete="off">
           </fieldset>
 
-          <!-- Kontakt 2 -->
           <fieldset>
             <legend>Kontaktversuch 2 (Pflicht)</legend>
             <label for="kontakt_name_1">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_1" required>
+            <input type="text" id="kontakt_name_1" name="kontakt_name_1" required autocomplete="off">
             <label for="kontakt_datum_1">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_1" required>
+            <input type="date" id="kontakt_datum_1" name="kontakt_datum_1" required autocomplete="off">
             <label for="kontakt_art_1">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_1" required>
+            <input type="text" id="kontakt_art_1" name="kontakt_art_1" required autocomplete="off">
             <label for="kontakt_ergebnis_1">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_1" required>
+            <input type="text" id="kontakt_ergebnis_1" name="kontakt_ergebnis_1" required autocomplete="off">
           </fieldset>
 
-          <!-- Kontakt 3 -->
           <fieldset>
             <legend>Kontaktversuch 3 (Pflicht)</legend>
             <label for="kontakt_name_2">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_2" required>
+            <input type="text" id="kontakt_name_2" name="kontakt_name_2" required autocomplete="off">
             <label for="kontakt_datum_2">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_2" required>
+            <input type="date" id="kontakt_datum_2" name="kontakt_datum_2" required autocomplete="off">
             <label for="kontakt_art_2">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_2" required>
+            <input type="text" id="kontakt_art_2" name="kontakt_art_2" required autocomplete="off">
             <label for="kontakt_ergebnis_2">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_2" required>
+            <input type="text" id="kontakt_ergebnis_2" name="kontakt_ergebnis_2" required autocomplete="off">
           </fieldset>
 
-          <!-- Kontakt 4 -->
           <fieldset>
             <legend>Kontaktversuch 4 (Pflicht)</legend>
             <label for="kontakt_name_3">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_3" required>
+            <input type="text" id="kontakt_name_3" name="kontakt_name_3" required autocomplete="off">
             <label for="kontakt_datum_3">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_3" required>
+            <input type="date" id="kontakt_datum_3" name="kontakt_datum_3" required autocomplete="off">
             <label for="kontakt_art_3">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_3" required>
+            <input type="text" id="kontakt_art_3" name="kontakt_art_3" required autocomplete="off">
             <label for="kontakt_ergebnis_3">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_3" required>
+            <input type="text" id="kontakt_ergebnis_3" name="kontakt_ergebnis_3" required autocomplete="off">
           </fieldset>
 
-          <!-- Kontakt 5 -->
           <fieldset>
             <legend>Kontaktversuch 5 (Pflicht)</legend>
             <label for="kontakt_name_4">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_4" required>
+            <input type="text" id="kontakt_name_4" name="kontakt_name_4" required autocomplete="off">
             <label for="kontakt_datum_4">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_4" required>
+            <input type="date" id="kontakt_datum_4" name="kontakt_datum_4" required autocomplete="off">
             <label for="kontakt_art_4">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_4" required>
+            <input type="text" id="kontakt_art_4" name="kontakt_art_4" required autocomplete="off">
             <label for="kontakt_ergebnis_4">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_4" required>
+            <input type="text" id="kontakt_ergebnis_4" name="kontakt_ergebnis_4" required autocomplete="off">
           </fieldset>
 
-          <!-- Kontakt 6..10 (optional) -->
+          <!-- Kontakt 6..10 optional -->
           <fieldset>
             <legend>Kontaktversuch 6 (Optional)</legend>
             <label for="kontakt_name_5">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_5">
+            <input type="text" id="kontakt_name_5" name="kontakt_name_5" autocomplete="off">
             <label for="kontakt_datum_5">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_5">
+            <input type="date" id="kontakt_datum_5" name="kontakt_datum_5" autocomplete="off">
             <label for="kontakt_art_5">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_5">
+            <input type="text" id="kontakt_art_5" name="kontakt_art_5" autocomplete="off">
             <label for="kontakt_ergebnis_5">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_5">
+            <input type="text" id="kontakt_ergebnis_5" name="kontakt_ergebnis_5" autocomplete="off">
           </fieldset>
 
           <fieldset>
             <legend>Kontaktversuch 7 (Optional)</legend>
             <label for="kontakt_name_6">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_6">
+            <input type="text" id="kontakt_name_6" name="kontakt_name_6" autocomplete="off">
             <label for="kontakt_datum_6">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_6">
+            <input type="date" id="kontakt_datum_6" name="kontakt_datum_6" autocomplete="off">
             <label for="kontakt_art_6">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_6">
+            <input type="text" id="kontakt_art_6" name="kontakt_art_6" autocomplete="off">
             <label for="kontakt_ergebnis_6">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_6">
+            <input type="text" id="kontakt_ergebnis_6" name="kontakt_ergebnis_6" autocomplete="off">
           </fieldset>
 
           <fieldset>
             <legend>Kontaktversuch 8 (Optional)</legend>
             <label for="kontakt_name_7">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_7">
+            <input type="text" id="kontakt_name_7" name="kontakt_name_7" autocomplete="off">
             <label for="kontakt_datum_7">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_7">
+            <input type="date" id="kontakt_datum_7" name="kontakt_datum_7" autocomplete="off">
             <label for="kontakt_art_7">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_7">
+            <input type="text" id="kontakt_art_7" name="kontakt_art_7" autocomplete="off">
             <label for="kontakt_ergebnis_7">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_7">
+            <input type="text" id="kontakt_ergebnis_7" name="kontakt_ergebnis_7" autocomplete="off">
           </fieldset>
 
           <fieldset>
             <legend>Kontaktversuch 9 (Optional)</legend>
             <label for="kontakt_name_8">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_8">
+            <input type="text" id="kontakt_name_8" name="kontakt_name_8" autocomplete="off">
             <label for="kontakt_datum_8">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_8">
+            <input type="date" id="kontakt_datum_8" name="kontakt_datum_8" autocomplete="off">
             <label for="kontakt_art_8">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_8">
+            <input type="text" id="kontakt_art_8" name="kontakt_art_8" autocomplete="off">
             <label for="kontakt_ergebnis_8">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_8">
+            <input type="text" id="kontakt_ergebnis_8" name="kontakt_ergebnis_8" autocomplete="off">
           </fieldset>
 
           <fieldset>
             <legend>Kontaktversuch 10 (Optional)</legend>
             <label for="kontakt_name_9">Name des Therapeuten/der Praxis:</label>
-            <input type="text" id="kontakt_name_9">
+            <input type="text" id="kontakt_name_9" name="kontakt_name_9" autocomplete="off">
             <label for="kontakt_datum_9">Datum des Kontakts:</label>
-            <input type="date" id="kontakt_datum_9">
+            <input type="date" id="kontakt_datum_9" name="kontakt_datum_9" autocomplete="off">
             <label for="kontakt_art_9">Art des Kontakts:</label>
-            <input type="text" id="kontakt_art_9">
+            <input type="text" id="kontakt_art_9" name="kontakt_art_9" autocomplete="off">
             <label for="kontakt_ergebnis_9">Ergebnis/Antwort:</label>
-            <input type="text" id="kontakt_ergebnis_9">
+            <input type="text" id="kontakt_ergebnis_9" name="kontakt_ergebnis_9" autocomplete="off">
           </fieldset>
         </div>
       </fieldset>
@@ -243,22 +261,27 @@
 
       <fieldset>
         <legend>Gewünschte:r Therapeut:in (für Kostenerstattung)</legend>
+
         <label for="therapeut">Vor- und Nachname des/der Therapeut:in:</label>
-        <input type="text" id="therapeut">
+        <input type="text" id="therapeut" name="therapeut" autocomplete="name">
+
         <label for="therapeutAdresse">Praxisadresse des/der Therapeut:in:</label>
-        <textarea id="therapeutAdresse"></textarea>
+        <textarea id="therapeutAdresse" name="therapeutAdresse" autocomplete="street-address"></textarea>
+
         <label for="approbiert">Approbation vorhanden?</label>
-        <select id="approbiert">
+        <select id="approbiert" name="approbiert" autocomplete="off">
           <option value="Ja" selected>Ja</option>
           <option value="Nein">Nein</option>
         </select>
+
         <label for="kassenzulassung">Hat der/die Therapeut:in eine Kassenzulassung?</label>
-        <select id="kassenzulassung">
+        <select id="kassenzulassung" name="kassenzulassung" autocomplete="off">
           <option value="Nein" selected>Nein</option>
           <option value="Ja">Ja</option>
         </select>
+
         <label for="verfuegbar">Kann die Behandlung zeitnah begonnen werden?</label>
-        <select id="verfuegbar">
+        <select id="verfuegbar" name="verfuegbar" autocomplete="off">
           <option value="Ja" selected>Ja</option>
           <option value="Nein">Nein</option>
         </select>
@@ -272,7 +295,6 @@
     </form>
   </div>
 
-  <!-- Spenden-Popup (angepasst an Namenskonvention) -->
   <div id="spendenPopupPsych" class="popup-overlay">
     <div class="popup-content">
       <h2>Danke für deine Nutzung 💛</h2>
@@ -295,6 +317,8 @@
     </div>
     <p>&copy; 2025 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="info-kostenerstattung.html">Infos Kostenerstattung</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
   </footer>
+
+
 
 <script>
 // ... (Anfang von script.js, wie er bereits existiert) ...

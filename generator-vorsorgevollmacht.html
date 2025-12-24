@@ -2,122 +2,188 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Generator für Vorsorgevollmacht</title>
-  <meta name="description" content="Erstellen Sie eine individuelle Vorsorgevollmacht, um für den Fall Ihrer Entscheidungsunfähigkeit vorzusorgen.">
-  <meta name="keywords" content="Vorsorgevollmacht, Generator, Vollmacht, Betreuung, rechtliche Vorsorge, Patientenverfügung">
+  <title>Vorsorgevollmacht erstellen | Zentrales Vorsorgeregister | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie eine Vorsorgevollmacht, um eine Vertrauensperson für den Vorsorgefall zu bevollmächtigen. Hinweise zu Schriftform, notarieller Beurkundung und Registrierung im Zentralen Vorsorgeregister. Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="vorsorgevollmacht_script.js"></script>
- <link rel="stylesheet" href="/css/generator.css">
+  <link rel="stylesheet" href="/css/generator.css">
+
+  <!-- Schema.org (YMYL/Legal) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Generator für Vorsorgevollmacht",
+    "description": "Generator für eine Vorsorgevollmacht zur Vertretung in Gesundheits-, Vermögens- und Behördenangelegenheiten sowie als Betreuungsverfügung.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Vorsorgevollmacht" },
+      { "@type": "Thing", "name": "Betreuungsverfügung" },
+      { "@type": "Thing", "name": "Patientenverfügung" },
+      { "@type": "Thing", "name": "Zentrales Vorsorgeregister" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
 </head>
 <body>
 
-  <header class="site-header">
-    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+<header class="site-header">
+  <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
 <div class="page-container">
   <h1>Vorsorgevollmacht erstellen</h1>
+
   <p class="info-box">
-    Mit diesem Generator können Sie eine Vorsorgevollmacht erstellen. Nehmen Sie sich Zeit und lesen Sie die Hinweise sorgfältig.
-    Dieses Tool ersetzt keine Rechtsberatung. Für komplexe Situationen oder wenn Sie Immobiliengeschäfte oder umfangreiche Bankgeschäfte bevollmächtigen wollen, ist eine notarielle Beratung und Beurkundung dringend empfohlen.
+    Mit diesem Generator können Sie eine Vorsorgevollmacht erstellen, um im Vorsorgefall eine Vertrauensperson zu bevollmächtigen und dadurch ggf. eine gerichtliche Betreuung zu vermeiden. 
+    <strong>Wichtig:</strong> Für Vollmachten gilt grundsätzlich Formfreiheit, aber zu Nachweiszwecken sollte eine Vorsorgevollmacht mindestens schriftlich erteilt werden. 
+    <strong>Wichtig:</strong> Eine notarielle Beurkundung ist besonders sicher und für bestimmte Geschäfte teilweise erforderlich bzw. faktisch notwendig (z.B. Grundstücksgeschäfte/Grundbuch, Handelsregister-Angelegenheiten; Verbraucherkredit kann durch Bevollmächtigte nur mit beurkundeter Vollmacht abgeschlossen werden). 
     Weitere Informationen finden Sie auf unserer <a href="info-vollmachten.html">Info-Seite zu Vollmachten & Verfügungen</a>.
   </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="vorsorgevollmachtForm">
+  <p class="info-box">
+    <strong>Empfehlung zur Auffindbarkeit:</strong> Eine Vorsorgevollmacht wirkt in der Praxis nur, wenn sie im Ernstfall gefunden und im Original/als Ausfertigung vorgelegt werden kann; eine Registrierung im Zentralen Vorsorgeregister kann dabei helfen. 
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung.
+    Bei komplexen Vermögensverhältnissen, Immobilien, Unternehmensbeteiligungen oder umfangreichen Bankgeschäften ist rechtliche Beratung und häufig notarielle Mitwirkung besonders sinnvoll. 
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="vorsorgevollmachtForm" autocomplete="on">
     <fieldset>
       <legend>1. Vollmachtgeber:in (Person, die die Vollmacht erteilt)</legend>
+
       <label for="vgName">Vor- und Nachname:</label>
-      <input type="text" id="vgName" required>
+      <input type="text" id="vgName" name="vgName" required autocomplete="name">
+
       <label for="vgGeburtsdatum">Geburtsdatum:</label>
-      <input type="date" id="vgGeburtsdatum" required>
+      <input type="date" id="vgGeburtsdatum" name="vgGeburtsdatum" required autocomplete="bday">
+
       <label for="vgAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="vgAdresse" rows="3" required></textarea>
+      <textarea id="vgAdresse" name="vgAdresse" rows="3" required autocomplete="street-address"></textarea>
+
       <label for="vgTelefon">Telefon (optional):</label>
-      <input type="text" id="vgTelefon">
+      <input type="tel" id="vgTelefon" name="vgTelefon" autocomplete="tel">
     </fieldset>
 
     <fieldset>
       <legend>2. Bevollmächtigte Person(en)</legend>
-      <p class="info-box">Sie können eine oder mehrere Personen bevollmächtigen. Überlegen Sie gut, wem Sie dieses weitreichende Vertrauen schenken.</p>
-      
+      <p class="info-box">Sie können eine oder mehrere Personen bevollmächtigen. Wählen Sie nur Personen, denen Sie dauerhaft und umfassend vertrauen.</p>
+
       <div id="bevollmaechtigter1">
         <h3 style="font-size:1.1em; margin-top:0;">Bevollmächtigte Person 1:</h3>
+
         <label for="bv1Name">Vor- und Nachname:</label>
-        <input type="text" id="bv1Name" required>
+        <input type="text" id="bv1Name" name="bv1Name" required autocomplete="name">
+
         <label for="bv1Geburtsdatum">Geburtsdatum:</label>
-        <input type="date" id="bv1Geburtsdatum" required>
+        <input type="date" id="bv1Geburtsdatum" name="bv1Geburtsdatum" required autocomplete="bday">
+
         <label for="bv1Adresse">Anschrift:</label>
-        <textarea id="bv1Adresse" rows="3" required></textarea>
+        <textarea id="bv1Adresse" name="bv1Adresse" rows="3" required autocomplete="street-address"></textarea>
+
         <label for="bv1Telefon">Telefon (optional):</label>
-        <input type="text" id="bv1Telefon">
+        <input type="tel" id="bv1Telefon" name="bv1Telefon" autocomplete="tel">
+
         <label for="bv1Verhaeltnis">Verhältnis zum/zur Vollmachtgeber:in (optional):</label>
-        <input type="text" id="bv1Verhaeltnis" placeholder="z.B. Ehepartner, Kind, Freund">
+        <input type="text" id="bv1Verhaeltnis" name="bv1Verhaeltnis" placeholder="z.B. Ehepartner, Kind, Freund" autocomplete="off">
       </div>
 
       <div id="bevollmaechtigter2Wrapper" class="sub-details" style="margin-top:1.5rem; border-top:1px dashed #ccc; padding-top:1rem;">
         <h3 style="font-size:1.1em; margin-top:0;">Bevollmächtigte Person 2 (optional):</h3>
+
         <label for="bv2Name">Vor- und Nachname:</label>
-        <input type="text" id="bv2Name">
+        <input type="text" id="bv2Name" name="bv2Name" autocomplete="name">
+
         <label for="bv2Geburtsdatum">Geburtsdatum:</label>
-        <input type="date" id="bv2Geburtsdatum">
+        <input type="date" id="bv2Geburtsdatum" name="bv2Geburtsdatum" autocomplete="bday">
+
         <label for="bv2Adresse">Anschrift:</label>
-        <textarea id="bv2Adresse" rows="3"></textarea>
+        <textarea id="bv2Adresse" name="bv2Adresse" rows="3" autocomplete="street-address"></textarea>
+
         <label for="bv2Telefon">Telefon (optional):</label>
-        <input type="text" id="bv2Telefon">
+        <input type="tel" id="bv2Telefon" name="bv2Telefon" autocomplete="tel">
+
         <label for="bv2Verhaeltnis">Verhältnis zum/zur Vollmachtgeber:in (optional):</label>
-        <input type="text" id="bv2Verhaeltnis">
+        <input type="text" id="bv2Verhaeltnis" name="bv2Verhaeltnis" autocomplete="off">
       </div>
+
       <button type="button" id="addBevollmaechtigterBtn" style="margin-top:1rem; background-color: #5cb85c; color:white;">Weitere bevollmächtigte Person hinzufügen</button>
       <button type="button" id="removeBevollmaechtigterBtn" class="button-secondary" style="display:none; margin-top:1rem;">Zweite bevollmächtigte Person entfernen</button>
 
       <div id="vertretungsregelungWrapper" class="sub-details">
-          <label for="vertretungsregelung">Vertretungsregelung für Person 1 und 2:</label>
-          <select id="vertretungsregelung">
-              <option value="einzeln">Jede:r darf einzeln handeln</option>
-              <option value="gemeinsam">Dürfen nur gemeinsam handeln</option>
-              <option value="reihenfolge">Person 2 darf nur handeln, wenn Person 1 verhindert ist</option>
-          </select>
+        <label for="vertretungsregelung">Vertretungsregelung für Person 1 und 2:</label>
+        <select id="vertretungsregelung" name="vertretungsregelung" autocomplete="off">
+          <option value="einzeln">Jede:r darf einzeln handeln</option>
+          <option value="gemeinsam">Dürfen nur gemeinsam handeln</option>
+          <option value="reihenfolge">Person 2 darf nur handeln, wenn Person 1 verhindert ist</option>
+        </select>
       </div>
 
-      <label for="ersatzbevollmaechtigterName">Ersatzbevollmächtigte:r (optional, falls oben genannte Person(en) nicht handeln können/wollen):</label>
-      <input type="text" id="ersatzbevollmaechtigterName" placeholder="Vor- und Nachname">
+      <label for="ersatzbevollmaechtigterName">Ersatzbevollmächtigte:r (optional):</label>
+      <input type="text" id="ersatzbevollmaechtigterName" name="ersatzbevollmaechtigterName" placeholder="Vor- und Nachname" autocomplete="name">
+
       <label for="ersatzbevollmaechtigterAdresse">Anschrift des/der Ersatzbevollmächtigten:</label>
-      <textarea id="ersatzbevollmaechtigterAdresse" rows="2"></textarea>
+      <textarea id="ersatzbevollmaechtigterAdresse" name="ersatzbevollmaechtigterAdresse" rows="2" autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Umfang der Vollmacht</legend>
-      <p class="info-box">Kreuzen Sie an, für welche Bereiche die Vollmacht gelten soll. Nicht angekreuzte Bereiche sind nicht umfasst. Sie können den Umfang in Feld 4 weiter präzisieren oder einschränken.</p>
+      <p class="info-box">
+        Kreuzen Sie an, für welche Bereiche die Vollmacht gelten soll.
+        <strong>Hinweis:</strong> Für besonders einschneidende Maßnahmen (z.B. Zwangsmaßnahmen/freiheitsentziehende Maßnahmen) müssen Befugnisse ausdrücklich und schriftlich benannt sein; Standardformulierungen aus amtlichen Mustern sind hier oft hilfreich.
+      </p>
+
       <div class="checkbox-group">
-        <label><input type="checkbox" name="vollmachtBereich" value="Gesundheitssorge" checked> <strong>Gesundheitssorge und Pflegebedürftigkeit</strong> <small>Umfasst Entscheidungen über ärztliche Behandlungen, Heilmaßnahmen, Krankenhausaaufenthalte, Pflege, Einsicht in Krankenunterlagen, Entbindung der Ärzte von der Schweigepflicht. Auch Entscheidungen über lebensverlängernde Maßnahmen (beachten Sie hierzu Ihre Patientenverfügung!).</small></label>
-        <label><input type="checkbox" name="vollmachtBereich" value="Aufenthalt" checked> <strong>Aufenthalts- und Wohnungsangelegenheiten</strong> <small>Umfasst Entscheidungen über den Wohnort, Heimverträge, Wohnungsauflösung.</small></label>
-        <label><input type="checkbox" name="vollmachtBereich" value="Vermoegen" checked> <strong>Vermögenssorge</strong> <small>Umfasst Verwaltung von Vermögen, Bankgeschäfte, Zahlungsverkehr, Abschluss von Verträgen. Für Immobiliengeschäfte oder Darlehensaufnahmen ist oft eine notarielle Vollmacht nötig!</small></label>
-        <label><input type="checkbox" name="vollmachtBereich" value="Behoerden" checked> <strong>Vertretung gegenüber Behörden, Versicherungen, Gerichten</strong> <small>Umfasst Antragsstellungen, Entgegennahme von Bescheiden, Vertretung in Verfahren.</small></label>
-        <label><input type="checkbox" name="vollmachtBereich" value="Post" checked> <strong>Post und Telekommunikation</strong> <small>Entgegennahme und Öffnen von Post, Kündigung von Verträgen etc.</small></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Gesundheitssorge" checked> <strong>Gesundheitssorge und Pflege</strong></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Aufenthalt" checked> <strong>Aufenthalts- und Wohnungsangelegenheiten</strong></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Vermoegen" checked> <strong>Vermögenssorge</strong></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Behoerden" checked> <strong>Behörden / Versicherungen / Gerichte</strong></label>
+        <label><input type="checkbox" name="vollmachtBereich" value="Post" checked> <strong>Post und Telekommunikation</strong></label>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>4. Weisungen, Beschränkungen und Wünsche</legend>
-      <label for="innereBindung">Anweisungen an den/die Bevollmächtigte(n) im Innenverhältnis (optional): <small>(Wünsche, wie die Vollmacht ausgeübt werden soll, z.B. bestimmte Personen zu informieren, bestimmte Werte zu beachten. Diese sind für den Bevollmächtigten bindend, aber nicht unbedingt für Dritte.)</small></label>
-      <textarea id="innereBindung" rows="4" placeholder="z.B. Ich wünsche, dass meine Kinder regelmäßig über meinen Zustand informiert werden. / Finanzielle Entscheidungen über X EUR sollen mit Y abgestimmt werden."></textarea>
-      
-      <label for="geltungsbereichEinschraenkung">Gibt es bestimmte Geschäfte oder Entscheidungen, die von der Vollmacht ausdrücklich <u>nicht</u> umfasst sein sollen? (Optional)</label>
-      <textarea id="geltungsbereichEinschraenkung" rows="3" placeholder="z.B. Der Verkauf meiner Immobilie in Musterstadt ist von dieser Vollmacht ausgeschlossen. / Schenkungen über X EUR sind nicht gestattet."></textarea>
 
-      <label for="untervollmachtErlaubt">Soll der/die Bevollmächtigte Untervollmachten erteilen dürfen?</label>
-      <select id="untervollmachtErlaubt">
+      <label for="innereBindung">Anweisungen im Innenverhältnis (optional):</label>
+      <textarea id="innereBindung" name="innereBindung" rows="4" placeholder="z.B. Informationspflichten, Ausgaben-Limits, Abstimmungen ..." autocomplete="off"></textarea>
+
+      <label for="geltungsbereichEinschraenkung">Ausdrücklich ausgeschlossene Geschäfte (optional):</label>
+      <textarea id="geltungsbereichEinschraenkung" name="geltungsbereichEinschraenkung" rows="3" placeholder="z.B. Immobilienverkauf ausgeschlossen ..." autocomplete="off"></textarea>
+
+      <label for="untervollmachtErlaubt">Untervollmachten erlauben?</label>
+      <select id="untervollmachtErlaubt" name="untervollmachtErlaubt" autocomplete="off">
         <option value="nein" selected>Nein</option>
         <option value="ja">Ja, für einzelne Angelegenheiten</option>
         <option value="ja_umfassend">Ja, umfassend</option>
@@ -125,20 +191,23 @@
     </fieldset>
 
     <fieldset>
-      <legend>5. Geltung der Vollmacht und Schlussbestimmungen</legend>
-      <label for="geltungTod">Soll die Vollmacht über Ihren Tod hinaus gelten? <small>(Kann für Erben zur Regelung von Nachlassangelegenheiten sinnvoll sein.)</small></label>
-      <select id="geltungTod">
+      <legend>5. Geltung und Schlussbestimmungen</legend>
+
+      <label for="geltungTod">Soll die Vollmacht über den Tod hinaus gelten?</label>
+      <select id="geltungTod" name="geltungTod" autocomplete="off">
         <option value="nein" selected>Nein, sie erlischt mit dem Tod</option>
         <option value="ja">Ja, sie gilt über den Tod hinaus</option>
       </select>
 
-      <label for="betreuungsverfuegungEnthalten">Soll diese Vorsorgevollmacht auch Wünsche für eine eventuell dennoch notwendige gerichtliche Betreuung enthalten (als Betreuungsverfügung dienen)? <small>(Das Gericht soll dann vorrangig die hier genannte(n) Person(en) als Betreuer bestellen.)</small></label>
-      <select id="betreuungsverfuegungEnthalten">
+      <label for="betreuungsverfuegungEnthalten">Soll sie auch als Betreuungsverfügung dienen?</label>
+      <select id="betreuungsverfuegungEnthalten" name="betreuungsverfuegungEnthalten" autocomplete="off">
         <option value="ja" selected>Ja</option>
         <option value="nein">Nein</option>
       </select>
-      <p class="info-box"><small>Hinweis: Diese Vollmacht soll eine vom Gericht angeordnete Betreuung möglichst vermeiden. Sie ist Ausdruck meines Selbstbestimmungsrechts.</small></p>
-      <label><input type="checkbox" id="eigenhaendigUnterschreiben" required> Ich werde dieses Dokument nach dem Ausdrucken eigenhändig unterschreiben und mit Ort und Datum versehen.</label>
+
+      <p class="info-box"><small>Hinweis: Durch eine Vorsorgevollmacht kann eine gerichtliche Betreuung oft vermieden werden, sofern die bevollmächtigte Person die Angelegenheiten ebenso gut besorgen kann.</small></p>
+
+      <label><input type="checkbox" id="eigenhaendigUnterschreiben" name="eigenhaendigUnterschreiben" required> Ich werde dieses Dokument nach dem Ausdrucken eigenhändig unterschreiben und mit Ort und Datum versehen.</label>
     </fieldset>
 
     <div class="button-group">
@@ -166,10 +235,10 @@
 
 <footer>
   <div class="mini-footer-hint">
-  <p>Brauchen Sie mehr Unterstützung bei Anträgen, Behördenbriefen oder komplexen Schreiben?</p>
-  <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
+    <p>Brauchen Sie mehr Unterstützung bei Anträgen, Behördenbriefen oder komplexen Schreiben?</p>
+    <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
   </div>
-    <p>&copy; 2025 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="info-vollmachten.html">Infos Vollmachten & Verfügungen</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  <p>&copy; 2025 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="info-vollmachten.html">Infos Vollmachten & Verfügungen</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
 </footer>
 
 </body>

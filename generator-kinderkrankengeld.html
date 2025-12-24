@@ -2,67 +2,116 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag auf Kinderkrankengeld erstellen | Kassen-Lotse</title>
-  <meta name="description" content="Erstellen Sie Ihr Anschreiben an die Krankenkasse für den Antrag auf Kinderkrankengeld. Einfach ausfüllen, PDF herunterladen und mit der ärztlichen Bescheinigung einreichen.">
-  <meta name="keywords" content="Kinderkrankengeld, Antrag, Krankenkasse, Kind krank, Freistellung, Vorlage, Generator">
+  <title>Antrag Kinderkrankengeld (§ 45 SGB V) | Anschreiben für Krankenkasse | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie Ihr Anschreiben an die Krankenkasse für Kinderkrankengeld nach § 45 SGB V. PDF erstellen und zusammen mit der ärztlichen Bescheinigung einreichen – kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="kinderkrankengeld_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
+
+  <!-- Schema.org (YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Antrag auf Kinderkrankengeld erstellen",
+    "description": "Generator für ein Anschreiben an die Krankenkasse zum Antrag auf Kinderkrankengeld nach § 45 SGB V.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Kinderkrankengeld" },
+      { "@type": "Thing", "name": "§ 45 SGB V" },
+      { "@type": "Thing", "name": "Krankenkasse" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
 </head>
 <body>
 
 <header class="site-header">
-    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+  <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
 <div class="page-container">
   <h1>Antrag auf Kinderkrankengeld</h1>
-  <p class="info-box info">
-    Erstellen Sie hier Ihr Anschreiben für den Antrag auf Kinderkrankengeld. Dieses Schreiben reichen Sie zusammen mit der "Ärztlichen Bescheinigung für den Bezug von Krankengeld bei Erkrankung eines Kindes" bei Ihrer Krankenkasse ein.
-  </p>
-<p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="kinderkrankengeldForm">
+  <p class="info-box info">
+    Erstellen Sie hier Ihr Anschreiben für den Antrag auf Kinderkrankengeld und reichen Sie es zusammen mit der „Ärztlichen Bescheinigung für den Bezug von Krankengeld bei Erkrankung eines Kindes“ bei Ihrer Krankenkasse ein. 
+    <strong>Praxis-Hinweis:</strong> Anspruch besteht nach § 45 SGB V u.a. dann, wenn die Beaufsichtigung/Betreuung/Pflege des erkrankten und versicherten Kindes nach ärztlichem Zeugnis erforderlich ist, keine andere im Haushalt lebende Person die Betreuung übernehmen kann und das Kind unter 12 Jahre alt ist (oder behindert und auf Hilfe angewiesen). 
+    <strong>Praxis-Hinweis (Tage 2024/2025):</strong> Für die Jahre 2024 und 2025 gilt je Kind ein Anspruch von 15 Arbeitstagen je Elternteil bzw. 30 Arbeitstagen für Alleinerziehende; insgesamt je Elternteil max. 35 Arbeitstage bzw. max. 70 Arbeitstage für Alleinerziehende. 
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Speichern“ und „Laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong> Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Maßgeblich sind die Angaben in der ärztlichen Bescheinigung sowie die Prüfung durch Ihre Krankenkasse.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="kinderkrankengeldForm" autocomplete="on">
     <fieldset>
-      <legend>1. Ihre Angaben (Versicherter Elternteil)</legend>
+      <legend>1. Ihre Angaben (versicherter Elternteil)</legend>
+
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" name="personName" required autocomplete="name">
+
       <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="personAdresse" rows="2" required></textarea>
+      <textarea id="personAdresse" name="personAdresse" rows="2" required autocomplete="street-address"></textarea>
+
       <label for="versicherungsnummer">Ihre Krankenversicherungsnummer:</label>
-      <input type="text" id="versicherungsnummer" required>
+      <input type="text" id="versicherungsnummer" name="versicherungsnummer" required autocomplete="off" inputmode="text">
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Krankenkasse</legend>
+
       <label for="kasseName">Name der Krankenkasse:</label>
-      <input type="text" id="kasseName" required>
+      <input type="text" id="kasseName" name="kasseName" required autocomplete="organization">
+
       <label for="kasseAdresse">Anschrift der Krankenkasse:</label>
-      <textarea id="kasseAdresse" rows="3" required></textarea>
+      <textarea id="kasseAdresse" name="kasseAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Angaben zum erkrankten Kind</legend>
+
       <label for="kindName">Vor- und Nachname des Kindes:</label>
-      <input type="text" id="kindName" required>
+      <input type="text" id="kindName" name="kindName" required autocomplete="name">
+
       <label for="kindGeburtsdatum">Geburtsdatum des Kindes:</label>
-      <input type="date" id="kindGeburtsdatum" required>
-      <label for="zeitraumKrankheit">Zeitraum der Betreuung (von - bis):
-        <small>Übernehmen Sie die Daten aus der ärztlichen Bescheinigung.</small>
+      <input type="date" id="kindGeburtsdatum" name="kindGeburtsdatum" required autocomplete="bday">
+
+      <label for="zeitraumKrankheit">Zeitraum der Betreuung (von – bis):
+        <small>Bitte aus der ärztlichen Bescheinigung übernehmen.</small>
       </label>
-      <input type="text" id="zeitraumKrankheit" required placeholder="z.B. 13.10.2025 - 15.10.2025">
+      <input type="text" id="zeitraumKrankheit" name="zeitraumKrankheit" required placeholder="z.B. 13.10.2025 - 15.10.2025" autocomplete="off">
     </fieldset>
-    
+
     <div class="button-group">
       <button type="button" id="saveBtnKinder" class="button-secondary">Speichern</button>
       <button type="button" id="loadBtnKinder" class="button-secondary">Laden</button>
@@ -74,7 +123,7 @@
 <div id="spendenPopup" class="popup-overlay">
   <div class="popup-content">
       <h2>Antrag erstellt!</h2>
-      <p>Gute Besserung für Ihr Kind! Wenn dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
+      <p>Wenn Ihnen dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
       <form action="https://www.paypal.com/donate" method="post" target="_blank">
           <input type="hidden" name="business" value="info@kassen-lotse.de" />
           <input type="hidden" name="item_name" value="Unterstützung für das Projekt Kassen-Lotse" />

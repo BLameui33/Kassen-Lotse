@@ -2,17 +2,17 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Widerspruch Kostenerstattung – PDF Generator</title>
-  <meta name="description" content="Erstellen Sie einen professionellen Widerspruch gegen die Ablehnung der Kostenerstattung.">
+  <title>Widerspruch gegen Ablehnung der Kostenerstattung | § 13 SGB V | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie einen Widerspruch gegen die Ablehnung der Kostenerstattung (z.B. Psychotherapie) bei der Krankenkasse. Frist/Form nach § 84 SGG. Argumentation nach § 13 Abs. 3 und ggf. Abs. 3a SGB V. Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
+
   <link rel="stylesheet" href="/css/generator.css">
-  
+
   <style>
-    /* Zusätzliche Styles für bessere Lesbarkeit und Hilfestellungen */
     .help-block {
       background-color: #f0f7ff;
       border-left: 4px solid #0070f3;
@@ -22,40 +22,46 @@
       font-size: 0.95rem;
       color: #333;
     }
-    .help-block h4 {
-      margin-top: 0;
-      color: #0070f3;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .help-block ul {
-      margin: 0;
-      padding-left: 1.2rem;
-    }
-    .help-block li {
-      margin-bottom: 4px;
-    }
-    
-    /* Checkbox Container Styling */
-    .checkbox-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 10px;
-    }
-    .checkbox-label {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-    }
-    .checkbox-label input {
-        margin-right: 10px;
-        width: auto; /* Override generator.css width:100% */
-    }
-  </style>
-</head>
-<body>
+    .help-block h4 { margin-top:0; color:#0070f3; font-size:1rem; margin-bottom:.5rem; }
+    .help-block ul { margin:0; padding-left:1.2rem; }
+    .help-block li { margin-bottom:4px; }
 
+    .checkbox-wrapper { display:flex; flex-direction:column; gap:8px; margin-bottom:10px; }
+    .checkbox-label { display:flex; align-items:center; cursor:pointer; }
+    .checkbox-label input { margin-right:10px; width:auto; }
+  </style>
+
+  <!-- Schema.org (YMYL/Legal + Health) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Widerspruch gegen Ablehnung der Kostenerstattung",
+    "description": "Generator für einen Widerspruch gegen die Ablehnung der Kostenerstattung nach § 13 SGB V (z.B. Psychotherapie) unter Beachtung der Widerspruchsfrist nach § 84 SGG.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Widerspruch" },
+      { "@type": "Thing", "name": "Kostenerstattung" },
+      { "@type": "Thing", "name": "SGB V § 13" },
+      { "@type": "Thing", "name": "SGG § 84" }
+    ],
+    "lastReviewed": "2025-12-23",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+</head>
+
+<body>
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
   </header>
@@ -64,103 +70,123 @@
     <h1>Widerspruch: Kostenerstattung</h1>
 
     <p class="info-box warning">
-      <strong>Wichtig:</strong> Ein Widerspruch muss in der Regel <strong>innerhalb eines Monats</strong> nach Erhalt des Ablehnungsbescheids bei der Krankenkasse eingehen. Nutzen Sie dieses Tool, um ein formgerechtes Schreiben zu erstellen.
+      <strong>Frist beachten:</strong> Der Widerspruch ist binnen eines Monats nach Bekanntgabe des Bescheids einzureichen; bei Bekanntgabe im Ausland beträgt die Frist drei Monate (§ 84 Abs. 1 SGG). 
+      Er kann schriftlich, in elektronischer Form bzw. schriftformersetzend oder zur Niederschrift bei der Stelle eingelegt werden, die den Verwaltungsakt erlassen hat (§ 84 Abs. 1 SGG). 
+      Maßgeblich sind die Angaben in der Rechtsbehelfsbelehrung Ihres Bescheids.
     </p>
-    <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-    <form id="widerspruchKostForm">
-      
+    <p class="info-box">
+      <strong>Rechtsgrundlage (Kurzinfo):</strong> Nach § 13 Abs. 3 SGB V sind Kosten zu erstatten, wenn die Krankenkasse eine unaufschiebbare Leistung nicht rechtzeitig erbringen konnte oder eine Leistung zu Unrecht abgelehnt hat und dadurch Kosten für eine selbstbeschaffte Leistung entstanden sind; erstattet wird in der entstandenen Höhe, soweit die Leistung notwendig war. 
+      <strong>Fristenargument (optional):</strong> Über Leistungsanträge ist grundsätzlich innerhalb von drei Wochen (bzw. fünf Wochen bei gutachtlicher Stellungnahme, insbesondere des Medizinischen Dienstes) zu entscheiden; ohne rechtzeitige Mitteilung eines hinreichenden Grundes kann eine Genehmigungsfiktion eintreten (§ 13 Abs. 3a SGB V). 
+    </p>
+
+    <p class="info-box">
+      <strong>Hinweis zur Datenspeicherung:</strong> „Zwischenspeichern/Laden“ nutzt den localStorage Ihres Browsers (gerät-/browserbezogen); eine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse erfolgt dadurch nicht.
+    </p>
+
+    <p class="highlight-box" style="background-color:#fff8e1; border-left:4px solid #ff9800; padding:10px; margin-top:10px;">
+      <strong>Wichtiger Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung.
+      Bei Unsicherheiten (z.B. Fristberechnung, Akteneinsicht, richtige Anträge) wenden Sie sich bitte an eine Beratungsstelle oder anwaltliche Hilfe.
+    </p>
+
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+      <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">23.12.2025</span></p>
+    </div>
+
+    <form id="widerspruchKostForm" autocomplete="on">
       <fieldset>
         <legend>1. Ihre Daten (Absender)</legend>
+
         <label for="kpName">Vor- und Nachname:</label>
-        <input type="text" id="kpName" required placeholder="Max Mustermann">
+        <input type="text" id="kpName" name="kpName" required placeholder="Max Mustermann" autocomplete="name">
 
         <label for="kpAdresse">Ihre vollständige Anschrift:</label>
-        <textarea id="kpAdresse" rows="3" required placeholder="Musterstraße 1&#10;12345 Musterstadt"></textarea>
+        <textarea id="kpAdresse" name="kpAdresse" rows="3" required placeholder="Musterstraße 1&#10;12345 Musterstadt" autocomplete="street-address"></textarea>
 
-        <label for="kpVersichertennr">Versichertennummer (steht auf der Karte):</label>
-        <input type="text" id="kpVersichertennr" required placeholder="Z.B. A123456789">
+        <label for="kpVersichertennr">Versichertennummer:</label>
+        <input type="text" id="kpVersichertennr" name="kpVersichertennr" required placeholder="z.B. A123456789" autocomplete="off" inputmode="text">
       </fieldset>
 
       <fieldset>
         <legend>2. Krankenkasse (Empfänger)</legend>
-        <label for="kpKasseName">Name der Krankenkasse:</label>
-        <input type="text" id="kpKasseName" required placeholder="Muster Krankenkasse">
 
-        <label for="kpKasseAdresse">Anschrift der Kasse (für das Fensterkuvert):</label>
-        <textarea id="kpKasseAdresse" rows="3" required placeholder="Hauptstraße 99&#10;54321 Kassenstadt"></textarea>
+        <label for="kpKasseName">Name der Krankenkasse:</label>
+        <input type="text" id="kpKasseName" name="kpKasseName" required placeholder="Muster Krankenkasse" autocomplete="organization">
+
+        <label for="kpKasseAdresse">Anschrift der Kasse (Fensterkuvert):</label>
+        <textarea id="kpKasseAdresse" name="kpKasseAdresse" rows="3" required placeholder="Hauptstraße 99&#10;54321 Kassenstadt" autocomplete="street-address"></textarea>
       </fieldset>
 
       <fieldset>
         <legend>3. Bezug zum abgelehnten Bescheid</legend>
         <div class="help-block">
-            <p>Diese Daten finden Sie oben rechts auf dem Brief, den Sie erhalten haben.</p>
+          <p>Diese Daten finden Sie auf dem Ablehnungsbescheid (z.B. oben rechts).</p>
         </div>
+
         <label for="kpBescheidDatum">Datum des Ablehnungsbescheids:</label>
-        <input type="date" id="kpBescheidDatum" required>
+        <input type="date" id="kpBescheidDatum" name="kpBescheidDatum" required autocomplete="off">
 
         <label for="kpAktenzeichen">Aktenzeichen / Unser Zeichen (falls angegeben):</label>
-        <input type="text" id="kpAktenzeichen" placeholder="Z.B. Az-2023-XY">
+        <input type="text" id="kpAktenzeichen" name="kpAktenzeichen" placeholder="z.B. Az-2023-XY" autocomplete="off">
       </fieldset>
 
       <fieldset>
-        <legend>4. Die Begründung (Das Herzstück)</legend>
-        
+        <legend>4. Begründung</legend>
+
         <div class="help-block">
-            <h4>💡 Tipps für eine gute Begründung</h4>
-            <p>Bei der Kostenerstattung (§ 13 Abs. 3 SGB V) geht es meist um "Systemversagen". Argumentieren Sie:</p>
-            <ul>
-                <li>Dass Sie trotz intensiver Suche keinen Platz bei einem Vertragsbehandlern gefunden haben (Protokoll!).</li>
-                <li>Dass die Behandlung <strong>unaufschiebbar</strong> ist (Gefahr der Verschlimmerung).</li>
-                <li>Dass die Kasse ihre Leistungspflicht nicht rechtzeitig erfüllen konnte.</li>
-            </ul>
+          <h4>Tipps für eine gute Begründung</h4>
+          <p>Bei der Kostenerstattung (§ 13 SGB V) werden häufig folgende Punkte geprüft:</p>
+          <ul>
+            <li>Unaufschiebbarkeit / medizinische Erforderlichkeit und drohende Verschlechterung (§ 13 Abs. 3 SGB V).</li>
+            <li>Keine rechtzeitige Versorgung im Sachleistungssystem oder unrechtmäßige Ablehnung (§ 13 Abs. 3 SGB V).</li>
+            <li>Dokumentation der Suche (Kontaktprotokoll, Wartezeiten, Absagen).</li>
+            <li>Falls einschlägig: Fristüberschreitung und fehlende Mitteilung eines hinreichenden Grundes (§ 13 Abs. 3a SGB V).</li>
+          </ul>
         </div>
 
         <label for="kpBegruendung">Ausführliche Begründung:</label>
-        <textarea id="kpBegruendung" rows="10" required placeholder="Hiermit begründe ich meinen Widerspruch wie folgt:
+        <textarea id="kpBegruendung" name="kpBegruendung" rows="10" required autocomplete="off"
+          placeholder="Hiermit begründe ich meinen Widerspruch wie folgt:
 
-Ich habe mich intensiv um einen Therapieplatz bei einem Vertragspsychotherapeuten bemüht. Wie meinem beigefügten Kontaktprotokoll zu entnehmen ist, habe ich über [Anzahl] Therapeuten kontaktiert. In allen Fällen erhielt ich Absagen oder Wartezeiten von mehr als [Anzahl] Monaten. Eine so lange Wartezeit ist mir aufgrund meiner gesundheitlichen Situation nicht zumutbar.
+(1) Versorgungssituation: Ich habe mich um eine Behandlung im Sachleistungssystem bemüht. Aus meinem Kontaktprotokoll ergeben sich Absagen bzw. Wartezeiten von … .
 
-Es liegt somit ein Systemversagen vor (§ 13 Abs. 3 SGB V). Da Sie mir keine rechtzeitige Behandlung im Sachleistungssystem zur Verfügung stellen konnten, bin ich berechtigt, mir die Leistung selbst zu beschaffen."></textarea>
+(2) Medizinische Erforderlichkeit/Dringlichkeit: Aufgrund meiner gesundheitlichen Situation ist die Behandlung erforderlich; eine längere Wartezeit ist nicht zumutbar.
+
+(3) § 13 Abs. 3 SGB V: Da die Krankenkasse die notwendige Leistung nicht rechtzeitig erbringen konnte / zu Unrecht abgelehnt hat und mir für die selbstbeschaffte Leistung Kosten entstanden sind, beantrage ich Kostenerstattung in entstandener Höhe, soweit notwendig."></textarea>
       </fieldset>
 
       <fieldset>
         <legend>5. Anlagen</legend>
-        <p style="font-size:0.9em; color:#666;">Welche Dokumente legen Sie bei? Diese werden unten auf dem Brief aufgelistet.</p>
+        <p style="font-size:0.9em; color:#666;">Welche Dokumente legen Sie bei? Diese werden unten im Schreiben aufgelistet.</p>
+
         <div class="checkbox-wrapper">
           <label class="checkbox-label"><input type="checkbox" name="anlagenKost" value="Kopie des Kontaktprotokolls"> Kopie des Kontaktprotokolls (Therapeutensuche)</label>
           <label class="checkbox-label"><input type="checkbox" name="anlagenKost" value="Dringlichkeitsbescheinigung / PTV11"> Dringlichkeitsbescheinigung / PTV11</label>
           <label class="checkbox-label"><input type="checkbox" name="anlagenKost" value="Konsiliarbericht"> Konsiliarbericht</label>
-          <label class="checkbox-label"><input type="checkbox" name="anlagenKost" value="Bescheinigung Privatpraxis"> Bescheinigung der Privatpraxis (Qualifikationsnachweis)</label>
+          <label class="checkbox-label"><input type="checkbox" name="anlagenKost" value="Qualifikationsnachweis der Privatpraxis"> Qualifikationsnachweis der Privatpraxis</label>
         </div>
-        
-        <label for="kpAnlageSonstiges">Sonstige Anlagen (Kommagetrennt):</label>
-        <input type="text" id="kpAnlageSonstiges" placeholder="Z.B. Ärztliches Attest Hausarzt">
+
+        <label for="kpAnlageSonstiges">Sonstige Anlagen (kommagetrennt):</label>
+        <input type="text" id="kpAnlageSonstiges" name="kpAnlageSonstiges" placeholder="z.B. ärztliches Attest, Rechnungen, Zahlungsnachweise" autocomplete="off">
       </fieldset>
 
       <div class="button-group">
-        <button type="button" id="saveBtnKost" class="action-button" style="background-color:#6c757d;">Zwischenspeichern</button>
-        <button type="button" id="loadBtnKost" class="action-button" style="background-color:#6c757d;">Laden</button>
-        <button type="submit" class="action-button">📄 PDF Widerspruch erstellen</button>
+        <button type="button" id="saveBtnKost" class="button-secondary">Zwischenspeichern</button>
+        <button type="button" id="loadBtnKost" class="button-secondary">Laden</button>
+        <button type="submit" class="button-primary">📄 PDF Widerspruch erstellen</button>
       </div>
     </form>
   </div>
 
   <div id="spendenPopupKost" class="popup-overlay" style="display:none;">
     <div class="popup-content">
-      <h2>Viel Erfolg! 🍀</h2>
-      <p>Dein PDF wurde erstellt. Wir drücken die Daumen für den Widerspruch!</p>
-      <p style="font-size:0.9em;">Kassen-Lotse ist ein kostenloses Projekt. Wenn es dir Zeit gespart hat, freuen wir uns über einen Kaffee.</p>
+      <h2>Viel Erfolg</h2>
+      <p>Das PDF wurde erstellt. Wenn das Tool geholfen hat, unterstützt eine kleine Spende das Projekt.</p>
       <form action="https://www.paypal.com/donate" method="post" target="_blank">
         <input type="hidden" name="business" value="info@kassen-lotse.de" />
         <input type="hidden" name="currency_code" value="EUR" />
         <input type="hidden" name="item_name" value="Kassen-Lotse Support" />
-        <button type="submit" class="action-button" style="background-color:#ffc107; color:#000; border:none; margin-top:10px;">Spenden via PayPal</button>
+        <button type="submit" class="button-primary" style="background-color:#ffc107; color:#000;">Spenden via PayPal</button>
       </form>
       <button id="closePopupBtnKost" class="popup-close-button">Schließen</button>
     </div>
@@ -173,6 +199,10 @@ Es liegt somit ein Systemversagen vor (§ 13 Abs. 3 SGB V). Da Sie mir keine rec
     </div>
     <p>&copy; 2025 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
   </footer>
+
+
+
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

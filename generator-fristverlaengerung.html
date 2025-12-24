@@ -2,65 +2,115 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Antrag auf Fristverlängerung erstellen | Kassen-Lotse</title>
-  <meta name="description" content="Erstellen Sie einen formellen Antrag auf Fristverlängerung bei jeder Behörde (Jobcenter, Krankenkasse etc.), wenn Sie eine gesetzte Frist nicht einhalten können.">
-  <meta name="keywords" content="Fristverlängerung, Frist, Antrag, Behörde, Sozialrecht, Jobcenter, Krankenkasse, Generator, Vorlage">
+  <title>Antrag auf Fristverlängerung bei Behörden | § 26 SGB X | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie einen Antrag auf Fristverlängerung bei Behörden (z.B. Jobcenter, Krankenkasse). Für behördlich gesetzte Fristen nach § 26 Abs. 7 SGB X – kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="fristverlaengerung_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Antrag auf Fristverlängerung erstellen",
+    "description": "Generator für ein Anschreiben zur Fristverlängerung gegenüber Behörden, insbesondere bei behördlich gesetzten Fristen (§ 26 Abs. 7 SGB X).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Fristverlängerung" },
+      { "@type": "Thing", "name": "SGB X § 26 Fristen und Termine" },
+      { "@type": "Thing", "name": "SGB X § 27 Wiedereinsetzung" },
+      { "@type": "Thing", "name": "Behörde" }
+    ],
+    "lastReviewed": "2025-12-13",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
 </head>
 <body>
 
 <header class="site-header">
-    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+  <a href="index.html" class="site-logo">Kassen-Lotse</a>
 </header>
 
 <div class="page-container">
   <h1>Antrag auf Fristverlängerung</h1>
-  <p class="info-box info">
-    Wenn Sie eine von einer Behörde gesetzte Frist (z.B. zur Einreichung von Unterlagen oder zur Begründung eines Widerspruchs) nicht einhalten können, sollten Sie rechtzeitig und schriftlich um eine Verlängerung bitten.
-  </p>
-<p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="fristverlaengerungForm">
+  <p class="info-box info">
+    Wenn Sie eine von einer Behörde gesetzte Frist (z.B. zur Einreichung von Unterlagen) nicht einhalten können, sollten Sie so früh wie möglich schriftlich um Verlängerung bitten.
+    <strong>Praxis-Hinweis:</strong> Fristen, die von einer Behörde gesetzt sind, können verlängert werden; sogar nach Ablauf kann eine rückwirkende Verlängerung möglich sein, insbesondere wenn es unbillig wäre, die Rechtsfolgen des Fristablaufs bestehen zu lassen (§ 26 Abs. 7 SGB X). 
+    <strong>Wichtiger Hinweis:</strong> Für gesetzliche Fristen (z.B. Widerspruchsfristen) ist eine „Fristverlängerung“ regelmäßig nicht möglich; wenn eine gesetzliche Frist ohne Verschulden versäumt wurde, kommt stattdessen ggf. Wiedereinsetzung in den vorigen Stand in Betracht (Antrag innerhalb von zwei Wochen nach Wegfall des Hindernisses; grundsätzlich spätestens bis ein Jahr nach Fristende). 
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Speichern“ und „Laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
+    <strong>Wichtiger Hinweis:</strong> Dieses Tool stellt keine Rechtsberatung dar und ersetzt keine individuelle Beratung.
+    Der Text ist ein Vorschlag auf Basis Ihrer Eingaben und sollte vor Versand von Ihnen geprüft und an den konkreten Bescheid/Fristtyp angepasst werden.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
+  </div>
+
+  <form id="fristverlaengerungForm" autocomplete="on">
     <fieldset>
       <legend>1. Ihre Angaben</legend>
+
       <label for="personName">Vor- und Nachname:</label>
-      <input type="text" id="personName" required>
+      <input type="text" id="personName" name="personName" required autocomplete="name">
+
       <label for="personAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="personAdresse" rows="2" required></textarea>
+      <textarea id="personAdresse" name="personAdresse" rows="2" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>2. Angaben zur Behörde</legend>
+
       <label for="behoerdeName">Name der Behörde (z.B. Jobcenter Musterstadt):</label>
-      <input type="text" id="behoerdeName" required>
+      <input type="text" id="behoerdeName" name="behoerdeName" required autocomplete="organization">
+
       <label for="behoerdeAdresse">Anschrift der Behörde:</label>
-      <textarea id="behoerdeAdresse" rows="3" required></textarea>
+      <textarea id="behoerdeAdresse" name="behoerdeAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
     <fieldset>
       <legend>3. Details zum Vorgang</legend>
+
       <label for="aktenzeichen">Aktenzeichen / Geschäftszeichen / Versicherungsnummer:</label>
-      <input type="text" id="aktenzeichen" required>
+      <input type="text" id="aktenzeichen" name="aktenzeichen" required autocomplete="off" inputmode="text">
+
       <label for="datumSchreiben">Datum des Schreibens, in dem die Frist gesetzt wurde:</label>
-      <input type="date" id="datumSchreiben" required>
+      <input type="date" id="datumSchreiben" name="datumSchreiben" required autocomplete="off">
+
       <label for="fristOriginal">Ursprüngliche Frist bis:</label>
-      <input type="date" id="fristOriginal" required>
+      <input type="date" id="fristOriginal" name="fristOriginal" required autocomplete="off">
+
       <label for="fristNeu">Ich bitte um Verlängerung der Frist bis:</label>
-      <input type="date" id="fristNeu" required>
+      <input type="date" id="fristNeu" name="fristNeu" required autocomplete="off">
     </fieldset>
-    
+
     <div class="button-group">
       <button type="button" id="saveBtnFrist" class="button-secondary">Speichern</button>
       <button type="button" id="loadBtnFrist" class="button-secondary">Laden</button>
@@ -72,7 +122,7 @@
 <div id="spendenPopup" class="popup-overlay">
   <div class="popup-content">
       <h2>Antrag erstellt!</h2>
-      <p>Wir hoffen, Sie erhalten die nötige Zeit! Wenn Ihnen dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
+      <p>Wenn Ihnen dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
       <form action="https://www.paypal.com/donate" method="post" target="_blank">
           <input type="hidden" name="business" value="info@kassen-lotse.de" />
           <input type="hidden" name="item_name" value="Unterstützung für das Projekt Kassen-Lotse" />

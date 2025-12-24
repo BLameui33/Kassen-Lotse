@@ -2,166 +2,239 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Generator für Patientenverfügung</title>
-  <meta name="description" content="Erstellen Sie eine individuelle Patientenverfügung, um Ihren Willen bezüglich medizinischer Maßnahmen für den Fall Ihrer Entscheidungsunfähigkeit festzulegen.">
-  <meta name="keywords" content="Patientenverfügung, Generator, Vorsorge, medizinische Behandlung, Wille, Verfügung">
+  <title>Patientenverfügung erstellen | § 1827 BGB | Kassen-Lotse</title>
+  <meta name="description" content="Erstellen Sie eine Patientenverfügung, um Ihren Willen zu Untersuchungen, Behandlungen und Eingriffen für den Fall der Einwilligungsunfähigkeit schriftlich festzulegen (§ 1827 BGB). Kostenlos, ohne Registrierung.">
+  <meta name="robots" content="index,follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script defer src="patientenverfuegung_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
+
+  <!-- Schema.org (YMYL/Health + Legal) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Generator für Patientenverfügung",
+    "description": "Generator für eine Patientenverfügung nach § 1827 BGB (Festlegung von Einwilligung/Ablehnung bestimmter Untersuchungen, Heilbehandlungen oder Eingriffe für den Fall der Einwilligungsunfähigkeit).",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Patientenverfügung" },
+      { "@type": "Thing", "name": "§ 1827 BGB" },
+      { "@type": "Thing", "name": "Vorsorgevollmacht" },
+      { "@type": "Thing", "name": "Betreuungsrecht" },
+      { "@type": "Thing", "name": "Palliativversorgung" }
+    ],
+    "lastReviewed": "2025-12-23",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
 </head>
 <body>
 
   <header class="site-header">
     <a href="index.html" class="site-logo">Kassen-Lotse</a>
-</header>
+  </header>
 
 <div class="page-container">
   <h1>Patientenverfügung erstellen</h1>
+
   <p class="info-box">
-    Mit diesem Generator können Sie eine Patientenverfügung erstellen, um Ihren Willen bezüglich medizinischer Behandlungen für den Fall festzulegen, dass Sie nicht mehr selbst entscheiden können. Nehmen Sie sich Zeit für diese wichtigen Überlegungen.
-    Dieses Tool ersetzt keine ärztliche oder juristische Beratung. Es ist ratsam, Ihre Verfügung mit Ihrem Arzt/Ihrer Ärztin und ggf. einer Vertrauensperson zu besprechen.
+    Mit diesem Generator können Sie eine Patientenverfügung erstellen, um Ihren Willen zu Untersuchungen, Heilbehandlungen oder ärztlichen Eingriffen für den Fall festzulegen, dass Sie nicht mehr selbst einwilligen können.
+    <strong>Praxis-Hinweis:</strong> Eine Patientenverfügung liegt nach § 1827 BGB vor, wenn ein einwilligungsfähiger Volljähriger schriftlich festlegt, ob er in bestimmte (zum Zeitpunkt der Festlegung noch nicht unmittelbar bevorstehende) medizinische Maßnahmen einwilligt oder sie untersagt; Betreuer/Bevollmächtigte müssen prüfen, ob die Festlegungen auf die aktuelle Situation zutreffen und dem Willen dann Ausdruck und Geltung verschaffen. 
+    <strong>Praxis-Hinweis:</strong> Eine Patientenverfügung kann jederzeit formlos widerrufen werden; die Regelungen gelten unabhängig von Art und Stadium der Erkrankung und entsprechend auch für Bevollmächtigte. 
     Weitere Informationen finden Sie auf unserer <a href="info-vollmachten.html">Info-Seite zu Vollmachten & Verfügungen</a>.
   </p>
-  <p class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
-  <strong>Hinweis:</strong> Dieses Tool ersetzt keine Rechtsberatung. Es dient der allgemeinen Unterstützung bei der Antragstellung. Bei Unsicherheiten wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
-</p>
-  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
-  <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
-</p>
-<div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-  <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">13.12.2025</span></p>
-</div>
 
-  <form id="patientenverfuegungForm">
+  <p class="info-box">
+    <strong>Wichtiger Hinweis (YMYL):</strong>
+    Dieses Tool ersetzt keine ärztliche oder juristische Beratung.
+    Eine Patientenverfügung wirkt in der Praxis umso besser, je konkreter Situationen und Maßnahmen beschrieben sind und je besser sie auffindbar ist (z.B. Kopien bei Vertrauenspersonen).
+  </p>
+
+  <p class="info-box">
+    <strong>Hinweis zur Datenspeicherung:</strong>
+    Die Funktionen „Eingaben speichern“ und „Gespeicherte Eingaben laden“ nutzen den localStorage Ihres Browsers (gerät-/browserbezogen).
+    Es findet dabei keine automatische Übermittlung Ihrer Formulardaten an Kassen-Lotse statt.
+  </p>
+
+  <p class="highlight-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 10px;">
+    <strong>Technischer Hinweis:</strong> Um das PDF erfolgreich herunterzuladen, öffnen Sie diese Seite bitte in einem Internet-Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App (z. B. über die Suchleiste auf dem Startbildschirm) funktioniert der Download leider nicht zuverlässig.
+  </p>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft">
+    <p><strong>Redaktionell geprüft:</strong> <span id="pruefdatum">23.12.2025</span></p>
+  </div>
+
+  <form id="patientenverfuegungForm" autocomplete="on">
     <fieldset>
       <legend>1. Angaben zur Person, die die Verfügung erstellt</legend>
+
       <label for="pvName">Vor- und Nachname:</label>
-      <input type="text" id="pvName" required>
+      <input type="text" id="pvName" name="pvName" required autocomplete="name">
+
       <label for="pvGeburtsdatum">Geburtsdatum:</label>
-      <input type="date" id="pvGeburtsdatum" required>
+      <input type="date" id="pvGeburtsdatum" name="pvGeburtsdatum" required autocomplete="bday">
+
       <label for="pvAdresse">Anschrift (Straße, Hausnr., PLZ, Ort):</label>
-      <textarea id="pvAdresse" rows="3" required></textarea>
+      <textarea id="pvAdresse" name="pvAdresse" rows="3" required autocomplete="street-address"></textarea>
     </fieldset>
 
-    <h2 class="section-title">2. Meine Wertvorstellungen und Einstellungen zum Leben und Sterben</h2>
+    <h2 class="section-title">2. Meine Wertvorstellungen</h2>
     <fieldset>
       <legend>Allgemeine Wertvorstellungen</legend>
-      <label for="werteLeben">Was ist Ihnen im Leben besonders wichtig? Was macht für Sie Lebensqualität aus? <small>(Diese Angaben helfen, Ihre Entscheidungen besser zu verstehen.)</small></label>
-      <textarea id="werteLeben" rows="4" placeholder="z.B. Selbstständigkeit, keine schweren Schmerzen, geistige Klarheit, Kontakt zu meiner Familie, Natur genießen..."></textarea>
-      <label for="werteSterben">Ihre Einstellung zu schwerem Leiden und zum Sterben: <small>(z.B. Wunsch nach würdevollem Sterben, Ängste, religiöse oder ethische Überzeugungen)</small></label>
-      <textarea id="werteSterben" rows="4" placeholder="z.B. Ich möchte in Würde und ohne unnötiges Leiden sterben. / Künstliche Lebensverlängerung um jeden Preis lehne ich ab. / Mein Glaube gibt mir Halt."></textarea>
+
+      <label for="werteLeben">Was ist Ihnen im Leben besonders wichtig?</label>
+      <textarea id="werteLeben" name="werteLeben" rows="4" placeholder="z.B. Selbstständigkeit, keine schweren Schmerzen, geistige Klarheit ..." autocomplete="off"></textarea>
+
+      <label for="werteSterben">Einstellung zu schwerem Leiden und zum Sterben:</label>
+      <textarea id="werteSterben" name="werteSterben" rows="4" placeholder="z.B. würdevolles Sterben, religiöse Überzeugungen ..." autocomplete="off"></textarea>
     </fieldset>
 
-    <h2 class="section-title">3. Situationen, für die diese Patientenverfügung gelten soll</h2>
-    <p class="info-box">Kreuzen Sie an, in welchen der folgenden Situationen Ihre Festlegungen gelten sollen. Sie können mehrere Situationen auswählen.</p>
+    <h2 class="section-title">3. Geltungssituationen</h2>
+    <p class="info-box">Kreuzen Sie an, in welchen Situationen Ihre Festlegungen gelten sollen. Sie können mehrere Situationen auswählen.</p>
+
     <fieldset class="checkbox-group">
-        <legend>Ankreuzen der zutreffenden Situationen:</legend>
-        <label><input type="checkbox" name="situationen" value="Endstadium unheilbare Krankheit"> Ich befinde mich im Endstadium einer unheilbaren, tödlich verlaufenden Krankheit, auch wenn der Todeszeitpunkt noch nicht sicher absehbar ist.</label>
-        <label><input type="checkbox" name="situationen" value="Schwere Hirnschaedigung"> Infolge einer schweren Gehirnschädigung (z.B. nach Unfall, Schlaganfall) ist meine Fähigkeit, Entscheidungen zu treffen, aller Voraussicht nach unwiederbringlich erloschen.</label>
-        <label><input type="checkbox" name="situationen" value="Dauerhaftes Koma"> Ich befinde mich in einem Zustand dauerhafter Bewusstlosigkeit (Koma), aus dem ein Erwachen aller Voraussicht nach nicht mehr zu erwarten ist.</label>
-        <label><input type="checkbox" name="situationen" value="Fortgeschrittene Demenz"> Ich leide an einer fortgeschrittenen Demenzerkrankung, die es mir nicht mehr erlaubt, meine Situation zu erfassen und Entscheidungen zu treffen.</label>
-        <label><input type="checkbox" name="situationen" value="Unmittelbarer Sterbeprozess"> Ich befinde mich im unmittelbaren Sterbeprozess.</label>
-        <label for="situationenSonstige">Weitere spezifische Situationen (optional):</label>
-        <textarea id="situationenSonstige" rows="2" placeholder="z.B. Bei einer bestimmten, Ihnen bekannten chronischen Erkrankung im Endstadium."></textarea>
+      <legend>Ankreuzen der zutreffenden Situationen:</legend>
+
+      <label><input type="checkbox" name="situationen" value="Endstadium unheilbare Krankheit"> Endstadium einer unheilbaren, tödlich verlaufenden Krankheit.</label>
+      <label><input type="checkbox" name="situationen" value="Schwere Hirnschaedigung"> Schwere Gehirnschädigung; Entscheidungsfähigkeit voraussichtlich unwiederbringlich erloschen.</label>
+      <label><input type="checkbox" name="situationen" value="Dauerhaftes Koma"> Dauerhafte Bewusstlosigkeit (Koma) ohne realistische Erwachensperspektive.</label>
+      <label><input type="checkbox" name="situationen" value="Fortgeschrittene Demenz"> Fortgeschrittene Demenz; keine situationsangemessene Entscheidung mehr möglich.</label>
+      <label><input type="checkbox" name="situationen" value="Unmittelbarer Sterbeprozess"> Unmittelbarer Sterbeprozess.</label>
+
+      <label for="situationenSonstige">Weitere spezifische Situationen (optional):</label>
+      <textarea id="situationenSonstige" name="situationenSonstige" rows="2" placeholder="z.B. bei einer bestimmten chronischen Erkrankung im Endstadium." autocomplete="off"></textarea>
     </fieldset>
 
-    <h2 class="section-title">4. Festlegungen zu ärztlichen und pflegerischen Maßnahmen</h2>
+    <h2 class="section-title">4. Maßnahmen</h2>
     <p class="info-box">Entscheiden Sie hier für verschiedene Maßnahmen, ob Sie diese in den oben angekreuzten Situationen wünschen oder ablehnen.</p>
-    
+
     <fieldset>
       <legend>Lebenserhaltende Maßnahmen / Wiederbelebung</legend>
-      <label for="massnahmeWiederbelebung">Wiederbelebungsmaßnahmen (z.B. Herzdruckmassage, Defibrillation):</label>
-      <select id="massnahmeWiederbelebung">
+
+      <label for="massnahmeWiederbelebung">Wiederbelebungsmaßnahmen:</label>
+      <select id="massnahmeWiederbelebung" name="massnahmeWiederbelebung" autocomplete="off">
         <option value="wunsch_ja">Ich wünsche diese Maßnahmen.</option>
         <option value="wunsch_nein" selected>Ich lehne diese Maßnahmen ab.</option>
-        <option value="entscheidung_bevollmaechtigter">Mein Bevollmächtigter/Betreuer soll entscheiden.</option>
+        <option value="entscheidung_bevollmaechtigter">Bevollmächtigte/r oder Betreuer soll entscheiden.</option>
       </select>
-      <label for="massnahmeBeatmung">Künstliche Beatmung (invasiv oder nicht-invasiv):</label>
-      <select id="massnahmeBeatmung">
-        <option value="wunsch_ja">Ich wünsche künstliche Beatmung, wenn medizinisch angezeigt.</option>
-        <option value="wunsch_ja_kurz">Ich wünsche künstliche Beatmung nur für einen begrenzten Zeitraum, um eine Besserungschance abzuwarten.</option>
-        <option value="wunsch_nein" selected>Ich lehne künstliche Beatmung ab.</option>
-        <option value="entscheidung_bevollmaechtigter">Mein Bevollmächtigter/Betreuer soll entscheiden.</option>
+
+      <label for="massnahmeBeatmung">Künstliche Beatmung:</label>
+      <select id="massnahmeBeatmung" name="massnahmeBeatmung" autocomplete="off">
+        <option value="wunsch_ja">Ich wünsche Beatmung, wenn medizinisch angezeigt.</option>
+        <option value="wunsch_ja_kurz">Nur befristet, um eine Besserungschance abzuwarten.</option>
+        <option value="wunsch_nein" selected>Ich lehne Beatmung ab.</option>
+        <option value="entscheidung_bevollmaechtigter">Bevollmächtigte/r oder Betreuer soll entscheiden.</option>
       </select>
     </fieldset>
 
     <fieldset>
       <legend>Künstliche Ernährung und Flüssigkeitszufuhr</legend>
-      <label for="massnahmeErnaehrung">Künstliche Ernährung (z.B. über Magensonde, PEG):</label>
-      <select id="massnahmeErnaehrung">
-        <option value="wunsch_ja">Ich wünsche künstliche Ernährung, wenn ich nicht mehr selbstständig essen kann.</option>
-        <option value="wunsch_nein" selected>Ich lehne künstliche Ernährung ab, wenn keine Aussicht auf Besserung meines Zustandes besteht und sie nur der Lebensverlängerung dient.</option>
-        <option value="entscheidung_bevollmaechtigter">Mein Bevollmächtigter/Betreuer soll entscheiden.</option>
+
+      <label for="massnahmeErnaehrung">Künstliche Ernährung (z.B. PEG):</label>
+      <select id="massnahmeErnaehrung" name="massnahmeErnaehrung" autocomplete="off">
+        <option value="wunsch_ja">Ich wünsche künstliche Ernährung.</option>
+        <option value="wunsch_nein" selected>Ich lehne künstliche Ernährung ab, wenn sie nur der Lebensverlängerung ohne Aussicht auf Besserung dient.</option>
+        <option value="entscheidung_bevollmaechtigter">Bevollmächtigte/r oder Betreuer soll entscheiden.</option>
       </select>
+
       <label for="massnahmeFluessigkeit">Künstliche Flüssigkeitszufuhr (z.B. Infusionen):</label>
-      <select id="massnahmeFluessigkeit">
+      <select id="massnahmeFluessigkeit" name="massnahmeFluessigkeit" autocomplete="off">
         <option value="wunsch_ja">Ich wünsche künstliche Flüssigkeitszufuhr.</option>
         <option value="wunsch_nein" selected>Ich lehne künstliche Flüssigkeitszufuhr ab, wenn sie nur der Lebensverlängerung ohne Aussicht auf Besserung dient.</option>
-        <option value="entscheidung_bevollmaechtigter">Mein Bevollmächtigter/Betreuer soll entscheiden.</option>
+        <option value="entscheidung_bevollmaechtigter">Bevollmächtigte/r oder Betreuer soll entscheiden.</option>
       </select>
-      <small>Ausnahme: Flüssigkeitszufuhr zur Linderung von Durstgefühl ist stets erwünscht.</small>
+
+      <small>Hinweis: Linderung von Durstgefühl ist eine Form der Symptomlinderung und kann – je nach Situation – unabhängig von „künstlicher Flüssigkeitszufuhr“ relevant sein.</small>
     </fieldset>
 
     <fieldset>
       <legend>Weitere medizinische Maßnahmen</legend>
+
       <label for="massnahmeAntibiotika">Gabe von Antibiotika:</label>
-      <select id="massnahmeAntibiotika">
+      <select id="massnahmeAntibiotika" name="massnahmeAntibiotika" autocomplete="off">
         <option value="wunsch_ja">Ich wünsche Antibiotika zur Behandlung von Infektionen.</option>
-        <option value="wunsch_nein_lebensende">Ich lehne Antibiotika ab, wenn ich mich im unmittelbaren Sterbeprozess befinde und sie nur der Lebensverlängerung dienen würden.</option>
-        <option value="entscheidung_bevollmaechtigter" selected>Mein Bevollmächtigter/Betreuer soll entscheiden.</option>
+        <option value="wunsch_nein_lebensende">Ich lehne Antibiotika ab, wenn sie im Sterbeprozess nur der Lebensverlängerung dienen würden.</option>
+        <option value="entscheidung_bevollmaechtigter" selected>Bevollmächtigte/r oder Betreuer soll entscheiden.</option>
       </select>
+
       <label for="massnahmeDialyse">Dialyse (Blutwäsche):</label>
-      <select id="massnahmeDialyse">
+      <select id="massnahmeDialyse" name="massnahmeDialyse" autocomplete="off">
         <option value="wunsch_ja">Ich wünsche Dialyse, wenn medizinisch angezeigt.</option>
-        <option value="wunsch_nein_lebensende">Ich lehne Dialyse ab, wenn keine Aussicht auf Besserung meines Gesamtzustandes besteht.</option>
-        <option value="entscheidung_bevollmaechtigter" selected>Mein Bevollmächtigter/Betreuer soll entscheiden.</option>
+        <option value="wunsch_nein_lebensende">Ich lehne Dialyse ab, wenn keine Aussicht auf Besserung des Gesamtzustands besteht.</option>
+        <option value="entscheidung_bevollmaechtigter" selected>Bevollmächtigte/r oder Betreuer soll entscheiden.</option>
       </select>
-      <label for="massnahmeSchmerzLinderung">Schmerz- und Symptombehandlung (Linderung von Schmerzen, Atemnot, Übelkeit etc.):</label>
-      <select id="massnahmeSchmerzLinderung">
-        <option value="wunsch_immer" selected>Ich wünsche jederzeit eine umfassende Schmerz- und Symptomlinderung, auch wenn dies eine Verkürzung meiner Lebenszeit zur Folge haben könnte.</option>
-        <option value="wunsch_abwaegung">Ich wünsche Schmerz- und Symptomlinderung, aber unter Abwägung mit möglichen lebensverkürzenden Nebenwirkungen.</option>
+
+      <label for="massnahmeSchmerzLinderung">Schmerz- und Symptombehandlung:</label>
+      <select id="massnahmeSchmerzLinderung" name="massnahmeSchmerzLinderung" autocomplete="off">
+        <option value="wunsch_immer" selected>Ich wünsche jederzeit umfassende Schmerz- und Symptomlinderung, auch wenn dies eine Verkürzung der Lebenszeit zur Folge haben könnte.</option>
+        <option value="wunsch_abwaegung">Ich wünsche Linderung unter Abwägung möglicher lebensverkürzender Nebenwirkungen.</option>
       </select>
     </fieldset>
 
     <fieldset>
       <legend>Ort der Behandlung und Begleitung</legend>
-      <label for="wunschBehandlungsort">Wo möchten Sie in Ihrer letzten Lebensphase möglichst behandelt und gepflegt werden?</label>
-      <textarea id="wunschBehandlungsort" rows="3" placeholder="z.B. Zu Hause, in einem Hospiz, auf einer Palliativstation. Krankenhaus nur, wenn unumgänglich."></textarea>
-      <label for="wunschBeistand">Wünschen Sie seelischen oder religiösen Beistand?</label>
-      <textarea id="wunschBeistand" rows="2" placeholder="z.B. Ja, durch meine Familie und einen Seelsorger meiner Kirchengemeinde. / Nein."></textarea>
+
+      <label for="wunschBehandlungsort">Behandlungs-/Pflegeort in der letzten Lebensphase:</label>
+      <textarea id="wunschBehandlungsort" name="wunschBehandlungsort" rows="3" placeholder="z.B. zu Hause, Hospiz, Palliativstation ..." autocomplete="off"></textarea>
+
+      <label for="wunschBeistand">Seelischer oder religiöser Beistand:</label>
+      <textarea id="wunschBeistand" name="wunschBeistand" rows="2" placeholder="z.B. Familie, Seelsorge ..." autocomplete="off"></textarea>
     </fieldset>
 
     <h2 class="section-title">5. Organspende</h2>
     <fieldset>
       <legend>Erklärung zur Organspende</legend>
-      <label for="organspende">Meine Haltung zur Organ- und Gewebespende: <small>(Diese Erklärung ergänzt einen ggf. vorhandenen Organspendeausweis.)</small></label>
-      <select id="organspende">
+
+      <label for="organspende">Meine Haltung zur Organ- und Gewebespende:</label>
+      <select id="organspende" name="organspende" autocomplete="off">
           <option value="nicht_festgelegt" selected>Ich habe mich nicht entschieden / verweise auf meinen Organspendeausweis.</option>
-          <option value="ja_alle">Ja, ich stimme der Entnahme aller meiner Organe und Gewebe zu.</option>
-          <option value="ja_bestimmte">Ja, ich stimme der Entnahme folgender Organe/Gewebe zu:</option>
-          <option value="nein">Nein, ich lehne eine Organ- und Gewebeentnahme ab.</option>
+          <option value="ja_alle">Ja, Entnahme aller Organe/Gewebe.</option>
+          <option value="ja_bestimmte">Ja, Entnahme bestimmter Organe/Gewebe.</option>
+          <option value="nein">Nein, ich lehne ab.</option>
       </select>
+
       <div id="organspendeDetails" class="sub-details">
-          <label for="organspendeSpezifischText">Wenn "ja, bestimmte": Welche Organe/Gewebe?</label>
-          <input type="text" id="organspendeSpezifischText" placeholder="z.B. Herz, Nieren, Hornhaut der Augen">
+          <label for="organspendeSpezifischText">Wenn „bestimmte“: Welche Organe/Gewebe?</label>
+          <input type="text" id="organspendeSpezifischText" name="organspendeSpezifischText" placeholder="z.B. Nieren, Hornhaut" autocomplete="off">
       </div>
     </fieldset>
-    
-    <h2 class="section-title">6. Schlussbemerkungen und Hinweise</h2>
+
+    <h2 class="section-title">6. Schlussbemerkungen</h2>
     <fieldset>
       <legend>Geltung, Auslegung und Durchsetzung</legend>
-      <label for="aussagekraftVerfuegung">Aussagekraft und Verbindlichkeit: <small>(Diese Verfügung ist Ausdruck meines Selbstbestimmungsrechts.)</small></label>
-      <textarea id="aussagekraftVerfuegung" rows="3" readonly>Diese Patientenverfügung ist Ausdruck meines derzeitigen Willens und meiner Wertvorstellungen. Ich erwarte, dass sie von allen behandelnden Ärzten und dem medizinischen Personal beachtet wird. Ich bin mir bewusst, dass ich diese Verfügung jederzeit formlos widerrufen oder ändern kann, solange ich entscheidungsfähig bin.</textarea>
-      
-      <label for="bezugVorsorgevollmacht">Bezug zu einer Vorsorgevollmacht (falls vorhanden):</label>
-      <textarea id="bezugVorsorgevollmacht" rows="3" placeholder="z.B. Ich habe eine Vorsorgevollmacht für [Name des Bevollmächtigten] ausgestellt. Er/Sie ist beauftragt, meinen Willen gemäß dieser Patientenverfügung durchzusetzen."></textarea>
-      
-      <p class="info-box"><strong>Empfehlung:</strong> Besprechen Sie diese Patientenverfügung mit Ihrem Hausarzt/Ihrer Hausärztin und Ihren Vertrauenspersonen. Hinterlegen Sie Kopien an leicht zugänglichen Orten oder im Zentralen Vorsorgeregister.</p>
-      <label><input type="checkbox" id="eigenhaendigUnterschreibenPV" required> Ich werde dieses Dokument nach dem Ausdrucken eigenhändig unterschreiben und mit Ort und Datum versehen. Es wird empfohlen, die Unterschrift alle 1-2 Jahre zu erneuern oder die Verfügung zu bestätigen.</label>
-    </fieldset>
 
+      <label for="aussagekraftVerfuegung">Aussagekraft und Verbindlichkeit:</label>
+      <textarea id="aussagekraftVerfuegung" name="aussagekraftVerfuegung" rows="4" readonly>
+Diese Patientenverfügung ist Ausdruck meines derzeitigen Willens und meiner Wertvorstellungen.
+Ich bin mir bewusst, dass eine Patientenverfügung nur wirkt, wenn ihre Festlegungen auf die aktuelle Lebens- und Behandlungssituation zutreffen (§ 1827 BGB).
+Ich kann diese Patientenverfügung jederzeit formlos widerrufen, solange ich dazu in der Lage bin.
+      </textarea>
+
+      <label for="bezugVorsorgevollmacht">Bezug zu einer Vorsorgevollmacht (falls vorhanden):</label>
+      <textarea id="bezugVorsorgevollmacht" name="bezugVorsorgevollmacht" rows="3" placeholder="z.B. Bevollmächtigte Person soll meinen Willen gemäß dieser Patientenverfügung durchsetzen." autocomplete="off"></textarea>
+
+      <p class="info-box">
+        <strong>Empfehlung:</strong> Besprechen Sie diese Patientenverfügung mit Arzt/Ärztin und Vertrauenspersonen und sorgen Sie dafür, dass sie im Notfall auffindbar ist.
+      </p>
+
+      <label>
+        <input type="checkbox" id="eigenhaendigUnterschreibenPV" name="eigenhaendigUnterschreibenPV" required>
+        Ich werde dieses Dokument nach dem Ausdrucken eigenhändig unterschreiben und mit Ort und Datum versehen.
+      </label>
+    </fieldset>
 
     <div class="button-group">
       <button type="button" id="saveBtnPatientenV" class="button-secondary">Eingaben speichern</button>
