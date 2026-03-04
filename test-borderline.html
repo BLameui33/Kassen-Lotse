@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Borderline-Test (Ersteinschätzung): Symptome & Kassenrechte</title>
+  <meta name="description" content="Kostenloser, ausführlicher Borderline-Test zur Ersteinschätzung. Testen Sie BPS-Symptome und erfahren Sie, wie Sie eine DBT-Therapie oder einen GdB durchsetzen.">
+  <meta name="keywords" content="Borderline Test, BPS Test, Borderline Persönlichkeitsstörung Symptome, DBT Therapie Antrag, Kostenerstattung Borderline, Schwerbehinderung Psyche, GdB Borderline">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Ausführliche Borderline-Ersteinschätzung & Kassen-Ratgeber",
+  "operatingSystem": "Web",
+  "applicationCategory": "HealthApplication",
+  "description": "Strukturierter Online-Test zur unverbindlichen Ersteinschätzung einer Borderline-Persönlichkeitsstörung (basierend auf DSM-5-Kriterien), verknüpft mit kassenrechtlichen Handlungsempfehlungen (z.B. Kostenerstattung DBT, GdB).",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+</head>
+<body>
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    
+    <!-- YMYL NOTFALL-BOX -->
+    <div class="warning-box" style="background-color: #ffebee; border-left: 4px solid #f44336; padding: 15px; margin-bottom: 20px;">
+        <h3 style="margin-top: 0; color: #d32f2f;">Wichtiger Hinweis in akuten Krisen</h3>
+        <p style="margin-bottom: 0;">Eine Borderline-Erkrankung ist oft mit kaum aushaltbarem emotionalen Schmerz und dem Drang zur Selbstverletzung verbunden. Wenn Sie sich in einer akuten Notlage befinden oder Suizidgedanken haben, bleiben Sie bitte nicht allein! Wenden Sie sich sofort an die <strong>Telefonseelsorge: 0800 111 0 111</strong> (kostenlos, anonym, 24/7). In lebensbedrohlichen Situationen wählen Sie die <strong>112</strong>.</p>
+    </div>
+
+    <h1>Borderline-Test: Ausführliche Ersteinschätzung</h1>
+
+    <div class="highlight-box" role="region" aria-label="Einführung">
+      <p>
+        Die Borderline-Persönlichkeitsstörung (BPS) ist hochkomplex. Dieser Test orientiert sich an den offiziellen diagnostischen Kriterien (DSM-5) und fragt <strong>vier zentrale Bereiche</strong> ab: Emotionale Instabilität, zwischenmenschliche Beziehungen, Identität/Selbstbild sowie Impulsivität.
+      </p>
+      <p>
+        <strong>Warum dieser Test hilft:</strong> Nach der Auswertung zeigen wir Ihnen direkt auf, welche Spezialtherapien (wie die Dialektisch-Behaviorale Therapie - DBT) für Sie infrage kommen und wie Sie diese über das Kostenerstattungsverfahren bei der Krankenkasse durchsetzen können. Ebenfalls prüfen wir die Relevanz eines GdB-Antrags (Schwerbehinderung).
+      </p>
+    </div>
+
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">03.03.2026</span></p>
+    </div>
+
+    <form id="borderline-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
+      
+      <p style="font-weight: bold; margin-bottom: 15px;">Bitte schätzen Sie ein, wie oft die folgenden Aussagen in Ihrem bisherigen Erwachsenenleben oder über einen langen Zeitraum auf Sie zutreffen:</p>
+
+      <!-- SCHRITT 1: Emotionen -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 1 – Emotionen & Stimmung</legend>
+
+        <label class="pflegegrad-label">
+          1. Ich erlebe schnelle, extreme Stimmungswechsel (z.B. von tiefer Traurigkeit zu Wut oder starker Angst innerhalb weniger Stunden).
+          <select class="pflegegrad-frage" name="bps_1">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          2. Ich verspüre oft unangemessen heftige Wut oder habe große Schwierigkeiten, Wutausbrüche zu kontrollieren.
+          <select class="pflegegrad-frage" name="bps_2">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          3. In extremen Stresssituationen habe ich das Gefühl, neben mir zu stehen (Dissoziation) oder werde extrem misstrauisch bis paranoid.
+          <select class="pflegegrad-frage" name="bps_3">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 2: Beziehungen -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 2 – Beziehungen & Verlustangst</legend>
+
+        <label class="pflegegrad-label">
+          4. Ich unternehme verzweifelte Anstrengungen, um ein tatsächliches oder auch nur eingebildetes Verlassenwerden zu verhindern.
+          <select class="pflegegrad-frage" name="bps_4">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          5. Meine Beziehungen sind sehr intensiv, aber extrem instabil. Es schwankt ständig zwischen extremer Idealisierung (Liebe) und völliger Abwertung (Hass).
+          <select class="pflegegrad-frage" name="bps_5">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          6. Ich wechsle oft schlagartig meine Meinung über Menschen, die mir eigentlich nahestehen.
+          <select class="pflegegrad-frage" name="bps_6">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 3: Identität & Leere -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 3 – Identität & Innere Leere</legend>
+
+        <label class="pflegegrad-label">
+          7. Ich leide unter einem chronischen, oft quälenden Gefühl der inneren Leere.
+          <select class="pflegegrad-frage" name="bps_7">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          8. Ich bin extrem unsicher, was mein eigenes Selbstbild angeht (wer ich bin, was meine Werte, Ziele oder sexuelle Identität sind).
+          <select class="pflegegrad-frage" name="bps_8">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          9. Ich passe mich oft extrem an andere an, weil ich das Gefühl habe, keinen eigenen festen Charakter zu besitzen.
+          <select class="pflegegrad-frage" name="bps_9">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 4: Impulsivität & Selbstverletzung -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 4 – Impulsivität & Selbstverletzung</legend>
+
+        <label class="pflegegrad-label">
+          10. Ich verhalte mich oft extrem impulsiv und schädige mich potenziell selbst (z.B. Essanfälle, riskantes Fahren, Drogenkonsum, rücksichtsloses Geldausgeben).
+          <select class="pflegegrad-frage" name="bps_10">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          11. Ich verletze mich selbst (z.B. Schneiden, Kratzen, Verbrennen), um unerträgliche emotionale Anspannung abzubauen oder mich wieder zu spüren.
+          <select class="pflegegrad-frage" name="bps_11" id="svv-frage">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          12. Ich habe wiederkehrende Suizidgedanken, spreche über Suizid oder habe bereits entsprechende Handlungen/Androhungen vorgenommen.
+          <select class="pflegegrad-frage" name="bps_12" id="suizid-frage">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 4</div>
+
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Auswerten & Kassen-Tipps anzeigen</button>
+        <button type="reset" class="button button-secondary" id="reset-form">Eingaben zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="ergebnis" aria-live="polite" style="margin-top: 20px;"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Wichtig (YMYL-Hinweis):</strong> Dieser Online-Test dient ausschließlich der Selbstreflexion. Persönlichkeitsstörungen sind komplexe Diagnosen, die <strong>nur durch Fachärzte für Psychiatrie oder approbierte Psychotherapeuten</strong> nach ausführlichen Gesprächen gestellt werden dürfen. Für kassenrechtliche Leistungsanträge (Reha, Krankengeld, Therapie) ist zwingend eine ärztliche Diagnose (ICD-10: F60.31) erforderlich.
+      </p>
+    </div>
+
+  <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+    <h2 id="promo-headline">
+      <span class="icon" aria-hidden="true">🤖</span>
+      Clerion – Die KI, die Ihnen bei Behördenpost und Anträgen hilft
+    </h2>
+    <p class="lead">
+      Wenn die emotionale Belastung hoch ist, fehlt oft die Kraft für Formulare. Ob Sie einen GdB beim Versorgungsamt beantragen, eine Reha-Wunschklinik fordern oder das Kostenerstattungsverfahren bei der Kasse durchsetzen wollen: 
+      Clerion nimmt Ihnen den Papierkram ab und erstellt fertige Antwort-PDFs.
+    </p>
+    <div class="promo-ctas">
+      <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt kostenlos testen</a>
+      <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+    </div>
+  </section>
+
+  <aside class="highlight-box" role="complementary" aria-label="Weiterführende Informationen">
+    <h2 style="margin-top:0">Wichtige Arbeitshilfen für den nächsten Schritt</h2>
+    <p>
+      Lassen Sie sich nicht von langen Wartelisten abschrecken. Nutzen Sie das Gesetz zu Ihrem Vorteil:
+    </p>
+    <p style="margin-bottom:.4rem;">
+      <a href="info-borderline.html" class="button button-secondary" title="Zur Borderline Info">Ratgeber: Kassenrecht bei Borderline</a>
+      <a href="antrag.html" class="button button-secondary" title="Zur Kostenerstattung">DBT-Therapieplatz: Kostenerstattung beantragen</a>
+      <a href="wunsch-wahlrecht-reha.html" class="button button-secondary" title="Zum Wunschrecht Reha">Reha-Antrag: Wunschklinik (Spezialstation) fordern</a>
+      <a href="test-gdb-ersteinschaetzung.html" class="button button-secondary" title="Zum GdB Test">Schwerbehinderung: GdB-Antrag bei Borderline</a>
+    </p>
+  </aside>
+
+</div>
+
+  <footer>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <!-- FAQ-Schema separat eingebunden -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Warum fragt der Test nach Selbstverletzung oder Suizidgedanken?","acceptedAnswer":{"@type":"Answer","text":"Diese Aspekte gehören zu den offiziellen Diagnosekriterien (DSM-5) der Borderline-Persönlichkeitsstörung. Es ist wichtig, diese ehrlich einzuschätzen, um bei hoher Gefährdung sofort geeignete, oft lebensrettende Hilfsangebote aufzuzeigen."}},
+      {"@type":"Question","name":"Kann ich mit diesem Ergebnis direkt zur Krankenkasse gehen?","acceptedAnswer":{"@type":"Answer","text":"Nein, das Ergebnis eines Online-Tests reicht für die Krankenkasse oder das Versorgungsamt nicht aus. Sie müssen das Ergebnis im besten Fall ausdrucken und mit einem Psychiater oder Psychotherapeuten besprechen. Dieser stellt dann die gesicherte Diagnose (F60.31)."}}
+    ]
+  }
+  </script>
+
+  <!-- DAS JAVASCRIPT FÜR DIE AUSWERTUNG -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
+      const prevBtn = document.getElementById('prev-step');
+      const nextBtn = document.getElementById('next-step');
+      const calcBtn = document.getElementById('berechnen-btn');
+      const progressDiv = document.getElementById('wizard-progress');
+      const resultSection = document.getElementById('ergebnis');
+      
+      let currentStep = 0;
+
+      function updateWizard() {
+        fieldsets.forEach((fs, index) => {
+          fs.style.display = (index === currentStep) ? 'block' : 'none';
+        });
+
+        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
+
+        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
+        
+        if (currentStep === fieldsets.length - 1) {
+          nextBtn.style.display = 'none';
+          calcBtn.style.display = 'inline-block';
+        } else {
+          nextBtn.style.display = 'inline-block';
+          calcBtn.style.display = 'none';
+        }
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep < fieldsets.length - 1) {
+          currentStep++;
+          updateWizard();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateWizard();
+        }
+      });
+
+      calcBtn.addEventListener('click', () => {
+        let totalScore = 0;
+        let svvWert = parseInt(document.getElementById('svv-frage').value);
+        let suizidWert = parseInt(document.getElementById('suizid-frage').value);
+        
+        const selects = document.querySelectorAll('.pflegegrad-frage');
+        
+        selects.forEach(select => {
+          totalScore += parseInt(select.value);
+        });
+
+        let auswertung = "";
+        let handlungsempfehlung = "";
+
+        if (totalScore <= 10) {
+          auswertung = "<h3 style='color: #4CAF50;'>Ergebnis: Geringe Hinweise auf eine Borderline-Störung (" + totalScore + " Punkte)</h3>";
+          handlungsempfehlung = "Ihre Antworten deuten aktuell nicht auf das typische Muster einer Borderline-Störung hin. Emotionale Schwankungen können auch durch akute Lebenskrisen oder Stress ausgelöst werden. Bei anhaltendem Leidensdruck kann eine reguläre psychotherapeutische Beratung sinnvoll sein.";
+        } else if (totalScore >= 11 && totalScore <= 20) {
+          auswertung = "<h3 style='color: #FF9800;'>Ergebnis: Mittlere Hinweise / Anteile einer Borderline-Störung (" + totalScore + " Punkte)</h3>";
+          handlungsempfehlung = "Sie weisen mehrere Symptome auf, die im Spektrum der emotional instabilen Persönlichkeitsstörung liegen. Ein klärendes Gespräch bei einem Facharzt oder Therapeuten wird dringend empfohlen. <br><br><strong>Kassenrecht-Tipp:</strong> Eine klassische Verhaltenstherapie (wird von der Krankenkasse bei Diagnose problemlos übernommen) kann Ihnen sehr gut helfen, Ihre Emotionsregulation zu verbessern.";
+        } else {
+          auswertung = "<h3 style='color: #F44336;'>Ergebnis: Starke Hinweise auf eine Borderline-Störung (" + totalScore + " Punkte)</h3>";
+          handlungsempfehlung = "Ihre Auswertung zeigt ein sehr deutliches Muster, das typisch für eine Borderline-Erkrankung ist. Bitte suchen Sie sich fachärztliche Unterstützung! <br><br><strong>Ihre Rechte im System:</strong><br>1. <strong>Therapie:</strong> Die Dialektisch-Behaviorale Therapie (DBT) ist oft extrem wirksam. Gibt es keinen Kassentherapeuten, fordern Sie die Behandlung in einer Privatpraxis über das <em>Kostenerstattungsverfahren (§ 13 SGB V)</em> ein.<br>2. <strong>Schwerbehinderung:</strong> Bei massiven sozialen Einschränkungen lohnt sich ein Antrag beim Versorgungsamt auf Feststellung des Grades der Behinderung (GdB). Ein GdB ab 30 bis 50 schützt Sie auch am Arbeitsplatz.<br>3. <strong>Reha:</strong> Bei Erwerbsgefährdung stellen Sie einen Reha-Antrag bei der Rentenversicherung und fordern über das <em>Wunsch- und Wahlrecht</em> gezielt eine Klinik mit DBT-Konzept.";
+        }
+
+        // YMYL Überschreibung für Fragen 11 & 12 (Selbstverletzung / Suizid)
+        let krisenWarnung = "";
+        if (svvWert >= 2 || suizidWert >= 1) {
+          krisenWarnung = `<div style="background-color: #ffebee; border: 2px solid #f44336; padding: 15px; margin-top: 15px; border-radius: 5px;">
+            <strong style="color: #d32f2f;">Dringender medizinischer Hinweis:</strong> Sie haben angegeben, sich selbst zu verletzen oder an Suizid zu denken. Das ist ein Ausdruck enormer innerer Not. Bitte bleiben Sie damit nicht allein. Sie können jederzeit (auch nachts und am Wochenende) kostenlos die Telefonseelsorge unter <strong>0800 111 0 111</strong> anrufen oder in die Notaufnahme des nächsten Krankenhauses (Psychiatrische Ambulanz) gehen. Es gibt Hilfe!
+          </div>`;
+        }
+
+        resultSection.innerHTML = `
+          <div class="highlight-box" style="border-left: 5px solid #2196F3;">
+            ${auswertung}
+            <p>${handlungsempfehlung}</p>
+            ${krisenWarnung}
+          </div>
+        `;
+        
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Init
+      updateWizard();
+    });
+  </script>
+</body>
+</html>
