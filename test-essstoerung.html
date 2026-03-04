@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Essstörungs-Test: Magersucht, Bulimie, Binge Eating</title>
+  <meta name="description" content="Kostenloser Test zur Ersteinschätzung von Essstörungen (Anorexie, Bulimie, Binge-Eating). Für Betroffene und Eltern. Inklusive Tipps zur Kassen-Kostenübernahme.">
+  <meta name="keywords" content="Essstörung Test, Magersucht erkennen, Bulimie Test, Binge Eating Test, Therapie Essstörung Krankenkasse, Kostenerstattung, Reha Essstörung, Kassen-Lotse">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Essstörungen Ersteinschätzung (Anorexie, Bulimie, Binge Eating)",
+  "operatingSystem": "Web",
+  "applicationCategory": "HealthApplication",
+  "description": "Sensibler Online-Test zur Erkennung von Symptomen verschiedener Essstörungen, nutzbar für Betroffene oder beobachtende Angehörige/Eltern, kombiniert mit kassenrechtlichen Handlungsempfehlungen.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+</head>
+<body>
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    
+    <!-- YMYL NOTFALL-BOX -->
+    <div class="warning-box" style="background-color: #ffebee; border-left: 4px solid #f44336; padding: 15px; margin-bottom: 20px;">
+        <h3 style="margin-top: 0; color: #d32f2f;">Wichtiger Hinweis in akuten Krisen</h3>
+        <p style="margin-bottom: 0;">Essstörungen können lebensbedrohliche körperliche Ausmaße annehmen (Herzrhythmusstörungen, Kreislaufkollaps). Bei akutem, gefährlichem Untergewicht oder Ohnmachtsanfällen wählen Sie sofort den <strong>Notruf 112</strong>! Bei starker seelischer Verzweiflung erreichen Betroffene die Telefonseelsorge unter <strong>0800 111 0 111</strong>. Verzweifelte Eltern finden Hilfe beim Elterntelefon unter <strong>0800 111 0550</strong>.</p>
+    </div>
+
+    <h1>Test: Liegt eine Essstörung vor?</h1>
+
+    <div class="highlight-box" role="region" aria-label="Einführung">
+      <p>
+        Dieser Test prüft Warnsignale für die drei häufigsten Essstörungen: <strong>Magersucht (Anorexie), Ess-Brech-Sucht (Bulimie) und Essattacken (Binge-Eating)</strong>. Sie können den Test für sich selbst ausfüllen oder – als besorgtes Elternteil – aus der Beobachtungsperspektive für Ihr Kind.
+      </p>
+      <p>
+        <strong>Ihr Vorteil:</strong> Im Anschluss an die Auswertung zeigen wir Ihnen, welche Schritte bei der Krankenkasse oder Rentenversicherung jetzt entscheidend sind (z.B. wie Sie trotz langer Wartelisten über das Kostenerstattungsverfahren schnell einen Therapieplatz sichern).
+      </p>
+    </div>
+
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">04.03.2026</span></p>
+    </div>
+
+    <form id="essstoerung-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
+      
+      <p style="font-weight: bold; margin-bottom: 15px;">Bitte schätzen Sie ein, wie sehr die folgenden Aussagen auf Sie (oder die Person, um die Sie sich sorgen) in den letzten 3 Monaten zutrafen:</p>
+
+      <!-- SCHRITT 1: Gedanken & Körperbild -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 1 – Gedankenwelt & Körperbild</legend>
+
+        <label class="pflegegrad-label">
+          1. Wie viel Zeit am Tag drehen sich die Gedanken um Essen, Kalorien, Figur oder das Körpergewicht?
+          <select class="pflegegrad-frage" name="es_1">
+            <option value="0">Wenig / Normales Maß</option>
+            <option value="1">Mehrere Stunden am Tag</option>
+            <option value="2">Es ist ein ständiges, oft quälendes Hintergrundrauschen</option>
+            <option value="3">Fast ununterbrochen, es kontrolliert das gesamte Denken</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          2. Besteht eine extreme, fast panische Angst davor, zuzunehmen oder dick zu werden, selbst wenn das aktuelle Gewicht normal oder sehr niedrig ist?
+          <select class="pflegegrad-frage" name="es_2">
+            <option value="0">Nein, kaum</option>
+            <option value="1">Gelegentlich, wie bei vielen Menschen</option>
+            <option value="2">Ja, die Angst ist sehr stark und bestimmt den Alltag</option>
+            <option value="3">Ja, es ist eine panische, alles beherrschende Angst</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          3. Macht der Betroffene / machen Sie den eigenen Selbstwert fast ausschließlich von der Körperform oder dem Gewicht auf der Waage abhängig?
+          <select class="pflegegrad-frage" name="es_3">
+            <option value="0">Nein</option>
+            <option value="1">Teilweise</option>
+            <option value="2">Ja, sehr stark</option>
+            <option value="3">Ja, absolut. An "schweren" Tagen fühlt man sich wertlos</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 2: Verhalten beim Essen & Kontrolle -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 2 – Kontrolle & Heimlichkeit</legend>
+
+        <label class="pflegegrad-label">
+          4. Gibt es den Versuch, das Essen extrem zu kontrollieren (z.B. Mahlzeiten absichtlich ausfallen lassen, extrem kleine Portionen, strikte Verbote bestimmter Lebensmittel)?
+          <select class="pflegegrad-frage" name="es_4">
+            <option value="0">Nein / Selten</option>
+            <option value="1">Gelegentlich (z.B. während einer Diät)</option>
+            <option value="2">Häufig, das Essverhalten ist sehr starr und reglementiert</option>
+            <option value="3">Ständig. Wenn Regeln gebrochen werden, folgt extreme Panik/Schuld</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          5. Kommt es zu Essattacken, bei denen in kurzer Zeit ungewöhnlich große Mengen gegessen werden, begleitet von einem Gefühl des völligen Kontrollverlusts?
+          <select class="pflegegrad-frage" name="es_5">
+            <option value="0">Nie</option>
+            <option value="1">Selten</option>
+            <option value="2">Regelmäßig (ca. 1x pro Woche)</option>
+            <option value="3">Häufig (mehrmals pro Woche oder täglich)</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          6. Wird heimlich gegessen, werden Lebensmittel gehortet/versteckt oder Mahlzeiten in Gesellschaft unter Vorwänden gemieden?
+          <select class="pflegegrad-frage" name="es_6">
+            <option value="0">Nein</option>
+            <option value="1">Manchmal aus Scham</option>
+            <option value="2">Häufig, das Essverhalten findet zunehmend isoliert statt</option>
+            <option value="3">Fast immer. Das soziale Leben leidet extrem darunter</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 3: Kompensation & Körperliche Folgen -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 3 – Kompensation & Körperliche Warnsignale</legend>
+
+        <label class="pflegegrad-label">
+          7. Wird versucht, gegessene Kalorien wieder "ungeschehen" zu machen (z.B. durch selbst herbeigeführtes Erbrechen, Abführmittel, extremes Fasten)?
+          <select class="pflegegrad-frage" name="es_7">
+            <option value="0">Nie</option>
+            <option value="1">Wurde schon mal probiert, ist aber die Ausnahme</option>
+            <option value="2">Regelmäßig (ca. 1x pro Woche)</option>
+            <option value="3">Häufig (mehrmals pro Woche oder täglich)</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          8. Wird Sport betrieben, der zwanghafte Züge annimmt (z.B. extremes Training trotz Erschöpfung/Krankheit, nur um Kalorien zu verbrennen)?
+          <select class="pflegegrad-frage" name="es_8">
+            <option value="0">Nein, normaler Umgang mit Sport</option>
+            <option value="1">Manchmal etwas übertrieben</option>
+            <option value="2">Ja, Sport ist eher ein Zwang als Freude</option>
+            <option value="3">Ja, extrem. Ausfallendes Training löst starke Schuldgefühle aus</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          9. Treten bereits <strong>körperliche Warnsignale</strong> auf (z.B. ständiges Frieren, starker Gewichtsverlust, Ausbleiben der Menstruation, Schwindelanfälle, Haarausfall)?
+          <select class="pflegegrad-frage" name="es_9" id="koerper-frage">
+            <option value="0">Nein, körperlich unauffällig</option>
+            <option value="1">Leichte Symptome (z.B. oft müde)</option>
+            <option value="2">Ja, deutliche körperliche Veränderungen/Schwäche</option>
+            <option value="3">Ja, alarmierende Symptome (z.B. Ohnmacht, extremer Gewichtsverlust, Herzstolpern)</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 3</div>
+
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Test auswerten & Kassen-Tipps anzeigen</button>
+        <button type="reset" class="button button-secondary" id="reset-form">Eingaben zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="ergebnis" aria-live="polite" style="margin-top: 20px;"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Wichtig (YMYL-Hinweis):</strong> Dieser Test liefert eine Ersteinschätzung und <strong>keine medizinische Diagnose</strong>. Essstörungen erfordern zwingend eine Abklärung durch einen Arzt oder Psychotherapeuten. Nur mit einer offiziellen Diagnose (ICD-10: F50) übernimmt die Krankenkasse die Kosten für Therapien oder Klinikaufenthalte.
+      </p>
+    </div>
+
+  <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+    <h2 id="promo-headline">
+      <span class="icon" aria-hidden="true">🤖</span>
+      Clerion – Hilfe im Antrags-Dschungel
+    </h2>
+    <p class="lead">
+      Wenn Sie für Ihr Kind oder für sich selbst um einen Therapieplatz oder eine Spezialklinik kämpfen, ist der Papierkram der Krankenkassen oft die letzte Hürde. 
+      Lassen Sie sich von Clerion unterstützen: Die KI erklärt Ihnen jedes komplizierte Behördenschreiben und formuliert rechtssichere Anträge (z.B. auf Kostenerstattung) und Widersprüche als fertiges PDF.
+    </p>
+    <div class="promo-ctas">
+      <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt KI-Assistent testen</a>
+      <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+    </div>
+  </section>
+
+  <aside class="highlight-box" role="complementary" aria-label="Weiterführende Informationen">
+    <h2 style="margin-top:0">Wichtige Arbeitshilfen für den nächsten Schritt</h2>
+    <p>
+      Bei Essstörungen zählt jeder Tag. Nutzen Sie unsere Tools, um schnell Hilfe zu bekommen:
+    </p>
+    <p style="margin-bottom:.4rem;">
+      <a href="info-essstoerung.html" class="button button-secondary" title="Zur Essstörungs Info">Ratgeber: Kassenrecht & Vorurteile</a>
+      <a href="antrag.html" class="button button-secondary" title="Zur Kostenerstattung">Warteliste zu lang? Kostenerstattung beantragen</a>
+      <a href="wunsch-wahlrecht-reha.html" class="button button-secondary" title="Zum Wunschrecht Reha">Reha-Antrag: Spezialklinik für Essstörungen fordern</a>
+    </p>
+  </aside>
+
+</div>
+
+  <footer>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <!-- FAQ-Schema separat eingebunden -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Kann der Test unterscheiden, welche Essstörung vorliegt?","acceptedAnswer":{"@type":"Answer","text":"Der Test deckt Symptome aller drei Hauptformen (Magersucht, Bulimie, Binge-Eating) ab. Er misst primär den gesamten Leidensdruck und die Gefährdung, um aufzuzeigen, ob sofortige medizinische oder therapeutische Schritte (und Kostenübernahmen) notwendig sind."}},
+      {"@type":"Question","name":"Mein Kind hat Untergewicht, aber der Testwert ist niedrig. Was nun?","acceptedAnswer":{"@type":"Answer","text":"Ein massiver Gewichtsverlust, insbesondere bei Kindern und Jugendlichen, ist immer ein medizinisches Warnsignal. Suchen Sie unabhängig vom Testergebnis zeitnah einen Kinderarzt auf, um organische oder psychologische Ursachen abzuklären."}}
+    ]
+  }
+  </script>
+
+  <!-- DAS JAVASCRIPT FÜR DIE AUSWERTUNG -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
+      const prevBtn = document.getElementById('prev-step');
+      const nextBtn = document.getElementById('next-step');
+      const calcBtn = document.getElementById('berechnen-btn');
+      const progressDiv = document.getElementById('wizard-progress');
+      const resultSection = document.getElementById('ergebnis');
+      
+      let currentStep = 0;
+
+      function updateWizard() {
+        fieldsets.forEach((fs, index) => {
+          fs.style.display = (index === currentStep) ? 'block' : 'none';
+        });
+
+        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
+
+        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
+        
+        if (currentStep === fieldsets.length - 1) {
+          nextBtn.style.display = 'none';
+          calcBtn.style.display = 'inline-block';
+        } else {
+          nextBtn.style.display = 'inline-block';
+          calcBtn.style.display = 'none';
+        }
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep < fieldsets.length - 1) {
+          currentStep++;
+          updateWizard();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateWizard();
+        }
+      });
+
+      calcBtn.addEventListener('click', () => {
+        let totalScore = 0;
+        let koerperWert = parseInt(document.getElementById('koerper-frage').value);
+        
+        const selects = document.querySelectorAll('.pflegegrad-frage');
+        
+        selects.forEach(select => {
+          totalScore += parseInt(select.value);
+        });
+
+        let auswertung = "";
+        let psychologischerTipp = "";
+        let kassenTipp = "";
+
+        if (totalScore <= 6) {
+          auswertung = "<h3 style='color: #4CAF50;'>Ergebnis: Keine bis geringe Hinweise auf eine Essstörung</h3>";
+          psychologischerTipp = "Die Gedankenkreise um das Thema Essen und Figur scheinen sich in einem unauffälligen Rahmen zu bewegen. Sollten dennoch plötzliche Gewichtsveränderungen auftreten, klären Sie diese medizinisch ab.";
+          kassenTipp = "Aktuell besteht aus Sicht der Kassenkriterien keine Notwendigkeit für eine Psychotherapie im Rahmen einer Essstörung.";
+        } 
+        else if (totalScore >= 7 && totalScore <= 14) {
+          auswertung = "<h3 style='color: #FF9800;'>Ergebnis: Mittlere Belastung / Beginnende Essstörung</h3>";
+          psychologischerTipp = "Es zeigen sich deutliche Warnsignale! Das Thema Essen und Gewicht nimmt einen ungesunden, stark kontrollierenden Stellenwert im Leben ein. Oft ist dies der fließende Übergang in eine manifeste Essstörung.";
+          kassenTipp = "<strong>Ihr Kassenrecht:</strong> Warten Sie nicht, bis das Problem eskaliert! Suchen Sie einen Arzt auf. Gesetzliche Krankenkassen finanzieren frühe, ambulante Psychotherapien (z.B. Verhaltenstherapie), um eine Chronifizierung abzuwenden.";
+        } 
+        else {
+          auswertung = "<h3 style='color: #F44336;'>Ergebnis: Hohes Risiko / Ausgeprägte Essstörung</h3>";
+          psychologischerTipp = "Das Ergebnis deutet auf eine massive psychische Belastung und starkes suchtähnliches oder zwanghaftes Verhalten hin. Eine professionelle therapeutische Behandlung ist hier dringend erforderlich!";
+          kassenTipp = "<strong>Ihr Kassenrecht:</strong> Die Krankenkasse muss eine Therapie voll finanzieren. Da Kassentherapeuten oft lange Wartelisten haben, sollten Sie (oder Ihre Eltern) ein Anrufprotokoll führen und die Therapie in einer Privatpraxis über das <em>Kostenerstattungsverfahren (§ 13 SGB V)</em> einfordern. Bei starker Gefährdung ist eine Reha in einer <em>Wunschklinik (§ 8 SGB IX)</em> zu beantragen.";
+        }
+
+        // YMYL Überschreibung für Frage 9 (Körperliche Warnsignale)
+        let koerperWarnung = "";
+        if (koerperWert >= 2) {
+          koerperWarnung = `<div style="background-color: #ffebee; border: 2px solid #f44336; padding: 15px; margin-top: 15px; border-radius: 5px;">
+            <strong style="color: #d32f2f;">Akuter medizinischer Warnhinweis:</strong> Sie haben angegeben, dass bereits deutliche bis alarmierende <strong>körperliche Symptome</strong> (wie Schwindel, Frieren, Ausbleiben der Periode, Herzstolpern) auftreten. Eine Essstörung schädigt die inneren Organe massiv! Bitte suchen Sie <strong>umgehend</strong> einen Haus- oder Kinderarzt auf, um Blutwerte, Kreislauf und Gewicht überprüfen zu lassen. Bei Lebensgefahr zahlt die Krankenkasse sofort einen Platz in einer Akutklinik.
+          </div>`;
+        }
+
+        resultSection.innerHTML = `
+          <div class="highlight-box" style="border-left: 5px solid #2196F3;">
+            ${auswertung}
+            <p>${psychologischerTipp}</p>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
+            <p>${kassenTipp}</p>
+            ${koerperWarnung}
+          </div>
+        `;
+        
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Init
+      updateWizard();
+    });
+  </script>
+</body>
+</html>

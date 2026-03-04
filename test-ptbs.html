@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trauma-Test (PTBS & kPTBS): Symptome & Rechte | Kassen-Lotse</title>
+  <meta name="description" content="Sensibler, ausführlicher Test zur Ersteinschätzung von PTBS und Komplexer PTBS (nach ICD-11). Erkennen Sie Ihre Symptome und erfahren Sie Ihre Kassenrechte.">
+  <meta name="keywords" content="PTBS Test, kPTBS Test, Trauma Test, Komplexe PTBS Symptome, EMDR Krankenkasse, Traumaambulanz, GdB PTBS, SGB XIV, Berufsgenossenschaft Trauma">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Trauma-Ersteinschätzung (PTBS / kPTBS) & Kassen-Ratgeber",
+  "operatingSystem": "Web",
+  "applicationCategory": "HealthApplication",
+  "description": "Ein sensibler, strukturierter Online-Test zur unverbindlichen Ersteinschätzung einer Posttraumatischen Belastungsstörung und Komplexen PTBS, verknüpft mit sozialrechtlichen Handlungsempfehlungen (z.B. Berufsgenossenschaft, Opferentschädigung, Kostenerstattung).",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+</head>
+<body>
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    
+    <!-- YMYL NOTFALL-BOX -->
+    <div class="warning-box" style="background-color: #ffebee; border-left: 4px solid #f44336; padding: 15px; margin-bottom: 20px;">
+        <h3 style="margin-top: 0; color: #d32f2f;">Wichtiger Hinweis & Triggerwarnung</h3>
+        <p style="margin-bottom: 0;">Die Beschäftigung mit Trauma-Symptomen kann belastend sein und sogenannte Flashbacks auslösen. Wir fragen in diesem Test <strong>nicht</strong> nach den Details Ihres Erlebnisses, sondern nur nach Ihren aktuellen Gefühlen. Sollten Sie sich während des Tests überflutet, panisch oder extrem verzweifelt fühlen, brechen Sie bitte ab. In akuten Notlagen wenden Sie sich sofort an die <strong>Telefonseelsorge: 0800 111 0 111</strong> (kostenlos, 24/7). Opfer von Gewalt erreichen das Hilfetelefon unter <strong>116 016</strong>.</p>
+    </div>
+
+    <h1>Trauma-Test: Ersteinschätzung (PTBS & kPTBS)</h1>
+
+    <div class="highlight-box" role="region" aria-label="Einführung">
+      <p>
+        Dieser Test hilft Ihnen, Ihre Belastungen nach einem oder mehreren erschütternden Ereignissen besser einzuordnen. Er basiert auf den aktuellen diagnostischen Kriterien (ICD-11) und unterscheidet zwischen der <strong>klassischen PTBS</strong> und der <strong>Komplexen PTBS (kPTBS)</strong>.
+      </p>
+      <p>
+        <strong>Warum dieser Test wichtig ist:</strong> Das Ergebnis bestimmt oft den juristischen Weg. Wir zeigen Ihnen nach der Auswertung, ob Sie Hilfe über die Krankenkasse (z.B. Kostenerstattung), die Berufsgenossenschaft (Arbeitsunfall) oder das Soziale Entschädigungsrecht (Opferhilfe) beantragen sollten.
+      </p>
+    </div>
+
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">04.03.2026</span></p>
+    </div>
+
+    <form id="ptbs-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
+      
+      <p style="font-weight: bold; margin-bottom: 15px;">Bitte schätzen Sie ein, wie stark Sie durch die folgenden Beschwerden im letzten Monat beeinträchtigt waren:</p>
+
+      <!-- SCHRITT 1: Klassische PTBS-Symptome (Wiedererleben, Vermeidung, Hyperarousal) -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 1 – Erinnerungen & Vermeidung (Klassische PTBS)</legend>
+
+        <label class="pflegegrad-label">
+          1. Ich habe belastende, ungewollte Erinnerungen oder Albträume an das Ereignis / die Zeit von damals. Manchmal fühlt es sich an, als würde es im Hier und Jetzt wieder passieren (Flashbacks).
+          <select class="pflegegrad-frage ptbs-core" name="ptbs_1">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          2. Ich vermeide ganz bewusst Gedanken, Gefühle, Orte, Menschen oder Gespräche, die mich an das Trauma erinnern könnten.
+          <select class="pflegegrad-frage ptbs-core" name="ptbs_2">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          3. Mein Körper ist ständig in "Alarmbereitschaft". Ich bin extrem schreckhaft, unruhig und scanne meine Umgebung ständig nach Gefahren ab.
+          <select class="pflegegrad-frage ptbs-core" name="ptbs_3">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 2: Komplexe PTBS - Emotionen & Selbstbild -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 2 – Emotionen & Selbstbild (Komplexe PTBS)</legend>
+        <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">(Tritt häufig nach lang andauernden Traumatisierungen auf)</p>
+
+        <label class="pflegegrad-label">
+          4. Wenn ich emotional aufgewühlt bin, brauche ich ungewöhnlich lange, um mich wieder zu beruhigen. Manchmal fühle ich auch gar nichts (völlige emotionale Taubheit).
+          <select class="pflegegrad-frage kptbs-core" name="ptbs_4">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          5. Ich fühle mich als Mensch grundlegend wertlos, kaputt oder besiegt.
+          <select class="pflegegrad-frage kptbs-core" name="ptbs_5">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          6. Ich trage tiefe Gefühle von Schuld oder Scham in mir, wenn ich an das denke, was passiert ist.
+          <select class="pflegegrad-frage kptbs-core" name="ptbs_6">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 3: Komplexe PTBS - Beziehungen & Alltag -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 3 – Vertrauen & Beziehungen (Komplexe PTBS)</legend>
+
+        <label class="pflegegrad-label">
+          7. Es fällt mir extrem schwer, anderen Menschen zu vertrauen oder tiefe Beziehungen aufrechtzuerhalten.
+          <select class="pflegegrad-frage kptbs-core" name="ptbs_7">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          8. Ich fühle mich von anderen Menschen völlig entfremdet und distanziert, selbst von solchen, die mir nahestehen sollten.
+          <select class="pflegegrad-frage kptbs-core" name="ptbs_8">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          9. Meine Probleme beeinträchtigen massiv mein tägliches Leben (Arbeit, Partnerschaft, Freundschaften).
+          <select class="pflegegrad-frage" name="ptbs_9">
+            <option value="0">Überhaupt nicht</option>
+            <option value="1">Ein wenig</option>
+            <option value="2">Stark</option>
+            <option value="3">Extrem stark</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 4: Ursache & Krisen-Check -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 4 – Die rechtliche Einordnung & Krise</legend>
+
+        <label class="pflegegrad-label">
+          10. Um welche Art von Auslöser handelt es sich? (Wichtig für die Zuständigkeit der Behörden)
+          <select class="pflegegrad-frage" name="ursprung_10" id="ursprung-frage">
+            <option value="einzel">Einmaliges Ereignis im Erwachsenenalter (z.B. Unfall, Überfall, Gewalt)</option>
+            <option value="dauer">Lang andauernde/wiederholte Traumatisierung (z.B. Kindheit, häusliche Gewalt, Missbrauch)</option>
+            <option value="arbeit">Ereignis fand direkt auf der Arbeit / auf dem Arbeitsweg statt</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          11. Leiden Sie aufgrund der Belastungen aktuell unter akuter Verzweiflung, Hoffnungslosigkeit oder Gedanken, das Leben beenden zu wollen?
+          <select class="pflegegrad-frage" name="ptbs_11" id="krise-frage">
+            <option value="0">Nein, überhaupt nicht</option>
+            <option value="1">Selten, aber es kommt vor</option>
+            <option value="2">Häufig oder sehr stark</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 4</div>
+
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Sensibel auswerten & Rechte prüfen</button>
+        <button type="reset" class="button button-secondary" id="reset-form">Eingaben zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="ergebnis" aria-live="polite" style="margin-top: 20px;"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Wichtig (YMYL-Hinweis):</strong> Dieser Test ist eine Orientierungshilfe und stellt <strong>keine medizinische Diagnose</strong> dar. Eine PTBS oder kPTBS kann nur von erfahrenen psychologischen Psychotherapeuten oder Psychiatern diagnostiziert werden. Für rechtliche Ansprüche (Krankengeld, Opferentschädigung, Berufsgenossenschaft) ist die ärztliche Dokumentation zwingend erforderlich.
+      </p>
+    </div>
+
+  <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+    <h2 id="promo-headline">
+      <span class="icon" aria-hidden="true">🤖</span>
+      Clerion – Entlastung in der Bürokratie
+    </h2>
+    <p class="lead">
+      Wenn Sie nach einem Trauma Anträge beim Versorgungsamt (GdB), der Berufsgenossenschaft oder der Opferentschädigung stellen müssen, löst die Kälte der Behördensprache oft enormen Stress aus. 
+      Clerion nimmt Ihnen diesen Stress. Die KI übersetzt Behördenbriefe einfühlsam und formuliert Ihre Anträge und Widersprüche als fertige PDF-Dokumente.
+    </p>
+    <div class="promo-ctas">
+      <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt KI-Assistent testen</a>
+      <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+    </div>
+  </section>
+
+  <aside class="highlight-box" role="complementary" aria-label="Weiterführende Informationen">
+    <h2 style="margin-top:0">Tools für Ihren Weg zur Heilung</h2>
+    <p>
+      Nutzen Sie unsere kostenlosen Generatoren, um Ihre rechtlichen Ansprüche im System sicher durchzusetzen:
+    </p>
+    <p style="margin-bottom:.4rem;">
+      <a href="info-ptbs-kptbs.html" class="button button-secondary" title="Zur PTBS Info">Ratgeber: Kassenrecht bei PTBS & kPTBS</a>
+      <a href="antrag.html" class="button button-secondary" title="Zur Kostenerstattung">EMDR-Therapie: Kostenerstattung beantragen</a>
+      <a href="test-gdb-ersteinschaetzung.html" class="button button-secondary" title="Zum GdB Test">Schwerbehinderung: GdB-Antrag bei Trauma?</a>
+      <a href="wunsch-wahlrecht-reha.html" class="button button-secondary" title="Zum Wunschrecht Reha">Reha-Antrag: Traumaklinik durchsetzen</a>
+    </p>
+  </aside>
+
+</div>
+
+  <footer>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <!-- FAQ-Schema separat eingebunden -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Worauf basiert dieser Test?","acceptedAnswer":{"@type":"Answer","text":"Der Test orientiert sich an den Kriterien des ITQ (International Trauma Questionnaire) und der ICD-11, welche spezifisch zwischen den Symptomen der einfachen PTBS und der Komplexen PTBS differenziert."}},
+      {"@type":"Question","name":"Kann ich mit dem Ergebnis zur Berufsgenossenschaft gehen?","acceptedAnswer":{"@type":"Answer","text":"Nein, das Ergebnis eines Online-Tests ist juristisch nicht bindend. Wenn Ihr Trauma beruflich bedingt war, müssen Sie zwingend einen sogenannten D-Arzt (Durchgangsarzt) aufsuchen, um das Verfahren bei der Berufsgenossenschaft offiziell einzuleiten."}}
+    ]
+  }
+  </script>
+
+  <!-- DAS JAVASCRIPT FÜR DIE AUSWERTUNG -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
+      const prevBtn = document.getElementById('prev-step');
+      const nextBtn = document.getElementById('next-step');
+      const calcBtn = document.getElementById('berechnen-btn');
+      const progressDiv = document.getElementById('wizard-progress');
+      const resultSection = document.getElementById('ergebnis');
+      
+      let currentStep = 0;
+
+      function updateWizard() {
+        fieldsets.forEach((fs, index) => {
+          fs.style.display = (index === currentStep) ? 'block' : 'none';
+        });
+
+        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
+
+        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
+        
+        if (currentStep === fieldsets.length - 1) {
+          nextBtn.style.display = 'none';
+          calcBtn.style.display = 'inline-block';
+        } else {
+          nextBtn.style.display = 'inline-block';
+          calcBtn.style.display = 'none';
+        }
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep < fieldsets.length - 1) {
+          currentStep++;
+          updateWizard();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateWizard();
+        }
+      });
+
+      calcBtn.addEventListener('click', () => {
+        // Logik: Trennung zwischen PTBS Core und kPTBS Core
+        let ptbsScore = 0;
+        document.querySelectorAll('.ptbs-core').forEach(select => { ptbsScore += parseInt(select.value); });
+        
+        let kptbsScore = 0;
+        document.querySelectorAll('.kptbs-core').forEach(select => { kptbsScore += parseInt(select.value); });
+
+        let ursprung = document.getElementById('ursprung-frage').value;
+        let krise = parseInt(document.getElementById('krise-frage').value);
+        let gesamtScore = ptbsScore + kptbsScore;
+
+        let auswertung = "";
+        let medizinischerTipp = "";
+        let rechtlicherTipp = "";
+
+        // MEDIZINISCHE EINSCHÄTZUNG
+        if (gesamtScore <= 4) {
+          auswertung = "<h3 style='color: #4CAF50;'>Ergebnis: Geringe traumabedingte Belastung</h3>";
+          medizinischerTipp = "Ihre Antworten deuten aktuell nicht auf eine voll ausgeprägte Trauma-Folgestörung hin. Dennoch ist Ihr Leiden valide. Ein klärendes Gespräch mit einem Therapeuten kann hilfreich sein.";
+        } else if (ptbsScore >= 5 && kptbsScore < 6) {
+          auswertung = "<h3 style='color: #FF9800;'>Ergebnis: Hinweise auf eine klassische PTBS</h3>";
+          medizinischerTipp = "Sie zeigen deutliche Symptome des Wiedererlebens (Flashbacks) und der Übererregung. Dies spricht für eine klassische Posttraumatische Belastungsstörung. <strong>Therapie-Tipp:</strong> Die EMDR-Therapie ist hier oft sehr wirksam und wird von der Kasse bezahlt.";
+        } else if (ptbsScore >= 5 && kptbsScore >= 6) {
+          auswertung = "<h3 style='color: #F44336;'>Ergebnis: Hinweise auf eine Komplexe PTBS (kPTBS)</h3>";
+          medizinischerTipp = "Ihre Symptome betreffen nicht nur die Erinnerung, sondern auch Ihr Selbstwertgefühl und Ihre Beziehungsfähigkeit tiefgreifend. Dies ist typisch für die Komplexe PTBS. Bitte suchen Sie sich spezialisierte therapeutische Hilfe. Normale Verhaltenstherapie reicht hier oft nicht aus.";
+        } else {
+          auswertung = "<h3 style='color: #FF9800;'>Ergebnis: Mittlere traumabedingte Belastung</h3>";
+          medizinischerTipp = "Sie weisen verschiedene traumaassoziierte Symptome auf, die Sie im Alltag einschränken. Eine offizielle Diagnostik bei einem psychologischen Psychotherapeuten wird empfohlen.";
+        }
+
+        // RECHTLICHE / BEHÖRDEN-TIPPS (Abhängig vom Ursprung)
+        if (ursprung === "arbeit") {
+          rechtlicherTipp = "<strong>Wichtiger rechtlicher Schritt:</strong> Da das Ereignis im beruflichen Kontext stattfand, ist es ein Arbeits- oder Wegeunfall! Wenden Sie sich sofort an einen Durchgangsarzt (D-Arzt). Die <strong>Berufsgenossenschaft (BG)</strong> zahlt die Therapie oft ohne lange Wartelisten (BG-Verfahren).";
+        } else if (ursprung === "einzel") {
+          rechtlicherTipp = "<strong>Wichtige Kassen-Rechte:</strong> Handelt es sich um eine Gewalttat, haben Sie sofortigen Anspruch auf Hilfe in einer Traumaambulanz (Finanzierung über das SGB XIV / Soziales Entschädigungsrecht). Andernfalls zahlt die Krankenkasse. Finden Sie keinen Kassentherapeuten, nutzen Sie das <em>Kostenerstattungsverfahren</em>.";
+        } else if (ursprung === "dauer") {
+          rechtlicherTipp = "<strong>Wichtige Kassen-Rechte:</strong> Bei langanhaltenden Traumata ist oft eine spezialisierte psychosomatische Reha sinnvoll. Stellen Sie einen Antrag (DRV oder Kasse) und nutzen Sie Ihr <em>Wunsch- und Wahlrecht</em> für eine Traumaklinik. Bei starken sozialen Einschränkungen lohnt sich zudem ein <em>GdB-Antrag (Schwerbehinderung)</em> beim Versorgungsamt.";
+        }
+
+        // YMYL Überschreibung für Frage 11 (Krise/Suizidalität)
+        let krisenWarnung = "";
+        if (krise >= 1) {
+          krisenWarnung = `<div style="background-color: #ffebee; border: 2px solid #f44336; padding: 15px; margin-top: 15px; border-radius: 5px;">
+            <strong style="color: #d32f2f;">Dringender Hinweis:</strong> Sie haben tiefe Hoffnungslosigkeit oder lebensmüde Gedanken angegeben. Ein Trauma kann Gefühle vollkommener Ohnmacht auslösen, aber Sie müssen das nicht allein aushalten! Bitte rufen Sie jetzt die kostenlose Telefonseelsorge an: <strong>0800 111 0 111</strong>. Dort hört man Ihnen zu, anonym und ohne Vorurteile.
+          </div>`;
+        }
+
+        resultSection.innerHTML = `
+          <div class="highlight-box" style="border-left: 5px solid #2196F3;">
+            ${auswertung}
+            <p>${medizinischerTipp}</p>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
+            <p>${rechtlicherTipp}</p>
+            ${krisenWarnung}
+          </div>
+        `;
+        
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Init
+      updateWizard();
+    });
+  </script>
+</body>
+</html>

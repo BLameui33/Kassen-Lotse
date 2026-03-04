@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Narzissmus-Test: Anteile vs. echte Störung (NPS)</title>
+  <meta name="description" content="Kostenloser, ausführlicher Test zur Narzisstischen Persönlichkeitsstörung (NPS). Testen Sie narzisstische Anteile, Leidensdruck und Ihre Ansprüche bei der Krankenkasse.">
+  <meta name="keywords" content="Narzissmus Test, NPS Test, Narzisstische Persönlichkeitsstörung, narzisstische Züge, Krankheitswert Narzissmus, Therapie Krankenkasse, Leidensdruck, GdB">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Ausführliche Ersteinschätzung: Narzissmus & Kassen-Ratgeber",
+  "operatingSystem": "Web",
+  "applicationCategory": "HealthApplication",
+  "description": "Ein zweidimensionaler psychologischer Online-Test zur Unterscheidung zwischen narzisstischen Charakterzügen und einer echten, behandlungsbedürftigen Narzisstischen Persönlichkeitsstörung (NPS) inkl. kassenrechtlicher Tipps.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+</head>
+<body>
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    
+    <!-- YMYL NOTFALL-BOX -->
+    <div class="warning-box" style="background-color: #ffebee; border-left: 4px solid #f44336; padding: 15px; margin-bottom: 20px;">
+        <h3 style="margin-top: 0; color: #d32f2f;">Wichtiger Hinweis in akuten Krisen</h3>
+        <p style="margin-bottom: 0;">Bei Menschen mit einer echten narzisstischen Störung kann der Verlust von Anerkennung (z.B. durch Kündigung oder Trennung) zu einer extremen Krise führen, in der das Selbstwertgefühl völlig kollabiert. Wenn Sie sich in einer solch tiefen Verzweiflung befinden und Suizidgedanken haben, bleiben Sie bitte nicht allein. Wenden Sie sich sofort an die <strong>Telefonseelsorge: 0800 111 0 111</strong> (kostenlos, anonym, 24/7). In akuten Notfällen wählen Sie die <strong>112</strong>.</p>
+    </div>
+
+    <h1>Test: Narzisstische Züge oder echte Persönlichkeitsstörung?</h1>
+
+    <div class="highlight-box" role="region" aria-label="Einführung">
+      <p>
+        Nicht jeder selbstbewusste oder egozentrische Mensch ist ein "Narzisst" im medizinischen Sinne. Dieser ausführliche Test prüft deshalb zwei Dimensionen: <strong>1. Ihre narzisstischen Anteile</strong> (Grandiosität und Verletzlichkeit) und <strong>2. Ihren Leidensdruck</strong> (Krankheitswert im Alltag).
+      </p>
+      <p>
+        <strong>Warum diese Trennung wichtig ist:</strong> Nur wenn ein massiver Leidensdruck (z.B. in Form von Depressionen oder beruflichem Scheitern) vorliegt, spricht das Gesetz von einer Krankheit (ICD-10: F60.8) und die <strong>Krankenkasse bezahlt eine Psychotherapie</strong> oder Maßnahmen wie eine Reha.
+      </p>
+    </div>
+
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">04.03.2026</span></p>
+    </div>
+
+    <form id="nps-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
+      
+      <p style="font-weight: bold; margin-bottom: 15px;">Bitte schätzen Sie ein, wie stark die folgenden Aussagen in Ihrem bisherigen Erwachsenenleben auf Sie zutreffen:</p>
+
+      <!-- SCHRITT 1: Grandiosität & Selbstbild -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 1 – Selbstbild & Anerkennung</legend>
+
+        <label class="pflegegrad-label">
+          1. Ich bin gedanklich oft sehr stark damit beschäftigt, wie ich noch erfolgreicher, einflussreicher oder bewunderter werden kann.
+          <select class="pflegegrad-frage trait-core" name="nps_1">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          2. Ich bin der tiefen Überzeugung, dass ich besonders oder einzigartig bin und eigentlich nur von anderen "besonderen", elitären oder hochgestellten Personen wirklich verstanden werde.
+          <select class="pflegegrad-frage trait-core" name="nps_2">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          3. Es ist mir extrem wichtig, von anderen bewundert, beachtet und für meine Leistungen (oder mein Auftreten) fortwährend gelobt zu werden.
+          <select class="pflegegrad-frage trait-core" name="nps_3">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 2: Interaktion & Empathie -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 2 – Umgang mit anderen Menschen</legend>
+
+        <label class="pflegegrad-label">
+          4. Ich erwarte ganz selbstverständlich eine bevorzugte Behandlung oder dass andere automatisch auf meine Erwartungen und Vorstellungen eingehen.
+          <select class="pflegegrad-frage trait-core" name="nps_4">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          5. Es fällt mir oft schwer, mich in die Gefühle und Bedürfnisse anderer hineinzuversetzen oder ich empfinde diese schlicht als weniger wichtig als meine eigenen.
+          <select class="pflegegrad-frage trait-core" name="nps_5">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          6. Ich reagiere schnell genervt oder abwertend (arrogant), wenn andere Menschen nicht das leisten oder verstehen, was ich für absolut selbstverständlich halte.
+          <select class="pflegegrad-frage trait-core" name="nps_6">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 3: Vulnerabilität & Kränkung -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 3 – Kritikfähigkeit & Verletzlichkeit</legend>
+        <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">(Hier geht es um den sogenannten "verdeckten" oder vulnerablen Narzissmus)</p>
+
+        <label class="pflegegrad-label">
+          7. Wenn ich kritisiert, korrigiert oder nicht ausreichend beachtet werde, reagiere ich innerlich mit extremer Wut, tiefer Scham oder totalem Rückzug (auch wenn ich mir das äußerlich nicht anmerken lasse).
+          <select class="pflegegrad-frage trait-core" name="nps_7">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          8. Ich empfinde oft starken Neid auf andere, die erfolgreicher oder glücklicher scheinen, oder ich bin fest davon überzeugt, dass andere ständig neidisch auf mich sind.
+          <select class="pflegegrad-frage trait-core" name="nps_8">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          9. Hinter meiner sicheren und kompetenten Fassade fühle ich mich oft quälend leer, unsicher und habe Angst, "entlarvt" zu werden.
+          <select class="pflegegrad-frage trait-core" name="nps_9">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 4: Krankheitswert (Wichtig für die Kasse!) -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 4 – Der "Krankheitswert" (Leidensdruck & Alltag)</legend>
+
+        <label class="pflegegrad-label">
+          10. Mein Verhalten oder meine Ansprüche haben bereits zu wiederholten, gravierenden Brüchen in meinen Partnerschaften oder zum Verlust von Arbeitsplätzen geführt.
+          <select class="pflegegrad-frage impairment-core" name="nps_10">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          11. Ich leide aufgrund meiner inneren Anspannung immer wieder unter schweren Begleitsymptomen wie tiefen depressiven Abstürzen, massiver Erschöpfung (Burnout) oder Suchtmittelgebrauch (Alkohol, Medikamente, etc.).
+          <select class="pflegegrad-frage impairment-core" name="nps_11">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          12. Wenn mein Selbstbild extrem bedroht ist (z.B. durch eine Trennung oder berufliches Scheitern), stürze ich in so tiefe Krisen, dass ich den Sinn des Lebens infrage stelle (Suizidgedanken).
+          <select class="pflegegrad-frage" name="nps_12" id="krise-frage">
+            <option value="0">Trifft nicht zu</option>
+            <option value="1">Trifft eher wenig zu</option>
+            <option value="2">Trifft überwiegend zu</option>
+            <option value="3">Trifft voll und ganz zu</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 4</div>
+
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Test auswerten & Kassenrechte prüfen</button>
+        <button type="reset" class="button button-secondary" id="reset-form">Eingaben zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="ergebnis" aria-live="polite" style="margin-top: 20px;"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Wichtig (YMYL-Hinweis):</strong> Dieser Test trennt psychologisch zwischen Charakterzügen und Krankheitswert, stellt aber <strong>keine medizinische Diagnose</strong> dar. Eine Persönlichkeitsstörung darf nur von Fachärzten (Psychiatern) oder psychologischen Psychotherapeuten diagnostiziert werden. Für rechtliche Leistungen (Therapiekosten, Krankengeld, Reha) ist eine ärztliche Diagnose (z.B. F60.8) zwingend erforderlich.
+      </p>
+    </div>
+
+  <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+    <h2 id="promo-headline">
+      <span class="icon" aria-hidden="true">🤖</span>
+      Clerion – Souverän bleiben in der Kassen-Bürokratie
+    </h2>
+    <p class="lead">
+      Patienten mit Persönlichkeitsstörungen gelten bei Krankenkassen und Ämtern oft als "komplex". Ablehnungen für Therapien oder die Einstellung von Krankengeld durch den MD sind leider häufig. 
+      Clerion hilft Ihnen, die Kontrolle zu behalten. Die KI analysiert Behördenbriefe völlig neutral und formuliert starke, juristisch fundierte Widersprüche für Sie – als fertiges PDF.
+    </p>
+    <div class="promo-ctas">
+      <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt KI-Assistent testen</a>
+      <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+    </div>
+  </section>
+
+  <aside class="highlight-box" role="complementary" aria-label="Weiterführende Informationen">
+    <h2 style="margin-top:0">Wichtige Arbeitshilfen für den nächsten Schritt</h2>
+    <p>
+      Lassen Sie sich nicht von langen Wartelisten oder ablehnenden Kassen entmutigen. Nutzen Sie Ihre Rechte:
+    </p>
+    <p style="margin-bottom:.4rem;">
+      <a href="info-narzissmus.html" class="button button-secondary" title="Zur NPS Info">Ratgeber: Kassenrecht bei NPS</a>
+      <a href="antrag.html" class="button button-secondary" title="Zur Kostenerstattung">Therapieplatz-Mangel: Kostenerstattung beantragen</a>
+      <a href="test-gdb-ersteinschaetzung.html" class="button button-secondary" title="Zum GdB Test">Schwerbehinderung: GdB-Antrag bei Störungen</a>
+      <a href="wunsch-wahlrecht-reha.html" class="button button-secondary" title="Zum Wunschrecht Reha">Reha-Antrag: Psychosomatik-Wunschklinik fordern</a>
+    </p>
+  </aside>
+
+</div>
+
+  <footer>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <!-- FAQ-Schema separat eingebunden -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Warum unterscheidet der Test zwischen Anteilen und Leidensdruck?","acceptedAnswer":{"@type":"Answer","text":"Viele Menschen haben stark ausgeprägte narzisstische Charakterzüge (wie Karrierestreben oder Eitelkeit), funktionieren im Alltag aber sehr gut. Die gesetzliche Krankenkasse bezahlt eine Psychotherapie jedoch nur, wenn diese Züge zu einem massiven Leidensdruck (Krankheitswert) führen, z.B. durch wiederkehrende Depressionen oder den völligen Verlust sozialer Bindungen."}},
+      {"@type":"Question","name":"Welche Therapie zahlt die Krankenkasse bei einer NPS?","acceptedAnswer":{"@type":"Answer","text":"Die Kassen zahlen verhaltenstherapeutische oder tiefenpsychologisch fundierte Verfahren. Sehr wirksam bei NPS ist die Schematherapie. Da spezialisierte Therapeuten oft lange Wartelisten haben, sollten Sie sich über das Kostenerstattungsverfahren (§ 13 SGB V) informieren."}}
+    ]
+  }
+  </script>
+
+  <!-- DAS JAVASCRIPT FÜR DIE ZWEIDIMENSIONALE AUSWERTUNG -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
+      const prevBtn = document.getElementById('prev-step');
+      const nextBtn = document.getElementById('next-step');
+      const calcBtn = document.getElementById('berechnen-btn');
+      const progressDiv = document.getElementById('wizard-progress');
+      const resultSection = document.getElementById('ergebnis');
+      
+      let currentStep = 0;
+
+      function updateWizard() {
+        fieldsets.forEach((fs, index) => {
+          fs.style.display = (index === currentStep) ? 'block' : 'none';
+        });
+
+        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
+
+        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
+        
+        if (currentStep === fieldsets.length - 1) {
+          nextBtn.style.display = 'none';
+          calcBtn.style.display = 'inline-block';
+        } else {
+          nextBtn.style.display = 'inline-block';
+          calcBtn.style.display = 'none';
+        }
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep < fieldsets.length - 1) {
+          currentStep++;
+          updateWizard();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateWizard();
+        }
+      });
+
+      calcBtn.addEventListener('click', () => {
+        // Dimension 1: Narzisstische Anteile (Fragen 1-9, max 27 Punkte)
+        let traitScore = 0;
+        document.querySelectorAll('.trait-core').forEach(select => { 
+            traitScore += parseInt(select.value); 
+        });
+        
+        // Dimension 2: Leidensdruck & Alltag (Fragen 10-11, max 6 Punkte)
+        let impairmentScore = 0;
+        document.querySelectorAll('.impairment-core').forEach(select => { 
+            impairmentScore += parseInt(select.value); 
+        });
+
+        let kriseScore = parseInt(document.getElementById('krise-frage').value);
+
+        let auswertung = "";
+        let psychologischerTipp = "";
+        let kassenTipp = "";
+
+        // AUSWERTUNGSMATRIX: Anteile vs. Leidensdruck
+        if (traitScore <= 9) {
+          auswertung = "<h3 style='color: #4CAF50;'>Ergebnis: Geringe narzisstische Anteile</h3>";
+          psychologischerTipp = "Ihr Profil zeigt keine ausgeprägten narzisstischen Verhaltensmuster. Etwaige Beziehungsprobleme oder Stress haben sehr wahrscheinlich andere psychologische Ursachen.";
+          kassenTipp = "Aus diesem Ergebnis leitet sich derzeit keine spezifische Kassenleistung ab.";
+        } 
+        else if (traitScore >= 10 && traitScore <= 18 && impairmentScore <= 2) {
+          auswertung = "<h3 style='color: #FF9800;'>Ergebnis: Deutliche narzisstische Züge (Ohne Krankheitswert)</h3>";
+          psychologischerTipp = "Sie besitzen deutliche narzisstische Persönlichkeitsanteile (z.B. starkes Geltungsbedürfnis, empfindlich auf Kritik). Da Ihr Alltag dadurch aber nicht massiv entgleist, spricht man psychologisch von einem 'Persönlichkeitsstil', nicht von einer Störung.";
+          kassenTipp = "<strong>Kassenrecht:</strong> Da ein massiver klinischer Leidensdruck (wie schwere Depressionen) zu fehlen scheint, übernimmt die Krankenkasse hierfür in der Regel <strong>keine</strong> Psychotherapie. Es handelt sich um Charakterzüge.";
+        }
+        else if (traitScore > 18 && impairmentScore <= 2) {
+          auswertung = "<h3 style='color: #FF5722;'>Ergebnis: Stark ausgeprägte narzisstische Struktur (Geringer Leidensdruck)</h3>";
+          psychologischerTipp = "Ihre Antworten deuten auf eine sehr starke narzisstische Persönlichkeitsstruktur hin. Auch wenn Sie sich selbst aktuell als 'funktionierend' empfinden, leiden Menschen in Ihrem Umfeld oft stark darunter.";
+          kassenTipp = "<strong>Kassenrecht:</strong> Solange das Verhalten für Sie nicht zu schweren Lebenskrisen oder Begleiterkrankungen (Sucht, Erschöpfung) führt, lehnen Krankenkassen eine Therapie oft als 'nicht medizinisch notwendig' ab.";
+        }
+        else if (traitScore > 12 && impairmentScore >= 3) {
+          auswertung = "<h3 style='color: #F44336;'>Ergebnis: Verdacht auf Narzisstische Persönlichkeitsstörung (NPS)</h3>";
+          psychologischerTipp = "Ihre stark ausgeprägten narzisstischen Anteile kollidieren massiv mit Ihrem Alltag. Die ständigen Kränkungen und Konflikte führen bei Ihnen zu echtem, tiefem Leid. Bitte holen Sie sich fachärztliche Hilfe, um aus diesem zermürbenden Kreislauf auszubrechen.";
+          kassenTipp = "<strong>Kassenrecht (Krankheitswert erfüllt!):</strong> Da Ihre Struktur zu schweren Begleiterscheinungen (wie tiefen Depressionen oder Burnout) führt, haben Sie <strong>vollen Anspruch auf psychotherapeutische Behandlung</strong> durch die Krankenkasse. Finden Sie keinen Kassentherapeuten, fordern Sie die Therapie in einer Privatpraxis über das <em>Kostenerstattungsverfahren (§ 13 SGB V)</em> ein. Bei massiven Job-Problemen ist ein <em>GdB-Antrag (Schwerbehinderung)</em> sinnvoll.";
+        }
+        else {
+          auswertung = "<h3 style='color: #FF9800;'>Ergebnis: Hoher Leidensdruck (Untypisch für NPS)</h3>";
+          psychologischerTipp = "Sie leiden massiv (z.B. unter Depressionen oder Erschöpfung), aber das klassische Bild einer Narzisstischen Persönlichkeitsstörung ist bei Ihnen nicht zwingend die Ursache. Wir raten zu einer ärztlichen Abklärung.";
+          kassenTipp = "<strong>Kassenrecht:</strong> Aufgrund Ihres Leidensdrucks (Krankheitswert) bezahlt die Krankenkasse eine Psychotherapie. Sprechen Sie mit Ihrem Arzt.";
+        }
+
+        // YMYL Überschreibung für Frage 12 (Krise/Suizidalität bei Kränkung)
+        let krisenWarnung = "";
+        if (kriseScore >= 2) {
+          krisenWarnung = `<div style="background-color: #ffebee; border: 2px solid #f44336; padding: 15px; margin-top: 15px; border-radius: 5px;">
+            <strong style="color: #d32f2f;">Dringender medizinischer Hinweis:</strong> Sie haben angegeben, dass der Verlust von Anerkennung oder Status Sie in tiefe Lebenskrisen und Suizidgedanken stürzt (sogenannte "narzisstische Kränkung"). Bitte bleiben Sie in dieser Verzweiflung nicht allein! Rufen Sie jederzeit kostenlos und anonym die Telefonseelsorge unter <strong>0800 111 0 111</strong> an. Es ist ein Zeichen von Stärke, sich Hilfe zu holen.
+          </div>`;
+        }
+
+        resultSection.innerHTML = `
+          <div class="highlight-box" style="border-left: 5px solid #2196F3;">
+            ${auswertung}
+            <p>${psychologischerTipp}</p>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
+            <p>${kassenTipp}</p>
+            ${krisenWarnung}
+          </div>
+        `;
+        
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Init
+      updateWizard();
+    });
+  </script>
+</body>
+</html>

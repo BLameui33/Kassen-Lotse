@@ -389,6 +389,77 @@ footer a:hover {
     font-size: 1.7rem;
   }
 }
+
+/* Dropdown Styling */
+.category-jump {
+  max-width: 600px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.category-jump label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.category-jump select {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-jump select:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76,175,80,0.15);
+}
+
+/* Sanfte Section-Abstände */
+.category-section {
+  margin: 60px auto;
+  max-width: 1100px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+/* Tool Liste moderner */
+.tool-list li {
+  margin-bottom: 18px;
+  padding: 12px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.tool-list li:hover {
+  background: #f5f9f6;
+}
+
+.tool-list a {
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+.tool-list a:hover {
+  color: #4CAF50;
+}
+
+.tool-list small {
+  display: block;
+  margin-top: 5px;
+  color: #666;
+  font-size: 14px;
+}
   </style>
 </head>
 <body>
@@ -526,6 +597,35 @@ footer a:hover {
 	  <p class="highlight-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 10px;">
   <strong>Hinweis:</strong> Unsere Inhalte und Formulare ersetzen keine Rechtsberatung. Sie dienen der allgemeinen Unterstützung. Für verbindliche Auskünfte wenden Sie sich bitte an eine anerkannte Beratungsstelle oder einen Rechtsanwalt.
 </p>
+
+<div class="category-jump">
+  <label for="categorySelect">Direkt zur Kategorie:</label>
+  <select id="categorySelect" onchange="jumpToCategory()">
+    <option value="">Bitte wählen...</option>
+    <option value="krankenkasse">🏥 Krankenversicherung</option>
+    <option value="pflegekasse">👴 Pflegeversicherung</option>
+    <option value="rentenversicherung">📜 Rentenversicherung</option>
+    <option value="schwerbehindertenrecht">♿ Schwerbehindertenrecht</option>
+    <option value="familie-kind">🤰 Familie & Kind</option>
+    <option value="unfallversicherung">🚧 Unfallversicherung</option>
+    <option value="allgemein-verfahren">⚖️ Allgemeines & Verfahrensrecht</option>
+    <option value="demenz-alltagshilfen">🧠 Demenz & Alltagshilfen</option>
+    <option value="psychische-erkrankungen">🧠 Psychische Erkrankungen</option>
+    <option value="angehoerige-betreuung">👨‍👩‍👧 Angehörige & Betreuung</option>
+  </select>
+</div>
+
+<script>
+function jumpToCategory() {
+  const select = document.getElementById("categorySelect");
+  const targetId = select.value;
+  if (targetId) {
+    document.getElementById(targetId).scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+}
+</script>
 
     <section id="krankenkasse" class="category-section">
       <h2>🏥 Krankenversicherung</h2>
@@ -767,6 +867,114 @@ footer a:hover {
       </ul>
 </section>
 
+<section id="psychische-erkrankungen" class="category-section">
+  <h2>🧠 Psychische Erkrankungen</h2>
+  <ul class="tool-list">
+
+    <li>
+      <a href="info-depression.html">Depressionen – Informationen</a>
+      <small>Symptome, Ursachen, Verlauf, Behandlungsmöglichkeiten und sozialrechtliche Ansprüche.</small>
+    </li>
+    <li>
+      <a href="test-depression.html">Depressions-Test (Selbstcheck)</a>
+      <small>Wissenschaftlich orientierter Selbsttest zur Ersteinschätzung einer depressiven Symptomatik.</small>
+    </li>
+
+    <li>
+      <a href="info-burnout.html">Burnout – Informationen</a>
+      <small>Früherkennung, Stressfaktoren, Abgrenzung zur Depression und Handlungsmöglichkeiten.</small>
+    </li>
+    <li>
+      <a href="test-burnout.html">Burnout-Test (Selbstcheck)</a>
+      <small>Überprüfung Ihrer aktuellen Belastungssituation.</small>
+    </li>
+
+    <li>
+      <a href="info-adhs.html">ADHS – Informationen</a>
+      <small>Symptome bei Kindern & Erwachsenen, Diagnostik und Therapieoptionen.</small>
+    </li>
+    <li>
+      <a href="test-adhs.html">ADHS-Test (Selbstcheck)</a>
+      <small>Orientierungstest bei Verdacht auf ADHS im Erwachsenenalter.</small>
+    </li>
+
+    <li>
+      <a href="info-borderline.html">Borderline – Informationen</a>
+      <small>Emotionsregulation, typische Merkmale, Therapieformen und Hilfen.</small>
+    </li>
+    <li>
+      <a href="test-borderline.html">Borderline-Test (Selbstcheck)</a>
+      <small>Ersteinschätzung bei emotional instabiler Persönlichkeitsstruktur.</small>
+    </li>
+
+    <li>
+      <a href="info-narzissmus.html">Narzissmus – Informationen</a>
+      <small>Merkmale, Auswirkungen auf Beziehungen und Therapieansätze.</small>
+    </li>
+    <li>
+      <a href="test-narzissmus.html">Narzissmus-Test (Selbstcheck)</a>
+      <small>Überprüfung narzisstischer Persönlichkeitsmerkmale.</small>
+    </li>
+
+    <li>
+      <a href="info-ptbs-kptbs.html">PTBS / KPTBS – Informationen</a>
+      <small>Posttraumatische Belastungsstörung und komplexe Traumafolgestörungen verständlich erklärt.</small>
+    </li>
+    <li>
+      <a href="test-ptbs.html">PTBS-Test (Selbstcheck)</a>
+      <small>Selbsttest zur Einschätzung möglicher Traumafolgen.</small>
+    </li>
+
+    <li>
+      <a href="info-essstoerung.html">Essstörungen – Informationen</a>
+      <small>Magersucht, Bulimie, Binge-Eating – Symptome, Risiken und Hilfen.</small>
+    </li>
+    <li>
+      <a href="test-essstoerung.html">Essstörungs-Test (Selbstcheck)</a>
+      <small>Fragebogen zur ersten Einschätzung problematischen Essverhaltens.</small>
+    </li>
+
+    <li>
+      <a href="info-abhaengigkeit.html">Abhängigkeitsstörung – Informationen</a>
+      <small>Substanzgebundene und nicht-stoffliche Abhängigkeiten erkennen und handeln.</small>
+    </li>
+    <li>
+      <a href="test-abhaengigkeit.html">Sucht-Test (Selbstcheck)</a>
+      <small>Selbsteinschätzung bei Verdacht auf Abhängigkeit.</small>
+    </li>
+
+    <li>
+      <a href="info-angststoerung.html">Angststörung – Informationen</a>
+      <small>Panikstörung, soziale Phobie, generalisierte Angst – Unterschiede und Therapien.</small>
+    </li>
+    <li>
+      <a href="test-angststoerung.html">Angst-Test (Selbstcheck)</a>
+      <small>Erste Orientierung bei übermäßiger oder anhaltender Angst.</small>
+    </li>
+
+    <li>
+      <a href="test-gdb-ersteinschaetzung.html">GdB Ersteinschätzung (psychische Erkrankungen)</a>
+      <small>Orientierung zur möglichen Einstufung des Grades der Behinderung bei psychischen Erkrankungen.</small>
+    </li>
+
+    <li>
+      <a href="wunsch-wahlrecht-generator.html">Wunsch- und Wahlrecht Generator</a>
+      <small>Formulieren Sie Ihr Wunsch- und Wahlrecht bei Therapie- oder Reha-Maßnahmen.</small>
+    </li>
+
+    <li>
+      <a href="stufenplan-bem-generator.html">Stufenplan Generator (BEM / Wiedereingliederung)</a>
+      <small>Erstellen Sie einen individuellen Wiedereingliederungsplan nach längerer Erkrankung.</small>
+    </li>
+
+    <li>
+      <a href="formulierungshilfe-selbsteinschaetzung.html">Formulierungshilfe Selbsteinschätzung</a>
+      <small>Hilfestellung zur Beschreibung psychischer Einschränkungen gegenüber Behörden oder Ärzten.</small>
+    </li>
+
+  </ul>
+</section>
+
     <section id="angehoerige-betreuung" class="category-section"> 
       <h2>👨‍👩‍👧 Angehörige & Betreuung</h2>
       <ul class="tool-list">
@@ -850,7 +1058,12 @@ footer a:hover {
         <p>Für weitere Details verweisen wir auf unser <a href="impressum.html#datenschutz">Impressum und die dortige ausführliche Datenschutzerklärung</a>
     </div>
 
-  </div> <footer>
+  </div>
+   <footer>
     <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+    </footer>
+
+    
+
 </body>
 </html>

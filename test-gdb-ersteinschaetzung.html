@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>GdB-Test Psyche: Schwerbehinderung Ersteinschätzung</title>
+  <meta name="description" content="Kostenlose GdB-Ersteinschätzung bei psychischen Erkrankungen (Depression, Burnout, PTBS). Testen Sie, ob das Versorgungsamt einen GdB von 30 oder 50 bewilligen könnte.">
+  <meta name="keywords" content="GdB Psyche, Grad der Behinderung berechnen, Schwerbehindertenausweis Depression, GdB 50 psychische Erkrankung, Versorgungsamt, Gleichstellung, soziale Anpassungsschwierigkeiten">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "GdB-Ersteinschätzung (Psyche) & Versorgungsamt-Ratgeber",
+  "operatingSystem": "Web",
+  "applicationCategory": "LegalApplication",
+  "description": "Strukturierter Online-Test zur unverbindlichen Ersteinschätzung, ob bei psychischen Erkrankungen die Beantragung eines Grades der Behinderung (GdB) nach den Versorgungsmedizinischen Grundsätzen erfolgversprechend ist.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+</head>
+<body>
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    
+    <h1>GdB-Ersteinschätzung: Lohnt sich ein Antrag beim Versorgungsamt?</h1>
+
+    <!-- INFO SEKTION -->
+    <div class="highlight-box" style="background-color: #e3f2fd; border-left: 5px solid #1976d2;" role="region" aria-label="Wie das Versorgungsamt entscheidet">
+      <h2 style="margin-top: 0; font-size: 1.3em;">Wichtig: Wie das Versorgungsamt psychische Leiden bewertet</h2>
+      <p>
+        Ein großer Irrtum im Sozialrecht ist, dass allein eine Diagnose (wie z.B. "Schwere Depression" oder "PTBS") automatisch zu einem Schwerbehindertenausweis führt. Das ist <strong>nicht</strong> so!
+      </p>
+      <p>
+        Das Versorgungsamt richtet sich nach den <em>Versorgungsmedizinischen Grundsätzen (Teil B, 3.7)</em>. Entscheidend ist einzig und allein die <strong>"soziale Anpassungsschwierigkeit"</strong>. Das bedeutet: Wie stark schränkt die Erkrankung Ihren Alltag, Ihre Arbeit, Ihre Beziehungen und Ihre Fähigkeit zur Selbstversorgung ein?
+      </p>
+      <ul style="margin-bottom: 0;">
+        <li><strong>GdB 0 - 20:</strong> Leichte Einschränkungen im Alltag (gibt keine besonderen Rechte).</li>
+        <li><strong>GdB 30 - 40:</strong> Stärker behindernde Störungen (z z.B. ständige Einschränkung der Erlebnis- und Gestaltungsfähigkeit). Ermöglicht die <em>Gleichstellung</em> mit schwerbehinderten Menschen bei der Agentur für Arbeit (Kündigungsschutz).</li>
+        <li><strong>GdB 50 - 100:</strong> Schwere Störungen mit mittelgradigen bis schweren sozialen Anpassungsschwierigkeiten (z.B. völliger sozialer Rückzug, Unfähigkeit zur Arbeit). Ab GdB 50 erhalten Sie den <em>Schwerbehindertenausweis</em> (Zusatzurlaub, Steuerfreibeträge, Kündigungsschutz).</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">04.03.2026</span></p>
+    </div>
+
+    <form id="gdb-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
+      
+      <p style="font-weight: bold; margin-bottom: 15px;">Bitte beantworten Sie die folgenden Fragen ehrlich im Hinblick auf Ihren aktuellen Alltag, nicht nur an besonders schlechten Tagen:</p>
+
+      <!-- SCHRITT 1: Chronifizierung & Behandlung -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 1 – Dauer & Therapie (Chronifizierung)</legend>
+        <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Das Versorgungsamt bewertet nur Zustände, die dauerhaft (über 6 Monate) anhalten und nicht durch einfache Therapien geheilt werden können.</p>
+
+        <label class="pflegegrad-label">
+          1. Wie lange bestehen Ihre psychischen Einschränkungen bereits ununterbrochen?
+          <select class="pflegegrad-frage" name="gdb_1" id="dauer-frage">
+            <option value="0">Weniger als 6 Monate (z.B. akute Krise)</option>
+            <option value="1">Zwischen 6 und 12 Monaten</option>
+            <option value="2">Zwischen 1 und 3 Jahren</option>
+            <option value="3">Länger als 3 Jahre</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          2. Nehmen Sie therapeutische und/oder psychiatrische Hilfe in Anspruch (Medikamente, Psychotherapie)?
+          <select class="pflegegrad-frage" name="gdb_2">
+            <option value="0">Nein, bisher nicht.</option>
+            <option value="1">Ja, ich habe gerade erst damit begonnen.</option>
+            <option value="2">Ja, schon länger, aber es bringt nur leichte bis mäßige Linderung.</option>
+            <option value="3">Ich bin austherapiert / nehme dauerhaft starke Medikamente, ohne dass sich mein Zustand wesentlich bessert.</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          3. Waren Sie in den letzten 3 Jahren wegen Ihrer psychischen Erkrankung stationär in einer Klinik (Psychiatrie/Psychosomatik) oder auf einer medizinischen Reha?
+          <select class="pflegegrad-frage" name="gdb_3">
+            <option value="0">Nein, nie.</option>
+            <option value="1">Ja, einmalig für kurze Zeit.</option>
+            <option value="2">Ja, für mehrere Wochen (inkl. Reha).</option>
+            <option value="3">Ja, mehrfach / es gab wiederholte Kriseninterventionen.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 2: Berufliche & Soziale Teilhabe -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 2 – Arbeit & Soziales Leben</legend>
+
+        <label class="pflegegrad-label">
+          4. Wie sehr ist Ihre Fähigkeit zu arbeiten (oder eine Ausbildung/Schule zu besuchen) eingeschränkt?
+          <select class="pflegegrad-frage" name="gdb_4">
+            <option value="0">Gar nicht. Ich arbeite ganz normal (auch Vollzeit).</option>
+            <option value="1">Leicht. Ich arbeite, melde mich aber hin und wieder für ein paar Tage krank.</option>
+            <option value="2">Stark. Ich falle monatelang aus (Krankengeld) oder musste meine Stunden massiv reduzieren, um nicht zusammenzubrechen.</option>
+            <option value="3">Sehr stark. Ich bin seit langer Zeit arbeitsunfähig, habe meinen Job verloren oder beziehe/beantrage Erwerbsminderungsrente.</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          5. Wie sieht Ihr soziales Leben (Freunde, Familie, Hobbys) aus?
+          <select class="pflegegrad-frage" name="gdb_5">
+            <option value="0">Normal. Ich treffe mich regelmäßig mit anderen und gehe Hobbys nach.</option>
+            <option value="1">Eingeschränkt. Es fällt mir oft schwer, aber ich zwinge mich dazu und halte meine wichtigsten Kontakte.</option>
+            <option value="2">Stark eingeschränkt. Ich sage fast alles ab, Freundschaften sind zerbrochen, ich gehe kaum noch Hobbys nach.</option>
+            <option value="3">Völlige Isolation. Ich verlasse das Haus fast nie für soziale Zwecke, meide Menschenmengen komplett und habe mich völlig zurückgezogen.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 3: Alltag & Selbstversorgung -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 3 – Alltag & Selbstorganisation</legend>
+        <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Können Sie Ihr Leben abseits der Arbeit noch selbst organisieren?</p>
+
+        <label class="pflegegrad-label">
+          6. Wie gut können Sie alltägliche Verpflichtungen (Post öffnen, Rechnungen zahlen, Anträge stellen, Arzttermine vereinbaren) bewältigen?
+          <select class="pflegegrad-frage" name="gdb_6">
+            <option value="0">Das schaffe ich problemlos alleine.</option>
+            <option value="1">Es stresst mich, aber am Ende erledige ich alles rechtzeitig.</option>
+            <option value="2">Ich schiebe Dinge massiv auf, habe oft Mahnungen oder verpasse Fristen, weil mir die Energie fehlt.</option>
+            <option value="3">Ich kann das nicht mehr. Briefe bleiben ungeöffnet. Ich brauche zwingend Hilfe von Angehörigen, dem sozialpsychiatrischen Dienst oder einem Betreuer.</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          7. Wie gut gelingt Ihnen die Strukturierung des Tages und die Selbstversorgung (Kochen, Putzen, Körperpflege, Einkaufen)?
+          <select class="pflegegrad-frage" name="gdb_7">
+            <option value="0">Problemlos.</option>
+            <option value="1">An schlechten Tagen bleibt der Abwasch liegen, aber im Großen und Ganzen versorge ich mich gut.</option>
+            <option value="2">Es herrscht oft Chaos. Ich ernähre mich schlecht (z.B. nur Fertigessen), die Wohnung verwahrlost leicht, Einkaufen ist eine extreme Qual.</option>
+            <option value="3">Ich schaffe es an vielen Tagen nicht einmal, aus dem Bett aufzustehen oder mich zu waschen. Mein Haushalt wird von anderen übernommen.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 3</div>
+
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Ersteinschätzung anzeigen</button>
+        <button type="reset" class="button button-secondary" id="reset-form">Eingaben zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="ergebnis" aria-live="polite" style="margin-top: 20px;"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Achtung (Haftungsausschluss):</strong> Dieses Tool liefert eine unverbindliche Orientierung und kann die Begutachtung durch das Versorgungsamt nicht ersetzen. Die Zuerkennung eines GdB hängt maßgeblich davon ab, wie ausführlich und präzise Ihre behandelnden Ärzte (Psychiater, Hausarzt, Klinikberichte) Ihre Einschränkungen in den ärztlichen Befundberichten dokumentieren.
+      </p>
+    </div>
+
+  <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+    <h2 id="promo-headline">
+      <span class="icon" aria-hidden="true">🤖</span>
+      Clerion – Hilfe beim GdB-Antrag und Widerspruch
+    </h2>
+    <p class="lead">
+      Der Antrag beim Versorgungsamt auf Feststellung einer Behinderung ist extrem lang. Und oft lehnen die Ämter im ersten Schritt ab oder vergeben nur einen zu niedrigen GdB von 20, weil sie auf Erschöpfung bei den Antragstellern spekulieren.
+      Hier hilft Clerion: Die KI liest den Ablehnungsbescheid, erklärt Ihnen die Begründung des Amtes und formuliert für Sie einen fachlich starken, juristisch sauberen Widerspruch – einfach als PDF zum Ausdrucken.
+    </p>
+    <div class="promo-ctas">
+      <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt KI-Assistent testen</a>
+      <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+    </div>
+  </section>
+
+</div>
+
+  <footer>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <!-- DAS JAVASCRIPT FÜR DIE AUSWERTUNG -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
+      const prevBtn = document.getElementById('prev-step');
+      const nextBtn = document.getElementById('next-step');
+      const calcBtn = document.getElementById('berechnen-btn');
+      const progressDiv = document.getElementById('wizard-progress');
+      const resultSection = document.getElementById('ergebnis');
+      
+      let currentStep = 0;
+
+      function updateWizard() {
+        fieldsets.forEach((fs, index) => {
+          fs.style.display = (index === currentStep) ? 'block' : 'none';
+        });
+
+        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
+
+        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
+        
+        if (currentStep === fieldsets.length - 1) {
+          nextBtn.style.display = 'none';
+          calcBtn.style.display = 'inline-block';
+        } else {
+          nextBtn.style.display = 'inline-block';
+          calcBtn.style.display = 'none';
+        }
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep < fieldsets.length - 1) {
+          currentStep++;
+          updateWizard();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateWizard();
+        }
+      });
+
+      calcBtn.addEventListener('click', () => {
+        let totalScore = 0;
+        let dauerWert = parseInt(document.getElementById('dauer-frage').value);
+        
+        const selects = document.querySelectorAll('.pflegegrad-frage');
+        
+        selects.forEach(select => {
+          totalScore += parseInt(select.value);
+        });
+
+        let auswertung = "";
+        let hinweis = "";
+        let aktion = "";
+
+        // HÄRTEFALL: Wenn Erkrankung kürzer als 6 Monate ist, lehnt das Amt fast immer ab.
+        if (dauerWert === 0) {
+           auswertung = "<h3 style='color: #F44336;'>Einschätzung: Ein Antrag ist aktuell sehr wahrscheinlich erfolglos</h3>";
+           hinweis = "Im deutschen Schwerbehindertenrecht (SGB IX) gilt ein Zustand nur dann als Behinderung, wenn er <strong>länger als 6 Monate</strong> andauert oder mit hoher Wahrscheinlichkeit andauern wird. Akute Krisen werden vom Versorgungsamt nicht bewertet.";
+           aktion = "Warten Sie mit einem Antrag ab, bis sich abzeichnet, dass Ihr Zustand chronisch wird, oder lassen Sie sich von Ihrem Arzt explizit bescheinigen, dass die Heilungsaussichten über 6 Monate hinaus extrem schlecht sind.";
+        } 
+        else if (totalScore <= 6) {
+          auswertung = "<h3 style='color: #4CAF50;'>Einschätzung: GdB 0 bis 20 (Keine gravierenden Nachteilsausgleiche zu erwarten)</h3>";
+          hinweis = "Ihre Einschränkungen im Alltag und Beruf sind – aus Sicht des Versorgungsamtes – als leicht bis mäßig einzustufen. Sie arbeiten voraussichtlich noch und können sich selbst organisieren.";
+          aktion = "<strong>Unser Rat:</strong> Ein Antrag beim Versorgungsamt kostet viel Energie, bringt bei einem zu erwartenden GdB unter 30 aber keine arbeitsrechtlichen oder steuerlichen Vorteile. Konzentrieren Sie sich lieber auf Ihre Genesung durch Psychotherapie und medizinische Rehabilitation.";
+        } 
+        else if (totalScore >= 7 && totalScore <= 13) {
+          auswertung = "<h3 style='color: #FF9800;'>Einschätzung: GdB 30 bis 40 (Gleichstellung möglich)</h3>";
+          hinweis = "Ihre Angaben deuten auf eine 'stärker behindernde Störung' hin. Es gibt deutliche Einschränkungen in der sozialen Teilhabe oder längere Krankheitsausfälle im Beruf. Ein GdB von 50 (Schwerbehinderung) wird damit oft noch nicht erreicht, aber ein GdB von 30 oder 40 ist realistisch.";
+          aktion = "<strong>Unser Rat:</strong> Ein Antrag lohnt sich! Mit einem GdB von 30 können Sie bei der Agentur für Arbeit einen <em>Antrag auf Gleichstellung</em> stellen. Wird dieser bewilligt, genießen Sie denselben besonderen Kündigungsschutz wie ein schwerbehinderter Mensch.";
+        } 
+        else {
+          auswertung = "<h3 style='color: #2196F3;'>Einschätzung: GdB 50 oder höher (Schwerbehinderung realistisch)</h3>";
+          hinweis = "Ihre Angaben deuten auf 'mittelgradige bis schwere soziale Anpassungsschwierigkeiten' hin. Längere Arbeitsunfähigkeit, soziale Isolation, wiederkehrende Klinikaufenthalte und Hilflosigkeit im Alltag sind starke Argumente für das Versorgungsamt, einen GdB von 50 oder mehr zu vergeben.";
+          aktion = "<strong>Unser Rat:</strong> Stellen Sie den Antrag beim zuständigen Versorgungsamt! Wichtig: Legen Sie dem Antrag unbedingt <em>ausführliche Arzt- und Klinikberichte</em> bei. Ihr Facharzt muss dem Amt bestätigen, wie stark Ihr Alltag eingeschränkt ist. Ein GdB ab 50 bringt Ihnen den Schwerbehindertenausweis, 5 Tage Zusatzurlaub, besonderen Kündigungsschutz und Steuerfreibeträge.";
+        }
+
+        resultSection.innerHTML = `
+          <div class="highlight-box" style="border-left: 5px solid #2196F3;">
+            ${auswertung}
+            <p>${hinweis}</p>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
+            <p>${aktion}</p>
+          </div>
+        `;
+        
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Init
+      updateWizard();
+    });
+  </script>
+</body>
+</html>
