@@ -8,6 +8,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
+  <style>.kl-table{
+width:100%;
+border-collapse:collapse;
+margin-bottom:20px;
+font-size:15px;
+}
+
+.kl-table th,
+.kl-table td{
+padding:12px;
+border:1px solid #ccc;
+text-align:left;
+vertical-align:top;
+}
+
+.kl-table thead{
+background:#0d47a1;
+color:white;
+}
+
+/* Mobile Darstellung */
+@media (max-width:768px){
+
+.kl-table thead{
+display:none;
+}
+
+.kl-table,
+.kl-table tbody,
+.kl-table tr,
+.kl-table td{
+display:block;
+width:100%;
+}
+
+.kl-table tr{
+margin-bottom:18px;
+background:#f8f9fc;
+border-radius:10px;
+padding:10px;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.kl-table td{
+border:none;
+padding:8px 10px;
+position:relative;
+}
+
+.kl-table td::before{
+content:attr(data-label);
+display:block;
+font-weight:600;
+color:#0d47a1;
+margin-bottom:3px;
+font-size:13px;
+}
+
+}</style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -86,32 +145,53 @@
     </ul>
 
     <h3>Die Unterschiede auf einen Blick</h3>
-    <table class="kl-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-      <thead>
-        <tr style="background-color: #0d47a1; color: white;">
-          <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">Merkmal</th>
-          <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">Klassische PTBS (ICD-10: F43.1)</th>
-          <th style="padding: 10px; border: 1px solid #ccc; text-align: left;">Komplexe PTBS (ICD-11: 6B41)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #ccc; font-weight: bold;">Ursache</td>
-          <td style="padding: 10px; border: 1px solid #ccc;">Meist einmaliges Schockerlebnis (Unfall, Überfall).</td>
-          <td style="padding: 10px; border: 1px solid #ccc;">Wiederholte, langanhaltende Traumatisierung (oft in der Kindheit).</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #ccc; font-weight: bold;">Kernsymptome</td>
-          <td style="padding: 10px; border: 1px solid #ccc;">Flashbacks (Wiedererleben), Vermeidung von Auslösern, ständige Wachsamkeit (Schreckhaftigkeit).</td>
-          <td style="padding: 10px; border: 1px solid #ccc;">Alle Symptome der PTBS <strong>plus</strong> zusätzliche massive Beeinträchtigungen.</td>
-        </tr>
-        <tr>
-          <td style="padding: 10px; border: 1px solid #ccc; font-weight: bold;">Selbstbild & Emotionen</td>
-          <td style="padding: 10px; border: 1px solid #ccc;">Gefühl ständiger Bedrohung durch die Erinnerung.</td>
-          <td style="padding: 10px; border: 1px solid #ccc;">Tiefe Scham, Schuldgefühle, extrem negatives Selbstbild ("Ich bin kaputt"), Schwierigkeiten in Beziehungen, Probleme bei der Emotionsregulation.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="responsive-table">
+
+<table class="kl-table">
+<thead>
+<tr>
+<th>Merkmal</th>
+<th>Klassische PTBS (ICD-10: F43.1)</th>
+<th>Komplexe PTBS (ICD-11: 6B41)</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td data-label="Merkmal"><strong>Ursache</strong></td>
+<td data-label="Klassische PTBS (ICD-10: F43.1)">
+Meist einmaliges Schockerlebnis (Unfall, Überfall).
+</td>
+<td data-label="Komplexe PTBS (ICD-11: 6B41)">
+Wiederholte, langanhaltende Traumatisierung (oft in der Kindheit).
+</td>
+</tr>
+
+<tr>
+<td data-label="Merkmal"><strong>Kernsymptome</strong></td>
+<td data-label="Klassische PTBS (ICD-10: F43.1)">
+Flashbacks (Wiedererleben), Vermeidung von Auslösern, ständige Wachsamkeit (Schreckhaftigkeit).
+</td>
+<td data-label="Komplexe PTBS (ICD-11: 6B41)">
+Alle Symptome der PTBS <strong>plus</strong> zusätzliche massive Beeinträchtigungen.
+</td>
+</tr>
+
+<tr>
+<td data-label="Merkmal"><strong>Selbstbild & Emotionen</strong></td>
+<td data-label="Klassische PTBS (ICD-10: F43.1)">
+Gefühl ständiger Bedrohung durch die Erinnerung.
+</td>
+<td data-label="Komplexe PTBS (ICD-11: 6B41)">
+Tiefe Scham, Schuldgefühle, extrem negatives Selbstbild ("Ich bin kaputt"), Schwierigkeiten in Beziehungen, Probleme bei der Emotionsregulation.
+</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
 
     <div class="button-container" style="background-color: #f0f7ff; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;">
         <h3 style="margin-top: 0;">Sind Sie betroffen?</h3>

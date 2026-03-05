@@ -613,3 +613,29 @@ a:hover {
   margin: 0;
   line-height: 1.3;
 }
+
+/* Kategorie-Banner für Unterseiten (Rücklink zur Hub-Seite) */
+.category-badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #e3f2fd; /* Helles, freundliches Blau */
+    color: #1976d2; /* Dunkles Blau für gute Lesbarkeit */
+    padding: 6px 14px;
+    border-radius: 20px; /* Macht den Banner schön rund (Pill-Form) */
+    text-decoration: none;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-top: -10px; /* Zieht den Badge etwas näher an die H1-Überschrift */
+    margin-bottom: 20px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.category-badge:hover {
+    background-color: #bbdefb; /* Etwas dunkler beim Darüberfahren */
+    transform: translateY(-1px); /* Hebt sich minimal an */
+}
+
+.category-badge .icon {
+    margin-right: 6px;
+    font-size: 1.1em;
+}
