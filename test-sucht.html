@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sucht-Test: Abhängigkeit erkennen & Kassen-Rechte | Kassen-Lotse</title>
+  <meta name="description" content="Kostenloser Test zur Ersteinschätzung von Abhängigkeitserkrankungen (Alkohol, Medikamente, Spielsucht). Kriterien nach ICD-10 prüfen und Rechte erfahren.">
+  <meta name="keywords" content="Sucht Test, Abhängigkeit Test, Alkoholismus Test, Spielsucht Test, Entgiftung Krankenkasse, Reha Sucht Rentenversicherung, ICD 10 Sucht, Kassen-Lotse">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Sucht-Ersteinschätzung (Abhängigkeitssyndrom) & Kassen-Ratgeber",
+  "operatingSystem": "Web",
+  "applicationCategory": "HealthApplication",
+  "description": "Sensibler Online-Test zur Unterscheidung zwischen riskantem Konsum und einer echten Abhängigkeitserkrankung (nach ICD-10), kombiniert mit sozialrechtlichen Handlungsempfehlungen (Krankenkasse vs. Rentenversicherung).",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+</head>
+<body>
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    
+    <!-- YMYL NOTFALL-BOX -->
+    <div class="warning-box" style="background-color: #ffebee; border-left: 4px solid #f44336; padding: 15px; margin-bottom: 20px;">
+        <h3 style="margin-top: 0; color: #d32f2f;">Lebenswichtiger Hinweis (Kalter Entzug)</h3>
+        <p style="margin-bottom: 0;">Bei einer starken körperlichen Abhängigkeit von Alkohol, Beruhigungsmitteln oder Drogen darf <strong>niemals abrupt auf eigene Faust entzogen werden</strong>! Ein "kalter Entzug" zu Hause kann zu lebensgefährlichen Krampfanfällen oder einem Delirium führen. Wenden Sie sich für die Entgiftung an ein Krankenhaus oder rufen Sie in akuten körperlichen Notfällen die <strong>112</strong>. Für anonyme Hilfe rufen Sie die Sucht & Drogen Hotline an: <strong>01806 313031</strong>.</p>
+    </div>
+
+    <h1>Sucht-Test: Gewohnheit, Missbrauch oder Krankheit?</h1>
+
+    <a href="psychische-erkrankungen.html" class="category-badge">
+    Zur Übersicht: Psychische Erkrankungen 
+</a>
+
+    <div class="highlight-box" role="region" aria-label="Einführung">
+      <p>
+        Dieser Test basiert auf den 6 offiziellen Kriterien der Weltgesundheitsorganisation (ICD-10) für ein Abhängigkeitssyndrom. Er ist sowohl für <strong>substanzgebundene Süchte</strong> (Alkohol, Medikamente, Drogen) als auch für <strong>Verhaltenssüchte</strong> (Glücksspiel, Internetsucht) geeignet.
+      </p>
+      <p>
+        <strong>Ihre Rechte im System:</strong> Abhängigkeit ist keine Willensschwäche, sondern eine anerkannte, chronische Krankheit. Nach der Auswertung zeigen wir Ihnen genau, wie Sie eine medizinische Entgiftung (Krankenkasse) und eine Langzeit-Reha (Rentenversicherung) in die Wege leiten.
+      </p>
+    </div>
+
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">05.03.2026</span></p>
+    </div>
+
+    <form id="sucht-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
+      
+      <p style="font-weight: bold; margin-bottom: 15px;">Bitte beantworten Sie die folgenden Fragen ehrlich im Hinblick auf Ihren Konsum (bzw. Ihr Suchtverhalten) im Verlauf der letzten 12 Monate:</p>
+
+      <!-- SCHRITT 1: Art der Sucht & Verlangen -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 1 – Gegenstand & Verlangen</legend>
+
+        <label class="pflegegrad-label">
+          1. Worum geht es bei Ihnen primär? (Wichtig für die medizinische Auswertung)
+          <select class="pflegegrad-frage" name="sucht_art" id="art-frage">
+            <option value="substanz">Substanzen (Alkohol, Medikamente, illegale Drogen)</option>
+            <option value="verhalten">Verhalten (Glücksspiel, Computerspiele, etc.)</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          2. Verspüren Sie oft einen starken, kaum bezwingbaren Wunsch oder Zwang, zu konsumieren bzw. das Verhalten auszuführen (sogenanntes "Craving")?
+          <select class="pflegegrad-frage score-frage" name="sucht_1">
+            <option value="0">Nein, fast nie.</option>
+            <option value="1">Gelegentlich, aber ich kann es meistens unterdrücken.</option>
+            <option value="2">Häufig. Es kostet enorm viel Energie, dem Druck standzuhalten.</option>
+            <option value="3">Fast ständig. Der Gedanke daran beherrscht meinen Tag.</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          3. Haben Sie Schwierigkeiten, den Beginn, die Beendigung oder die Menge des Konsums/Verhaltens zu kontrollieren (z.B. Sie nehmen sich vor, nur ein Glas zu trinken oder eine Stunde zu spielen, es werden aber viel mehr)?
+          <select class="pflegegrad-frage score-frage" name="sucht_2">
+            <option value="0">Nein, ich habe die volle Kontrolle.</option>
+            <option value="1">Manchmal verliere ich ein wenig das Maß.</option>
+            <option value="2">Häufig. Meine Vorsätze scheitern fast immer.</option>
+            <option value="3">Immer. Sobald ich anfange, kann ich nicht mehr aufhören (Kontrollverlust).</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 2: Körperliche & Psychische Anpassung -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 2 – Gewöhnung & Entzug</legend>
+
+        <label class="pflegegrad-label">
+          4. <strong>Toleranzentwicklung:</strong> Haben Sie festgestellt, dass Sie im Laufe der Zeit immer größere Mengen (oder immer mehr Zeit beim Spielen) benötigen, um noch dieselbe Wirkung (Rausch, Entspannung) zu erzielen?
+          <select class="pflegegrad-frage score-frage" name="sucht_3">
+            <option value="0">Nein, die Menge/Zeit ist gleich geblieben.</option>
+            <option value="1">Es ist über die Jahre nur minimal mehr geworden.</option>
+            <option value="2">Ja, ich brauche spürbar mehr als noch vor einem Jahr.</option>
+            <option value="3">Ja, ich benötige inzwischen extreme Mengen, die früher für mich unvorstellbar waren.</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          5. <strong>Entzugssymptome:</strong> Wenn Sie den Konsum reduzieren oder stoppen, treten dann körperliche Symptome (Schwitzen, Zittern, Schmerzen) oder starke psychische Symptome (extreme Unruhe, Aggression, Panik) auf?
+          <select class="pflegegrad-frage score-frage" name="sucht_4" id="entzug-frage">
+            <option value="0">Nein, ich kann jederzeit ohne Probleme pausieren.</option>
+            <option value="1">Ich bin vielleicht ein oder zwei Tage etwas schlecht gelaunt.</option>
+            <option value="2">Ja, deutliche Unruhe, Zittern oder Schlafprobleme treten auf.</option>
+            <option value="3">Ja, starke Entzugserscheinungen zwingen mich, sofort wieder zu konsumieren, um diese zu lindern ("Morgendlicher Konsum").</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 3: Soziale Folgen & Leidensdruck -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 3 – Folgen im Alltag</legend>
+
+        <label class="pflegegrad-label">
+          6. Vernachlässigen Sie zunehmend andere Hobbys, Verpflichtungen, soziale Kontakte oder den Beruf, weil die Beschaffung, der Konsum oder die Erholung davon Ihre gesamte Zeit einnimmt?
+          <select class="pflegegrad-frage score-frage" name="sucht_5">
+            <option value="0">Nein, mein Leben läuft völlig normal weiter.</option>
+            <option value="1">Einige Interessen sind etwas in den Hintergrund gerückt.</option>
+            <option value="2">Ja, Familie und Freunde beschweren sich bereits häufig darüber.</option>
+            <option value="3">Ja, ich lebe fast isoliert und drehe meinen Tag nur noch um die Sucht.</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label">
+          7. Konsumieren Sie weiter, <strong>obwohl</strong> Sie wissen oder spüren, dass dies bereits schädliche Folgen hat (z.B. nachgewiesene Leberschäden, drohender Jobverlust, Schulden oder ständiger Streit in der Partnerschaft)?
+          <select class="pflegegrad-frage score-frage" name="sucht_6">
+            <option value="0">Nein, es gibt keine Schäden / Ich würde sofort aufhören.</option>
+            <option value="1">Es gab leichtere Warnschüsse, die mich zum Reduzieren gebracht haben.</option>
+            <option value="2">Ja, ich weiß, dass es mir schadet, aber ich kann nicht aufhören.</option>
+            <option value="3">Ja, ich habe bereits massive Schäden (Krankheit, Trennung, Schulden) erlitten und konsumiere dennoch weiter.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 3</div>
+
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Test auswerten & Kassenrechte prüfen</button>
+        <button type="reset" class="button button-secondary" id="reset-form">Eingaben zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="ergebnis" aria-live="polite" style="margin-top: 20px;"></section>
+
+    <div class="warning-box">
+      <p>
+        <strong>Wichtig (YMYL-Hinweis):</strong> Dieser Test ist eine unverbindliche Orientierungshilfe und <strong>ersetzt keine ärztliche Diagnose</strong>. Die Feststellung eines Abhängigkeitssyndroms (z.B. ICD-10 F10 bei Alkohol) durch einen Arzt oder eine Klinik ist die Grundvoraussetzung, um Leistungen der Krankenkasse oder der Deutschen Rentenversicherung in Anspruch nehmen zu können.
+      </p>
+    </div>
+
+  <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+    <h2 id="promo-headline">
+      <span class="icon" aria-hidden="true">🤖</span>
+      Clerion – Hilfe beim Reha-Antrag
+    </h2>
+    <p class="lead">
+      Wenn Sie den Entschluss gefasst haben, clean zu werden, ist der nächste Schritt oft ein riesiger Reha-Antrag (Entwöhnungsbehandlung) bei der Deutschen Rentenversicherung. Für Betroffene in der Krise ist dieser Papierkram oft ein unüberwindbares Hindernis.
+      Clerion hilft Ihnen dabei: Laden Sie komplizierte Briefe der Kassen hoch. Die KI erklärt Ihnen die nächsten Schritte verständlich und generiert auf Knopfdruck fertige PDF-Anträge und Widersprüche.
+    </p>
+    <div class="promo-ctas">
+      <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt KI-Assistent testen</a>
+      <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+    </div>
+  </section>
+
+  <aside class="highlight-box" role="complementary" aria-label="Weiterführende Informationen">
+    <h2 style="margin-top:0">Wichtige Arbeitshilfen für den nächsten Schritt</h2>
+    <p>
+      Der Weg in die Suchthilfe ist stark bürokratisiert. Wir lotsen Sie durch das System:
+    </p>
+    <p style="margin-bottom:.4rem;">
+      <a href="info-sucht.html" class="button button-secondary" title="Zur Sucht Info">Ratgeber: Krankenkasse vs. Rentenversicherung</a>
+      <a href="wunsch-wahlrecht-reha.html" class="button button-secondary" title="Zum Wunschrecht Reha">Reha-Antrag: Fachklinik für Entwöhnung fordern</a>
+      <a href="test-gdb-ersteinschaetzung.html" class="button button-secondary" title="Zum GdB Test">Schwerbehinderung: GdB-Antrag bei Sucht-Folgeschäden</a>
+      <a href="stufenplan-wiedereingliederung.html" class="button button-secondary" title="Zum BEM Rechner">Nach der Reha: Stufenplan für den Job</a>
+    </p>
+  </aside>
+
+</div>
+
+  <footer>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <!-- FAQ-Schema separat eingebunden -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Zahlt die Krankenkasse bei jeder Art von Sucht?","acceptedAnswer":{"@type":"Answer","text":"Ja, das Abhängigkeitssyndrom ist eine anerkannte Krankheit. Die Krankenkasse bezahlt die akute, körperliche Entgiftung im Krankenhaus für Substanzen (Alkohol, Drogen, Medikamente) sowie Vorbereitungsgespräche für Verhaltenssüchte (Spielsucht)."}},
+      {"@type":"Question","name":"Wer bezahlt die monatelange Reha (Entwöhnung)?","acceptedAnswer":{"@type":"Answer","text":"Wenn Sie berufstätig sind oder waren, ist für die psychologische Entwöhnungsbehandlung (Langzeit-Reha) in der Regel die Deutsche Rentenversicherung zuständig. Die Antragstellung erfolgt oft nahtlos während der körperlichen Entgiftung in der Klinik."}}
+    ]
+  }
+  </script>
+
+  <!-- DAS JAVASCRIPT FÜR DIE AUSWERTUNG -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
+      const prevBtn = document.getElementById('prev-step');
+      const nextBtn = document.getElementById('next-step');
+      const calcBtn = document.getElementById('berechnen-btn');
+      const progressDiv = document.getElementById('wizard-progress');
+      const resultSection = document.getElementById('ergebnis');
+      
+      let currentStep = 0;
+
+      function updateWizard() {
+        fieldsets.forEach((fs, index) => {
+          fs.style.display = (index === currentStep) ? 'block' : 'none';
+        });
+
+        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
+
+        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
+        
+        if (currentStep === fieldsets.length - 1) {
+          nextBtn.style.display = 'none';
+          calcBtn.style.display = 'inline-block';
+        } else {
+          nextBtn.style.display = 'inline-block';
+          calcBtn.style.display = 'none';
+        }
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep < fieldsets.length - 1) {
+          currentStep++;
+          updateWizard();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateWizard();
+        }
+      });
+
+      calcBtn.addEventListener('click', () => {
+        let totalScore = 0;
+        let artDerSucht = document.getElementById('art-frage').value;
+        let entzugswert = parseInt(document.getElementById('entzug-frage').value);
+        
+        const selects = document.querySelectorAll('.score-frage');
+        
+        selects.forEach(select => {
+          totalScore += parseInt(select.value);
+        });
+
+        let auswertung = "";
+        let medizinischerTipp = "";
+        let kassenTipp = "";
+
+        // ALLGEMEINE AUSWERTUNG (Scores an ICD-Kriterien angelehnt)
+        if (totalScore <= 4) {
+          auswertung = "<h3 style='color: #4CAF50;'>Ergebnis: Keine Abhängigkeitserkrankung erkennbar</h3>";
+          medizinischerTipp = "Ihr Konsum bzw. Verhalten scheint sich in einem unauffälligen oder gut kontrollierten Rahmen zu bewegen. Achten Sie dennoch darauf, dass sich Gewohnheiten nicht schleichend verfestigen.";
+          kassenTipp = "<strong>Ihr Kassenrecht:</strong> Sollten Sie Ihren Konsum (z.B. Alkohol oder Rauchen) reduzieren wollen, bezuschussen gesetzliche Krankenkassen Gesundheitskurse zur Suchtprävention oft zu 100%.";
+        } 
+        else if (totalScore >= 5 && totalScore <= 10) {
+          auswertung = "<h3 style='color: #FF9800;'>Ergebnis: Schädlicher Gebrauch (Missbrauch) / Suchtgefährdung</h3>";
+          medizinischerTipp = "Ihre Antworten zeigen erste deutliche Warnsignale. Der Konsum / das Verhalten führt bereits zu Problemen oder Kontrollverlusten. Aus psychologischer Sicht befinden Sie sich im Vorstadium einer Abhängigkeit (Missbrauch nach ICD-10).";
+          kassenTipp = "<strong>Ihr Kassenrecht:</strong> Jetzt ist der beste Zeitpunkt zu handeln! Suchen Sie eine kostenlose Suchtberatungsstelle (z.B. Caritas, Diakonie) auf. Zudem bezahlt die Krankenkasse ambulante Psychotherapie (Verhaltenstherapie), um die tieferliegenden Ursachen des schädlichen Gebrauchs aufzuarbeiten.";
+        } 
+        else {
+          auswertung = "<h3 style='color: #F44336;'>Ergebnis: Dringender Verdacht auf ein Abhängigkeitssyndrom</h3>";
+          medizinischerTipp = "Ihr Ergebnis deutet darauf hin, dass Sie die Kontrolle über Ihr Verhalten verloren haben und sich in einer manifesten Sucht befinden. Sie haben eine anerkannte chronische Krankheit, die professionelle Hilfe erfordert!";
+          kassenTipp = "<strong>Ihr Kassenrecht (Der 2-Phasen-Plan):</strong><br>1. Die <em>Entgiftung</em> (körperlicher Entzug in der Klinik) wird als Akutbehandlung von der <strong>Krankenkasse</strong> voll bezahlt. In dieser Zeit erhalten Sie Krankengeld.<br>2. Die <em>Entwöhnung</em> (mehrmonatige Langzeit-Reha zur psychischen Stabilisierung) wird im Anschluss über die <strong>Rentenversicherung</strong> finanziert. Die Anträge können Sie nahtlos noch in der Entgiftungsklinik mit dem Sozialdienst stellen.";
+        }
+
+        // YMYL Überschreibung: Lebensgefahr bei "kaltem Entzug" (Nur bei Substanzen & hohem Entzugswert)
+        let entzugWarnung = "";
+        if (artDerSucht === 'substanz' && entzugswert >= 2) {
+          entzugWarnung = `<div style="background-color: #ffebee; border: 2px solid #f44336; padding: 15px; margin-top: 15px; border-radius: 5px;">
+            <strong style="color: #d32f2f;">Akuter medizinischer Warnhinweis:</strong> Sie haben starke körperliche Entzugssymptome (Zittern, Schwitzen) bei Substanzen (z.B. Alkohol, Medikamente) angegeben. <strong>Brechen Sie den Konsum niemals abrupt alleine zu Hause ab!</strong> Ein sogenannter "kalter Entzug" ist lebensgefährlich (Gefahr von Krampfanfällen und Delir). Gehen Sie zu Ihrem Hausarzt oder direkt in eine psychiatrische Klinik. Der überwachte "warme Entzug" mit Medikamenten wird von der Krankenkasse bezahlt und schützt Ihr Leben!
+          </div>`;
+        }
+
+        resultSection.innerHTML = `
+          <div class="highlight-box" style="border-left: 5px solid #2196F3;">
+            ${auswertung}
+            <p>${medizinischerTipp}</p>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
+            <p>${kassenTipp}</p>
+            ${entzugWarnung}
+          </div>
+        `;
+        
+        resultSection.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Init
+      updateWizard();
+    });
+  </script>
+</body>
+</html>

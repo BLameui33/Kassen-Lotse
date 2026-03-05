@@ -130,8 +130,52 @@
 <url><loc>https://kassen-lotse.de/verletztengeld.html</loc></url>
 <url><loc>https://kassen-lotse.de/young-carers.html</loc></url>
 <url><loc>https://kassen-lotse.de/über.html</loc></url>
-<url><loc>https://kassen-lotse.de/demenz.html</loc></url>
+
+
+<url><loc>https://kassen-lotse.de/info-demenz.html</loc></url>
 <url><loc>https://kassen-lotse.de/demenz-portal</loc></url>
+
+<!-- Info-Seiten (Ratgeber) -->
+<url><loc>https://kassen-lotse.de/info-depression.html</loc></url>
+<url><loc>https://kassen-lotse.de/info-burnout.html</loc></url>
+<url><loc>https://kassen-lotse.de/info-borderline.html</loc></url>
+<url><loc>https://kassen-lotse.de/info-adhs.html</loc></url>
+<url><loc>https://kassen-lotse.de/info-ptbs-kptbs.html</loc></url>
+<url><loc>https://kassen-lotse.de/info-narzissmus.html</loc></url>
+<url><loc>https://kassen-lotse.de/info-essstoerung.html</loc></url>
+<url><loc>https://kassen-lotse.de/info-angststoerung.html</loc></url>
+<url><loc>https://kassen-lotse.de/info-sucht.html</loc></url>
+
+<!-- Ersteinschätzungs-Tests -->
+<url><loc>https://kassen-lotse.de/test-depression.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-burnout.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-borderline.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-adhs.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-ptbs.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-narzissmus.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-essstoerung.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-angststoerung.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-sucht.html</loc></url>
+<url><loc>https://kassen-lotse.de/test-gdb-ersteinschaetzung.html</loc></url>
+
+<!-- Tools, Rechner & Generatoren -->
+<url><loc>https://kassen-lotse.de/wunsch-wahlrecht-reha.html</loc></url>
+<url><loc>https://kassen-lotse.de/stufenplan-wiedereingliederung.html</loc></url>
+<url><loc>https://kassen-lotse.de/formulierungshilfe-selbsteinschaetzung.html</loc></url>
+
+<!--Hubs-->
+
+<url><loc>https://kassen-lotse.de/krankenkasse.html</loc></url>
+<url><loc>https://kassen-lotse.de/pflegekasse.html</loc></url>
+<url><loc>https://kassen-lotse.de/rentenversicherung.html</loc></url>
+<url><loc>https://kassen-lotse.de/allgemein-verfahren.html</loc></url>
+<url><loc>https://kassen-lotse.de/angehoerige-betreuung.html</loc></url>
+<url><loc>https://kassen-lotse.de/psychische-erkrankungen.html</loc></url>
+<url><loc>https://kassen-lotse.de/unfallversicherung.html</loc></url>
+<url><loc>https://kassen-lotse.de/familie-kind.html</loc></url>
+<url><loc>https://kassen-lotse.de/schwerbehindertenrecht.html</loc></url>
+
+
 
 
 </urlset>

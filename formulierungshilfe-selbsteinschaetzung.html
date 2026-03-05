@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Formulierungshilfe: Selbsteinschätzungsbogen (Reha / GdB) | Kassen-Lotse</title>
+  <meta name="description" content="Kostenloser Generator für den Selbsteinschätzungsbogen (z.B. Formular G0115 der DRV). Übersetzen Sie Ihre psychischen Beschwerden in erfolgreiches Behörden-Deutsch.">
+  <meta name="keywords" content="Selbsteinschätzungsbogen Reha, Formular G0115, Formulierungshilfe Reha-Antrag, Begründung Reha Psyche, GdB Antrag formulieren, Rentenversicherung">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  
+  <style>
+    /* Styling für den generierten Text */
+    #text-output {
+      display: none;
+      background: #f9f9f9;
+      padding: 30px;
+      margin-top: 30px;
+      border: 1px solid #ccc;
+      border-left: 5px solid #4CAF50;
+      font-family: Georgia, serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    .copy-btn {
+      margin-top: 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .copy-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Generator: Formulierungshilfe Selbsteinschätzungsbogen",
+  "operatingSystem": "Web",
+  "applicationCategory": "LegalApplication",
+  "description": "Ein interaktives Tool, das emotionale und psychische Beschwerden in zielführende, behördenkonforme Formulierungen (Fokus: Erwerbsfähigkeit) für Reha- oder GdB-Anträge übersetzt.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+</head>
+<body>
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    
+    <h1>Formulierungshilfe: Selbsteinschätzungsbogen (Reha / GdB)</h1>
+
+    <a href="psychische-erkrankungen.html" class="category-badge">
+    Zur Übersicht: Psychische Erkrankungen 
+</a>
+
+
+    <div class="highlight-box" style="background-color: #e3f2fd; border-left: 5px solid #1976d2;" role="region">
+      <h2 style="margin-top: 0; font-size: 1.3em;">Der Trick beim Behörden-Deutsch</h2>
+      <p>
+        Wenn Sie einen Reha-Antrag bei der Deutschen Rentenversicherung (DRV) stellen, liegt oft ein <strong>Selbsteinschätzungsbogen (z.B. Formular G0115)</strong> bei. Er ist freiwillig, aber extrem wichtig!
+      </p>
+      <p>
+        <strong>Der häufigste Fehler:</strong> Patienten beschreiben ihr privates Leiden ("Ich bin oft traurig und weine viel"). Die DRV ist aber keine Wellness-Kasse, sondern will wissen, ob Ihre <em>Arbeitsfähigkeit</em> bedroht ist.
+      </p>
+      <p>
+        <strong>Die Lösung:</strong> Wir übersetzen Ihre Symptome in diesem Tool in die Sprache der Gutachter ("Ich leide unter starken Konzentrationsabbrüchen, die zu hohen Fehlerquoten am Arbeitsplatz führen"). Wählen Sie einfach Ihre Hauptprobleme aus.
+      </p>
+    </div>
+
+    <div class="highlight-box pruefdatum-box" role="note">
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">05.03.2026</span></p>
+    </div>
+
+    <form id="form-generator" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
+      
+      <!-- SCHRITT 1: Kognitiv & Beruf -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 1 – Kognition & Arbeitsalltag</legend>
+        <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Was ist Ihr größtes Problem bei der Ausführung von Aufgaben?</p>
+
+        <label class="pflegegrad-label">Wählen Sie Ihre stärkste kognitive Einschränkung:
+          <select id="kognition" class="pflegegrad-frage">
+            <option value="konzentration">Meine Konzentration bricht schnell ab, ich mache viele Fehler und vergesse Dinge.</option>
+            <option value="reizueberflutung">Ich bin extrem reizoffen. Lärm, Großraumbüros oder Multitasking überfordern mich völlig.</option>
+            <option value="entscheidungen">Ich leide unter totalen Blockaden und kann selbst kleinste Entscheidungen nicht mehr treffen.</option>
+            <option value="keine">Hier habe ich keine größeren Probleme.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 2: Antrieb & Körper -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 2 – Antrieb, Erschöpfung & Schlaf</legend>
+
+        <label class="pflegegrad-label">Wählen Sie Ihre stärkste körperliche/energetische Einschränkung:
+          <select id="antrieb" class="pflegegrad-frage">
+            <option value="erschöpfung">Ich bin chronisch erschöpft (Burnout/Depression). Nach wenigen Stunden Arbeit brauche ich lange Pausen.</option>
+            <option value="schlaf">Wegen schwerer Schlafstörungen oder Albträumen bin ich tagsüber kaum noch arbeitsfähig.</option>
+            <option value="panik">Körperliche Panikattacken, Herzrasen oder Schmerzen zwingen mich oft zum Abbruch von Aufgaben.</option>
+            <option value="keine">Hier habe ich keine größeren Probleme.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 3: Soziales -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 3 – Soziales & Kollegen/Kunden</legend>
+
+        <label class="pflegegrad-label">Wie wirken sich Ihre Beschwerden auf den Umgang mit anderen aus?
+          <select id="soziales" class="pflegegrad-frage">
+            <option value="rueckzug">Ich ziehe mich komplett zurück, meide Meetings, Kollegen und soziale Kontakte (Soziale Phobie/Depression).</option>
+            <option value="konflikt">Ich bin extrem reizbar. Es kommt schnell zu Konflikten oder Wutausbrüchen mit Kollegen/Kunden.</option>
+            <option value="angst">Ich habe so starke Ängste, dass ich das Haus / den Weg zur Arbeit (Bus/Bahn) kaum noch bewältige.</option>
+            <option value="keine">Hier habe ich keine größeren Probleme.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 4: Reha-Ziel -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 4 – Ihr Rehabilitations-Ziel</legend>
+        <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Was wollen Sie mit der Reha erreichen? (Gutachter achten extrem auf eine "positive Leistungsmotivation")</p>
+
+        <label class="pflegegrad-label">Wählen Sie Ihr Hauptziel für die Reha:
+          <select id="ziel" class="pflegegrad-frage">
+            <option value="erhalt">Wiederherstellung meiner Leistungsfähigkeit, um im aktuellen Beruf weiterarbeiten zu können (Vermeidung von Erwerbsminderungsrente).</option>
+            <option value="strategien">Erlernen von Bewältigungsstrategien (Stressmanagement / Emotionsregulation), um Rückfälle zu vermeiden.</option>
+            <option value="alltag">Wiedererlangen einer grundlegenden Tagesstruktur und Stabilisierung, um überhaupt wieder arbeitsfähig zu werden.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 4</div>
+
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Textbausteine generieren</button>
+      </div>
+    </form>
+
+    <!-- HIER ERSCHEINT DER GENERIERTE TEXT -->
+    <div id="text-output">
+      <h3 style="margin-top:0;">Ihre formulierten Textbausteine:</h3>
+      <p style="font-size:0.85em; color:#555;"><em>Kopieren Sie diesen Text und fügen Sie ihn in den Bereich "Ergänzende Angaben / Selbsteinschätzung" Ihres Antrags ein. Passen Sie ihn bei Bedarf leicht an Ihre Situation an.</em></p>
+      
+      <div id="final-text" style="font-size: 1.1em; margin-top: 20px;">
+        <!-- JS füllt diesen Bereich -->
+      </div>
+      
+      <button class="copy-btn" onclick="copyText()">📋 Text in die Zwischenablage kopieren</button>
+      <span id="copy-success" style="color: green; margin-left: 10px; display: none;">✓ Erfolgreich kopiert!</span>
+    </div>
+
+  <section class="promo-teaser" aria-labelledby="promo-headline" role="region" style="margin-top: 50px;">
+    <h2 id="promo-headline">
+      <span class="icon" aria-hidden="true">🤖</span>
+      Clerion – Reha abgelehnt? 
+    </h2>
+    <p class="lead">
+      Oft lehnt die Rentenversicherung Reha-Anträge im ersten Schritt mit Standard-Floskeln ab ("Ihre ambulanten Maßnahmen sind nicht ausgeschöpft"). Geben Sie nicht auf!
+      Clerion ist darauf spezialisiert, solche Ablehnungen zu analysieren. Laden Sie den Bescheid hoch und die KI formuliert Ihnen in wenigen Sekunden einen fundierten, individuellen Widerspruch.
+    </p>
+    <div class="promo-ctas">
+      <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt KI-Assistent testen</a>
+      <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+    </div>
+  </section>
+
+</div>
+
+  <footer>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
+      const prevBtn = document.getElementById('prev-step');
+      const nextBtn = document.getElementById('next-step');
+      const calcBtn = document.getElementById('berechnen-btn');
+      const progressDiv = document.getElementById('wizard-progress');
+      const textOutput = document.getElementById('text-output');
+      const finalText = document.getElementById('final-text');
+      
+      let currentStep = 0;
+
+      function updateWizard() {
+        fieldsets.forEach((fs, index) => {
+          fs.style.display = (index === currentStep) ? 'block' : 'none';
+        });
+
+        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
+
+        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
+        
+        if (currentStep === fieldsets.length - 1) {
+          nextBtn.style.display = 'none';
+          calcBtn.style.display = 'inline-block';
+        } else {
+          nextBtn.style.display = 'inline-block';
+          calcBtn.style.display = 'none';
+        }
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep < fieldsets.length - 1) {
+          currentStep++;
+          updateWizard();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateWizard();
+        }
+      });
+
+      calcBtn.addEventListener('click', () => {
+        const kognition = document.getElementById('kognition').value;
+        const antrieb = document.getElementById('antrieb').value;
+        const soziales = document.getElementById('soziales').value;
+        const ziel = document.getElementById('ziel').value;
+
+        let generatedText = "<strong>Darstellung der aktuellen gesundheitlichen Einschränkungen in Bezug auf die Erwerbsfähigkeit:</strong><br><br>";
+
+        // Kognition
+        if (kognition === 'konzentration') {
+            generatedText += "Im beruflichen und privaten Alltag bin ich maßgeblich durch starke Konzentrations- und Aufmerksamkeitsabbrüche eingeschränkt. Die Bewältigung komplexer oder längerer Aufgaben ist mir kaum noch möglich, was zu einer erhöhten Fehlerquote und einer drastisch reduzierten Leistungsfähigkeit führt. ";
+        } else if (kognition === 'reizueberflutung') {
+            generatedText += "Ich leide unter einer extremen Reizoffenheit. Multitasking, Lärm oder die Arbeit in unruhigen Umgebungen führen bei mir zu einer raschen kognitiven Überforderung und Blockaden, wodurch meine Arbeitsfähigkeit massiv herabgesetzt ist. ";
+        } else if (kognition === 'entscheidungen') {
+            generatedText += "Kognitiv bin ich durch starke Blockaden eingeschränkt. Selbst alltägliche Entscheidungsfindungen im Berufsleben überfordern mich derzeit, was ein eigenverantwortliches Arbeiten nahezu unmöglich macht. ";
+        }
+
+        // Antrieb
+        if (antrieb === 'erschöpfung') {
+            generatedText += "<br><br>Hinzu kommt ein Zustand chronischer, tiefgreifender Erschöpfung. Meine körperlichen und psychischen Energiereserven sind nach kurzer Zeit aufgebraucht, sodass ich unverhältnismäßig lange Regenerationszeiten benötige. Ein normaler 8-Stunden-Arbeitstag ist unter diesen Voraussetzungen nicht durchzustehen. ";
+        } else if (antrieb === 'schlaf') {
+            generatedText += "<br><br>Zudem entziehen mir gravierende Schlafstörungen die Grundlage für jegliche Tagesenergie. Durch die fehlende Erholung in der Nacht bin ich tagsüber chronisch erschöpft und nicht belastbar, was unweigerlich zu hohen Fehlzeiten führt. ";
+        } else if (antrieb === 'panik') {
+            generatedText += "<br><br>Begleitet wird dies durch wiederkehrende, teils starke körperliche Panik- und Erregungszustände. Diese unvorhersehbaren Attacken (Herzrasen, Atemnot) zwingen mich häufig zum abrupten Abbruch von Tätigkeiten und verhindern einen strukturierten Arbeitsablauf. ";
+        }
+
+        // Soziales
+        if (soziales === 'rueckzug') {
+            generatedText += "<br><br>Auf sozialer Ebene zwingt mich die Erkrankung in einen massiven Rückzug. Die Kommunikation und Interaktion mit Kollegen, Vorgesetzten oder Kunden lösen starke Überforderung aus. Teamarbeit ist aktuell ausgeschlossen. ";
+        } else if (soziales === 'konflikt') {
+            generatedText += "<br><br>Die fehlende innere Stabilität äußert sich bei mir zudem in einer starken Reizbarkeit und stark herabgesetzten Frustrationstoleranz. Dies führt im Arbeitsumfeld rasch zu Konflikten, die das berufliche Miteinander stark belasten. ";
+        } else if (soziales === 'angst') {
+            generatedText += "<br><br>Darüber hinaus hat sich ein massives Vermeidungsverhalten manifestiert. Das Aufsuchen des Arbeitsplatzes (Wegeunfähigkeit) oder das Betreten von Menschenmengen ist aufgrund starker Ängste derzeit ohne Hilfe kaum realisierbar. ";
+        }
+
+        // Ziel
+        generatedText += "<br><br><strong>Rehabilitationsziel:</strong><br>";
+        if (ziel === 'erhalt') {
+            generatedText += "Mein primäres Ziel für die beantragte medizinische Rehabilitation ist es, den drohenden dauerhaften Verlust meiner Erwerbsfähigkeit abzuwenden. Ich möchte durch die intensivtherapeutischen Maßnahmen meine Leistungsfähigkeit wiederherstellen, um dauerhaft an meinen Arbeitsplatz zurückkehren zu können.";
+        } else if (ziel === 'strategien') {
+            generatedText += "Mein primäres Ziel ist das Erlernen nachhaltiger Stressbewältigungs- und Emotionsregulationsstrategien im Rahmen eines stationären Settings. Dies ist zwingend erforderlich, um meine Arbeitsfähigkeit langfristig zu stabilisieren und einen chronischen Verlauf (Drohende Erwerbsminderung) zu verhindern.";
+        } else if (ziel === 'alltag') {
+            generatedText += "Mein vorrangiges Ziel ist die Rückgewinnung einer belastbaren Tagesstruktur und die grundlegende psychische Stabilisierung. Die stationäre Maßnahme ist der notwendige erste Schritt, um mich überhaupt erst wieder an die Anforderungen des allgemeinen Arbeitsmarktes heranzuführen.";
+        }
+
+        finalText.innerHTML = generatedText;
+        textOutput.style.display = 'block';
+        textOutput.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Init
+      updateWizard();
+    });
+
+    // Funktion zum Kopieren des Textes
+    window.copyText = function() {
+      const text = document.getElementById('final-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const successMsg = document.getElementById('copy-success');
+        successMsg.style.display = 'inline';
+        setTimeout(() => { successMsg.style.display = 'none'; }, 3000);
+      }).catch(err => {
+        alert("Fehler beim Kopieren. Bitte markieren Sie den Text manuell.");
+      });
+    }
+  </script>
+</body>
+</html>

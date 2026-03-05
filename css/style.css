@@ -618,24 +618,37 @@ a:hover {
 .category-badge {
     display: inline-flex;
     align-items: center;
-    background-color: #e3f2fd; /* Helles, freundliches Blau */
-    color: #1976d2; /* Dunkles Blau für gute Lesbarkeit */
-    padding: 6px 14px;
-    border-radius: 20px; /* Macht den Banner schön rund (Pill-Form) */
-    text-decoration: none;
-    font-size: 0.85em;
+    justify-content: center;
+
+    background: linear-gradient(135deg, #eef6ff, #e3f2fd);
+    color: #1565c0;
+
+    padding: 4px 10px;
+    border-radius: 999px;
+
+    font-size: 0.75em;
     font-weight: 600;
-    margin-top: -10px; /* Zieht den Badge etwas näher an die H1-Überschrift */
-    margin-bottom: 20px;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    letter-spacing: 0.3px;
+
+    text-decoration: none;
+
+    margin: 8px auto 18px auto;
+    display: flex;
+    width: fit-content;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border: 1px solid rgba(25,118,210,0.12);
+
+    transition: all 0.2s ease;
 }
 
 .category-badge:hover {
-    background-color: #bbdefb; /* Etwas dunkler beim Darüberfahren */
-    transform: translateY(-1px); /* Hebt sich minimal an */
+    background: linear-gradient(135deg, #e3f2fd, #d6ecff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 
 .category-badge .icon {
-    margin-right: 6px;
-    font-size: 1.1em;
+    margin-right: 5px;
+    font-size: 0.95em;
 }

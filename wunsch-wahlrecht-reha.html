@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reha Wunsch- und Wahlrecht Generator (§ 8 SGB IX) | Kassen-Lotse</title>
+  <meta name="description" content="Kostenloser Generator für den Reha-Antrag: Setzen Sie Ihre Wunschklinik bei der Krankenkasse oder Rentenversicherung mit juristisch fundierten Begründungen durch.">
+  <meta name="keywords" content="Wunsch und Wahlrecht Reha Muster, Reha Wunschklinik Antrag, § 8 SGB IX Generator, Krankenkasse, Rentenversicherung, Reha Psyche Wunschklinik, Widerspruch Rehaklinik">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/generator.css">
+  
+  <style>
+    /* SPEZIELLES LAYOUT FÜR DEN GENERIERTEN BRIEF */
+    #brief-output {
+      display: none; /* Erst nach dem Generieren sichtbar */
+      background: #fff;
+      padding: 40px;
+      margin-top: 30px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      font-family: Arial, sans-serif;
+      color: #000;
+      line-height: 1.5;
+    }
+    .letter-sender-small {
+      font-size: 0.75em;
+      color: #555;
+      text-decoration: underline;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .letter-recipient {
+      margin-top: 20px;
+      margin-bottom: 50px;
+    }
+    .letter-meta {
+      text-align: right;
+      margin-bottom: 40px;
+    }
+    .letter-subject {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 25px;
+    }
+    .letter-body {
+      margin-bottom: 40px;
+      text-align: justify;
+    }
+
+    /* DRUCK-CSS: Blendet alles außer dem Brief aus, wenn gedruckt oder als PDF gespeichert wird */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #brief-output, #brief-output * {
+        visibility: visible;
+      }
+      #brief-output {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+      }
+      /* Fensterbriefumschlag-Formatierung für den Druck */
+      .letter-recipient {
+        margin-top: 45mm; /* Abstand von oben für das Sichtfenster */
+        margin-left: 20mm;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Generator: Wunsch- und Wahlrecht Reha (§ 8 SGB IX)",
+  "operatingSystem": "Web",
+  "applicationCategory": "LegalApplication",
+  "description": "Erstellt ein juristisch formuliertes Begleitschreiben zur Durchsetzung der Wunschklinik beim Reha-Antrag (Rentenversicherung/Krankenkasse) inklusive medizinischer und persönlicher Begründungen.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+</head>
+<body>
+  
+  <header class="site-header">
+    <a href="index.html" class="site-logo" aria-label="Zur Startseite">Kassen-Lotse</a>
+  </header>
+
+  <div class="page-container">
+    
+    <h1>Wunsch- und Wahlrecht-Generator (§ 8 SGB IX)</h1>
+
+    <a href="psychische-erkrankungen.html" class="category-badge">
+    Zur Übersicht: Psychische Erkrankungen 
+</a>
+
+    <div class="highlight-box" role="region" aria-label="Einführung">
+      <p>
+        Sie haben das gesetzliche Recht, sich Ihre Reha-Klinik selbst auszusuchen! Nach <strong>§ 8 SGB IX</strong> müssen die Kostenträger (Rentenversicherung oder Krankenkasse) berechtigten Wünschen der Patienten entsprechen, sofern die Klinik medizinisch geeignet und zertifiziert ist.
+      </p>
+      <p>
+        <strong>Das Problem:</strong> Oft weisen Kostenträger Patienten einfach der billigsten oder nächstgelegenen Vertragsklinik zu. Gerade bei psychischen Erkrankungen (wie Trauma, Essstörungen, Sucht) ist das fatale Routine. Mit diesem Generator erstellen Sie ein Begleitschreiben, das argumentiert.
+      </p>
+    </div>
+    <p class="highlight-box" style="background-color:#fff8e1; border-left:4px solid #ff9800; padding:10px; margin-top:10px;">
+      <strong>Wichtiger Hinweis:</strong> Diese Seite ersetzt keine Rechtsberatung. Alle Inhalte dienen der allgemeinen Orientierung.
+      Bei Unsicherheiten wenden Sie sich bitte an eine Beratungsstelle oder anwaltliche Hilfe.
+    </p>
+
+    <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">05.03.2026</span></p>
+    </div>
+
+    <form id="reha-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
+      
+      <!-- SCHRITT 1: Absender -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 1 – Ihre Daten (Absender)</legend>
+        <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Diese Daten werden nur in Ihrem Browser verarbeitet und nirgendwo gespeichert.</p>
+
+        <label class="pflegegrad-label">Vor- und Nachname
+          <input type="text" id="abs-name" class="pflegegrad-frage" placeholder="Max Mustermann" required>
+        </label>
+        <label class="pflegegrad-label">Straße und Hausnummer
+          <input type="text" id="abs-str" class="pflegegrad-frage" placeholder="Musterstr. 1" required>
+        </label>
+        <label class="pflegegrad-label">PLZ und Ort
+          <input type="text" id="abs-ort" class="pflegegrad-frage" placeholder="12345 Musterstadt" required>
+        </label>
+        <label class="pflegegrad-label">Ihre Versicherungsnummer (Rentenversicherung) oder Krankenversicherungsnummer
+          <input type="text" id="abs-vs" class="pflegegrad-frage" placeholder="Versicherungsnummer / Aktenzeichen" required>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 2: Empfänger -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 2 – Der Kostenträger (Empfänger)</legend>
+
+        <label class="pflegegrad-label">An wen geht der Antrag?
+          <input type="text" id="empf-name" class="pflegegrad-frage" placeholder="z.B. Deutsche Rentenversicherung Bund / AOK Plus" required>
+        </label>
+        <label class="pflegegrad-label">Straße oder Postfach des Kostenträgers
+          <input type="text" id="empf-str" class="pflegegrad-frage" placeholder="z.B. Ruhrstraße 2" required>
+        </label>
+        <label class="pflegegrad-label">PLZ und Ort des Kostenträgers
+          <input type="text" id="empf-ort" class="pflegegrad-frage" placeholder="10709 Berlin" required>
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 3: Die Wunschklinik -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 3 – Ihre Wunschklinik</legend>
+
+        <label class="pflegegrad-label">Name der gewünschten Reha-Klinik
+          <input type="text" id="klinik-name" class="pflegegrad-frage" placeholder="z.B. Fachklinik Sonnenschein" required>
+        </label>
+        <label class="pflegegrad-label">Ort der Klinik (optional)
+          <input type="text" id="klinik-ort" class="pflegegrad-frage" placeholder="z.B. 80000 München">
+        </label>
+      </fieldset>
+
+      <!-- SCHRITT 4: Die Begründung (JURISTISCHER KERN) -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Schritt 4 – Juristische & Medizinische Begründung</legend>
+        <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Warum muss es genau diese Klinik sein? (Wählen Sie die zutreffendsten Gründe)</p>
+
+        <label class="pflegegrad-label"><strong>Medizinischer Grund (Wichtigstes Argument!)</strong>
+          <select id="grund-med" class="pflegegrad-frage">
+            <option value="allgemein">Diese Klinik verfügt über eine exzellente fachliche Expertise für mein Krankheitsbild, die ich für meine Genesung zwingend benötige.</option>
+            <option value="spezial">Die Klinik bietet ein hochspezialisiertes Therapiekonzept (z.B. DBT bei Borderline, EMDR bei Trauma, spezifisches Suchtkonzept), welches Standardkliniken nicht in dieser Tiefe anbieten.</option>
+            <option value="komorbid">Ich leide an komplexen Begleiterkrankungen (Komorbiditäten). Diese Klinik ist als eine der wenigen Einrichtungen medizinisch darauf ausgerichtet, beide Krankheitsbilder parallel zu behandeln.</option>
+            <option value="alter">Die Klinik bietet ein altersspezifisches Behandlungskonzept (z.B. Konzept für junge Erwachsene / Altersmedizin), welches für meinen Therapieerfolg entscheidend ist.</option>
+          </select>
+        </label>
+
+        <label class="pflegegrad-label"><strong>Persönlicher Grund (Ergänzend)</strong>
+          <select id="grund-pers" class="pflegegrad-frage">
+            <option value="entfernung-nah">Die Wohnortnähe ist für mich extrem wichtig, da ich in der Krise auf regelmäßige Besuche und den Rückhalt meiner Familie angewiesen bin.</option>
+            <option value="entfernung-weit">Der große Abstand zu meinem Wohnort ist für den Therapieerfolg zwingend notwendig, um mich aus meinem stark belastenden sozialen oder häuslichen Umfeld zu lösen.</option>
+            <option value="klima">Das besondere Reizklima an diesem Klinikstandort (See/Berge) ist für meine zusätzlichen körperlichen Beschwerden (z.B. Asthma, Neurodermitis) medizinisch erforderlich.</option>
+            <option value="wartezeit">Die Klinik hat mir bereits vorab eine relativ zeitnahe Aufnahme signalisiert, was aufgrund meiner akuten gesundheitlichen Krise unabdingbar ist, um eine weitere Chronifizierung zu verhindern.</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 4</div>
+
+      <div class="button-container wizard-buttons">
+        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
+        <button type="button" id="next-step" class="button">Weiter</button>
+        <button type="button" id="berechnen-btn" class="button" style="display:none;">Brief generieren</button>
+      </div>
+    </form>
+
+    <!-- HIER ERSCHEINT DER GENERIERTE BRIEF -->
+    <div id="brief-output">
+      <div class="letter-recipient">
+        <span class="letter-sender-small"><span id="out-abs-name-small"></span> • <span id="out-abs-str-small"></span> • <span id="out-abs-ort-small"></span></span><br>
+        <strong><span id="out-empf-name"></span></strong><br>
+        <span id="out-empf-str"></span><br>
+        <span id="out-empf-ort"></span>
+      </div>
+
+      <div class="letter-meta">
+        <span id="out-datum"></span><br>
+        <strong>Versicherungsnummer / Aktenzeichen:</strong> <span id="out-vs"></span>
+      </div>
+
+      <div class="letter-subject">
+        Ausübung meines Wunsch- und Wahlrechts nach § 8 SGB IX bei der Beantragung einer medizinischen Rehabilitation
+      </div>
+
+      <div class="letter-body">
+        <p>Sehr geehrte Damen und Herren,</p>
+        
+        <p>im Rahmen meines Antrags auf eine medizinische Leistung zur Rehabilitation mache ich hiermit von meinem gesetzlich verankerten Wunsch- und Wahlrecht gemäß § 8 SGB IX Gebrauch.</p>
+        
+        <p>Ich beantrage, die Maßnahme in der von mir präferierten Einrichtung durchzuführen:</p>
+        <p><strong><span id="out-klinik-name"></span> <span id="out-klinik-ort"></span></strong></p>
+        
+        <p>Die Wahl genau dieser Einrichtung ist für meinen persönlichen Therapieerfolg aus folgenden Gründen zwingend erforderlich:</p>
+        
+        <p><strong>Medizinische Notwendigkeit:</strong><br>
+        <span id="out-grund-med"></span></p>
+
+        <p><strong>Persönliche Lebenssituation:</strong><br>
+        <span id="out-grund-pers"></span></p>
+
+        <p>Gemäß § 8 SGB IX ist berechtigten Wünschen der Leistungsberechtigten zu entsprechen, sofern die Einrichtung zertifiziert ist und keine unverhältnismäßigen Mehrkosten entstehen. Ich weise darauf hin, dass rein pauschale Verweise auf interne Belegungsverträge oder günstigere Vertragskliniken nach aktueller Rechtsprechung (u.a. BSG-Urteile) keinen ausreichenden Ablehnungsgrund für einen berechtigten und gut begründeten medizinischen Wunsch darstellen.</p>
+
+        <p>Ich bitte Sie daher, meinem Antrag stattzugeben und mir eine Zusage für die oben genannte Einrichtung zu erteilen. Sollten Sie meinem Wunsch nicht entsprechen können, bitte ich um einen rechtsmittelfähigen Bescheid mit detaillierter Begründung.</p>
+        
+        <p>Mit freundlichen Grüßen</p>
+        <br><br>
+        <p>_____________________________________<br>
+        <span id="out-abs-name-sign"></span></p>
+      </div>
+    </div>
+
+    <!-- Buttons zum Drucken / PDF speichern (erst nach Generierung sichtbar) -->
+    <div id="print-actions" class="button-container" style="display: none; margin-top: 20px;">
+        <button class="button button-primary" onclick="window.print()">🖨️ Als PDF speichern / Drucken</button>
+        <p style="font-size: 0.85em; color: #555; margin-top: 10px;">Hinweis: Beim Drucken / Speichern wird automatisch nur der saubere Brief übernommen. Navigation und Werbung werden ausgeblendet.</p>
+    </div>
+
+  <section class="promo-teaser" aria-labelledby="promo-headline" role="region" style="margin-top: 50px;">
+    <h2 id="promo-headline">
+      <span class="icon" aria-hidden="true">🤖</span>
+      Clerion – Keine Lust auf Formulare und Abtippen?
+    </h2>
+    <p class="lead">
+      Wenn Sie den Brief oben nicht selbst ausdrucken und zur Post bringen wollen oder die Kasse Ihren Wunsch bereits abgelehnt hat, hilft Ihnen Clerion. 
+      Laden Sie einfach den Ablehnungsbescheid als Foto hoch: Die KI analysiert den Text, erkennt Ihre Versicherungsnummer und schreibt automatisch den perfekten, fertigen Widerspruch. Entlastung pur!
+    </p>
+    <div class="promo-ctas">
+      <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt KI-Assistent testen</a>
+      <a href="https://clerion.de/preise" class="btn btn-secondary" rel="noopener" target="_blank">Funktionen & Preise</a>
+    </div>
+  </section>
+
+</div>
+
+  <footer>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
+      const prevBtn = document.getElementById('prev-step');
+      const nextBtn = document.getElementById('next-step');
+      const calcBtn = document.getElementById('berechnen-btn');
+      const progressDiv = document.getElementById('wizard-progress');
+      const briefOutput = document.getElementById('brief-output');
+      const printActions = document.getElementById('print-actions');
+      
+      let currentStep = 0;
+
+      // Tagesdatum generieren
+      const today = new Date();
+      const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+      document.getElementById('out-datum').textContent = "Datum: " + today.toLocaleDateString('de-DE', options);
+
+      function updateWizard() {
+        fieldsets.forEach((fs, index) => {
+          fs.style.display = (index === currentStep) ? 'block' : 'none';
+        });
+
+        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
+
+        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
+        
+        if (currentStep === fieldsets.length - 1) {
+          nextBtn.style.display = 'none';
+          calcBtn.style.display = 'inline-block';
+        } else {
+          nextBtn.style.display = 'inline-block';
+          calcBtn.style.display = 'none';
+        }
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep < fieldsets.length - 1) {
+          currentStep++;
+          updateWizard();
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+          currentStep--;
+          updateWizard();
+        }
+      });
+
+      calcBtn.addEventListener('click', () => {
+        // Daten auslesen und in den Brief einfügen
+        const absName = document.getElementById('abs-name').value || "[Ihr Name]";
+        const absStr = document.getElementById('abs-str').value || "[Ihre Straße]";
+        const absOrt = document.getElementById('abs-ort').value || "[Ihre PLZ und Ort]";
+        
+        document.getElementById('out-abs-name-small').textContent = absName;
+        document.getElementById('out-abs-str-small').textContent = absStr;
+        document.getElementById('out-abs-ort-small').textContent = absOrt;
+        document.getElementById('out-abs-name-sign').textContent = absName;
+        document.getElementById('out-vs').textContent = document.getElementById('abs-vs').value || "[Ihre Versicherungsnummer]";
+
+        document.getElementById('out-empf-name').textContent = document.getElementById('empf-name').value || "[Name des Kostenträgers]";
+        document.getElementById('out-empf-str').textContent = document.getElementById('empf-str').value || "[Straße des Kostenträgers]";
+        document.getElementById('out-empf-ort').textContent = document.getElementById('empf-ort').value || "[PLZ und Ort des Kostenträgers]";
+
+        document.getElementById('out-klinik-name').textContent = document.getElementById('klinik-name').value || "[Name der Wunschklinik]";
+        let klinikOrt = document.getElementById('klinik-ort').value;
+        document.getElementById('out-klinik-ort').textContent = klinikOrt ? "in " + klinikOrt : "";
+
+        // Begründungen auslesen
+        const medGrundSel = document.getElementById('grund-med');
+        document.getElementById('out-grund-med').textContent = medGrundSel.options[medGrundSel.selectedIndex].text;
+
+        const persGrundSel = document.getElementById('grund-pers');
+        document.getElementById('out-grund-pers').textContent = persGrundSel.options[persGrundSel.selectedIndex].text;
+
+        // Brief anzeigen
+        briefOutput.style.display = 'block';
+        printActions.style.display = 'block';
+        
+        // Sanft zum Brief scrollen
+        briefOutput.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Init
+      updateWizard();
+    });
+  </script>
+</body>
+</html>
