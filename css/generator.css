@@ -508,6 +508,9 @@ footer a:hover {
 .button.jump-button:hover {
   background-color: #3390ff;
 }
+.button.jump-button {
+  align-self: center;
+}
 
 @media (max-width: 600px) {
   .button.jump-button {
