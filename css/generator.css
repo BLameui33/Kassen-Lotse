@@ -511,6 +511,10 @@ footer a:hover {
 .button.jump-button {
   align-self: center;
 }
+.button.jump-button {
+  margin: 20px auto;
+  display: block;
+}
 
 @media (max-width: 600px) {
   .button.jump-button {
@@ -617,6 +621,11 @@ details p {
 .kl-sources-box a:hover {
   text-decoration: underline;
   color: #1d5c99;
+}
+.info-box.warning {
+  border-left: 4px solid #4da3ff !important;
+  background: #f4f9ff;
+  border-radius: 8px;
 }
 
 @media (max-width: 600px) {
