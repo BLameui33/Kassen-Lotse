@@ -486,39 +486,45 @@ footer a:hover {
   width: fit-content;
   max-width: 90%;
 
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-
+  margin: 20px 0;
   padding: 12px 20px;
 
   background-color: #4da3ff;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 600;
   font-size: 16px;
   text-align: center;
 
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
   transition: all 0.2s ease-in-out;
+
+  /* 🔥 sorgt IMMER für Zentrierung */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .button.jump-button:hover {
   background-color: #3390ff;
-}
-.button.jump-button {
-  align-self: center;
-}
-.button.jump-button {
-  margin: 20px auto;
-  display: block;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%) translateY(-1px);
 }
 
+.button.jump-button:active {
+  transform: translateX(-50%) translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Mobile */
 @media (max-width: 600px) {
   .button.jump-button {
     width: 100%;
+    max-width: 100%;
+    left: 0;
+    transform: none;
   }
 }
 
