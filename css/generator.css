@@ -481,4 +481,45 @@ footer a:hover {
 }
 
 
+.button.jump-button {
+  display: block;
+  width: fit-content;
+  max-width: 90%;
+  margin: 20px auto;
+  padding: 12px 20px;
+
+  background-color: #4da3ff; /* helles Blau */
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  transition: all 0.2s ease-in-out;
+}
+
+.button.jump-button:hover {
+  background-color: #3390ff;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.button.jump-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Mobile Optimierung */
+@media (max-width: 600px) {
+  .button.jump-button {
+    width: 100%;
+    font-size: 15px;
+    padding: 14px;
+  }
+}
+
+
 

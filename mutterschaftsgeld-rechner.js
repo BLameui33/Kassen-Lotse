@@ -83,32 +83,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const schutzStart = new Date(etDate);
         schutzStart.setDate(etDate.getDate() - 42);
 
-        // Bestimmung der 3 Kalendermonate VOR Beginn der Schutzfrist
-        // Beispiel: Schutzfrist beginnt 15. April -> Relevante Monate: Jan, Feb, März.
-        // Wir nehmen das Datum von SchutzStart und gehen auf den letzten Tag des Vormonats.
+               // Bestimmung der 3 Kalendermonate VOR Beginn der Schutzfrist (nur für die Anzeige)
         const endOfRefPeriod = new Date(schutzStart.getFullYear(), schutzStart.getMonth(), 0); 
-        
-        // Monat 3 (letzter Monat vor Schutzfrist)
         const m3Date = new Date(endOfRefPeriod);
-        const daysM3 = getDaysInMonth(m3Date.getFullYear(), m3Date.getMonth());
-        
-        // Monat 2
         const m2Date = new Date(m3Date.getFullYear(), m3Date.getMonth() - 1, 1);
-        const daysM2 = getDaysInMonth(m2Date.getFullYear(), m2Date.getMonth());
-
-        // Monat 1
         const m1Date = new Date(m3Date.getFullYear(), m3Date.getMonth() - 2, 1);
-        const daysM1 = getDaysInMonth(m1Date.getFullYear(), m1Date.getMonth());
 
-        const totalRefDays = daysM1 + daysM2 + daysM3;
         const totalNetto = net1 + net2 + net3;
 
         // Namen der Monate für die Anzeige
         const monthNames = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
-        const refText = `${monthNames[m1Date.getMonth()]} (${daysM1}T), ${monthNames[m2Date.getMonth()]} (${daysM2}T), ${monthNames[m3Date.getMonth()]} (${daysM3}T)`;
+        const refText = `${monthNames[m1Date.getMonth()]}, ${monthNames[m2Date.getMonth()]}, ${monthNames[m3Date.getMonth()]}`;
 
         // 3. Berechnung Tagessatz
-        // Gesetz: Summe Netto / Summe Kalendertage (nicht pauschal 90!)
+        // Gesetz / Richtlinie: Bei Monatsgehältern wird mit pauschal 30 Tagen pro Monat gerechnet = 90 Tage.
+        const totalRefDays = 90;
         const dailyNetto = totalNetto / totalRefDays;
 
         // 4. Mutterschutz-Dauer gesamt
@@ -152,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
             note = "Privat Versicherte erhalten einmalig bis zu 210 € vom Bundesamt für Soziale Sicherung. Der Arbeitgeber zahlt die Differenz zu deinem bisherigen Netto als Zuschuss.";
         }
 
-        // 6. Rendering HTML
+                // 6. Rendering HTML
         const resultHtml = `
             <h2>Dein Ergebnis</h2>
             <div id="mg_result_card" class="pflegegrad-result-card">
@@ -160,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <table class="pflegegrad-tabelle">
                     <tr>
                         <td><strong>Relevanter Zeitraum</strong><br><span style="font-size:0.85em; color:#666;">(3 Monate vor Schutzfrist)</span></td>
-                        <td>${refText}<br><strong>= ${totalRefDays} Kalendertage</strong></td>
+                        <td>${refText}<br><strong>= Pauschal 90 Kalendertage*</strong></td>
                     </tr>
                     <tr>
                         <td>Summe Netto-Einkommen</td>
@@ -183,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </thead>
                     <tbody>
                         ${inputs.vers.value === "gesetzlich" 
-                            ? `<tr><td>Krankenkasse (max. 13€/Tag)</td><td>${euro(kkShareTotal)}</td></tr>`
+                            ? `<tr><td>Krankenkasse (max. 13 €/Tag)</td><td>${euro(kkShareTotal)}</td></tr>`
                             : `<tr><td>Bundesamt (Einmalzahlung)</td><td>${euro(basShare)}</td></tr>`
                         }
                         <tr>
@@ -205,7 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     <button id="mg_pdf_btn" class="button">📄 Ergebnis als PDF speichern</button>
                     <button id="mg_json_btn" class="button button-secondary">💾 Daten speichern (JSON)</button>
                 </div>
-                 <p class="hinweis" style="margin-top:10px;">Alle Angaben ohne Gewähr. Maßgeblich ist der offizielle Bescheid.</p>
+                 <p class="hinweis" style="margin-top:10px;">
+                    *Gemäß den offiziellen Richtlinien werden bei Monatsgehältern zur Ermittlung des Tagessatzes pauschal 30 Tage pro Monat (also 90 Tage) angesetzt. Alle Angaben ohne Gewähr.
+                 </p>
             </div>
         `;
 

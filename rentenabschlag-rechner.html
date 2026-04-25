@@ -48,10 +48,11 @@
     auf Basis deiner <strong>Rente zum Regelalter</strong> laut Renteninformation
     und ermöglicht einen optionalen Vergleich bei noch späterem Rentenstart.
   </p>
-  <p>
-    Die Berechnung erfolgt mit <strong>vereinfachten Annahmen</strong>
-    (z.&nbsp;B. 0,3&nbsp;% Abschlag bzw. 0,5&nbsp;% Zuschlag je Monat)
-    und dient ausschließlich der <strong>Orientierung</strong>.
+    <p>
+    Die Berechnung erfolgt gemäß <strong>§ 77 SGB VI</strong> mit dem gesetzlichen 
+    <strong>Abschlag von 0,3 % je Monat</strong> (maximal 14,4 % bei der Rente ab 63) 
+    oder einem <strong>Zuschlag von 0,5 % je Monat</strong> bei späterem Rentenstart.
+    Die Ergebnisse dienen ausschließlich der <strong>Orientierung</strong>.
   </p>
 </div>
 
@@ -141,6 +142,10 @@
           Maximaler Abschlag in %
           <input type="number" id="ra_abschlag_max" min="0" max="20" step="0.1" value="14.4" />
         </label>
+        <p class="hinweis" style="margin-top: 5px;">
+          <em>Hinweis:</em> Für die klassische Altersrente liegt der maximale Abschlag bei 14,4 %. 
+          Bei der <strong>Altersrente für schwerbehinderte Menschen</strong> beträgt er maximal 10,8 %.
+        </p>
       </fieldset>
 
       <div class="button-container">
@@ -151,10 +156,13 @@
 
     <section id="ra_ergebnis" aria-live="polite"></section>
 
-    <div class="warning-box">
+        <div class="warning-box">
       <p>
-        <strong>Hinweis:</strong> Vereinfachte Modellrechnung (keine Steuer, keine KV/PV, keine Entgeltpunkt-Effekte bei Verschiebung).
-        Maßgeblich sind deine <strong>DRV-Auskunft</strong> und der spätere Bescheid. Stand: 03.02.2026.
+        <strong>Wichtig:</strong> Dies ist eine vereinfachte Modellrechnung auf Basis der Bruttorente. 
+        <strong>Kranken- und Pflegeversicherungsbeiträge (KV/PV)</strong> sowie die 
+        <strong>nachgelagerte Besteuerung</strong> sind hier nicht abgezogen. 
+        Zudem werden Entgeltpunkt-Effekte durch fehlende Beitragsjahre beim Vorziehen nicht berechnet. 
+        Maßgeblich ist deine <strong>DRV-Auskunft</strong>. Stand: 14.04.2026.
       </p>
     </div>
   
@@ -224,7 +232,7 @@
     "@context":"https://schema.org",
     "@type":"FAQPage",
     "mainEntity":[
-      {"@type":"Question","name":"Wie wird der Rentenabschlag berechnet?","acceptedAnswer":{"@type":"Answer","text":"Je vorgezogenem Monat 0,3 % Abschlag (max. 14,4 %). Bei späterem Beginn je Monat 0,5 % Zuschlag – hier vereinfachte Darstellung."}},
+      {"@type":"Question","name":"Wie wird der Rentenabschlag berechnet?","acceptedAnswer":{"@type":"Answer","text": "Gemäß § 77 SGB VI wird die Rente für jeden Monat, den sie vorzeitig in Anspruch genommen wird, um 0,3 % gemindert (maximal 14,4 %). Bei einem späteren Rentenbeginn über das Regelalter hinaus gibt es einen Zuschlag von 0,5 % je Monat."}},
       {"@type":"Question","name":"Welche Rente soll ich eintragen?","acceptedAnswer":{"@type":"Answer","text":"Die voraussichtliche Monatsrente zum Regelalter laut Renteninformation/Rentenauskunft (Brutto)."}}
     ]
   }

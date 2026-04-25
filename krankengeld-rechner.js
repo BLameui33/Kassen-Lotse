@@ -1,7 +1,8 @@
 // krankengeld-rechner.js
 
-// Gesetzliche Eckwerte 2025 (vereinfacht)
-const KRANKENGELD_TAGES_HOECHSTBETRAG_2025 = 128.63; // €/Tag (ca. 3.858,90 €/Monat)
+// Gesetzliche Eckwerte 2026 (Beitragsbemessungsgrenze 5.812,50 €/Monat)
+// Regelentgelt max = 193,75 €/Tag -> 70% davon = 135,63 €
+const KRANKENGELD_TAGES_HOECHSTBETRAG_2026 = 135.63; // €/Tag (ca. 4.068,90 €/Monat)
 
 function parseNumber(el) {
   if (!el) return 0;
@@ -20,7 +21,7 @@ function formatEuro(value) {
  * Krankengeld-Basisberechnung (brutto):
  * - 70 % des Bruttoentgelts
  * - maximal 90 % des Nettoentgelts
- * - begrenzt durch den täglichen Höchstbetrag
+ * - begrenzt durch den täglichen Höchstbetrag 2026
  * Wir rechnen mit 30 Tagen/Monat (vereinfachte Sozialversicherungslogik).
  */
 function berechneKrankengeldBrutto(bruttoMonat, nettoMonat) {
@@ -37,9 +38,9 @@ function berechneKrankengeldBrutto(bruttoMonat, nettoMonat) {
   // Täglicher Wert (30-Tage-Monat)
   let krankengeldTag = krankengeldMonat / 30;
 
-  // Deckelung: täglicher Höchstbetrag
-  if (krankengeldTag > KRANKENGELD_TAGES_HOECHSTBETRAG_2025) {
-    krankengeldTag = KRANKENGELD_TAGES_HOECHSTBETRAG_2025;
+  // Deckelung: täglicher Höchstbetrag 2026
+  if (krankengeldTag > KRANKENGELD_TAGES_HOECHSTBETRAG_2026) {
+    krankengeldTag = KRANKENGELD_TAGES_HOECHSTBETRAG_2026;
     krankengeldMonat = krankengeldTag * 30;
   }
 
@@ -68,7 +69,7 @@ function baueHinweisVersicherungsstatus(status) {
     return `
       <p class="hinweis">
         Du bist laut Auswahl <strong>gesetzlich versichert (Arbeitnehmer mit Krankengeldanspruch)</strong>.
-        Der Rechner orientiert sich an den allgemeinen gesetzlichen Regeln.
+        Der Rechner orientiert sich an den allgemeinen gesetzlichen Regeln für 2026.
       </p>
     `;
   }
@@ -110,6 +111,9 @@ function zeigeKgErgebnis(container, daten) {
 
   const statusHinweis = baueHinweisVersicherungsstatus(status);
 
+  // Prüfen ob die Deckelung gegriffen hat (YMYL-Transparenz)
+  const isCapped = krankengeldTagBrutto >= KRANKENGELD_TAGES_HOECHSTBETRAG_2026;
+
   let tageText = "";
   if (tage > 0) {
     tageText = `
@@ -147,7 +151,7 @@ function zeigeKgErgebnis(container, daten) {
         <tbody>
           <tr>
             <td>Krankengeld pro Tag (brutto)</td>
-            <td>${formatEuro(krankengeldTagBrutto)}</td>
+            <td>${formatEuro(krankengeldTagBrutto)} ${isCapped ? '<span style="font-size:0.8em; color:#666;">(Höchstsatz 2026)</span>' : ''}</td>
           </tr>
           <tr>
             <td>Krankengeld pro Monat (brutto, 30 Tage)</td>
@@ -167,9 +171,9 @@ function zeigeKgErgebnis(container, daten) {
         <tbody>
           <tr>
             <td>Monatliche Abzüge (Rente, Arbeitslosen-, Pflegeversicherung)</td>
-            <td>${formatEuro(abzugMonat)}</td>
+            <td>- ${formatEuro(abzugMonat)}</td>
           </tr>
-          <tr>
+          <tr style="background-color:#f0f8ff;">
             <td><strong>Krankengeld pro Monat (netto, geschätzt)</strong></td>
             <td><strong>${formatEuro(krankengeldMonatNetto)}</strong></td>
           </tr>
@@ -204,13 +208,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!berechnenBtn || !ergebnisContainer) return;
 
-  // Kinderstatus -> Vorschlagswert für Abzüge setzen
+  // Kinderstatus -> Neue Vorschlagswerte 2026 für Abzüge setzen
   if (kinderstatusSelect && abzugInput) {
     kinderstatusSelect.addEventListener("change", () => {
       if (kinderstatusSelect.value === "mitkind") {
-        abzugInput.value = "12.3"; // 9,3 % RV + 1,3 % AV + 1,7 % PV
+        abzugInput.value = "12.4"; // Standardabzug 2026 für Eltern
       } else {
-        abzugInput.value = "12.8"; // grob +0,5 %-Punkte für Kinderlosenzuschlag
+        abzugInput.value = "13.0"; // Standardabzug 2026 für Kinderlose (+0,6% PV-Zuschlag)
       }
       ergebnisContainer.innerHTML = "";
     });
@@ -259,10 +263,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       setTimeout(() => {
-        // Standardwerte wiederherstellen
+        // Standardwerte 2026 wiederherstellen
         if (kinderstatusSelect && abzugInput) {
           kinderstatusSelect.value = "mitkind";
-          abzugInput.value = "12.3";
+          abzugInput.value = "12.4";
         }
         ergebnisContainer.innerHTML = "";
       }, 0);

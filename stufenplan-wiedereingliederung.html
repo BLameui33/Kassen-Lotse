@@ -2,8 +2,8 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Stufenplan-Rechner: Wiedereingliederung (Hamburger Modell)</title>
-  <meta name="description" content="Kostenloser Rechner für die stufenweise Wiedereingliederung (Hamburger Modell). Berechnen Sie Ihre Stufen (Wochen/Stunden) und drucken Sie einen fertigen Entwurf für Ihren Arzt aus.">
+  <title>Stufenplan-Rechner 2026: Wiedereingliederung (Hamburger Modell)</title>
+<meta name="description" content="Stufenplan-Rechner (2026): Hamburger Modell kostenlos berechnen. Plane deine Wiedereingliederung (Stufen & Wochen) und drucke den Entwurf für deinen Arzt.">
   <meta name="keywords" content="Stufenplan Wiedereingliederung, Hamburger Modell Rechner, BEM Stufenplan erstellen, Krankengeld Wiedereingliederung, Burnout Rückkehr Job, § 74 SGB V">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/logo-lotse-fav.png">
@@ -49,19 +49,23 @@
       background-color: #f0f0f0;
       font-weight: bold;
     }
-    .signatures {
+        .signatures {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      margin-top: 50px;
+      margin-top: 40px;
+      page-break-inside: avoid; /* Verhindert das Auseinanderreißen beim Drucken */
+      break-inside: avoid;      /* Verhindert das Auseinanderreißen beim Drucken */
     }
     .sig-box {
       width: 45%;
-      margin-bottom: 40px;
+      margin-top: 60px; /* Der eigentliche Platz für die Unterschrift */
       border-top: 1px solid #000;
       padding-top: 5px;
       text-align: center;
       font-size: 0.9em;
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
 
     /* DRUCK-CSS: Blendet alles außer dem Plan aus, wenn gedruckt oder als PDF gespeichert wird */
@@ -100,6 +104,24 @@
   }
 }
 </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"Bekomme ich während der Wiedereingliederung mein normales Gehalt?",
+        "acceptedAnswer":{"@type":"Answer","text":"Nein. Während der stufenweisen Wiedereingliederung (Hamburger Modell) gelten Sie rechtlich weiterhin als 100 % arbeitsunfähig krankgeschrieben. Sie erhalten in dieser Zeit Krankengeld von der Krankenkasse oder Übergangsgeld von der Rentenversicherung."}
+      },
+      {
+        "@type":"Question",
+        "name":"Kann ich die Wiedereingliederung abbrechen oder verlängern?",
+        "acceptedAnswer":{"@type":"Answer","text":"Ja. Wenn Sie merken, dass die Belastung zu hoch ist, kann der Stufenplan in Absprache mit Ihrem Arzt jederzeit verlangsamt, verlängert oder komplett abgebrochen werden. Das Krankengeld wird dann regulär weitergezahlt."}
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   

@@ -1,6 +1,6 @@
 // kinderkrankengeld-rechner.js
 // Berechnet das Netto-Kinderkrankengeld nach § 45 SGB V
-// Stand: 2025 (BBG Werte geschätzt auf ~5175€/Monat bzw. 172,50€/Tag Brutto-Grenze, 70% Regel)
+// Stand: 2026 (BBG 5.812,50 €/Monat -> kalendertäglich 193,75 €. 70% davon = 135,63 € max. Brutto-Grenze)
 
 /* --- Hilfsfunktionen (identisch zum anderen Rechner) --- */
 function n(el) { 
@@ -50,10 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Brutto-Kinderkrankengeld pro Tag (vor SV-Abzug)
         let grossBenefitDaily = dailyNetto * factor;
 
-        // 3. Deckelung prüfen (Beitragsbemessungsgrenze 2025)
-        // Max. 70% der BBG (BBG ca. 5100€ -> 170€/Tag -> 70% = 119€)
-        // Wir setzen sicherheitshalber 120,75 € (Wert 2024, 2025 leicht höher)
-        const MAX_DAILY = 120.75; 
+        // 3. Deckelung prüfen (Beitragsbemessungsgrenze 2026)
+        // Max. 70% der BBG (BBG 5.812,50 €/Monat -> 193,75 €/Tag -> 70% = 135,63 €)
+        const MAX_DAILY = 135.63; 
         let isCapped = false;
 
         if (grossBenefitDaily > MAX_DAILY) {
@@ -63,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 4. Sozialversicherungsabzüge
         // Vom Krankengeld gehen Beiträge zur RV, ALV und PV ab. 
-        // Arbeitnehmeranteil ist ca. 12,5% (variiert leicht je nach PV-Zuschlag)
+        // Arbeitnehmeranteil ist ca. 12,0% - 12,5% (variiert leicht je nach PV-Zuschlag, wir bleiben bei den pauschalen 12,5%)
         const svDeductionPercent = 0.125; // 12.5%
         const deductionDaily = grossBenefitDaily * svDeductionPercent;
         
@@ -89,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </tr>
                     <tr>
                         <td>Brutto-Krankengeld (vor Abzügen)</td>
-                        <td>${euro(grossBenefitDaily)} ${isCapped ? '<span style="font-size:0.8em; color:#d9534f;">(gedeckelt*)</span>' : ''}</td>
+                        <td>${euro(grossBenefitDaily)} ${isCapped ? '<span style="font-size:0.8em; color:#666;">(Höchstsatz)</span>' : ''}</td>
                     </tr>
                     <tr>
                         <td>Abzüge Sozialversicherung (ca. 12,5%)<br><span style="font-size:0.8em; color:#666;">Rente, Arbeitslose, Pflege</span></td>
@@ -109,13 +108,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <div class="warning-box">
                    <p><strong>Hinweis:</strong> Dies ist der Betrag, den die Krankenkasse zahlt. Dein Arbeitgeber zahlt für diese Tage kein Gehalt (unbezahlte Freistellung).</p>
-                   ${isCapped ? '<p style="margin-top:5px; font-size:0.9em;">* Dein Einkommen ist höher als die Beitragsbemessungsgrenze, daher wurde der Höchstsatz (ca. 120 €) angesetzt.</p>' : ''}
                 </div>
 
                 <div class="button-container" style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
                     <button id="kk_pdf_btn" class="button">📄 Als PDF speichern</button>
                 </div>
-                 <p class="hinweis" style="margin-top:10px;">Berechnung orientiert am § 45 SGB V. Individuelle Abzüge (z.B. Zusatzbeitrag Pflege) können variieren.</p>
+                 <p class="hinweis" style="margin-top:10px;">Berechnung orientiert am § 45 SGB V für das Jahr 2026. Individuelle Abzüge (z.B. Zusatzbeitrag Pflege) können leicht variieren.</p>
             </div>
         `;
 
