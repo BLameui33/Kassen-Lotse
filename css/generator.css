@@ -273,6 +273,14 @@ button {
   color: #fff;
 }
 
+/* Sekundärer Button */
+.button-secondary {
+  background: #eef1f7;
+  color: var(--accent) !important;
+  box-shadow: none;
+  margin-left: 0.6rem;
+}
+
 .button-secondary:hover {
   background-color: #626f70;
 }
