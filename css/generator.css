@@ -482,11 +482,10 @@ footer a:hover {
 
 
 .button.jump-button {
-  display: block;
-  width: fit-content;
+  display: table;            
+  margin: 20px auto;         
   max-width: 90%;
 
-  margin: 20px auto;
   padding: 12px 20px;
 
   background-color: #4da3ff;
@@ -500,14 +499,9 @@ footer a:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
-
-  /* Zentrierung */
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
-/* Hover nur Desktop */
+/* Hover nur für Geräte mit Maus */
 @media (hover: hover) {
   .button.jump-button:hover {
     background-color: #3390ff;
@@ -515,21 +509,17 @@ footer a:hover {
   }
 }
 
-/* Active ohne Verschieben → kein Wackeln */
+/* Active ohne Bewegung → kein Wackeln */
 .button.jump-button:active {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Mobile Fix */
+/* Mobile */
 @media (max-width: 600px) {
   .button.jump-button {
+    display: block;
     width: 100%;
     max-width: 100%;
-
-    left: 0;
-    transform: none;
-
-    margin: 20px 0;
   }
 }
 
