@@ -515,16 +515,18 @@ footer a:hover {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Mobile Optimierung */
+
+
 @media (max-width: 600px) {
   .button.jump-button {
     width: 100% !important;
     max-width: 100%;
+    box-sizing: border-box;   /* 🔥 DAS fixt das Rechts-Rutschen */
+
     font-size: 15px;
     padding: 14px;
   }
 }
-
 details {
   background: #f4f9ff;
   border: 1px solid #d6e9ff;
