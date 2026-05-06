@@ -1541,5 +1541,23 @@ h2:hover::after {
   }
 }
 
+h2::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 80px;
+  height: 1.5px;
+  background: linear-gradient(90deg, #0070f3 0%, rgba(0, 112, 243, 0.15) 100%);
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.5s ease;
+  opacity: 0.85;
+}
+ 
+h2:hover::after {
+  width: 120px;
+  opacity: 1;
+}
+
 
 
