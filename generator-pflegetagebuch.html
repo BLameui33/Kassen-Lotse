@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Pflegetagebuch-Generator | Personalisiertes PDF für den Pflegegrad</title>
+  <meta name="description" content="Erstellen Sie ein kostenloses, auf 14 Tage ausgelegtes Pflegetagebuch als PDF. Perfekt strukturiert nach den 6 Modulen des MDK-Gutachters für Ihren Pflegegrad-Antrag.">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  
+  <!-- PDF Generator Bibliothek -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+  
+  <!-- Das JS kommt später -->
+  <script defer src="pflegetagebuch_script.js"></script>
+  <link rel="stylesheet" href="/css/generator.css">
+
+  <!-- Schema.org (YMYL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Personalisiertes Pflegetagebuch erstellen",
+    "description": "Generator für ein 14-tägiges Pflegetagebuch als PDF, exakt strukturiert nach den 6 Modulen des MDK für die Beantragung eines Pflegegrads.",
+    "inLanguage": "de",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kassen-Lotse",
+      "url": "https://kassen-lotse.de"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Pflegetagebuch" },
+      { "@type": "Thing", "name": "Pflegegrad" },
+      { "@type": "Thing", "name": "MDK-Begutachtung" },
+      { "@type": "Thing", "name": "§ 15 SGB XI" }
+    ],
+    "lastReviewed": "2026-05-07",
+    "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
+  }
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="site-logo">Kassen-Lotse</a>
+</header>
+
+<div class="page-container">
+
+  <h1>Generator: Personalisiertes Pflegetagebuch</h1>
+
+  <div class="usp-bar">
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
+      Ohne Anmeldung
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
+      MDK-Konform (6 Module)
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
+      Sofort-PDF (14 Tage)
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
+      Anonym & Sicher
+    </div>
+  </div>
+
+  <a href="pflegekasse.html" class="category-badge">
+    Zur Übersicht: Pflege & Angehörige
+  </a>
+
+  <p><em>Redaktionell geprüft | Stand: 07.05.2026</em></p>
+
+  <a href="#pflegetagebuchForm" class="button jump-button" style="margin-bottom: 20px; display: inline-block;">Direkt zum kostenlosen Pflegetagebuch-Generator springen</a>
+
+  <div class="info-box">
+    <p>
+      Ein gut geführtes Pflegetagebuch ist der wichtigste Baustein für eine erfolgreiche MDK-Begutachtung. Es macht den tatsächlichen, täglichen Hilfebedarf für den Gutachter transparent und verhindert, dass wichtige Pflegeleistungen aus Aufregung oder Scham beim Hausbesuch vergessen werden.
+    </p>
+    <p>
+      <strong>Mit unserem kostenlosen Generator erstellen Sie in wenigen Klicks ein 14-tägiges, maßgeschneidertes Blanko-Pflegetagebuch als PDF.</strong> Der Clou: Das Tagebuch ist exakt nach den 6 Modulen des Neuen Begutachtungsassessments (NBA) aufgebaut – genau so, wie der Gutachter später Punkte verteilt!
+    </p>
+  </div>
+
+  <div class="info-box" style="margin-top: 20px;">
+    <h2>Warum ein Pflegetagebuch? (Die 6 Module nach SGB XI)</h2>
+    <p>
+      Der Gutachter des Medizinischen Dienstes (MDK) oder von Medicproof prüft die Selbstständigkeit der pflegebedürftigen Person. Unser Tagebuch-PDF gliedert sich exakt in diese gesetzlichen Prüfbereiche:
+    </p>
+    <ul style="margin-top: 5px; margin-bottom: 15px; padding-left: 20px;">
+      <li><strong>Modul 1 (Mobilität):</strong> Fortbewegen in der Wohnung, Treppensteigen, Umsetzen.</li>
+      <li><strong>Modul 2 (Kognition & Kommunikation):</strong> Orientierung, Erkennen von Personen, Risiken einschätzen.</li>
+      <li><strong>Modul 3 (Verhaltensweisen):</strong> Nächtliche Unruhe, Weglauftendenz, Abwehr pflegerischer Maßnahmen.</li>
+      <li><strong>Modul 4 (Selbstversorgung):</strong> Waschen, Anziehen, Essen & Trinken, Toilettengang.</li>
+      <li><strong>Modul 5 (Krankheitsbedingte Anforderungen):</strong> Medikamentengabe, Verbandswechsel, Arztbesuche.</li>
+      <li><strong>Modul 6 (Alltagsleben & Soziale Kontakte):</strong> Tagesablauf strukturieren, Beschäftigung.</li>
+    </ul>
+    <p><em>Tipp: Führen Sie das Tagebuch idealerweise für 1 bis 2 Wochen vor dem Begutachtungstermin.</em></p>
+  </div>
+
+  <div class="info-box" style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 10px; margin-top: 15px;">
+    <strong>Hinweis zum Datenschutz:</strong> Die Funktionen „Speichern“ und „Laden“ nutzen ausschließlich den lokalen Speicher Ihres Browsers (localStorage). Es findet keine automatische Übermittlung der Gesundheitsdaten an unsere Server statt.
+  </div>
+
+  <div class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 15px;">
+    <strong>Wichtiger Hinweis:</strong> Dieses Tool erstellt ein leeres, vorstrukturiertes PDF zum Ausfüllen per Hand. Es stellt keine pflegerische oder rechtliche Beratung dar. Die endgültige Einstufung nimmt allein der MDK vor.
+  </div>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft" style="margin-top: 15px; margin-bottom: 30px;">
+    <p><strong>Redaktionell geprüft am:</strong> <span id="pruefdatum">07.05.2026</span></p>
+  </div>
+
+  <form id="pflegetagebuchForm" autocomplete="on">
+    <fieldset>
+      <legend>1. Wer wird gepflegt?</legend>
+      <p style="font-size: 0.9em; margin-top: 0;"><em>Dieser Name erscheint später übersichtlich auf jeder Seite Ihres PDFs.</em></p>
+
+      <label for="pflegeName">Vor- und Nachname der pflegebedürftigen Person:</label>
+      <input type="text" id="pflegeName" name="pflegeName" required autocomplete="name" placeholder="z. B. Maria Müller">
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Was sind die Hauptprobleme? (Fokus festlegen)</legend>
+      <p style="font-size: 0.9em; margin-top: 0;"><em>Wählen Sie die Bereiche aus, in denen die Person am meisten Unterstützung benötigt. Diese Module werden im Tagebuch besonders hervorgehoben.</em></p>
+
+      <div class="checkbox-group" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+        <label style="display: flex; align-items: center; gap: 10px; font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="module" value="mobilitaet" checked>
+          <span><strong>Modul 1: Mobilität</strong> (z. B. Aufstehen, Umsetzen, Treppensteigen)</span>
+        </label>
+        
+        <label style="display: flex; align-items: center; gap: 10px; font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="module" value="kognition" checked>
+          <span><strong>Modul 2: Kognition</strong> (z. B. Demenz, zeitliche/örtliche Orientierung)</span>
+        </label>
+        
+        <label style="display: flex; align-items: center; gap: 10px; font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="module" value="verhalten">
+          <span><strong>Modul 3: Verhaltensweisen</strong> (z. B. nächtliche Unruhe, Weglauftendenz)</span>
+        </label>
+        
+        <label style="display: flex; align-items: center; gap: 10px; font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="module" value="selbstversorgung" checked>
+          <span><strong>Modul 4: Selbstversorgung</strong> (z. B. Körperpflege, Essen, Toilettengang)</span>
+        </label>
+        
+        <label style="display: flex; align-items: center; gap: 10px; font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="module" value="krankheit">
+          <span><strong>Modul 5: Krankheitsanforderungen</strong> (z. B. Medikamente, Injektionen)</span>
+        </label>
+        
+        <label style="display: flex; align-items: center; gap: 10px; font-weight: normal; cursor: pointer;">
+          <input type="checkbox" name="module" value="alltag">
+          <span><strong>Modul 6: Alltagsgestaltung</strong> (z. B. Beschäftigung, Tagesablauf planen)</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="button-group">
+      <button type="button" id="saveBtnTagebuch" class="button-secondary">Speichern</button>
+      <button type="button" id="loadBtnTagebuch" class="button-secondary">Laden</button>
+      <button type="submit" class="button-primary">📄 14-Tage-Pflegetagebuch als PDF generieren</button>
+    </div>
+  </form>
+  
+  <hr>
+  
+  <h2>Häufige Fragen (FAQ) zum Pflegetagebuch</h2>
+  <details>
+    <summary>Ist ein Pflegetagebuch gesetzlich vorgeschrieben?</summary>
+    <p>Nein, es gibt keine gesetzliche Pflicht. Ein Pflegetagebuch wird von den Pflegekassen und dem Medizinischen Dienst (MDK) jedoch <strong>dringend empfohlen</strong>. Der Gutachter hat meist nur ca. 60 Minuten Zeit. Ein Tagebuch belegt schwarz auf weiß, wie oft in der Nacht geholfen werden muss oder wie viel Zeit die Körperpflege beansprucht.</p>
+  </details>
+  <details>
+    <summary>Wie lange sollte ich das Tagebuch führen?</summary>
+    <p>Wir empfehlen einen Zeitraum von <strong>10 bis 14 Tagen</strong> unmittelbar vor dem Begutachtungstermin. Unser PDF-Generator ist exakt auf 14 Tage ausgelegt. So entsteht ein realistisches Bild, das auch "schlechte Tage" (Tagesformabhängigkeit) mit abdeckt.</p>
+  </details>
+  <details>
+    <summary>Was trage ich in das Blanko-Dokument ein?</summary>
+    <p>Notieren Sie die konkrete Hilfestellung. Statt "Mutter beim Waschen geholfen" schreiben Sie besser: <em>"Mutter am Waschbecken gestützt, Waschlappen angereicht, Rücken gewaschen. Dauer: 15 Minuten."</em> Kreuzen Sie zudem an, ob eine <em>vollständige Übernahme</em>, <em>teilweise Übernahme</em>, <em>Unterstützung</em> oder nur <em>Anleitung</em> stattfand.</p>
+  </details>
+
+  <aside class="highlight-box" role="complementary" aria-label="Weiterführende Informationen" style="margin-top: 30px;">
+    <h2 style="margin-top:0">Weitere Hilfen rund um die Pflege</h2>
+    <p>
+      Den Pflegealltag zu organisieren, kostet Kraft. Nutzen Sie unsere weiteren Tools und Ratgeber, um sich abzusichern:
+    </p>
+    <p style="margin-bottom:.4rem;">
+      <a href="pflegekasse.html" class="button button-secondary" title="Zur Übersicht Pflege">Übersicht: Pflege & Angehörige</a>
+      <a href="antrag-pflegeleistungen.html" class="button button-secondary" title="Generator: Pflegegrad beantragen">Generator: Pflegegrad Erstantrag</a>
+      <a href="widerspruch-pflegegrad.html" class="button button-secondary" title="Generator: Widerspruch einlegen">Generator: Widerspruch MDK-Gutachten</a>
+      <a href="info-kurzzeitpflege.html" class="button button-secondary" title="Ratgeber Pflegeunterstützungsgeld">Ratgeber: Kurzzeitpflege</a>
+      <a href="info-entlastungsbetrag.html" class="button button-secondary" title="Zum Entlastungsbetrag">Info: 131€ Entlastungsbetrag</a>
+    </p>
+  </aside>
+
+  <h2>Quellen &amp; weiterführende Links</h2>
+  <div class="kl-highlight kl-sources-box" aria-label="Quellen und weiterführende Links">
+    <ul>
+      <li>
+        <a href="https://www.gesetze-im-internet.de/sgb_11/__15.html" target="_blank" rel="noopener">
+          Bundesministerium der Justiz – § 15 SGB XI (Ermittlung des Grades der Pflegebedürftigkeit)
+        </a>
+      </li>
+      <li>
+        <a href="https://md-bund.de/begutachtung/pflegebegutachtung.html" target="_blank" rel="noopener">
+          Medizinischer Dienst Bund (MD Bund) – Ablauf der Pflegebegutachtung und Module
+        </a>
+      </li>
+      <li>
+        <a href="https://www.verbraucherzentrale.de/wissen/gesundheit-pflege/pflege-zu-hause/pflegegrad-beantragen-so-funktionierts-13350" target="_blank" rel="noopener">
+          Verbraucherzentrale – Ratgeber: Pflegegrad beantragen und Begutachtung vorbereiten
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="spendenPopup" class="popup-overlay">
+  <div class="popup-content">
+      <h2>Pflegetagebuch erfolgreich erstellt!</h2>
+      <p>Ihr personalisiertes, 14-tägiges Pflegetagebuch wird jetzt generiert. Wenn Ihnen dieses Tool geholfen hat, unterstützen Sie das Projekt gerne mit einer kleinen Spende.</p>
+      <form action="https://www.paypal.com/donate" method="post" target="_blank">
+          <input type="hidden" name="business" value="info@kassen-lotse.de" />
+          <input type="hidden" name="item_name" value="Unterstützung für das Projekt Kassen-Lotse" />
+          <input type="hidden" name="currency_code" value="EUR" />
+          <input type="submit" value="Spenden mit PayPal" />
+      </form>
+      <button id="closePopupBtn" class="popup-close-button">Schließen</button>
+  </div>
+</div>
+
+<div style="background-color: #f8f9fa; border-top: 2px solid #e0e0e0; padding: 25px 15px; margin-top: 40px; text-align: center; font-family: sans-serif;">
+    
+    <h3 style="font-size: 1.1em; color: #333; margin-top: 0; margin-bottom: 8px;">Wer hat diese Inhalte erstellt?</h3>
+    <p style="font-size: 0.9em; color: #555; max-width: 700px; margin: 0 auto 12px auto; line-height: 1.5;">
+        Unsere Ratgeber und Generatoren basieren auf der strikten Auswertung aktueller Gesetzestexte. Sie werden von <strong>Jan (Projektleitung) & Team</strong> entwickelt und durch unser Netzwerk aus Fachberatern (u.a. aus der Pflegeberatung) regelmäßig auf fachliche Korrektheit geprüft. 
+        <br><br>
+        <em>Wichtiger Hinweis: Unser Tool generiert strukturierte Formulare zur Selbsthilfe und ersetzt keine offizielle Pflegeberatung nach § 7a SGB XI.</em>
+    </p>
+    
+    <div style="margin-bottom: 25px;">
+        <a href="über.html" style="display: inline-block; font-size: 0.9em; color: #0056b3; text-decoration: underline; font-weight: bold;">
+            Mehr über unsere Redaktion & Arbeitsweise erfahren
+        </a>
+    </div>
+
+    <div style="margin: 0 auto 20px auto; max-width: 600px; background-color: #ffffff; border: 1px solid #d1d5db; border-radius: 8px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <p style="margin: 0; font-size: 0.95em; color: #333; line-height: 1.4;">
+             <strong>Sie wissen nicht genau, wo Sie anfangen sollen?</strong><br>
+            Nutzen Sie unseren <a href="index.html" style="color: #0056b3; font-weight: bold; text-decoration: none; border-bottom: 2px solid #0056b3;">Digitalen Lotsen</a>. Er führt Sie in wenigen Klicks zielsicher zum passenden Ratgeber, Rechner oder Generator für Ihr Anliegen.
+        </p>
+    </div>
+    <p style="font-size: 0.85em; color: #777; margin: 0 auto; max-width: 600px; border-top: 1px solid #eaeaea; padding-top: 15px;">
+        💡 <strong>Fehler entdeckt oder ein technisches Problem?</strong> Helfen Sie uns, die Tools aktuell zu halten. <a href="mailto:info@kassen-lotse.de" style="color: #555; text-decoration: underline;">Schreiben Sie uns gerne eine kurze Nachricht</a>.
+    </p>
+    
+</div>
+<footer>
+  <div class="mini-footer-hint">
+  <p>Brauchen Sie individuelle Unterstützung bei Widersprüchen oder komplexen Anträgen an die Pflegekasse?</p>
+  <a href="https://clerion.de" class="mini-footer-link">Clerion - Ihr digitaler Behörden-Assistent</a>
+  </div>
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns & Redaktionsrichtlinien</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="datenschutz.html">Datenschutz</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+<script src="paypal-buttons.js"></script>
+</body>
+</html>
