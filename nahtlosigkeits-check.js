@@ -135,24 +135,38 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // --- 6. SICHERER PDF-DOWNLOAD (Direkt aus String) ---
-        const opt = {
-            margin:       10,
-            filename:     'Antrag_Nahtlosigkeit_Aussteuerung.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 }, 
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
+        // --- 6. SICHERER PDF-DOWNLOAD (Über temporäres DOM-Element) ---
+        const opt = {
+            margin:       10,
+            filename:     'Antrag_Nahtlosigkeit_Aussteuerung.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true }, // useCORS hilft, falls du später mal Logos/Bilder einbaust
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
 
-        // Indem wir den String "pdfHtml" direkt in from() laden, verhindern wir weiße Seiten komplett!
-        html2pdf().set(opt).from(pdfHtml).save().then(() => {
-            // SPENDEN POPUP NACH DOWNLOAD AUFRUFEN
-            if (spendenPopup) {
-                setTimeout(() => {
-                    spendenPopup.style.display = 'flex';
-                }, 1000);
-            }
-        });
+        // 1. Temporäres Element erstellen, damit html2canvas die Maße berechnen kann
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = pdfHtml;
+        
+        // 2. Element aus dem sichtbaren Bereich schieben, aber zwingend im DOM behalten!
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '0';
+        document.body.appendChild(tempContainer);
+
+        // 3. PDF aus dem echten DOM-Element generieren
+        html2pdf().set(opt).from(tempContainer).save().then(() => {
+            
+            // 4. Aufräumen: Temporäres Element wieder spurlos entfernen
+            document.body.removeChild(tempContainer);
+            
+            // SPENDEN POPUP NACH DOWNLOAD AUFRUFEN
+            if (spendenPopup) {
+                setTimeout(() => {
+                    spendenPopup.style.display = 'flex';
+                }, 1000);
+            }
+        });
     }
 
     // Hilfsfunktion: Fehler anzeigen
