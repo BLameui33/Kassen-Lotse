@@ -1,5 +1,5 @@
 /**
- * Hilfsmittel-Kompass & PDF-Spickzettel Generator
+ * Hilfsmittel-Kompass & PDF-Spickzettel Generator (Native jsPDF Version)
  * Analysiert Alltagsprobleme und übersetzt diese in konkrete Hilfsmittel-Empfehlungen
  * für das Kassenrezept vom Hausarzt.
  */
@@ -9,32 +9,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnBerechnen = document.getElementById('hm_berechnen');
     const btnReset = document.getElementById('hm_reset');
     const ergebnisContainer = document.getElementById('hm_ergebnis');
-    const pdfTemplate = document.getElementById('hm_pdf_template');
 
     // Event Listener
     btnBerechnen.addEventListener('click', generiereKompass);
     
     btnReset.addEventListener('click', () => {
         ergebnisContainer.innerHTML = '';
-        pdfTemplate.innerHTML = '';
     });
 
     function generiereKompass() {
         // --- 1. DATEN AUSLESEN ---
-        const wohnsituation = document.querySelector('input[name="hm_wohnsituation"]:checked').value;
+        const wohnsituationRadios = document.querySelector('input[name="hm_wohnsituation"]:checked');
+        const wohnsituation = wohnsituationRadios ? wohnsituationRadios.value : 'allein'; // Fallback
         const patName = document.getElementById('hm_pat_name').value.trim() || '_______________________';
         const patGeb = document.getElementById('hm_pat_geb').value.trim() || '______________';
 
         // Checkboxen sammeln
-        const probleme = document.querySelectorAll('.hm-problem');
         let selectedCount = 0;
-        
         let empfehlungen = [];
 
         // --- 2. LOGIK & ÜBERSETZUNG (Problem -> Hilfsmittel) ---
 
         // Badezimmer
-        if (document.getElementById('hm_bad_wanne').checked) {
+        if (document.getElementById('hm_bad_wanne') && document.getElementById('hm_bad_wanne').checked) {
             empfehlungen.push({
                 kategorie: 'Badezimmer / Körperpflege',
                 problem: 'Gefährdeter Ein- und Ausstieg bei der Badewanne.',
@@ -42,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             selectedCount++;
         }
-        if (document.getElementById('hm_bad_dusche').checked) {
+        if (document.getElementById('hm_bad_dusche') && document.getElementById('hm_bad_dusche').checked) {
             empfehlungen.push({
                 kategorie: 'Badezimmer / Körperpflege',
                 problem: 'Stehunsicherheit und Schwäche bei der Körperpflege.',
@@ -50,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             selectedCount++;
         }
-        if (document.getElementById('hm_bad_wc').checked) {
+        if (document.getElementById('hm_bad_wc') && document.getElementById('hm_bad_wc').checked) {
             empfehlungen.push({
                 kategorie: 'Badezimmer / Toilettengang',
                 problem: 'Krafteinschränkung beim Aufstehen und Hinsetzen auf der Toilette.',
@@ -60,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Bett & Schlafen
-        if (document.getElementById('hm_bett_aufrichten').checked) {
+        if (document.getElementById('hm_bett_aufrichten') && document.getElementById('hm_bett_aufrichten').checked) {
             empfehlungen.push({
                 kategorie: 'Bett / Schlafen',
                 problem: 'Eigenständiges Aufrichten aus dem Liegen nicht mehr möglich.',
@@ -68,8 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             selectedCount++;
         }
-        if (document.getElementById('hm_bett_pflege').checked) {
-            // Angehörige? Dann wichtiges Argument für die Pflegekasse!
+        if (document.getElementById('hm_bett_pflege') && document.getElementById('hm_bett_pflege').checked) {
             let problemText = wohnsituation === 'angehoerige' 
                 ? 'Erschwerte Grundpflege im Bett; starke körperliche Rückenbelastung der pflegenden Angehörigen.' 
                 : 'Erschwerte Grundpflege im Bett durch ambulante Pflegedienste.';
@@ -81,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             selectedCount++;
         }
-        if (document.getElementById('hm_bett_rausfallen').checked) {
+        if (document.getElementById('hm_bett_rausfallen') && document.getElementById('hm_bett_rausfallen').checked) {
             empfehlungen.push({
                 kategorie: 'Bett / Schlafen',
                 problem: 'Hohe Verletzungsgefahr durch nächtliches Herausfallen.',
@@ -89,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             selectedCount++;
         }
-        if (document.getElementById('hm_bett_matratze').checked) {
+        if (document.getElementById('hm_bett_matratze') && document.getElementById('hm_bett_matratze').checked) {
             empfehlungen.push({
                 kategorie: 'Bett / Schlafen',
                 problem: 'Hohes Dekubitusrisiko (Gefahr des Wundliegens) durch Bettlägerigkeit.',
@@ -99,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Mobilität & Sicherheit
-        if (document.getElementById('hm_mob_innen').checked) {
+        if (document.getElementById('hm_mob_innen') && document.getElementById('hm_mob_innen').checked) {
             empfehlungen.push({
                 kategorie: 'Mobilität Innenraum',
                 problem: 'Massive Gangunsicherheit im Wohnbereich; Abstützen an Möbeln.',
@@ -107,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             selectedCount++;
         }
-        if (document.getElementById('hm_mob_sturz').checked) {
+        if (document.getElementById('hm_mob_sturz') && document.getElementById('hm_mob_sturz').checked) {
             empfehlungen.push({
                 kategorie: 'Sicherheit',
                 problem: 'Akute Sturzgefahr und Unfähigkeit, nach einem Sturz selbstständig Hilfe zu rufen.',
@@ -115,8 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             selectedCount++;
         }
-        if (document.getElementById('hm_mob_demenz').checked) {
-            // Wohnsituation entscheidet das Hilfsmittel!
+        if (document.getElementById('hm_mob_demenz') && document.getElementById('hm_mob_demenz').checked) {
             if (wohnsituation === 'angehoerige') {
                 empfehlungen.push({
                     kategorie: 'Sicherheit / Überwachung',
@@ -140,10 +135,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --- 4. ERGEBNIS-ANZEIGE IM BROWSER ---
+        let screenListenHtml = '<ul style="margin-top: 15px; margin-bottom: 15px; padding-left: 20px;">';
+        empfehlungen.forEach(item => {
+            screenListenHtml += `<li><strong>${item.kategorie}:</strong> ${item.hilfsmittel}</li>`;
+        });
+        screenListenHtml += '</ul>';
+
         let htmlErgebnis = `
             <div class="info-box ergebnis-animation" style="background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin-top: 15px;">
                 <h2 style="margin-top: 0; color: #2e7d32; font-size: 1.3rem;">✅ Analyse erfolgreich: Ihr Spickzettel wird erstellt</h2>
-                <p style="margin-bottom: 10px;">Wir haben <strong>${selectedCount} sinnvolle Hilfsmittel</strong> anhand Ihrer Angaben identifiziert. Ihr PDF wird jetzt generiert. Nehmen Sie dieses Dokument einfach mit zu Ihrem nächsten Arztbesuch.</p>
+                <p>Wir haben <strong>${selectedCount} sinnvolle Hilfsmittel</strong> anhand Ihrer Angaben identifiziert:</p>
+                ${screenListenHtml}
+                <p style="margin-bottom: 10px; color: #1565c0;"><strong>📄 Ihr detaillierter Spickzettel für den Arzt wird jetzt als PDF heruntergeladen!</strong> Nehmen Sie dieses Dokument einfach mit zu Ihrem nächsten Arztbesuch.</p>
                 <p style="margin-bottom: 0; font-size: 0.9em; color: #555;"><em>Hinweis: Die ärztliche Hoheit liegt natürlich immer bei Ihrem behandelnden Arzt. Diese Liste dient als strukturierte Kommunikationshilfe für die Praxis.</em></p>
             </div>
         `;
@@ -151,86 +154,129 @@ document.addEventListener('DOMContentLoaded', () => {
         ergebnisContainer.innerHTML = htmlErgebnis;
         ergebnisContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // --- 5. PDF GENERIERUNG ---
+        // --- 5. NEUE NATIVE PDF GENERIERUNG (jsPDF) ---
         generierePDF(empfehlungen, patName, patGeb);
     }
 
     function generierePDF(empfehlungen, patName, patGeb) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+        const margin = 20;
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const usableHeight = pageHeight - margin;
+        let y = margin;
+        const defaultLineHeight = 6;
+        const spaceAfterParagraph = 4;
+
+        // --- Hilfswerkzeuge für das PDF ---
+        function writeLine(text, currentLineHeight = defaultLineHeight, isBold = false, fontSize = 11, align = "left", color = [0,0,0]) {
+            if (y + currentLineHeight > usableHeight) { doc.addPage(); y = margin; }
+            doc.setFontSize(fontSize);
+            doc.setFont(undefined, isBold ? "bold" : "normal");
+            doc.setTextColor(color[0], color[1], color[2]);
+            
+            let x = margin;
+            if (align === "center") {
+                x = (pageWidth - doc.getTextWidth(text)) / 2;
+            }
+            doc.text(text, x, y);
+            y += currentLineHeight;
+            doc.setTextColor(0, 0, 0); // Reset auf Schwarz
+        }
+
+        function writeParagraph(text, paragraphLineHeight = defaultLineHeight, paragraphFontSize = 11, options = {}) {
+            const fontStyle = options.fontStyle || "normal";
+            const color = options.color || [0,0,0];
+            doc.setFontSize(paragraphFontSize);
+            doc.setFont(undefined, fontStyle);
+            doc.setTextColor(color[0], color[1], color[2]);
+
+            const lines = doc.splitTextToSize(text, pageWidth - (2 * margin));
+            for (let i = 0; i < lines.length; i++) {
+                if (y + paragraphLineHeight > usableHeight) { doc.addPage(); y = margin; }
+                doc.text(lines[i], margin, y);
+                y += paragraphLineHeight;
+            }
+            if (y + (options.extraSpacingAfter || spaceAfterParagraph) > usableHeight && lines.length > 0) {
+                 doc.addPage(); y = margin;
+            } else if (lines.length > 0) { 
+                y += (options.extraSpacingAfter || spaceAfterParagraph);
+            }
+            doc.setTextColor(0, 0, 0); // Reset auf Schwarz
+        }
+
         const heute = new Date();
         const datumStr = formatiereDatum(heute);
 
-        // HTML für die Liste der Empfehlungen aufbauen
-        let empfehlungenHtml = '';
+        // --- 1. HEADER (Titel zentriert & blau) ---
+        writeLine("Pflege & Hilfsmittel - Gesprächsnotiz", 8, true, 18, "center", [33, 150, 243]);
+        writeLine("Strukturierte Übersicht für die hausärztliche Verordnung", 12, false, 10, "center", [100, 100, 100]);
+        
+        // Blaue Trennlinie
+        doc.setDrawColor(33, 150, 243);
+        doc.setLineWidth(0.5);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 10;
+
+        // --- 2. PATIENTEN-INFO-BOX (Grau hinterlegt) ---
+        doc.setFillColor(249, 249, 249);
+        doc.setDrawColor(220, 220, 220);
+        doc.rect(margin, y, pageWidth - (2 * margin), 22, 'FD'); // Filled & Stroked
+        
+        y += 7; // Padding nach unten ins Rechteck
+        // Einfache Tabellen-Struktur durch feste X-Werte
+        doc.setFontSize(11);
+        
+        doc.setFont(undefined, "bold");
+        doc.text("Patient/in:", margin + 5, y);
+        doc.setFont(undefined, "normal");
+        doc.text(patName, margin + 45, y);
+        y += 6;
+        
+        doc.setFont(undefined, "bold");
+        doc.text("Geburtsdatum:", margin + 5, y);
+        doc.setFont(undefined, "normal");
+        doc.text(patGeb, margin + 45, y);
+        y += 6;
+        
+        doc.setFont(undefined, "bold");
+        doc.text("Analyse-Datum:", margin + 5, y);
+        doc.setFont(undefined, "normal");
+        doc.text(datumStr, margin + 45, y);
+        y += 12; // Abstand unter der Box
+
+        // --- 3. EINLEITUNGSTEXT ---
+        writeParagraph("Sehr geehrte/r behandelnde/r Arzt/Ärztin,", defaultLineHeight, 11, {fontStyle: "bold", extraSpacingAfter: 4});
+        writeParagraph("zur Sicherung der häuslichen Versorgung, Vermeidung von Stürzen und Erleichterung der Pflege bitten wir um die ärztliche Prüfung und ggf. Verordnung (Muster 16) der nachfolgend aufgeführten Hilfsmittel. Die Liste basiert auf einer aktuellen Analyse der häuslichen Defizite:", defaultLineHeight, 11, {extraSpacingAfter: 10});
+
+        // --- 4. EMPFEHLUNGEN (Die dynamische Liste) ---
         empfehlungen.forEach(item => {
-            empfehlungenHtml += `
-                <div style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                    <div style="font-weight: bold; color: #333; margin-bottom: 5px;">Bereich: ${item.kategorie}</div>
-                    <div style="margin-bottom: 5px;"><strong>Beobachtetes Problem:</strong> ${item.problem}</div>
-                    <div style="color: #d32f2f; font-weight: bold;">Empfohlene Verordnung: ${item.hilfsmittel}</div>
-                </div>
-            `;
+            writeParagraph(`Bereich: ${item.kategorie}`, defaultLineHeight, 11, {fontStyle: "bold", extraSpacingAfter: 2});
+            writeParagraph(`Beobachtetes Problem: ${item.problem}`, defaultLineHeight, 11, {extraSpacingAfter: 2});
+            
+            // Die Verordnung heben wir Rot und Fett hervor
+            writeParagraph(`Empfohlene Verordnung: ${item.hilfsmittel}`, defaultLineHeight, 11, {fontStyle: "bold", color: [211, 47, 47], extraSpacingAfter: 5}); 
+            
+            // Dünne Trennlinie zwischen den Items
+            y += 2;
+            doc.setDrawColor(238, 238, 238);
+            doc.line(margin, y, pageWidth - margin, y);
+            y += 6;
         });
 
-        // PDF Template zusammenbauen (Design als "Arzt-Memo")
-        const pdfHtml = `
-            <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.5; color: #000; background: #fff; padding: 20px;">
-                
-                <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #2196f3; padding-bottom: 10px;">
-                    <h1 style="font-size: 18pt; margin: 0; color: #2196f3;">Pflege & Hilfsmittel – Gesprächsnotiz</h1>
-                    <div style="font-size: 10pt; color: #666; margin-top: 5px;">Strukturierte Übersicht für die hausärztliche Verordnung</div>
-                </div>
+        // --- 5. FOOTER (Arzt-Hinweis) ---
+        y += 5;
+        doc.setDrawColor(200, 200, 200);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 6;
 
-                <div style="margin-bottom: 30px; background-color: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="width: 30%; font-weight: bold; padding: 5px 0;">Patient/in:</td>
-                            <td style="padding: 5px 0;">${patName}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 5px 0;">Geburtsdatum:</td>
-                            <td style="padding: 5px 0;">${patGeb}</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; padding: 5px 0;">Datum der Analyse:</td>
-                            <td style="padding: 5px 0;">${datumStr}</td>
-                        </tr>
-                    </table>
-                </div>
+        const footerText = "Information für die Praxis: Bitte kreuzen Sie auf dem Rezeptfeld die Ziffer \"7\" (Hilfsmittel) an und vermerken Sie ggf. eine kurze Diagnose (z.B. Gangunsicherheit, Dekubitusrisiko) zur leichteren Genehmigung durch die Krankenkasse. Bei Pflegebetten/Hausnotruf ist in der Regel die Pflegekasse Kostenträger, ein ärztliches Attest bzw. Rezept beschleunigt jedoch die Bewilligung erheblich.";
+        writeParagraph(footerText, 5, 9, {color: [100, 100, 100]});
 
-                <div style="margin-bottom: 20px;">
-                    <strong>Sehr geehrte/r behandelnde/r Arzt/Ärztin,</strong><br><br>
-                    zur Sicherung der häuslichen Versorgung, Vermeidung von Stürzen und Erleichterung der Pflege bitten wir um die ärztliche Prüfung und ggf. Verordnung (Muster 16) der nachfolgend aufgeführten Hilfsmittel. Die Liste basiert auf einer aktuellen Analyse der häuslichen Defizite:
-                </div>
-
-                <div style="margin-top: 30px;">
-                    ${empfehlungenHtml}
-                </div>
-
-                <div style="margin-top: 40px; font-size: 9pt; color: #777; text-align: justify; border-top: 1px solid #ccc; padding-top: 10px;">
-                    <strong>Information für die Praxis:</strong> Bitte kreuzen Sie auf dem Rezeptfeld die Ziffer "7" (Hilfsmittel) an und vermerken Sie ggf. eine kurze Diagnose (z.B. Gangunsicherheit, Dekubitusrisiko) zur leichteren Genehmigung durch die Krankenkasse. Bei Pflegebetten/Hausnotruf ist in der Regel die Pflegekasse Kostenträger, ein ärztliches Attest bzw. Rezept beschleunigt jedoch die Bewilligung erheblich.
-                </div>
-            </div>
-        `;
-
-        const tempContainer = document.createElement('div');
-        tempContainer.innerHTML = pdfHtml;
-        tempContainer.style.position = 'absolute';
-        tempContainer.style.top = '0';
-        tempContainer.style.left = '-9999px'; 
-        tempContainer.style.width = '800px'; 
-        document.body.appendChild(tempContainer);
-
-        const opt = {
-            margin:       15,
-            filename:     'Arzt_Spickzettel_Hilfsmittel.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, scrollY: 0 }, 
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        html2pdf().set(opt).from(tempContainer).save().then(() => {
-            document.body.removeChild(tempContainer);
-        });
+        // --- 6. SPEICHERN ---
+        doc.save("Arzt_Spickzettel_Hilfsmittel.pdf");
     }
 
     // Hilfsfunktion: Fehler anzeigen

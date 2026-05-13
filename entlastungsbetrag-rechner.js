@@ -1,5 +1,5 @@
 /**
- * Entlastungsbetrag-Rechner (131 €) & PDF-Generator
+ * Entlastungsbetrag-Rechner (131 €) & PDF-Generator (Native jsPDF Version)
  * Berechnet das Restbudget unter Berücksichtigung des 30. Juni Verfallsdatums.
  * Generiert ein Erstattungsformular für die Pflegekasse.
  */
@@ -9,14 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnBerechnen = document.getElementById('eb_berechnen');
     const btnReset = document.getElementById('eb_reset');
     const ergebnisContainer = document.getElementById('eb_ergebnis');
-    const pdfTemplate = document.getElementById('eb_pdf_template');
+    // pdfTemplate im DOM wird nicht mehr benötigt, wir bauen es nativ
 
     // Event Listener
     btnBerechnen.addEventListener('click', berechneUndGeneriere);
     
     btnReset.addEventListener('click', () => {
         ergebnisContainer.innerHTML = '';
-        pdfTemplate.innerHTML = '';
     });
 
     function berechneUndGeneriere() {
@@ -31,8 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const heute = new Date();
-        const aktuellesJahr = heute.getFullYear(); // z.B. 2026
-        const aktuellerMonat = heute.getMonth() + 1; // 1-12 (z.B. Mai = 5)
+        const aktuellesJahr = heute.getFullYear(); 
+        const aktuellerMonat = heute.getMonth() + 1; 
 
         const [pgJahrStr, pgMonatStr] = pgMonatInput.split('-');
         const pgJahr = parseInt(pgJahrStr, 10);
@@ -46,21 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // Berechnen, wie viele Monate im AKTUELLEN Jahr Anspruch besteht
         let monateDiesesJahr = 0;
         if (pgJahr < aktuellesJahr) {
-            // Pflegegrad bestand schon vor diesem Jahr -> Anspruch für alle bisherigen Monate dieses Jahres
             monateDiesesJahr = aktuellerMonat;
         } else {
-            // Pflegegrad startete in diesem Jahr
             monateDiesesJahr = aktuellerMonat - pgMonat + 1;
         }
 
-        // Budget für dieses Jahr berechnen (131 € ab 2025)
+        // Budget für dieses Jahr berechnen (131 € ab 2025, wir nehmen pauschal 131)
         const budgetDiesesJahr = monateDiesesJahr * 131.00;
 
         // Verfalls-Logik (30. Juni)
         let verfallsWarnung = '';
         if (restVorjahr > 0) {
             if (aktuellerMonat <= 6) {
-                // Vor dem 1. Juli -> Geld aus dem Vorjahr ist noch da, aber verfällt bald!
                 verfallsWarnung = `
                     <div class="info-box ergebnis-animation" style="background-color: #ffebee; border-left: 4px solid #f44336; padding: 15px; margin-top: 15px;">
                         <h2 style="margin-top: 0; color: #c62828; font-size: 1.3rem;">⚠️ Alarm: Ihr Geld verfällt bald!</h2>
@@ -68,14 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
             } else {
-                // Ab dem 1. Juli -> Geld ist verfallen.
                 verfallsWarnung = `
                     <div class="info-box ergebnis-animation" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 15px; margin-top: 15px;">
                         <h2 style="margin-top: 0; color: #c62828; font-size: 1.3rem;">❌ Vorjahres-Budget verfallen</h2>
                         <p style="margin-bottom: 0;">Ihr angegebenes Restbudget von ${restVorjahr.toFixed(2).replace('.', ',')} € aus dem Vorjahr ist am <strong>30. Juni ${aktuellesJahr} verfallen</strong> und wurde in der Berechnung auf 0 € gesetzt.</p>
                     </div>
                 `;
-                restVorjahr = 0; // Auf 0 setzen, da verfallen
+                restVorjahr = 0; 
             }
         }
 
@@ -105,10 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        // Warnung bei Bedarf anfügen
         htmlErgebnis += verfallsWarnung;
 
-        // --- 3. PDF GENERIERUNG (Falls Rechnungssumme eingegeben) ---
+        // --- 3. NATIVE PDF GENERIERUNG ---
         const rechnungssumme = document.getElementById('eb_rechnungssumme').value;
 
         if (rechnungssumme && parseFloat(rechnungssumme) > 0) {
@@ -119,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            // Ergebnis ins DOM laden
             ergebnisContainer.innerHTML = htmlErgebnis;
             ergebnisContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -130,13 +123,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p style="margin-bottom: 0;"><em>Tipp: Wenn Sie im Formular eine Rechnungssumme eingeben, können Sie hier direkt ein fertiges Erstattungsformular für die Pflegekasse als PDF herunterladen.</em></p>
                 </div>
             `;
-            // Ergebnis ins DOM laden
             ergebnisContainer.innerHTML = htmlErgebnis;
             ergebnisContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
     function generierePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
         const vorname = document.getElementById('eb_vorname').value.trim() || '___________________';
         const nachname = document.getElementById('eb_nachname').value.trim() || '___________________';
         const kasse = document.getElementById('eb_kasse').value.trim() || '___________________';
@@ -147,95 +142,107 @@ document.addEventListener('DOMContentLoaded', () => {
         const heute = new Date();
         const datumStr = formatiereDatum(heute);
 
-        const pdfHtml = `
-            <div style="font-family: Arial, sans-serif; font-size: 12pt; line-height: 1.5; color: #000; background: #fff; padding: 20px;">
-                <!-- Absender -->
-                <div style="margin-bottom: 40px;">
-                    <strong>Absender / Pflegebedürftige Person:</strong><br>
-                    ${vorname !== '___________________' ? vorname : 'Vorname:'} ${nachname !== '___________________' ? nachname : 'Nachname:'}<br>
-                    Versicherungsnummer: ${versicherungsnummer}
-                </div>
+        const margin = 20;
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const usableHeight = pageHeight - margin;
+        let y = margin;
+        const defaultLineHeight = 6;
+        const spaceAfterParagraph = 4;
 
-                <!-- Empfänger -->
-                <div style="margin-bottom: 40px;">
-                    <strong>Empfänger:</strong><br>
-                    An die Pflegekasse der<br>
-                    ${kasse}
-                </div>
+        // --- Hilfswerkzeuge für das PDF ---
+        function writeLine(text, currentLineHeight = defaultLineHeight, isBold = false, fontSize = 11, align = "left", color = [0,0,0]) {
+            if (y + currentLineHeight > usableHeight) { doc.addPage(); y = margin; }
+            doc.setFontSize(fontSize);
+            doc.setFont(undefined, isBold ? "bold" : "normal");
+            doc.setTextColor(color[0], color[1], color[2]);
+            
+            let x = margin;
+            if (align === "center") {
+                x = (pageWidth - doc.getTextWidth(text)) / 2;
+            }
+            doc.text(text, x, y);
+            y += currentLineHeight;
+            doc.setTextColor(0, 0, 0); 
+        }
 
-                <!-- Ort, Datum -->
-                <div style="text-align: right; margin-bottom: 30px;">
-                    Datum: ${datumStr}
-                </div>
+        function writeParagraph(text, paragraphLineHeight = defaultLineHeight, paragraphFontSize = 11, options = {}) {
+            const fontStyle = options.fontStyle || "normal";
+            doc.setFontSize(paragraphFontSize);
+            doc.setFont(undefined, fontStyle);
 
-                <!-- Betreff -->
-                <div style="font-weight: bold; font-size: 14pt; margin-bottom: 25px;">
-                    Betreff: Erstattung von Entlastungsleistungen nach § 45b SGB XI
-                </div>
+            const lines = doc.splitTextToSize(text, pageWidth - (2 * margin));
+            for (let i = 0; i < lines.length; i++) {
+                if (y + paragraphLineHeight > usableHeight) { doc.addPage(); y = margin; }
+                doc.text(lines[i], margin, y);
+                y += paragraphLineHeight;
+            }
+            if (y + (options.extraSpacingAfter || spaceAfterParagraph) > usableHeight && lines.length > 0) {
+                 doc.addPage(); y = margin;
+            } else if (lines.length > 0) { 
+                y += (options.extraSpacingAfter || spaceAfterParagraph);
+            }
+        }
 
-                <!-- Anrede -->
-                <div style="margin-bottom: 15px;">
-                    Sehr geehrte Damen und Herren,
-                </div>
+        // --- 1. Absender ---
+        writeLine("Absender / Pflegebedürftige Person:", defaultLineHeight, true);
+        writeLine(`${vorname !== '___________________' ? vorname : 'Vorname:'} ${nachname !== '___________________' ? nachname : 'Nachname:'}`);
+        writeLine(`Versicherungsnummer: ${versicherungsnummer}`);
+        y += 10;
 
-                <!-- Textkörper -->
-                <div style="text-align: justify; margin-bottom: 15px;">
-                    hiermit beantrage ich die Erstattung meiner angefallenen Kosten für anerkannte Angebote zur Unterstützung im Alltag (Entlastungsbetrag nach § 45b SGB XI).
-                </div>
-                <div style="text-align: justify; margin-bottom: 15px;">
-                    Als Anlage übersende ich Ihnen die entsprechenden Rechnungen des zertifizierten Dienstleisters in Höhe von insgesamt:
-                </div>
-                
-                <div style="font-weight: bold; font-size: 14pt; text-align: center; margin: 25px 0; border: 2px solid #000; padding: 10px;">
-                    Rechnungssumme: ${rechnungssumme} EUR
-                </div>
+        // --- 2. Empfänger ---
+        writeLine("Empfänger:", defaultLineHeight, true);
+        writeLine("An die Pflegekasse der");
+        writeParagraph(kasse, defaultLineHeight, 11, {extraSpacingAfter: 15});
 
-                <div style="text-align: justify; margin-bottom: 15px;">
-                    Bitte erstatten Sie mir diesen Betrag aus meinem verfügbaren Entlastungsbudget (inklusive eventueller Restbudgets aus dem Vorjahr) auf folgendes Konto:
-                </div>
+        // --- 3. Datum (Rechtsbündig) ---
+        const datumText = `Datum: ${datumStr}`;
+        const datumBreite = doc.getTextWidth(datumText);
+        doc.text(datumText, pageWidth - margin - datumBreite, y);
+        y += 15;
 
-                <div style="margin-bottom: 30px; margin-left: 20px;">
-                    Kontoinhaber: ${vorname !== '___________________' ? vorname + ' ' + nachname : '___________________'}<br>
-                    IBAN: ${iban}
-                </div>
+        // --- 4. Betreff ---
+        writeParagraph("Betreff: Erstattung von Entlastungsleistungen nach § 45b SGB XI", defaultLineHeight, 14, {fontStyle: "bold", extraSpacingAfter: 8});
 
-                <div style="text-align: justify; margin-bottom: 40px;">
-                    Sollte mein Budget nicht für die vollständige Erstattung ausreichen, bitte ich um Überweisung des noch verfügbaren Restbetrags.
-                </div>
+        // --- 5. Anrede & Text ---
+        writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, 11, {extraSpacingAfter: 6});
+        writeParagraph("hiermit beantrage ich die Erstattung meiner angefallenen Kosten für anerkannte Angebote zur Unterstützung im Alltag (Entlastungsbetrag nach § 45b SGB XI).", defaultLineHeight, 11, {extraSpacingAfter: 4});
+        writeParagraph("Als Anlage übersende ich Ihnen die entsprechenden Rechnungen des zertifizierten Dienstleisters in Höhe von insgesamt:", defaultLineHeight, 11, {extraSpacingAfter: 8});
 
-                <!-- Grußformel -->
-                <div style="margin-bottom: 50px;">
-                    Mit freundlichen Grüßen<br><br><br><br>
-                    __________________________________<br>
-                    (Unterschrift der pflegebedürftigen Person<br>
-                    oder des gesetzlichen Vertreters)
-                </div>
-                
-                <div style="font-size: 10pt; color: #555;">
-                    <strong>Anlagen:</strong> Originalrechnung(en)
-                </div>
-            </div>
-        `;
+        // --- 6. Rechnungssummen-Box ---
+        y += 5;
+        doc.setLineWidth(0.5);
+        doc.rect(margin, y, pageWidth - (2 * margin), 15); // Zeichnet einen Kasten
+        y += 10; // Gehe zur vertikalen Mitte des Kastens
+        writeLine(`Rechnungssumme: ${rechnungssumme} EUR`, 0, true, 14, "center");
+        y += 15; // Abstand unter dem Kasten
 
-       const tempContainer = document.createElement('div');
-        tempContainer.innerHTML = pdfHtml;
-        tempContainer.style.position = 'absolute';
-        tempContainer.style.top = '0';
-        tempContainer.style.left = '-9999px'; 
-        tempContainer.style.width = '800px'; 
-        document.body.appendChild(tempContainer);
+        // --- 7. Kontoverbindung ---
+        writeParagraph("Bitte erstatten Sie mir diesen Betrag aus meinem verfügbaren Entlastungsbudget (inklusive eventueller Restbudgets aus dem Vorjahr) auf folgendes Konto:", defaultLineHeight, 11, {extraSpacingAfter: 6});
+        
+        // Leicht eingerückt für bessere Lesbarkeit
+        const originalMargin = margin;
+        const indentMargin = margin + 10;
+        doc.text(`Kontoinhaber: ${vorname !== '___________________' ? vorname + ' ' + nachname : '___________________'}`, indentMargin, y);
+        y += defaultLineHeight;
+        doc.text(`IBAN: ${iban}`, indentMargin, y);
+        y += 12;
 
-        const opt = {
-            margin:       15,
-            filename:     'Antrag_Entlastungsbetrag_Erstattung.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, scrollY: 0 }, 
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
+        writeParagraph("Sollte mein Budget nicht für die vollständige Erstattung ausreichen, bitte ich um Überweisung des noch verfügbaren Restbetrags.", defaultLineHeight, 11, {extraSpacingAfter: 15});
 
-        html2pdf().set(opt).from(tempContainer).save().then(() => {
-            document.body.removeChild(tempContainer);
-        });
+        // --- 8. Grußformel & Unterschrift ---
+        writeLine("Mit freundlichen Grüßen", defaultLineHeight);
+        y += 25; // Platz für handschriftliche Unterschrift
+        writeLine("__________________________________");
+        writeLine("(Unterschrift der pflegebedürftigen Person");
+        writeLine("oder des gesetzlichen Vertreters)");
+        y += 15;
+
+        // --- 9. Anlagen ---
+        writeLine("Anlagen: Originalrechnung(en)", defaultLineHeight, true, 10, "left", [100, 100, 100]); // Grau und kleiner
+
+        // --- 10. SPEICHERN ---
+        doc.save("Antrag_Entlastungsbetrag_Erstattung.pdf");
     }
 
     // Hilfsfunktion: Fehler anzeigen
