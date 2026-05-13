@@ -212,20 +212,24 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        pdfTemplate.innerHTML = pdfHtml;
-        pdfTemplate.style.display = 'block';
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = pdfHtml;
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.top = '0';
+        tempContainer.style.left = '-9999px'; 
+        tempContainer.style.width = '800px'; 
+        document.body.appendChild(tempContainer);
 
         const opt = {
             margin:       15,
             filename:     'Arzt_Spickzettel_Hilfsmittel.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
+            html2canvas:  { scale: 2, scrollY: 0 }, 
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        // PDF generieren und dann das Template wieder verstecken
-        html2pdf().set(opt).from(pdfTemplate).save().then(() => {
-            pdfTemplate.style.display = 'none';
+        html2pdf().set(opt).from(tempContainer).save().then(() => {
+            document.body.removeChild(tempContainer);
         });
     }
 

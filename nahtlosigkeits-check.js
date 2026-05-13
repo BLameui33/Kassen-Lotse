@@ -123,8 +123,13 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         // Ins DOM einfügen
-        pdfTemplate.innerHTML = pdfHtml;
-        pdfTemplate.style.display = 'block'; // Kurz sichtbar für html2pdf
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = pdfHtml;
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.top = '0';
+        tempContainer.style.left = '-9999px'; // Aus dem sichtbaren Bereich schieben
+        tempContainer.style.width = '800px';  // Feste Breite simuliert A4
+        document.body.appendChild(tempContainer);
 
         // Erfolgsmeldung im Browser anzeigen
         zeigeErgebnis(
@@ -133,23 +138,21 @@ document.addEventListener('DOMContentLoaded', () => {
             'success'
         );
 
-        // PDF generieren und speichern
         const opt = {
-            margin:       10,
+            margin:       15,
             filename:     'Antrag_Nahtlosigkeit_Aussteuerung.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2 },
+            html2canvas:  { scale: 2, scrollY: 0 }, // WICHTIG: scrollY fixt die weißen Seiten!
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        html2pdf().set(opt).from(pdfTemplate).save().then(() => {
-            pdfTemplate.style.display = 'none'; // Template wieder verstecken
+        html2pdf().set(opt).from(tempContainer).save().then(() => {
+            document.body.removeChild(tempContainer); // Nach Download aufräumen
             
             // SPENDEN POPUP NACH DOWNLOAD AUFRUFEN
             if (spendenPopup) {
-                // Ein kleines Delay, damit der Download-Dialog im Browser nicht gestört wird
                 setTimeout(() => {
-                    spendenPopup.style.display = 'flex'; // 'flex' für Zentrierung (falls in deinem CSS so angelegt), sonst 'block'
+                    spendenPopup.style.display = 'flex';
                 }, 1000);
             }
         });
