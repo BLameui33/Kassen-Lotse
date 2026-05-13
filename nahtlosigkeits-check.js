@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnBerechnen = document.getElementById('nl_berechnen');
     const btnReset = document.getElementById('nl_reset');
     const ergebnisContainer = document.getElementById('nl_ergebnis');
-    const pdfTemplate = document.getElementById('nl_pdf_template');
+    // Das alte pdfTemplate aus dem HTML wird nicht mehr gebraucht, wir rendern virtuell
     
     // Popup Elemente
     const spendenPopup = document.getElementById('spendenPopupWiderspruchHH');
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     btnReset.addEventListener('click', () => {
         ergebnisContainer.innerHTML = '';
-        pdfTemplate.innerHTML = '';
     });
 
     // Event Listener für Popup schließen
@@ -57,19 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
             ? 'Einen Antrag auf Leistungen zur medizinischen Rehabilitation bzw. auf Erwerbsminderungsrente habe ich bereits beim zuständigen Rentenversicherungsträger gestellt.'
             : 'Sollte ein Antrag auf medizinische Rehabilitation oder Erwerbsminderungsrente erforderlich sein, werde ich diesen selbstverständlich fristgerecht stellen, sobald ich von Ihnen im Rahmen des § 145 Abs. 2 SGB III dazu aufgefordert werde.';
 
-        // PDF HTML zusammenbauen
+        // PDF HTML zusammenbauen (Perfekter DIN-Briefkopf und feste 800px Breite für A4)
         const pdfHtml = `
-            <div style="font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.5; color: #000; background: #fff; padding: 20px;">
-                <!-- Absender -->
-                <div style="margin-bottom: 40px;">
-                    ${vorname !== '___________________' ? vorname : 'Vorname:'} ${nachname !== '___________________' ? nachname : 'Nachname:'}<br>
-                    ${strasse !== '___________________' ? strasse : 'Straße:'}<br>
-                    ${plz !== '_______' ? plz : 'PLZ:'} ${ort !== '___________________' ? ort : 'Ort:'}<br><br>
-                    Kundennummer: ${kundennummer}
+            <div style="width: 800px; padding: 50px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.5; color: #000; background: #fff; box-sizing: border-box;">
+                
+                <!-- Absenderzeile klein über dem Empfänger (Sichtfenster) -->
+                <div style="font-size: 8pt; color: #555; text-decoration: underline; margin-bottom: 10px; margin-top: 20px;">
+                    ${vorname !== '___________________' ? vorname : 'Vorname'} ${nachname !== '___________________' ? nachname : 'Nachname'} · ${strasse !== '___________________' ? strasse : 'Straße'} · ${plz !== '_______' ? plz : 'PLZ'} ${ort !== '___________________' ? ort : 'Ort'}
                 </div>
 
                 <!-- Empfänger -->
-                <div style="margin-bottom: 40px;">
+                <div style="margin-bottom: 50px; font-size: 11pt;">
                     Agentur für Arbeit<br>
                     - Leistungsabteilung -<br>
                     <em>(Bitte lokale Adresse der Agentur eintragen)</em><br>
@@ -77,8 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     __________________________________
                 </div>
 
-                <!-- Ort, Datum -->
+                <!-- Eigene Daten (rechtsbündig) & Datum -->
                 <div style="text-align: right; margin-bottom: 30px;">
+                    Kundennummer: ${kundennummer}<br>
                     ${ort !== '___________________' ? ort : 'Ort'}, den ${heuteDatum}
                 </div>
 
@@ -115,37 +113,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 <!-- Grußformel -->
                 <div style="margin-bottom: 50px;">
-                    Mit freundlichen Grüßen<br><br><br>
+                    Mit freundlichen Grüßen<br><br><br><br>
                     __________________________________<br>
                     (Unterschrift)
                 </div>
             </div>
         `;
 
-        // Ins DOM einfügen
+        // Temporären versteckten Container erstellen (Verhindert den Weiße-Seiten-Bug)
         const tempContainer = document.createElement('div');
         tempContainer.innerHTML = pdfHtml;
         tempContainer.style.position = 'absolute';
         tempContainer.style.top = '0';
-        tempContainer.style.left = '-9999px'; // Aus dem sichtbaren Bereich schieben
-        tempContainer.style.width = '800px';  // Feste Breite simuliert A4
+        tempContainer.style.left = '-9999px'; 
         document.body.appendChild(tempContainer);
 
-        // Erfolgsmeldung im Browser anzeigen
+        // Vorschau & Erfolgsmeldung im Browser anzeigen
         zeigeErgebnis(
-            'Ihr PDF wird generiert!',
-            'Das rechtssichere Anschreiben wird nun heruntergeladen. <strong>Ganz wichtig:</strong> Behalten Sie in Gesprächen mit der Arbeitsagentur unbedingt den Wortlaut aus dem Brief bei ("Ich stelle mich im Rahmen meines Restleistungsvermögens zur Verfügung").',
+            'Ihr Anschreiben ist fertig!',
+            'Das rechtssichere Anschreiben wird nun als PDF heruntergeladen. <br><br><strong>Ganz wichtig:</strong> Behalten Sie in Gesprächen mit der Arbeitsagentur unbedingt den Wortlaut aus dem Brief bei ("Ich stelle mich im Rahmen meines Restleistungsvermögens zur Verfügung").',
             'success'
         );
 
+        // PDF Einstellungen
         const opt = {
-            margin:       15,
+            margin:       10,
             filename:     'Antrag_Nahtlosigkeit_Aussteuerung.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, scrollY: 0 }, // WICHTIG: scrollY fixt die weißen Seiten!
+            html2canvas:  { scale: 2, scrollY: 0 }, // WICHTIG: scrollY: 0 fixt die weißen Seiten!
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
+        // PDF generieren
         html2pdf().set(opt).from(tempContainer).save().then(() => {
             document.body.removeChild(tempContainer); // Nach Download aufräumen
             
@@ -161,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hilfsfunktion: Fehler anzeigen
     function zeigeFehler(msg) {
         ergebnisContainer.innerHTML = `
-            <div class="info-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 15px;">
+            <div class="info-box ergebnis-animation" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 15px; margin-top: 15px;">
                 <strong>Fehler:</strong> ${msg}
             </div>`;
     }
@@ -180,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         
         ergebnisContainer.innerHTML = html;
-        ergebnisContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        ergebnisContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // Hilfsfunktion: Datum formatiert ausgeben (DD.MM.YYYY)
