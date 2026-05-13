@@ -1,7 +1,7 @@
 /**
  * Nahtlosigkeits-Check & PDF-Generator
  * Erstellt ein rechtssicheres Anschreiben nach § 145 SGB III
- * und triggert das Spenden-Popup.
+ * Zeigt ein Ergebnis auf dem Bildschirm und triggert das Spenden-Popup.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnBerechnen = document.getElementById('nl_berechnen');
     const btnReset = document.getElementById('nl_reset');
     const ergebnisContainer = document.getElementById('nl_ergebnis');
-    // Das alte pdfTemplate aus dem HTML wird nicht mehr gebraucht, wir rendern virtuell
     
     // Popup Elemente
     const spendenPopup = document.getElementById('spendenPopupWiderspruchHH');
@@ -30,33 +29,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function generierePDF() {
-        // Pflichtfeld prüfen
+        // 1. Pflichtfeld prüfen
         const aussteuerungInput = document.getElementById('nl_aussteuerung').value;
         if (!aussteuerungInput) {
             zeigeFehler('Bitte geben Sie das Datum Ihrer Aussteuerung an.');
             return;
         }
 
-        // Optionale Felder auslesen
+        // 2. Felder auslesen
         const vorname = document.getElementById('nl_vorname').value.trim() || '___________________';
         const nachname = document.getElementById('nl_nachname').value.trim() || '___________________';
         const strasse = document.getElementById('nl_strasse').value.trim() || '___________________';
         const plz = document.getElementById('nl_plz').value.trim() || '_______';
         const ort = document.getElementById('nl_ort').value.trim() || '___________________';
         const kundennummer = document.getElementById('nl_kundennummer').value.trim() || '___________________';
-        
         const rehaAntragGestellt = document.getElementById('nl_reha_antrag').checked;
 
-        // Datum formatieren
+        // 3. Datum formatieren
         const aussteuerungDatum = formatiereDatum(new Date(aussteuerungInput));
         const heuteDatum = formatiereDatum(new Date());
 
-        // --- RECHTSSICHERER TEXT ---
         let rehaSatz = rehaAntragGestellt 
             ? 'Einen Antrag auf Leistungen zur medizinischen Rehabilitation bzw. auf Erwerbsminderungsrente habe ich bereits beim zuständigen Rentenversicherungsträger gestellt.'
             : 'Sollte ein Antrag auf medizinische Rehabilitation oder Erwerbsminderungsrente erforderlich sein, werde ich diesen selbstverständlich fristgerecht stellen, sobald ich von Ihnen im Rahmen des § 145 Abs. 2 SGB III dazu aufgefordert werde.';
 
-        // PDF HTML zusammenbauen (Perfekter DIN-Briefkopf und feste 800px Breite für A4)
+        // --- 4. ERGEBNIS AUF DEM BILDSCHIRM ANZEIGEN ---
+        let htmlErgebnis = `
+            <div class="info-box ergebnis-animation" style="background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin-top: 15px;">
+                <h2 style="margin-top: 0; color: #2e7d32; font-size: 1.3rem;">✅ Anspruch geprüft & Anschreiben erstellt</h2>
+                <ul style="margin-bottom: 15px; padding-left: 20px;">
+                    <li><strong>Aussteuerungsdatum:</strong> ${aussteuerungDatum} (Ab diesem Tag muss das Arbeitsamt zahlen).</li>
+                    <li><strong>Reha-/Rentenantrag:</strong> ${rehaAntragGestellt ? 'Bereits gestellt (sehr gut!).' : 'Muss voraussichtlich nach Aufforderung durch das Amt noch gestellt werden.'}</li>
+                </ul>
+                <p><strong>Vorschau Ihres wichtigsten Satzes im Antrag:</strong><br>
+                <em style="color: #1565c0;">"Ich stelle mich der Arbeitsvermittlung im Rahmen meines verbliebenen gesundheitlichen Restleistungsvermögens... uneingeschränkt zur Verfügung."</em></p>
+                <p style="margin-bottom: 0; color: #d32f2f;"><strong>📄 Ihr rechtssicheres PDF wird jetzt heruntergeladen!</strong></p>
+            </div>
+        `;
+        
+        ergebnisContainer.innerHTML = htmlErgebnis;
+        ergebnisContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+
+        // --- 5. PDF HTML ZUSAMMENBAUEN (Perfekter DIN-Briefkopf) ---
         const pdfHtml = `
             <div style="width: 800px; padding: 50px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.5; color: #000; background: #fff; box-sizing: border-box;">
                 
@@ -120,34 +135,17 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
 
-        // Temporären versteckten Container erstellen (Verhindert den Weiße-Seiten-Bug)
-        const tempContainer = document.createElement('div');
-        tempContainer.innerHTML = pdfHtml;
-        tempContainer.style.position = 'absolute';
-        tempContainer.style.top = '0';
-        tempContainer.style.left = '-9999px'; 
-        document.body.appendChild(tempContainer);
-
-        // Vorschau & Erfolgsmeldung im Browser anzeigen
-        zeigeErgebnis(
-            'Ihr Anschreiben ist fertig!',
-            'Das rechtssichere Anschreiben wird nun als PDF heruntergeladen. <br><br><strong>Ganz wichtig:</strong> Behalten Sie in Gesprächen mit der Arbeitsagentur unbedingt den Wortlaut aus dem Brief bei ("Ich stelle mich im Rahmen meines Restleistungsvermögens zur Verfügung").',
-            'success'
-        );
-
-        // PDF Einstellungen
+        // --- 6. SICHERER PDF-DOWNLOAD (Direkt aus String) ---
         const opt = {
             margin:       10,
             filename:     'Antrag_Nahtlosigkeit_Aussteuerung.pdf',
             image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, scrollY: 0 }, // WICHTIG: scrollY: 0 fixt die weißen Seiten!
+            html2canvas:  { scale: 2 }, 
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        // PDF generieren
-        html2pdf().set(opt).from(tempContainer).save().then(() => {
-            document.body.removeChild(tempContainer); // Nach Download aufräumen
-            
+        // Indem wir den String "pdfHtml" direkt in from() laden, verhindern wir weiße Seiten komplett!
+        html2pdf().set(opt).from(pdfHtml).save().then(() => {
             // SPENDEN POPUP NACH DOWNLOAD AUFRUFEN
             if (spendenPopup) {
                 setTimeout(() => {
@@ -160,26 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hilfsfunktion: Fehler anzeigen
     function zeigeFehler(msg) {
         ergebnisContainer.innerHTML = `
-            <div class="info-box ergebnis-animation" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 15px; margin-top: 15px;">
+            <div class="info-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 15px;">
                 <strong>Fehler:</strong> ${msg}
             </div>`;
-    }
-
-    // Hilfsfunktion: Ergebnisbox generieren
-    function zeigeErgebnis(titel, text, typ) {
-        let bgColor = '#e8f5e9'; // Grün
-        let borderColor = '#4caf50';
-        let icon = '📄';
-
-        const html = `
-            <div class="info-box ergebnis-animation" style="background-color: ${bgColor}; border-left: 4px solid ${borderColor}; padding: 15px; margin-top: 15px;">
-                <h2 style="margin-top: 0; color: #333; font-size: 1.3rem;">${icon} ${titel}</h2>
-                <p style="margin-bottom: 0; line-height: 1.5;">${text}</p>
-            </div>
-        `;
-        
-        ergebnisContainer.innerHTML = html;
-        ergebnisContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     // Hilfsfunktion: Datum formatiert ausgeben (DD.MM.YYYY)
