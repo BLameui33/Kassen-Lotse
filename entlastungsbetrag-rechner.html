@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Entlastungsbetrag-Rechner 2026: Budget prüfen & Abrechnung erstellen</title>
+  <meta name="description" content="Lass deine 131 Euro nicht verfallen! Berechne dein Restbudget für den Entlastungsbetrag und erstelle sofort ein PDF-Formular für die Pflegekasse." />
+  <meta name="keywords" content="Entlastungsbetrag, 131 Euro, Pflegekasse, Entlastungsleistungen abrechnen, Verfall Entlastungsbetrag, Haushaltshilfe Pflegegrad, Kassen-Lotse" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://www.kassen-lotse.tld/entlastungsbetrag-rechner.html" />
+  <meta property="og:title" content="Entlastungsbetrag-Tracker 2026 (131 €) — Restbudget & Erstattung" />
+  <meta property="og:description" content="Berechne, wie viel Geld dir noch zusteht, bevor es am 30. Juni verfällt. Inklusive PDF-Generator zur Einreichung deiner Rechnungen bei der Pflegekasse." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="stylesheet" href="/css/style.css" />
+ 
+  <!-- html2pdf für die PDF-Generierung -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Entlastungsbetrag-Rechner 2026",
+  "operatingSystem": "Web",
+  "applicationCategory": "FinanceApplication",
+  "description": "Online-Tool zur Berechnung des verfügbaren Entlastungsbetrags (131 €/Monat) unter Berücksichtigung von Verfallsfristen. Generiert zudem ein Erstattungsformular für die Pflegekasse.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Wann verfällt der Entlastungsbetrag?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Der Entlastungsbetrag wird monatlich angespart. Wenn Sie das Geld in einem Kalenderjahr nicht vollständig ausgeben, können Sie das Restguthaben in das nächste Jahr mitnehmen. Dieses angesparte Guthaben aus dem Vorjahr verfällt jedoch unwiderruflich am 30. Juni des Folgejahres."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wofür darf ich den Entlastungsbetrag nutzen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sie können das Geld für anerkannte Betreuungs- und Entlastungsangebote nutzen. Dazu zählen nach Landesrecht zertifizierte Haushaltshilfen (Putzhilfen), Alltagsbegleiter, Einkaufshilfen, aber auch die Tages- und Nachtpflege oder Kurzzeitpflege."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bekomme ich die 131 Euro aufs Konto überwiesen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nein. Im Gegensatz zum Pflegegeld wird der Entlastungsbetrag nicht pauschal ausgezahlt. Es gilt das Kostenerstattungsprinzip: Sie bezahlen den Dienstleister (oder reichen die Rechnung direkt ein) und die Pflegekasse erstattet Ihnen den Betrag auf Ihr Konto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Seit wann gibt es 131 Euro (statt 125 Euro)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Durch die gesetzliche Dynamisierung der Pflegeleistungen wurde der Entlastungsbetrag zum 1. Januar 2025 um 4,5 Prozent angehoben. Seitdem stehen Pflegebedürftigen (ab Pflegegrad 1) monatlich 131 Euro zur Verfügung."
+      }
+    }
+  ]
+}
+</script>
+
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <a href="index.html" class="site-logo" aria-label="Kassen-Lotse Startseite">Kassen-Lotse</a>
+  </header>
+
+  <main class="page-container" role="main">
+
+  <h1>Rechner: Entlastungsbetrag (131 €) planen & abrechnen</h1>
+
+  <div class="usp-bar" style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; font-weight: bold; font-size: 0.9em;">
+    <div class="usp-item" style="display: flex; align-items: center; gap: 5px;">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
+      Aktueller Satz (131 €)
+    </div>
+    <div class="usp-item" style="display: flex; align-items: center; gap: 5px;">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
+      Verfalls-Warnung
+    </div>
+    <div class="usp-item" style="display: flex; align-items: center; gap: 5px;">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
+      PDF Erstattungsantrag
+    </div>
+    <div class="usp-item" style="display: flex; align-items: center; gap: 5px;">
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
+      Lokal & Sicher
+    </div>
+  </div>
+
+  <a href="pflegekasse.html" class="category-badge">
+    Zur Übersicht: Pflege & Angehörige
+  </a>
+
+  <p><em>Fachlich geprüft | Stand: 13.05.2026</em></p>
+
+  <a href="#eb-form" class="button jump-button" style="margin-bottom: 20px; display: inline-block;">Direkt zur Budget-Prüfung & PDF-Generator</a>
+
+  <div class="info-box">
+    <p>
+      Zusätzlich zum Pflegegeld steht jedem Pflegebedürftigen (ab Pflegegrad 1) ein <strong>Entlastungsbetrag von 131 Euro pro Monat</strong> zu (bis Ende 2024 waren es 125 Euro). Damit können Sie z. B. eine anerkannte Putzhilfe, Einkaufshilfen oder Alltagsbegleiter bezahlen.
+    </p>
+    <p>
+      <strong>Das Problem:</strong> Das Geld wird nicht automatisch überwiesen, Sie müssen es aktiv bei der Pflegekasse abrechnen. Sammeln Sie das Geld an, ist Vorsicht geboten: <strong>Restbudgets aus dem Vorjahr verfallen gnadenlos am 30. Juni!</strong> Mit unserem Tool berechnen Sie Ihr exaktes Restguthaben und erstellen in einem Rutsch ein fertiges Erstattungsformular für Ihre Rechnungen.
+    </p>
+  </div>
+
+  <div class="info-box warning" style="border-left: 4px solid #ff9800; padding: 15px; margin-top: 20px; background-color: #fff8e1;">
+    <h2>WICHTIG: Nur zugelassene Anbieter!</h2>
+    <p>
+      Sie können den Entlastungsbetrag leider <strong>nicht</strong> dafür nutzen, Ihrer Enkelin oder der netten Nachbarin 131 Euro für das Putzen zu geben. Die Pflegekasse erstattet Rechnungen nur, wenn der Dienstleister <strong>nach Landesrecht anerkannt (zertifiziert)</strong> ist. Fragen Sie bei Pflegediensten oder gewerblichen Haushaltshilfen immer vorher nach dieser Zertifizierung nach § 45b SGB XI!
+    </p>
+  </div>
+
+  <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft" style="margin-top: 15px; margin-bottom: 30px;">
+    <p><strong>Redaktionell geprüft am:</strong> <span id="pruefdatum">13.05.2026</span></p>
+  </div>
+
+    <!-- HIER BEGINNT DAS FORMULAR -->
+    <form id="eb-form" class="pflegegrad-form" onsubmit="return false;" aria-describedby="eb_ergebnis">
+      
+      <fieldset class="pflegegrad-fieldset active-step">
+        <legend>1) Ihr Budget & Fristen</legend>
+
+        <label class="pflegegrad-label" for="eb_pg_monat">
+          Seit wann haben Sie durchgehend einen Pflegegrad? (Monat & Jahr)
+          <input type="month" id="eb_pg_monat" required />
+        </label>
+        <p class="hinweis" style="margin-top: -5px; margin-bottom: 15px;">
+          (Wichtig, um zu wissen, wie viele Monate Sie bereits ansparen konnten.)
+        </p>
+
+        <label class="pflegegrad-label" for="eb_rest_vorjahr">
+          Wie viel ungenutztes Budget haben Sie aus dem letzten Jahr mitgenommen? (€)
+          <input type="number" id="eb_rest_vorjahr" min="0" step="1" value="0" />
+        </label>
+        <p class="hinweis" style="margin-top: -5px; margin-bottom: 15px;">
+          (Falls Sie das nicht wissen, lassen Sie eine 0 stehen oder fragen Sie kurz bei Ihrer Pflegekasse nach.)
+        </p>
+
+        <label class="pflegegrad-label" for="eb_ausgegeben_jahr">
+          Wie viel Entlastungsbetrag haben Sie <strong>im laufenden Jahr</strong> bereits erstattet bekommen? (€)
+          <input type="number" id="eb_ausgegeben_jahr" min="0" step="1" value="0" />
+        </label>
+      </fieldset>
+
+      <fieldset class="pflegegrad-fieldset">
+        <legend>2) Erstattungs-Formular erstellen (Optional)</legend>
+        <p style="margin-top: 0; font-size: 0.9em; margin-bottom: 15px;">Möchten Sie direkt Rechnungen einreichen? Füllen Sie diese Felder aus, um ein fertiges Anschreiben für die Pflegekasse zu generieren. (Ihre Daten bleiben sicher auf Ihrem Gerät).</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <label class="pflegegrad-label" for="eb_vorname">Vorname (Pflegebedürftiger)
+              <input type="text" id="eb_vorname" placeholder="z. B. Max" />
+            </label>
+            <label class="pflegegrad-label" for="eb_nachname">Nachname
+              <input type="text" id="eb_nachname" placeholder="z. B. Mustermann" />
+            </label>
+        </div>
+
+        <label class="pflegegrad-label" for="eb_kasse">
+          Name der Pflegekasse
+          <input type="text" id="eb_kasse" placeholder="z. B. AOK Plus Pflegekasse" />
+        </label>
+
+        <label class="pflegegrad-label" for="eb_versicherungsnummer">
+          Versicherungsnummer
+          <input type="text" id="eb_versicherungsnummer" placeholder="z. B. A123456789" />
+        </label>
+
+        <label class="pflegegrad-label" for="eb_rechnungssumme" style="margin-top: 10px; border: 1px solid #2196f3; padding: 10px; background-color: #e3f2fd; border-radius: 4px;">
+          <strong>Höhe der beiliegenden Rechnungen, die erstattet werden sollen (€):</strong>
+          <input type="number" id="eb_rechnungssumme" min="0" step="0.01" placeholder="z. B. 250.50" />
+        </label>
+        
+        <label class="pflegegrad-label" for="eb_iban" style="margin-top: 10px;">
+          Geld erstatten auf IBAN:
+          <input type="text" id="eb_iban" placeholder="DE..." />
+        </label>
+      </fieldset>
+
+      <div class="button-container" role="group" aria-label="Buttons">
+        <button type="button" id="eb_berechnen" class="button">Restbudget prüfen & PDF erstellen</button>
+        <button type="reset" id="eb_reset" class="button button-secondary">Zurücksetzen</button>
+      </div>
+    </form>
+
+    <section id="eb_ergebnis" aria-live="polite" style="margin-top:1rem;"></section>
+
+    <!-- VERSTECKTES ELEMENT FÜR DEN PDF EXPORT (Wird von JS befüllt) -->
+    <div id="eb_pdf_template" style="display: none; padding: 40px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #000; background: #fff;">
+       <!-- Inhalt wird dynamisch durch JS eingefügt -->
+    </div>
+
+    <!-- Promo / Partner (Clerion Banner) -->
+   <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
+      <h2 id="promo-headline">
+        <span class="icon" aria-hidden="true">🤖</span>
+        Clerion – Die KI, die Ihnen bei Behördenpost und Anträgen hilft
+      </h2>
+      <p class="lead">
+        Die Pflegekasse lehnt Ihre Rechnungen für den Entlastungsbetrag ab? Oder Ihr Pflegegeld wurde ohne Vorwarnung gekürzt?
+        Clerion analysiert Briefe der Pflegekasse, erklärt Ihnen die Begründung in einfachem Deutsch und erstellt auf Knopfdruck maßgeschneiderte Widersprüche.
+      </p>
+      <div class="promo-ctas">
+        <a href="https://clerion.de" class="btn btn-primary" rel="noopener" target="_blank">Jetzt testen</a>
+      </div>
+      <div class="free-help">
+        <p class="muted">Sie suchen kostenlose Infos oder Vorlagen? Hier finden Sie weitere Hilfsangebote:</p>
+        <nav aria-label="Kostenlose Hilfsseiten">
+          <a href="https://sozialrecht-lotse.de" class="btn btn-outline" target="_blank">🤝 Sozial-Lotse</a>
+          <a href="https://mieter-lotse.de" class="btn btn-outline" target="_blank">💳 Mieter-Lotse</a>
+        </nav>
+      </div>
+    </section>
+
+    <h2>Häufige Fragen (FAQ) zum Entlastungsbetrag</h2>
+  <details>
+    <summary>Kann ich mir das Geld auch auszahlen lassen, wenn ich niemanden brauche?</summary>
+    <p>Nein, der Entlastungsbetrag ist zweckgebunden. Wenn Sie keine Rechnungen von zugelassenen Dienstleistern einreichen, verfällt das angesparte Geld unweigerlich.</p>
+  </details>
+  <details>
+    <summary>Ich habe eine Verhinderungspflegekraft privat bezahlt. Geht das über den Entlastungsbetrag?</summary>
+    <p>Das ist ein Sonderfall: Auf Antrag kann der Entlastungsbetrag auch genutzt werden, um private Helfer bei der Verhinderungspflege zu bezahlen, ABER erst dann, wenn Ihr normales Verhinderungspflege-Budget (der Gemeinsame Jahresbetrag) bereits aufgebraucht ist.</p>
+  </details>
+  <details>
+    <summary>Gilt der Entlastungsbetrag auch im Pflegeheim?</summary>
+    <p>Nein. Der Entlastungsbetrag (§ 45b SGB XI) ist ausschließlich für die Pflege im häuslichen Umfeld (oder in ambulant betreuten Wohngruppen) gedacht. In der vollstationären Pflege im Pflegeheim wird er nicht gezahlt.</p>
+  </details>
+
+  <aside class="highlight-box" role="complementary" aria-label="Weiterführende Informationen">
+  <h2 style="margin-top:0">Wichtige Fakten zur häuslichen Pflege</h2>
+  <p>
+    Holen Sie sich das Geld, das Ihnen zusteht, und entlasten Sie Ihre Angehörigen:
+  </p>
+  <p style="margin-bottom:.4rem;">
+    <a href="verhinderungspflege-stundenweise-rechner.html" class="button button-secondary" title="Zur stundenweisen Verhinderungspflege">Pflegegeld sichern mit der Unter-8-Stunden-Regel</a>
+    <a href="pflegegeld-rechner.html" class="button button-secondary" title="Pflegegrad erhöhen">Pflegegeld-Rechner</a>
+    <a href="info-pflegehilfsmittel.html" class="button button-secondary" title="Pflegehilfsmittel">Pflegehilfsmittel-Box (42 € im Monat) beantragen</a>
+  </p>
+</aside>
+
+  <h2>Quellen &amp; weiterführende Links</h2>
+  <div class="kl-highlight kl-sources-box" aria-label="Quellen und weiterführende Links">
+    <ul>
+      <li>
+        <a href="https://www.gesetze-im-internet.de/sgb_11/__45b.html" target="_blank" rel="noopener">
+          Bundesministerium der Justiz – § 45b SGB XI (Entlastungsbetrag)
+        </a>
+      </li>
+      <li>
+        <a href="https://www.bundesgesundheitsministerium.de/entlastungsbetrag.html" target="_blank" rel="noopener">
+          Bundesgesundheitsministerium – Der Entlastungsbetrag im Überblick
+        </a>
+      </li>
+      <li>
+        <a href="https://www.verbraucherzentrale.de/wissen/gesundheit-pflege/pflege-zu-hause/entlastungsbetrag-darauf-haben-sie-anspruch-und-so-nutzen-sie-ihn-13460" target="_blank" rel="noopener">
+          Verbraucherzentrale – Entlastungsbetrag: Darauf haben Sie Anspruch
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  </main>
+
+  <footer role="contentinfo">
+    <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns & Redaktionsrichtlinien</a> | <a href="index.html">Zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+  </footer>
+
+  <script src="entlastungsbetrag-rechner.js" defer></script>
+</body>
+</html>
