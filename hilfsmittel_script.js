@@ -220,27 +220,69 @@ function generateHilfsmittelAntragPDF() {
     if (anlage_sonstiges_text_eingabe.trim() !== "") anlagen.push("Sonstige Anlagen: " + anlage_sonstiges_text_eingabe);
 
     // --- PDF-Inhalt erstellen ---
+   const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFontSize(10);
+    doc.setFont(undefined, "bold");
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.text(name, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    adresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    if (telefon && telefon.trim() !== "") {
+        doc.text("Tel.: " + telefon, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Sichtfenster-Höhe)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile erzeugen (Ersetzt Zeilenumbrüche durch Punkte)
+    const cleanAddressInline = adresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${name} · ${cleanAddressInline}`;
+    
+    doc.setFontSize(8);
+    doc.setFont(undefined, "normal");
+    doc.setTextColor(120, 120, 120); // Dezentes Grau für die Zeile
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die gewünschte feine Unterstreichung
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); // 85mm Breite deckt das Brieffenster ab
+    
+    // Empfänger-Adresse platzieren
+    leftY += 6; 
     doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasse, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kassenAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
 
-    // Absender
-    writeLine(name);
-    adresse.split("\n").forEach(line => writeLine(line));
-    if (telefon.trim() !== "") writeLine("Tel.: " + telefon);
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight;
-
-    // Empfänger
-    writeLine(kasse);
-    kassenAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
-
-    // Datum rechtsbündig
+    // 3. DATUM: Rechtsbündig unterhalb der Adressblöcke platziere
     const datumHeute = new Date().toLocaleDateString("de-DE");
     const datumsFontSize = 11;
     doc.setFontSize(datumsFontSize);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * datumsFontSize / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else { doc.addPage(); y = margin; }
+    
+    // Nimmt den jeweils tieferen Wert (links oder rechts), damit nichts überlappt
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Setzt die globale Y-Koordinate dynamisch unter das Datum für den restlichen Text
+    y = datumY + 12;
 
     // Betreff
     const betreffText = `Antrag auf Kostenübernahme für ein medizinisches Hilfsmittel gemäß § 33 SGB V – Versichertennummer: ${nummer}`;

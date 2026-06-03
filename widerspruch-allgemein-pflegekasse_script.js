@@ -242,32 +242,102 @@ function generateWiderspruchAllgPkPDF() {
 
     // --- PDF-Inhalt erstellen ---
     doc.setFont("times", "normal");
+    doc.setFontSize(textFontSize);
 
+    // Absender-Logik & Info-Text ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
+    let infoText = "";
+
     if (widerspruchfuehrerIdentischAllgPk === 'nein' && wfNameAllgPk.trim() !== "") {
         absenderName = wfNameAllgPk;
         absenderAdresse = wfAdresseAllgPk;
-    }
-    writeLine(absenderName, defaultLineHeight, "normal", textFontSize);
-    absenderAdresse.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (widerspruchfuehrerIdentischAllgPk === 'nein' && wfNameAllgPk.trim() !== ""){
-         writeParagraph(`(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, smallTextFontSize, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
+        infoText = `(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
     } else {
-         writeParagraph(`(Versicherte Person: ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, smallTextFontSize, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
+        infoText = `(Versicherte Person: ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
     }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    writeLine(pflegekasseNameW, defaultLineHeight, "normal", textFontSize);
-    pflegekasseAdresseW.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(textFontSize);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
+    // Info-Text (Versicherten- / Vertretungs-Details) rechts drunter setzen
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach der Adresse
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(smallTextFontSize);
+        
+        // Automatische Zeilenbrüche für die 60mm breite rechte Spalte
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für Meta-Infos
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Pflegekasse)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Pflegekasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(textFontSize);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(pflegekasseNameW, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    pflegekasseAdresseW.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(textFontSize);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * textFontSize / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz (gleicht die Höhen beider Blöcke dynamisch ab)
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Fließtext
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     let betreffText = `Widerspruch gegen Ihren Bescheid vom ${entscheidungDatumPk}`;
     if (aktenzeichenEntscheidungPk.trim() !== "") betreffText += `, Aktenzeichen/Geschäftszeichen: ${aktenzeichenEntscheidungPk}`;
@@ -280,28 +350,28 @@ function generateWiderspruchAllgPkPDF() {
 
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, textFontSize, {extraSpacingAfter: defaultLineHeight * 0.5});
 
-    writeParagraph(`hiermit lege ich/legen wir fristgerecht Widerspruch gegen Ihren oben genannten Bescheid vom ${entscheidungDatumPk} ein, durch den Sie bezüglich "${gegenstandEntscheidungPk || 'des genannten Sachverhalts'}" eine für mich/uns nachteilige Entscheidung getroffen haben.`);
+    writeParagraph(`hiermit lege ich fristgerecht Widerspruch gegen Ihren oben genannten Bescheid vom ${entscheidungDatumPk} ein, durch den Sie bezüglich "${gegenstandEntscheidungPk || 'des genannten Sachverhalts'}" eine für mich nachteilige Entscheidung getroffen haben.`);
     if (widerspruchfuehrerIdentischAllgPk === 'nein' && wfNameAllgPk.trim() !== "") {
-        writeParagraph(`Ich, ${wfNameAllgPk}, lege diesen Widerspruch als ${wfVerhaeltnisAllgPk || 'bevollmächtigte Person'} für Herrn/Frau ${vpName} ein.`);
+        writeParagraph(`Ich, ${wfNameAllgPk}, lege diesen Widerspruch als ${wfVerhaeltnisAllgPk || 'bevollmächtigte Person'} für ${vpName} ein.`);
         if (wfVollmachtAllgPk) writeParagraph("Eine entsprechende Vollmacht ist beigefügt.", defaultLineHeight, smallTextFontSize, {fontStyle: "italic"});
     }
-    writeParagraph(`Diese Entscheidung ist aus meiner/unserer Sicht sachlich und/oder rechtlich nicht zutreffend und bedarf einer dringenden Neubewertung.`);
+    writeParagraph(`Diese Entscheidung ist aus meiner Sicht sachlich und rechtlich nicht zutreffend und bedarf einer dringenden Neubewertung.`);
     
-    writeLine("Begründung meines/unseres Widerspruchs:", defaultLineHeight, "bold", subHeadingFontSize);
+    writeLine("Begründung meines Widerspruchs:", defaultLineHeight, "bold", subHeadingFontSize);
     y += spaceAfterParagraph / 2; 
     if (begruendungWiderspruchAllgPK.trim() !== "") {
         writeParagraph(begruendungWiderspruchAllgPK);
     } else {
         writeParagraph("[Hier wurde keine spezifische Begründung im Formular eingegeben. Es ist entscheidend, dass Sie Ihre Gründe detailliert darlegen und ggf. mit Belegen untermauern!]", defaultLineHeight, textFontSize, {fontStyle: "bold"});
     }
-    writeParagraph("Ich/Wir bitten Sie, die Sachlage unter Berücksichtigung meiner/unserer Ausführungen und der beigefügten Unterlagen erneut zu prüfen.", defaultLineHeight, textFontSize, {extraSpacingAfter:defaultLineHeight*0.5});
+    writeParagraph("Ich bitte Sie, die Sachlage unter Berücksichtigung meiner Ausführungen und der beigefügten Unterlagen erneut zu prüfen.", defaultLineHeight, textFontSize, {extraSpacingAfter:defaultLineHeight*0.5});
     
-    writeLine("Meine/Unsere Forderung im Widerspruchsverfahren:", defaultLineHeight, "bold", subHeadingFontSize);
+    writeLine("Meine Forderung im Widerspruchsverfahren:", defaultLineHeight, "bold", subHeadingFontSize);
     y += spaceAfterParagraph / 2;
     if (forderungWiderspruchAllgPK.trim() !== "") {
         writeParagraph(forderungWiderspruchAllgPK, defaultLineHeight, textFontSize, {fontStyle:"bold"});
     } else {
-        writeParagraph(`Ich/Wir beantragen hiermit nachdrücklich, den angefochtenen Bescheid vom ${entscheidungDatumPk} aufzuheben und unserem ursprünglichen Anliegen bzw. den in diesem Widerspruch dargelegten Punkten vollumfänglich stattzugeben.`, defaultLineHeight, textFontSize, {fontStyle:"bold"});
+        writeParagraph(`Ich beantrage hiermit nachdrücklich, den angefochtenen Bescheid vom ${entscheidungDatumPk} aufzuheben und meinem ursprünglichen Anliegen bzw. den in diesem Widerspruch dargelegten Punkten vollumfänglich stattzugeben.`, defaultLineHeight, textFontSize, {fontStyle:"bold"});
     }
     
     if (anlagen.length > 0) {
@@ -313,8 +383,8 @@ function generateWiderspruchAllgPkPDF() {
     }
 
     const fristsetzungDatumText = new Date(Date.now() + 4 * 7 * 24 * 60 * 60 * 1000).toLocaleDateString("de-DE"); 
-    writeParagraph(`Wir bitten um eine schriftliche Eingangsbestätigung dieses Widerspruchs und erwarten Ihre rechtsmittelfähige Entscheidung bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, textFontSize);
-    writeParagraph("Sollte unserem Widerspruch nicht oder nicht vollumfänglich abgeholfen werden, behalten wir uns die Einleitung weiterer rechtlicher Schritte vor.", defaultLineHeight, textFontSize);
+    writeParagraph(`Ich bitte um eine schriftliche Eingangsbestätigung dieses Widerspruchs und erwarte Ihre rechtsmittelfähige Entscheidung bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, textFontSize);
+    writeParagraph("Sollte diesem Widerspruch nicht oder nicht vollumfänglich abgeholfen werden, behalte ich mir die Einleitung weiterer rechtlicher Schritte vor.", defaultLineHeight, textFontSize);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     writeParagraph("Mit freundlichen Grüßen");

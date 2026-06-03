@@ -205,30 +205,98 @@ function generateKZPWiderspruchPDF() {
     // --- PDF-Inhalt erstellen ---
     doc.setFontSize(11);
 
-    // Absender
+    // Absender-Logik (Widerspruchsführer oder Versicherter) ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
+    let infoText = "";
+
     if (widerspruchfuehrerIdentischKZP === 'nein' && wfNameKZP.trim() !== "") {
         absenderName = wfNameKZP;
         absenderAdresse = wfAdresseKZP;
+        infoText = `(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line));
-    if (widerspruchfuehrerIdentischKZP === 'nein' && wfNameKZP.trim() !== ""){
-         writeParagraph(`(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger, Datum (Standard)
-    writeLine(pflegekasseName);
-    pflegekasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    // Zusatz-Info rechts drunter setzen, falls abweichender Widerspruchsführer aktiv
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach der Adresse
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        
+        // Bricht den Text automatisch um, falls er für die rechte Spalte (60mm) zu lang wird
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für den Info-Text
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Pflegekasse)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Pflegekasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(pflegekasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    pflegekasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz: Nimmt die Spalte, die tiefer reicht (wichtig bei langem InfoText!)
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Widerspruch gegen Ihren Bescheid vom ${datumAblehnungsbescheidKZP} betreffend Leistungen der Kurzzeitpflege`;
@@ -245,15 +313,15 @@ function generateKZPWiderspruchPDF() {
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, 11, {extraSpacingAfter: defaultLineHeight * 0.5});
 
     // Einleitung Widerspruch
-    writeParagraph(`hiermit lege ich/legen wir fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumAblehnungsbescheidKZP} ein. Mit diesem Bescheid haben Sie den Antrag vom ${datumUrsprAntragKZP} auf Leistungen der Kurzzeitpflege für Herrn/Frau ${vpName} im Zeitraum ${zeitraumAbgelehnteKZP || '(Zeitraum bitte eintragen)'} ${einrichtungAbgelehnteKZP.trim() !== "" ? ' in der Einrichtung ' + einrichtungAbgelehnteKZP : ''} abgelehnt oder nur unzureichend bewilligt.`);
+    writeParagraph(`hiermit lege ich fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumAblehnungsbescheidKZP} ein. Mit diesem Bescheid haben Sie den Antrag vom ${datumUrsprAntragKZP} auf Leistungen der Kurzzeitpflege für ${vpName} im Zeitraum ${zeitraumAbgelehnteKZP || '(Zeitraum bitte eintragen)'} ${einrichtungAbgelehnteKZP.trim() !== "" ? ' in der Einrichtung ' + einrichtungAbgelehnteKZP : ''} abgelehnt oder nur unzureichend bewilligt.`);
     if (widerspruchfuehrerIdentischKZP === 'nein' && wfNameKZP.trim() !== "") {
         writeParagraph(`Ich, ${wfNameKZP}, lege diesen Widerspruch als ${wfVerhaeltnisKZP || 'bevollmächtigte Person'} ein.`);
         if (wfVollmachtKZP) writeParagraph("Eine entsprechende Vollmacht ist beigefügt.", defaultLineHeight, 10, {fontStyle: "italic"});
     }
-    writeParagraph(`Ihre Entscheidung ist für uns nicht nachvollziehbar und verkennt die dringende Notwendigkeit der Kurzzeitpflege zur Sicherstellung der Versorgung und/oder Entlastung der Pflegesituation von Herrn/Frau ${vpName}.`);
+    writeParagraph(`Ihre Entscheidung ist für mich nicht nachvollziehbar und verkennt die dringende Notwendigkeit der Kurzzeitpflege zur Sicherstellung der Versorgung und/oder Entlastung der Pflegesituation ${vpName}.`);
     
     // Begründung des Widerspruchs
-    writeLine("Ausführliche Begründung meines/unseres Widerspruchs:", defaultLineHeight, true);
+    writeLine("Ausführliche Begründung meines Widerspruchs:", defaultLineHeight, true);
     y += spaceAfterParagraph / 2; 
     
     if (hauptablehnungsgrundKZP.trim() !== "") {
@@ -280,15 +348,15 @@ function generateKZPWiderspruchPDF() {
         writeParagraph(ergaenzendeArgumenteKZP, defaultLineHeight, 11);
     }
     
-    writeParagraph(`Die Inanspruchnahme von Kurzzeitpflege gemäß § 42 SGB XI ist in der vorliegenden Situation unerlässlich. Eine Verweigerung oder unzureichende Bewilligung dieser Leistung würde die Pflegesituation von Herrn/Frau ${vpName} erheblich gefährden und ist nicht akzeptabel.`, defaultLineHeight, 11);
+    writeParagraph(`Die Inanspruchnahme von Kurzzeitpflege gemäß § 42 SGB XI ist in der vorliegenden Situation unerlässlich. Eine Verweigerung oder unzureichende Bewilligung dieser Leistung würde die Pflegesituation von ${vpName} erheblich gefährden und ist nicht akzeptabel.`, defaultLineHeight, 11);
     
     // Forderung
-    writeLine("Meine/Unsere Forderung im Widerspruchsverfahren:", defaultLineHeight, true);
+    writeLine("Meine Forderung im Widerspruchsverfahren:", defaultLineHeight, true);
     y += spaceAfterParagraph / 2;
     if (forderungWiderspruchKZP.trim() !== "") {
         writeParagraph(forderungWiderspruchKZP);
     } else {
-        writeParagraph(`Ich/Wir fordern Sie daher nachdrücklich auf, Ihren Ablehnungsbescheid vom ${datumAblehnungsbescheidKZP} zu revidieren und die Kosten für die beantragte Kurzzeitpflege im gesetzlich vorgesehenen Umfang (ggf. unter Anrechnung von Mitteln der Verhinderungspflege) zu übernehmen.`, defaultLineHeight, 11, {fontStyle:"bold"});
+        writeParagraph(`Ich fordere Sie daher nachdrücklich auf, Ihren Ablehnungsbescheid vom ${datumAblehnungsbescheidKZP} zu revidieren und die Kosten für die beantragte Kurzzeitpflege im gesetzlich vorgesehenen Umfang (ggf. unter Anrechnung von Mitteln der Verhinderungspflege) zu übernehmen.`, defaultLineHeight, 11, {fontStyle:"bold"});
     }
     
     // Anlagen
@@ -302,8 +370,8 @@ function generateKZPWiderspruchPDF() {
 
     // Abschluss mit Fristsetzung
     const fristsetzungDatumText = new Date(Date.now() + 3 * 7 * 24 * 60 * 60 * 1000).toLocaleDateString("de-DE"); 
-    writeParagraph(`Bitte bestätigen Sie uns den Eingang dieses Widerspruchs umgehend schriftlich. Wir erwarten Ihre rechtsmittelfähige Entscheidung über unseren Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, 11);
-    writeParagraph("Sollten Sie unserem Widerspruch nicht vollumfänglich abhelfen, behalten wir uns ausdrücklich vor, weitere rechtliche Schritte einzuleiten.", defaultLineHeight, 11);
+    writeParagraph(`Bitte bestätigen Sie uns den Eingang dieses Widerspruchs umgehend schriftlich. Ich erwarte Ihre rechtsmittelfähige Entscheidung über unseren Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, 11);
+    writeParagraph("Sollten Sie diesem Widerspruch nicht vollumfänglich abhelfen, behalte ich mir ausdrücklich vor, weitere rechtliche Schritte einzuleiten.", defaultLineHeight, 11);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

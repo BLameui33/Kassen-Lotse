@@ -221,27 +221,90 @@ function generateRehaRvAntragPDF() {
 
     // --- PDF-Inhalt erstellen ---
     doc.setFont("times", "normal");
+    doc.setFontSize(textFontSize);
 
-    // Absender (immer die Person, für die die Reha ist, da es keine abweichende Antragsteller-Option im Formular gab)
-    writeLine(personNameRehaRv, defaultLineHeight, "normal", textFontSize);
-    personAdresseRehaRv.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (personTelefonRehaRv.trim() !== "") writeLine("Tel.: " + personTelefonRehaRv, defaultLineHeight, "normal", textFontSize);
-    if (personEmailRehaRv.trim() !== "") writeLine("E-Mail: " + personEmailRehaRv, defaultLineHeight, "normal", textFontSize);
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(textFontSize);
+    doc.text(personNameRehaRv, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    personAdresseRehaRv.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
-    // Empfänger
-    writeLine(rvTraegerNameRehaRv, defaultLineHeight, "normal", textFontSize);
-    rvTraegerStrasseRehaRv.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    rvTraegerPlzOrtRehaRv.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    if (personTelefonRehaRv && personTelefonRehaRv.trim() !== "") {
+        doc.text("Tel.: " + personTelefonRehaRv.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
 
-    // Datum rechtsbündig
+    if (personEmailRehaRv && personEmailRehaRv.trim() !== "") {
+        doc.text("E-Mail: " + personEmailRehaRv.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (RV-Träger)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = personAdresseRehaRv.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${personNameRehaRv} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Rentenversicherungsträger) platzieren
+    leftY += 6; 
+    doc.setFontSize(textFontSize);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(rvTraegerNameRehaRv, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    rvTraegerStrasseRehaRv.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    rvTraegerPlzOrtRehaRv.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(textFontSize);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * textFontSize / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz (berücksichtigt Telefon + E-Mail rechts)
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Antrag auf Leistungen zur Rehabilitation (Begleitschreiben zum offiziellen Antrag)`;

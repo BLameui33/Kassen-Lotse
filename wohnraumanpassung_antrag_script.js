@@ -271,35 +271,107 @@ function generateWohnraumanpassungAntragPDF() {
     const anlageSonstigesWohn = document.getElementById("anlageSonstigesWohn").value;
     if (anlageSonstigesWohn.trim() !== "") { anlagen.push("Sonstige Anlagen: " + anlageSonstigesWohn); }
 
-    // --- PDF-Inhalt erstellen ---
     doc.setFontSize(11);
 
-    // Absender
+    // Absender-Logik (Antragsteller oder Versicherter) & Info-Text ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
     let absenderTelefon = vpTelefon;
+    let infoText = "";
+
     if (antragstellerIdentischWohn === 'nein' && asNameWohn.trim() !== "") {
         absenderName = asNameWohn;
-        absenderAdresse = asAdresseWohn; // Adresse des Antragstellers verwenden
+        absenderAdresse = asAdresseWohn;
+        infoText = `(handelnd als ${asVerhaeltnisWohn || 'Vertreter/in'} für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line));
-    if (absenderTelefon.trim() !== "") writeLine("Tel.: " + absenderTelefon); // Telefon des tatsächlichen Absenders
-    if (antragstellerIdentischWohn === 'nein' && asNameWohn.trim() !== ""){
-         writeParagraph(`(handelnd als ${asVerhaeltnisWohn || 'Vertreter/in'} für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger, Datum (Standard)
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    // Telefonnummer des Absenders ergänzen, falls vorhanden
+    if (absenderTelefon && absenderTelefon.trim() !== "") {
+        doc.text("Tel.: " + absenderTelefon.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // Zusatz-Info (Vertreter-Verhältnis) rechts drunter setzen
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach der Adresse/Telefon
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        
+        // Bricht den Text automatisch um, falls er für die rechte Spalte (60mm) zu lang wird
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für den Info-Text
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Kasse)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren (Telefon bleibt hier für die Zeile im Sichtfenster exkludiert)
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Kranken-/Pflegekasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz (gleicht asymmetrische Spaltenhöhen inkl. Telefon/Info-Text perfekt aus)
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Inhalt
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Antrag auf einen Zuschuss für wohnumfeldverbessernde Maßnahmen gemäß § 40 Abs. 4 SGB XI`;
@@ -315,8 +387,8 @@ function generateWohnraumanpassungAntragPDF() {
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, 11, {extraSpacingAfter: defaultLineHeight * 0.5});
 
     // Einleitung
-    writeParagraph(`hiermit beantrage ich/beantragen wir für Herrn/Frau ${vpName} einen Zuschuss für wohnumfeldverbessernde Maßnahmen nach § 40 Abs. 4 SGB XI.`);
-    writeParagraph(`Die Pflege und Betreuung von Herrn/Frau ${vpName} findet in der oben genannten Wohnung statt. Es besteht der ${vpPflegegrad || '(Pflegegrad bitte im Formular angeben)'}.`);
+    writeParagraph(`hiermit beantrage ich für ${vpName} einen Zuschuss für wohnumfeldverbessernde Maßnahmen nach § 40 Abs. 4 SGB XI.`);
+    writeParagraph(`Die Pflege und Betreuung von ${vpName} findet in der oben genannten Wohnung statt. Es besteht der ${vpPflegegrad || '(Pflegegrad bitte im Formular angeben)'}.`);
 
     // Wohnsituation
     writeLine("1. Angaben zur Wohnsituation:", defaultLineHeight, true);
@@ -333,7 +405,7 @@ function generateWohnraumanpassungAntragPDF() {
         }
     }
     if (weiterePflegebeduerftigeImHaushalt === "ja" && namenWeiterePflegebeduerftige.trim() !== "") {
-        writeParagraph(`Im Haushalt leben weitere pflegebedürftige Personen, die von den Maßnahmen profitieren: ${namenWeiterePflegebeduerftige}. Wir bitten um Berücksichtigung bei der Höhe des Gesamtzuschusses.`);
+        writeParagraph(`Im Haushalt leben weitere pflegebedürftige Personen, die von den Maßnahmen profitieren: ${namenWeiterePflegebeduerftige}. Ich bitte um Berücksichtigung bei der Höhe des Gesamtzuschusses.`);
     }
     
     // Geplante Maßnahmen
@@ -375,8 +447,8 @@ function generateWohnraumanpassungAntragPDF() {
     }
     
     // Abschluss
-    writeParagraph("Ich/Wir bitten um eine wohlwollende Prüfung dieses Antrags und um eine schriftliche Zusage für den Zuschuss zu den genannten wohnumfeldverbessernden Maßnahmen.", defaultLineHeight, 11);
-    writeParagraph("Bitte teilen Sie uns mit, ob weitere Unterlagen oder Informationen für Ihre Entscheidung benötigt werden.", defaultLineHeight, 11);
+    writeParagraph("Ich bitte um eine wohlwollende Prüfung dieses Antrags und um eine schriftliche Zusage für den Zuschuss zu den genannten wohnumfeldverbessernden Maßnahmen.", defaultLineHeight, 11);
+    writeParagraph("Bitte teilen Sie mir mit, ob weitere Unterlagen oder Informationen für Ihre Entscheidung benötigt werden.", defaultLineHeight, 11);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

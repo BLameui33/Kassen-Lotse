@@ -211,38 +211,113 @@ function generateSBWiderspruchPDF() {
     const anlageSonstigesSBAWiderspruch = document.getElementById("anlageSonstigesSBAWiderspruch").value;
     if (anlageSonstigesSBAWiderspruch.trim() !== "") { anlagen.push("Sonstige Anlagen: " + anlageSonstigesSBAWiderspruch); }
 
-    // --- PDF-Inhalt erstellen ---
     doc.setFontSize(11);
 
-    // Absender
+    // Absender-Logik (Widerspruchsführer oder Antragsteller) & Info-Text ermitteln
     let absenderName = personName;
     let absenderAdresse = personAdresse;
+    let infoText = "";
+
     if (widerspruchfuehrerIdentischSBA === 'nein' && wfNameSBA.trim() !== "") {
         absenderName = wfNameSBA;
         absenderAdresse = wfAdresseSBA;
+        infoText = `(handelnd für ${personName}, geb. ${personGeburtFormatiert})`;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line.trim()));
-    if (widerspruchfuehrerIdentischSBA === 'nein' && wfNameSBA.trim() !== ""){
-         writeParagraph(`(handelnd für ${personName}, geb. ${personGeburtFormatiert})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    }
-    if (personAktenzeichenVS.trim() !== "") { // Aktenzeichen der Person beim VS, falls vorhanden
-        writeLine(`Mein/Unser Aktenzeichen bei Ihnen (falls vorhanden): ${personAktenzeichenVS}`, defaultLineHeight, 10);
-    }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger
-    writeLine(versorgungsamtName);
-    versorgungsamtAdresse.split("\n").forEach(line => writeLine(line.trim()));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
-    // Datum rechtsbündig
+    // Zusatz-Info rechts drunter setzen (falls abweichender Widerspruchsführer aktiv)
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach der Adresse
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; 
+        });
+    }
+
+    // Aktenzeichen rechts integrieren, falls vorhanden
+    if (personAktenzeichenVS && personAktenzeichenVS.trim() !== "") {
+        rightY += infoText !== "" ? 2 : 4; // Dynamischer Abstand
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(9);
+        
+        let azText = `Ihr Az.: ${personAktenzeichenVS}`;
+        let azLines = doc.splitTextToSize(azText, 60);
+        azLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4;
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Versorgungsamt)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Versorgungsamt) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(versorgungsamtName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    versorgungsamtAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz: Verhindert Überschneidungen mit dem (evtl. langen) rechten Block
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Haupttext
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Widerspruch gegen Ihren Bescheid vom ${datumBescheidSBA}`;

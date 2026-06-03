@@ -207,36 +207,100 @@ function generateWiderspruchPflegegradPDF() {
         anlagen.push("Sonstige Anlagen: " + anlageSonstigesPflegegrad);
     }
 
-    // --- PDF-Inhalt erstellen ---
     doc.setFontSize(11);
 
-    // Absender (Widerspruchsführer oder Versicherter)
+    // Absender-Logik (Widerspruchsführer oder Versicherter) & Info-Text ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
+    let infoText = "";
+
     if (widerspruchfuehrerIdentisch === 'nein' && wfName.trim() !== "") {
         absenderName = wfName;
         absenderAdresse = wfAdresse;
+        infoText = `(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line));
-    if (widerspruchfuehrerIdentisch === 'nein' && wfName.trim() !== ""){
-         writeParagraph(`(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    // Zusatz-Info (Verhältnis) rechts drunter setzen, falls ein abweichender Widerspruchsführer aktiv ist
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach der Adresse
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        
+        // Bricht den Text automatisch um, falls er für die rechte Spalte (60mm) zu lang wird
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für den Info-Text
+        });
     }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Pflegekasse)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Pflegekasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(pflegekasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    pflegekasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
 
-    // Empfänger
-    writeLine(pflegekasseName);
-    pflegekasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
-
-    // Datum rechtsbündig
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz: Berücksichtigt das eventuell längere Info-Feld rechts
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Widerspruch gegen Ihren Pflegegradbescheid vom ${datumPflegegradbescheid}`;
@@ -252,25 +316,25 @@ function generateWiderspruchPflegegradPDF() {
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, 11, {extraSpacingAfter: defaultLineHeight * 0.5});
 
     // Einleitung Widerspruch
-    writeParagraph(`hiermit lege ich/legen wir fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumPflegegradbescheid} ein. Mit diesem Bescheid wurde für Herrn/Frau ${vpName} der ${festgestellterPflegegrad} festgestellt.`);
+    writeParagraph(`hiermit lege ich fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumPflegegradbescheid} ein. Mit diesem Bescheid wurde für ${vpName} der ${festgestellterPflegegrad} festgestellt.`);
     if (widerspruchfuehrerIdentisch === 'nein' && wfName.trim() !== "") {
         writeParagraph(`Ich, ${wfName}, lege diesen Widerspruch als ${wfVerhaeltnis || 'bevollmächtigte Person'} ein.`);
         if (wfVollmacht) writeParagraph("Eine entsprechende Vollmacht/Bestallungsurkunde liegt bei bzw. wird kurzfristig nachgereicht.", defaultLineHeight, 10, {fontStyle: "italic"});
     }
-    writeParagraph(`Die getroffene Einstufung ist aus meiner/unserer Sicht fehlerhaft und wird dem tatsächlichen, erheblichen Pflege- und Betreuungsbedarf von Herrn/Frau ${vpName} in keiner Weise gerecht.`);
+    writeParagraph(`Die getroffene Einstufung ist aus meiner Sicht fehlerhaft und wird dem tatsächlichen, erheblichen Pflege- und Betreuungsbedarf von ${vpName} in keiner Weise gerecht.`);
     
     // Begründung des Widerspruchs
-    writeLine("Ausführliche Begründung meines/unseres Widerspruchs:", defaultLineHeight, true);
+    writeLine("Ausführliche Begründung meines Widerspruchs:", defaultLineHeight, true);
     y += spaceAfterParagraph / 2; 
     if (begruendungWiderspruchPflegegrad.trim() !== "") {
         writeParagraph(begruendungWiderspruchPflegegrad);
     } else {
         writeParagraph("[FEHLT: Hier bitte Ihre ausführliche Begründung einfügen, warum der festgestellte Pflegegrad nicht dem tatsächlichen Hilfebedarf entspricht. Gehen Sie detailliert auf die einzelnen Module der Begutachtung ein und legen Sie dar, wo der Gutachter den Hilfebedarf ggf. unterschätzt hat. Verweisen Sie auf Ihr Pflegetagebuch und ärztliche Unterlagen.]", defaultLineHeight, 11, {fontStyle: "bold"}); // Deutlicher Hinweis
     }
-    writeParagraph("Wir erwarten, dass Sie im Rahmen Ihrer Amtsermittlungspflicht alle von uns dargelegten Aspekte und die beigefügten/bereits vorliegenden Unterlagen sorgfältig und unvoreingenommen prüfen. Eine nur schematische oder oberflächliche Neubewertung wird dem komplexen Sachverhalt und der individuellen Situation von Herrn/Frau " + vpName + " nicht gerecht.", defaultLineHeight, 11);
+    writeParagraph("Ich erwarte, dass Sie im Rahmen Ihrer Amtsermittlungspflicht alle von mir dargelegten Aspekte und die beigefügten/bereits vorliegenden Unterlagen sorgfältig und unvoreingenommen prüfen. Eine nur schematische oder oberflächliche Neubewertung wird dem komplexen Sachverhalt und der individuellen Situation von " + vpName + " nicht gerecht.", defaultLineHeight, 11);
     
     // Forderung
-    writeLine("Mein/Unser Antrag im Widerspruchsverfahren:", defaultLineHeight, true);
+    writeLine("Mein Antrag im Widerspruchsverfahren:", defaultLineHeight, true);
     y += spaceAfterParagraph / 2;
     if (forderungWiderspruchPflegegrad.trim() !== "") {
         writeParagraph(forderungWiderspruchPflegegrad);
@@ -279,7 +343,7 @@ function generateWiderspruchPflegegradPDF() {
         if (beantragterErwarteterPflegegrad.trim() !== "" && beantragterErwarteterPflegegrad.trim() !== "Kein Pflegegrad" && beantragterErwarteterPflegegrad.trim() !== festgestellterPflegegrad ) {
             zielPflegegradText = `des Pflegegrades ${beantragterErwarteterPflegegrad}`;
         }
-        writeParagraph(`Wir fordern Sie daher nachdrücklich auf, den Bescheid vom ${datumPflegegradbescheid} aufzuheben und für Herrn/Frau ${vpName} den unserer Begründung entsprechenden ${zielPflegegradText} festzustellen. Mindestens erwarten wir die umgehende Anberaumung einer erneuten, sorgfältigen und umfassenden Begutachtung unter Berücksichtigung aller von uns vorgebrachten Punkte und der aktuellen Pflegesituation.`, defaultLineHeight, 11, {fontStyle:"bold"});
+        writeParagraph(`Ich fordere Sie daher nachdrücklich auf, den Bescheid vom ${datumPflegegradbescheid} aufzuheben und für ${vpName} den meiner Begründung entsprechenden ${zielPflegegradText} festzustellen. Mindestens erwarte ich die umgehende Anberaumung einer erneuten, sorgfältigen und umfassenden Begutachtung unter Berücksichtigung aller von mir vorgebrachten Punkte und der aktuellen Pflegesituation.`, defaultLineHeight, 11, {fontStyle:"bold"});
     }
     
     // Anlagen
@@ -293,8 +357,8 @@ function generateWiderspruchPflegegradPDF() {
 
     // Abschluss mit Fristsetzung
     const fristsetzungDatumText = new Date(Date.now() + 4 * 7 * 24 * 60 * 60 * 1000).toLocaleDateString("de-DE"); // Ca. 4 Wochen
-    writeParagraph(`Bitte bestätigen Sie uns den Eingang dieses Widerspruchs umgehend schriftlich. Wir erwarten Ihre detaillierte, rechtsmittelfähige Entscheidung über diesen Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, 11);
-    writeParagraph("Sollten wir bis zu diesem Datum keine zufriedenstellende Antwort erhalten oder unser Widerspruch erneut unzureichend beschieden werden, behalten wir uns ausdrücklich die Einleitung weiterer rechtlicher Schritte, insbesondere die Klageerhebung vor dem zuständigen Sozialgericht, vor.", defaultLineHeight, 11);
+    writeParagraph(`Bitte bestätigen Sie den Eingang dieses Widerspruchs umgehend schriftlich. Ich erwarte Ihre detaillierte, rechtsmittelfähige Entscheidung über diesen Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, 11);
+    writeParagraph("Sollte ich bis zu diesem Datum keine zufriedenstellende Antwort erhalten oder dieser Widerspruch erneut unzureichend beschieden werden, behalte ich mir ausdrücklich die Einleitung weiterer rechtlicher Schritte, insbesondere die Klageerhebung vor dem zuständigen Sozialgericht, vor.", defaultLineHeight, 11);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

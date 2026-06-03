@@ -163,27 +163,81 @@ function generateFahrtkostenAntragPDF() {
         anlagen.push("Sonstige Anlagen: " + anlage_sonstiges_fahrtkosten);
     }
 
-    // --- PDF-Inhalt erstellen ---
+   // --- PDF-Inhalt erstellen ---
     doc.setFontSize(11);
 
-    // Absender
-    writeLine(name);
-    adresse.split("\n").forEach(line => writeLine(line));
-    if (telefon.trim() !== "") writeLine("Tel.: " + telefon);
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(name, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    adresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
-    // Empfänger
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    if (telefon && telefon.trim() !== "") {
+        doc.text("Tel.: " + telefon, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
 
-    // Datum rechtsbündig
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = adresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${name} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; // Abstand nach Datum, auch wenn neue Seite
+    
+    // Verhindert das Überschneiden, falls eine Spalte mal länger wird
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     const betreffText = `Antrag auf Erstattung von Fahrkosten gemäß § 60 SGB V – Versichertennummer: ${nummer}`;

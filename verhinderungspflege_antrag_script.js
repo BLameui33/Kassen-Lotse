@@ -264,25 +264,100 @@ function generateVerhinderungspflegeAntragPDF() {
     // --- PDF Aufbau Start ---
     
     // 1. Absender (rechts oben oder links oben über Empfänger)
-    doc.setFontSize(10);
-    // Wir machen es klassisch links oben
-    let senderText = vpName + "\n" + vpAdresse;
-    if(antragstellerIdentisch === 'nein') {
-        senderText = asName + " (" + asVerhaeltnis + ")\n(für " + vpName + ")\n" + vpAdresse; // Adresse der VP wird meist verwendet
+    doc.setFontSize(11);
+
+    // Absender-Logik (Verfasser/Vertreter oder Versicherter) & Info-Text ermitteln
+    let absenderName = vpName;
+    let absenderAdresse = vpAdresse;
+    let infoText = "";
+
+    if (antragstellerIdentisch === 'nein') {
+        absenderName = asName;
+        // Kombiniert das Verhältnis und den Namen des Versicherten lesbar
+        infoText = `(${asVerhaeltnis}, handelnd für ${vpName})`;
     }
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
     
-    writeBlock(senderText, 10);
-    y += 5;
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
-    // 2. Empfänger
-    writeLine(kasseName, true);
-    const kasseLines = doc.splitTextToSize(kasseAdresse, usableWidth / 2); // Schmaler machen
-    doc.text(kasseLines, margin, y);
-    y += (kasseLines.length * defaultLineHeight) + 10;
+    // Zusatz-Info (Verhältnis) rechts drunter setzen, falls ein abweichender Antragsteller aktiv ist
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach der Adresse
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        
+        // Bricht den Text automatisch um, falls er für die rechte Spalte (60mm) zu lang wird
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für den Info-Text
+        });
+    }
 
-    // 3. Datum (rechtsbündig)
-    const today = new Date().toLocaleDateString("de-DE");
-    doc.text("Datum: " + today, pageWidth - margin - 40, y - 10);
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Kasse)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Krankenkasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
+    const datumHeute = new Date().toLocaleDateString("de-DE");
+    doc.setFontSize(11);
+    const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
+    
+    // Kollisionsschutz: Berücksichtigt das eventuell längere Info-Feld rechts
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // 4. Betreff
     doc.setFontSize(12);

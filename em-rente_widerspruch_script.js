@@ -154,14 +154,15 @@ function generateEmRenteWiderspruchPDF() {
     let y = margin;
     const defaultLineHeight = 7;
     const spaceAfterParagraph = 2; 
-    // Schriftgrößen-Konstanten HIER DEFINIEREN:
+    
+    // Schriftgrößen-Konstanten
     const headingFontSize = 14; 
     const subHeadingFontSize = 11;
     const textFontSize = 10;     
-    const smallTextFontSize = 8; // Diese Zeile war der Knackpunkt
+    const smallTextFontSize = 8;
 
     // Hilfsfunktionen für PDF
-    function writeLine(text, currentLineHeight = defaultLineHeight, fontStyle = "normal", fontSize = textFontSize) { // fontStyle statt isBold
+    function writeLine(text, currentLineHeight = defaultLineHeight, fontStyle = "normal", fontSize = textFontSize) {
         const textToWrite = text === undefined || text === null ? "" : String(text);
         if (y + currentLineHeight > usableHeight - (margin/2)) { doc.addPage(); y = margin; }
         doc.setFontSize(fontSize);
@@ -238,37 +239,81 @@ function generateEmRenteWiderspruchPDF() {
     const anlageSonstigesEMRWiderspruch = getValue("anlageSonstigesEMRWiderspruch");
     if (anlageSonstigesEMRWiderspruch.trim() !== "") { anlagen.push("Sonstige Anlagen: " + anlageSonstigesEMRWiderspruch); }
 
-    // --- PDF-Inhalt erstellen ---
-    doc.setFont("times", "normal");
-
-    // Absender
+    // --- Dynamische Sprach-Steuerung (Ich vs. Wir / Eigene Person vs. Dritte) ---
+    const isSelf = (widerspruchfuehrerIdentischEMR === 'ja');
+    
     let absenderName = personName;
     let absenderAdresse = personAdresse;
-    if (widerspruchfuehrerIdentischEMR === 'nein' && wfNameEMR.trim() !== "") {
+    if (!isSelf && wfNameEMR.trim() !== "") {
         absenderName = wfNameEMR;
         absenderAdresse = wfAdresseEMR;
     }
-    writeLine(absenderName, defaultLineHeight, "normal", textFontSize); // textFontSize für Konsistenz
-    absenderAdresse.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (widerspruchfuehrerIdentischEMR === 'nein' && wfNameEMR.trim() !== ""){
-         writeParagraph(`(handelnd für ${personName}, geb. ${personGeburtFormatiert}, RV-Nr.: ${personRvNummer})`, defaultLineHeight, smallTextFontSize, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
+
+    // --- NEUER BRIEFKOPF ---
+    doc.setFont("times", "normal");
+
+    // 1. Rechter Block: Eigentlicher Absender-Block
+    const rightColumnX = pageWidth - margin - 65; // Positionierung rechts
+    let rightY = margin;
+    
+    doc.setFontSize(textFontSize);
+    doc.setFont("times", "bold");
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont("times", "normal");
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+    
+    doc.setFont("times", "italic");
+    doc.setFontSize(smallTextFontSize);
+    if (!isSelf) {
+        doc.text(`für: ${personName}`, rightColumnX, rightY); rightY += 4;
+        doc.text(`geb.: ${personGeburtFormatiert}`, rightColumnX, rightY); rightY += 4;
+        doc.text(`RV-Nr.: ${personRvNummer}`, rightColumnX, rightY); rightY += 4;
     } else {
-         writeParagraph(`(RV-Nr.: ${personRvNummer})`, defaultLineHeight, smallTextFontSize, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
+        doc.text(`RV-Nr.: ${personRvNummer}`, rightColumnX, rightY); rightY += 4;
     }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger
-    writeLine(rvTraegerNameW, defaultLineHeight, "normal", textFontSize);
-    rvTraegerAdresseW.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // 2. Linker Block: Kleine Rücksendezeile + Empfänger
+    let leftY = margin + 15; // Höhe passend für Sichtfenster-Umschläge
+    
+    // Einzeilige Rücksendeadresse generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, ", ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont("times", "normal");
+    doc.setFontSize(smallTextFontSize);
+    doc.text(ruecksendeZeile, margin, leftY);
+    leftY += 4; // Kleiner Abstand zum eigentlichen Empfänger
+    
+    doc.setFontSize(textFontSize);
+    doc.text(rvTraegerNameW, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    rvTraegerAdresseW.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
 
-    // Datum rechtsbündig
+    // 3. Datum rechtsbündig unter dem Empfänger-Level platzieren
     const datumHeute = new Date().toLocaleDateString("de-DE");
-    doc.setFontSize(textFontSize); // textFontSize für Konsistenz
+    doc.setFontSize(textFontSize);
+    doc.setFont("times", "normal");
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * textFontSize / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    let datumY = leftY + 5;
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Berechne den dynamischen Startpunkt für den Textkörper, um Überlappungen zu verhindern
+    y = Math.max(leftY, rightY, datumY) + 10;
+
+    // --- Text-Inhalte (bereinigt von "Ich/wir" und "Herr/Frau") ---
 
     // Betreff
     let betreffText = `Widerspruch gegen Ihren Bescheid vom ${datumBescheidEMR}`;
@@ -276,31 +321,41 @@ function generateEmRenteWiderspruchPDF() {
     betreffText += `\nBetreffend: Antrag auf Erwerbsminderungsrente für ${personName}, RV-Nr.: ${personRvNummer}`;
     betreffText += `\n- ERNEUTE DRINGENDE AUFFORDERUNG ZUR ÜBERPRÜFUNG UND ANERKENNUNG DER ERWERBSMINDERUNG -`;
     
-    const betreffFontSize = 12; // Bleibt etwas größer
+    const betreffFontSize = 12;
     writeParagraph(betreffText, defaultLineHeight, betreffFontSize, {fontStyle: "bold", extraSpacingAfter: defaultLineHeight});
 
     // Anrede
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, textFontSize, {extraSpacingAfter: defaultLineHeight * 0.5});
 
     // Einleitung Widerspruch
-    writeParagraph(`hiermit lege ich/legen wir fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumBescheidEMR} ein. Mit diesem Bescheid haben Sie den Antrag auf Erwerbsminderungsrente für Herrn/Frau ${personName} abgelehnt bzw. die Erwerbsminderung nicht im tatsächlich vorliegenden Umfang anerkannt (konkret wurde Folgendes entschieden: "${inhaltAblehnungEMR || 'siehe Ihr Bescheid'}").`);
-    if (widerspruchfuehrerIdentischEMR === 'nein' && wfNameEMR.trim() !== "") {
+    const einleitungText = isSelf 
+        ? `hiermit lege ich fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumBescheidEMR} ein. Mit diesem Bescheid haben Sie meinen Antrag auf Erwerbsminderungsrente abgelehnt bzw. die Erwerbsminderung nicht im tatsächlich vorliegenden Umfang anerkannt (konkret wurde Folgendes entschieden: "${inhaltAblehnungEMR || 'siehe Ihr Bescheid'}").`
+        : `hiermit lege ich fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumBescheidEMR} ein. Mit diesem Bescheid haben Sie den Antrag auf Erwerbsminderungsrente für ${personName} abgelehnt bzw. die Erwerbsminderung nicht im tatsächlich vorliegenden Umfang anerkannt (konkret wurde Folgendes entschieden: "${inhaltAblehnungEMR || 'siehe Ihr Bescheid'}").`;
+    
+    writeParagraph(einleitungText);
+
+    if (!isSelf && wfNameEMR.trim() !== "") {
         writeParagraph(`Ich, ${wfNameEMR}, lege diesen Widerspruch als ${wfVerhaeltnisEMR || 'bevollmächtigte Person'} ein.`);
         if (wfVollmachtEMR) writeParagraph("Eine entsprechende Vollmacht ist beigefügt.", defaultLineHeight, smallTextFontSize, {fontStyle: "italic"});
     }
-    writeParagraph(`Diese Entscheidung ist für mich/uns nicht nachvollziehbar und wird den schwerwiegenden gesundheitlichen Einschränkungen und deren Auswirkungen auf die Erwerbsfähigkeit von Herrn/Frau ${personName} in keiner Weise gerecht.`);
+
+    const nachvollziehbarText = isSelf
+        ? `Diese Entscheidung ist für mich nicht nachvollziehbar und wird den schwerwiegenden gesundheitlichen Einschränkungen und deren Auswirkungen auf meine Erwerbsfähigkeit in keiner Weise gerecht.`
+        : `Diese Entscheidung ist für mich nicht nachvollziehbar und wird den schwerwiegenden gesundheitlichen Einschränkungen und deren Auswirkungen auf die Erwerbsfähigkeit von ${personName} in keiner Weise gerecht.`;
+        
+    writeParagraph(nachvollziehbarText);
     
     // Begründung des Widerspruchs
-    writeLine("Ausführliche Begründung meines/unseres Widerspruchs:", defaultLineHeight, "bold", subHeadingFontSize);
+    writeLine("Ausführliche Begründung des Widerspruchs:", defaultLineHeight, "bold", subHeadingFontSize);
     y += spaceAfterParagraph / 2; 
     
-    const hauptablehnungsgrundEMR = getValue("hauptablehnungsgrundEMR"); // Aus dem HTML, ID war 'abgelehntePunkteSBA'
-    if (hauptablehnungsgrundEMR.trim() !== "") { // Dieses Feld existiert im HTML unter ID abgelehntePunkteSBA
-         writeParagraph(`Sie begründen Ihre Ablehnung im Wesentlichen mit: "${hauptablehnungsgrundEMR}". Diese Einschätzung ist aus unserer Sicht nicht zutreffend, da:`, defaultLineHeight, textFontSize, {extraSpacingAfter: defaultLineHeight*0.5});
+    const hauptablehnungsgrundEMR = getValue("hauptablehnungsgrundEMR");
+    if (hauptablehnungsgrundEMR.trim() !== "") {
+         writeParagraph(`Sie begründen Ihre Ablehnung im Wesentlichen mit: "${hauptablehnungsgrundEMR}". Diese Einschätzung ist aus meiner Sicht nicht zutreffend, da:`, defaultLineHeight, textFontSize, {extraSpacingAfter: defaultLineHeight*0.5});
     }
 
     if (argumentGesundheitszustandEMR.trim() !== "") {
-        writeLine("Zum fortbestehenden bzw. nicht ausreichend gewürdigten Gesundheitszustand und der Erwerbsminderung:", defaultLineHeight, "bold", textFontSize); // textFontSize + 0.5 nicht nötig bei Times
+        writeLine("Zum fortbestehenden bzw. nicht ausreichend gewürdigten Gesundheitszustand und der Erwerbsminderung:", defaultLineHeight, "bold", textFontSize);
         writeParagraph(argumentGesundheitszustandEMR, defaultLineHeight, textFontSize);
     }
 
@@ -319,16 +374,25 @@ function generateEmRenteWiderspruchPDF() {
         writeParagraph(ergaenzendeArgumenteEMRWiderspruch, defaultLineHeight, textFontSize);
     }
     
-    writeParagraph(`Die beigefügten (und ggf. bereits früher eingereichten) ärztlichen Unterlagen belegen eindrücklich und detailliert, dass die Erwerbsfähigkeit von Herrn/Frau ${personName} auf dem allgemeinen Arbeitsmarkt aufgrund der multiplen und schwerwiegenden Gesundheitsstörungen auf unter drei Stunden täglich gesunken ist (bzw. auf unter sechs Stunden, falls teilweise EM-Rente das Ziel ist). Eine Besserung ist auf nicht absehbare Zeit nicht zu erwarten.`, defaultLineHeight, textFontSize);
-    writeParagraph("Wir bitten Sie eindringlich, die medizinischen Fakten und die Auswirkungen auf die Leistungsfähigkeit im Alltag und Erwerbsleben vollumfänglich zu würdigen und nicht auf Grundlage einer möglicherweise unzureichenden oder nicht dem aktuellen Stand entsprechenden Begutachtung zu entscheiden.", defaultLineHeight, textFontSize);
+    const belegeText = isSelf
+        ? `Die beigefügten (und ggf. bereits früher eingereichten) ärztlichen Unterlagen belegen eindrücklich und detailliert, dass meine Erwerbsfähigkeit auf dem allgemeinen Arbeitsmarkt aufgrund der multiplen und schwerwiegenden Gesundheitsstörungen auf unter drei Stunden täglich gesunken ist (bzw. auf unter sechs Stunden, falls teilweise EM-Rente das Ziel ist). Eine Besserung ist auf nicht absehbare Zeit nicht zu erwarten.`
+        : `Die beigefügten (und ggf. bereits früher eingereichten) ärztlichen Unterlagen belegen eindrücklich und detailliert, dass die Erwerbsfähigkeit von ${personName} auf dem allgemeinen Arbeitsmarkt aufgrund der multiplen und schwerwiegenden Gesundheitsstörungen auf unter drei Stunden täglich gesunken ist (bzw. auf unter sechs Stunden, falls teilweise EM-Rente das Ziel ist). Eine Besserung ist auf nicht absehbare Zeit nicht zu erwarten.`;
+
+    writeParagraph(belegeText, defaultLineHeight, textFontSize);
+    writeParagraph("Ich bitte Sie eindringlich, die medizinischen Fakten und die Auswirkungen auf die Leistungsfähigkeit im Alltag und Erwerbsleben vollumfänglich zu würdigen und nicht auf Grundlage einer möglicherweise unzureichenden oder nicht dem aktuellen Stand entsprechenden Begutachtung zu entscheiden.", defaultLineHeight, textFontSize);
     
     // Forderung
-    writeLine("Meine/Unsere Forderung im Widerspruchsverfahren:", defaultLineHeight, "bold", subHeadingFontSize);
+    writeLine("Forderung im Widerspruchsverfahren:", defaultLineHeight, "bold", subHeadingFontSize);
     y += spaceAfterParagraph / 2;
+    
     if (forderungWiderspruchEMR.trim() !== "") {
         writeParagraph(forderungWiderspruchEMR, defaultLineHeight, textFontSize, {fontStyle:"bold"});
     } else {
-        writeParagraph(`Ich/Wir fordern Sie daher nachdrücklich auf, Ihren Bescheid vom ${datumBescheidEMR} aufzuheben und Herrn/Frau ${personName} die Rente wegen voller Erwerbsminderung (hilfsweise wegen teilweiser Erwerbsminderung) ab dem frühestmöglichen Zeitpunkt zu gewähren. Alternativ beantragen wir eine erneute, umfassende ärztliche Begutachtung durch einen unabhängigen Facharzt/eine unabhängige Fachärztin für [relevante Fachrichtung(en) nennen].`, defaultLineHeight, textFontSize, {fontStyle:"bold"});
+        const forderungTextDefault = isSelf
+            ? `Ich fordere Sie daher nachdrücklich auf, Ihren Bescheid vom ${datumBescheidEMR} aufzuheben und mir die Rente wegen voller Erwerbsminderung (hilfsweise wegen teilweiser Erwerbsminderung) ab dem frühestmöglichen Zeitpunkt zu gewähren. Alternativ beantrage ich eine erneute, umfassende ärztliche Begutachtung durch einen unabhängigen Facharzt/eine unabhängige Fachärztin für [relevante Fachrichtung(en) nennen].`
+            : `Ich fordere Sie daher nachdrücklich auf, Ihren Bescheid vom ${datumBescheidEMR} aufzuheben und ${personName} die Rente wegen voller Erwerbsminderung (hilfsweise wegen teilweiser Erwerbsminderung) ab dem frühestmöglichen Zeitpunkt zu gewähren. Alternativ beantrage ich eine erneute, umfassende ärztliche Begutachtung durch einen unabhängigen Facharzt/eine unabhängige Fachärztin für [relevante Fachrichtung(en) nennen].`;
+        
+        writeParagraph(forderungTextDefault, defaultLineHeight, textFontSize, {fontStyle:"bold"});
     }
     
     // Anlagen
@@ -342,8 +406,8 @@ function generateEmRenteWiderspruchPDF() {
 
     // Abschluss mit Fristsetzung
     const fristsetzungDatumText = new Date(Date.now() + 4 * 7 * 24 * 60 * 60 * 1000).toLocaleDateString("de-DE"); 
-    writeParagraph(`Bitte bestätigen Sie uns den Eingang dieses Widerspruchs umgehend schriftlich. Wir erwarten Ihre rechtsmittelfähige Entscheidung über unseren Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, textFontSize);
-    writeParagraph("Sollten wir bis zu diesem Datum keine zufriedenstellende Antwort erhalten oder unser Widerspruch erneut unzureichend beschieden werden, behalten wir uns ausdrücklich die Einleitung weiterer rechtlicher Schritte, insbesondere die Klageerhebung vor dem zuständigen Sozialgericht, vor.", defaultLineHeight, textFontSize);
+    writeParagraph(`Bitte bestätigen Sie mir den Eingang dieses Widerspruchs umgehend schriftlich. Ich erwarte Ihre rechtsmittelfähige Entscheidung über meinen Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, textFontSize);
+    writeParagraph("Sollte ich bis zu diesem Datum keine zufriedenstellende Antwort erhalten oder mein Widerspruch erneut unzureichend beschieden werden, behalte ich mir ausdrücklich die Einleitung weiterer rechtlicher Schritte, insbesondere die Klageerhebung vor dem zuständigen Sozialgericht, vor.", defaultLineHeight, textFontSize);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

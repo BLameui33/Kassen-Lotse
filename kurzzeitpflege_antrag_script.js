@@ -226,32 +226,104 @@ function generateKurzzeitpflegeAntragPDF() {
     // --- PDF-Inhalt erstellen ---
     doc.setFontSize(11);
 
-    // Absender
+    // Absender-Logik (Verfasser/Vertreter oder Versicherter) ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
     let absenderTelefon = vpTelefon;
+    let infoText = "";
+
     if (antragstellerIdentischKZP === 'nein' && asNameKZP.trim() !== "") {
         absenderName = asNameKZP;
-        absenderAdresse = asAdresseKZP; 
+        absenderAdresse = asAdresseKZP;
+        infoText = `(handelnd als ${asVerhaeltnisKZP || 'Vertreter/in'} für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line));
-    if (absenderTelefon && absenderTelefon.trim() !== "") writeLine("Tel.: " + absenderTelefon);
-    if (antragstellerIdentischKZP === 'nein' && asNameKZP.trim() !== ""){
-         writeParagraph(`(handelnd als ${asVerhaeltnisKZP || 'Vertreter/in'} für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger, Datum (Standard)
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    if (absenderTelefon && absenderTelefon.trim() !== "") {
+        doc.text("Tel.: " + absenderTelefon, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // Zusatz-Info rechts drunter setzen, falls ein abweichender Antragsteller aktiv ist
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach Telefon/Adresse
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        
+        // Bricht den Text automatisch um, falls er für die rechte Spalte (60mm) zu lang wird
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für den Info-Text
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Krankenkasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz: Berücksichtigt, wie weit der Info-Text oder die Adresse nach unten reicht
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Antrag auf Leistungen der Kurzzeitpflege gemäß § 42 SGB XI`;
@@ -265,7 +337,7 @@ function generateKurzzeitpflegeAntragPDF() {
 
     // Einleitung
     if (antragstellerIdentischKZP === 'nein' && asNameKZP.trim() !== "") {
-        writeParagraph(`hiermit beantrage ich, ${asNameKZP}, als ${asVerhaeltnisKZP || 'bevollmächtigte Person'}, für Herrn/Frau ${vpName}, die Kostenübernahme für Kurzzeitpflege.`);
+        writeParagraph(`hiermit beantrage ich, ${asNameKZP}, als ${asVerhaeltnisKZP || 'bevollmächtigte Person'}, für ${vpName}, die Kostenübernahme für Kurzzeitpflege.`);
         if(asVollmachtKZP) writeParagraph("Eine entsprechende Vollmacht liegt diesem Antrag bei.", defaultLineHeight, 10, {fontStyle: "italic"});
     } else {
         writeParagraph(`hiermit beantrage ich, ${vpName}, die Kostenübernahme für Kurzzeitpflege.`);
@@ -292,11 +364,11 @@ function generateKurzzeitpflegeAntragPDF() {
     if (kombiVerhinderungspflegeKZP) {
         writeLine("3. Gemeinsamer Jahresbetrag / Budgeterhöhung:", defaultLineHeight, true);
         y += spaceAfterParagraph/2;
-        writeParagraph("Ich/Wir beantragen hiermit die Inanspruchnahme des Gemeinsamen Jahresbetrags für Verhinderungs- und Kurzzeitpflege (§ 42a SGB XI) bis zu 3.539 Euro. Sofern dieser für mich (z.B. aufgrund des Stichtags) noch nicht anwendbar ist, beantrage ich hiermit die Übertragung von 100% der ungenutzten Mittel der Verhinderungspflege (§ 39 SGB XI) auf die Kurzzeitpflege, um den Leistungsbetrag maximal zu erhöhen.");
+        writeParagraph("Ich beantrage hiermit die Inanspruchnahme des Gemeinsamen Jahresbetrags für Verhinderungs- und Kurzzeitpflege (§ 42a SGB XI) bis zu 3.539 Euro. Sofern dieser für mich (z.B. aufgrund des Stichtags) noch nicht anwendbar ist, beantrage ich hiermit die Übertragung von 100% der ungenutzten Mittel der Verhinderungspflege (§ 39 SGB XI) auf die Kurzzeitpflege, um den Leistungsbetrag maximal zu erhöhen.");
     }
     
     // Pflegegeld
-    writeParagraph("Mir/Uns ist bekannt, dass während der Inanspruchnahme der Kurzzeitpflege die Hälfte des bisher bezogenen Pflegegeldes für bis zu acht Wochen im Kalenderjahr weitergezahlt wird.", defaultLineHeight, 10, {fontStyle:"italic", extraSpacingAfter: defaultLineHeight});
+    writeParagraph("Mir ist bekannt, dass während der Inanspruchnahme der Kurzzeitpflege die Hälfte des bisher bezogenen Pflegegeldes für bis zu acht Wochen im Kalenderjahr weitergezahlt wird.", defaultLineHeight, 10, {fontStyle:"italic", extraSpacingAfter: defaultLineHeight});
 
     // Anlagen
     if (anlagen.length > 0) {
@@ -313,8 +385,8 @@ function generateKurzzeitpflegeAntragPDF() {
 
     writeLine(`${abschlussAbschnittNummer}. Bitte um Bestätigung und Information`, defaultLineHeight, true);
     y += spaceAfterParagraph / 2;
-    writeParagraph("Ich/Wir bitten um eine baldige Prüfung dieses Antrags und um eine schriftliche Zusage der Kostenübernahme für die pflegebedingten Aufwendungen, die soziale Betreuung und die Leistungen der medizinischen Behandlungspflege im Rahmen der Kurzzeitpflege.", defaultLineHeight, 11);
-    writeParagraph("Bitte teilen Sie mir/uns auch mit, welche weiteren Unterlagen Sie gegebenenfalls benötigen.", defaultLineHeight, 11);
+    writeParagraph("Ich bitte um eine baldige Prüfung dieses Antrags und um eine schriftliche Zusage der Kostenübernahme für die pflegebedingten Aufwendungen, die soziale Betreuung und die Leistungen der medizinischen Behandlungspflege im Rahmen der Kurzzeitpflege.", defaultLineHeight, 11);
+    writeParagraph("Bitte teilen Sie mir auch mit, welche weiteren Unterlagen Sie gegebenenfalls benötigen.", defaultLineHeight, 11);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

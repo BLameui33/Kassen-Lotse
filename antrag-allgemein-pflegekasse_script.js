@@ -230,8 +230,10 @@ function generateAntragAllgemeinPkPDF() {
     }
 
     // --- PDF-Inhalt erstellen ---
+  // --- PDF-Inhalt erstellen ---
     doc.setFont("times", "normal");
 
+    // Absender-Logik ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
     let absenderTelefon = vpTelefon;
@@ -239,26 +241,94 @@ function generateAntragAllgemeinPkPDF() {
         absenderName = asNameAllgPk;
         absenderAdresse = asAdresseAllgPk;
     }
-    writeLine(absenderName, defaultLineHeight, "normal", textFontSize);
-    absenderAdresse.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (absenderTelefon && absenderTelefon.trim() !== "") writeLine("Tel.: " + absenderTelefon, defaultLineHeight, "normal", textFontSize);
-    if (antragstellerIdentischAllgPk === 'nein' && asNameAllgPk.trim() !== ""){
-         writeParagraph(`(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, smallTextFontSize, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    } else {
-         writeParagraph(`(Versicherte Person: ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, smallTextFontSize, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont("times", "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont("times", "normal");
+    doc.setFontSize(textFontSize);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    if (absenderTelefon && absenderTelefon.trim() !== "") {
+        doc.text("Tel.: " + absenderTelefon, rightColumnX, rightY);
+        rightY += defaultLineHeight;
     }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    writeLine(pflegekasseName, defaultLineHeight, "normal", textFontSize);
-    pflegekasseAdresse.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ZUSATZ-INFO (Handelnd für / Versicherte Person) kompakt rechts drunter setzen
+    rightY += 2; // Kleiner Abstand
+    doc.setFont("times", "italic");
+    doc.setFontSize(smallTextFontSize);
+    
+    let infoText = "";
+    if (antragstellerIdentischAllgPk === 'nein' && asNameAllgPk.trim() !== ""){
+        infoText = `(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
+    } else {
+        infoText = `(Versicherte Person: ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
+    }
+    
+    // Text umbrechen, falls er für die rechte Spalte (60mm) zu lang ist
+    let infoLines = doc.splitTextToSize(infoText, 60);
+    infoLines.forEach(line => {
+        doc.text(line, rightColumnX, rightY);
+        rightY += 4; // Engerer Zeilenabstand für den kleinen Info-Text
+    });
 
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Pflegekasse)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont("times", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    //  feine Trennlinie
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger platzieren
+    leftY += 6; 
+    doc.setFontSize(textFontSize);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(pflegekasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    pflegekasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig platzieren
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(textFontSize);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * textFontSize / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Schaut, welcher Block weiter nach unten ragt, und setzt das Datum sauber darunter
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
 
     let betreffTextPDF = antragBetreff; // antragBetreff hat schon Defaultwert
     betreffTextPDF += `\nVersicherte Person: ${vpName}, Vers.-Nr.: ${vpNummer}`;
@@ -266,9 +336,9 @@ function generateAntragAllgemeinPkPDF() {
     writeParagraph(betreffTextPDF, defaultLineHeight, betreffFontSize, {fontStyle: "bold", extraSpacingAfter: defaultLineHeight});
 
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, textFontSize, {extraSpacingAfter: defaultLineHeight * 0.5});
-    writeParagraph(`hiermit wende ich mich/wenden wir uns mit folgendem Anliegen an Sie:`, defaultLineHeight, textFontSize);
+    writeParagraph(`hiermit wende ich mich mit folgendem Anliegen an Sie:`, defaultLineHeight, textFontSize);
     
-    writeLine("Mein/Unser Anliegen / Antrag:", defaultLineHeight, "bold", subHeadingFontSize);
+    writeLine("Mein Anliegen / Antrag:", defaultLineHeight, "bold", subHeadingFontSize);
     y += spaceAfterParagraph/2;
     if (anliegenBeschreibung.trim() !== "") {
         writeParagraph(anliegenBeschreibung);
@@ -283,11 +353,11 @@ function generateAntragAllgemeinPkPDF() {
     }
     
     if (antragForderung.trim() !== "") {
-        writeLine("Meine/Unsere konkrete Bitte/Forderung:", defaultLineHeight, "bold", subHeadingFontSize);
+        writeLine("Meine konkrete Bitte/Forderung:", defaultLineHeight, "bold", subHeadingFontSize);
         y += spaceAfterParagraph/2;
         writeParagraph(antragForderung, defaultLineHeight, textFontSize, {fontStyle:"bold"});
     } else {
-         writeParagraph("Ich/Wir bitten um Prüfung meines/unseres Anliegens und um eine entsprechende Rückmeldung bzw. Bearbeitung.", defaultLineHeight, textFontSize, {fontStyle:"italic"});
+         writeParagraph("Ich bitte um Prüfung meines Anliegens und um eine entsprechende Rückmeldung bzw. Bearbeitung.", defaultLineHeight, textFontSize, {fontStyle:"italic"});
     }
     
     if (anlagen.length > 0) {
@@ -298,7 +368,7 @@ function generateAntragAllgemeinPkPDF() {
         });
     }
     
-    writeParagraph("Für Ihre Bemühungen und eine zeitnahe Rückmeldung bedanke ich/bedanken wir uns im Voraus.", defaultLineHeight, textFontSize);
+    writeParagraph("Für Ihre Bemühungen und eine zeitnahe Rückmeldung bedanke ich mich im Voraus.", defaultLineHeight, textFontSize);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     writeParagraph("Mit freundlichen Grüßen");

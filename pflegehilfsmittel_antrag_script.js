@@ -259,32 +259,103 @@ function generatePflegehilfsmittelAntragPDF() {
     // --- PDF-Inhalt erstellen ---
     doc.setFontSize(11);
 
-    // Absender
+    // Absender-Logik (Verfasser/Vertreter oder Versicherter) ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
+    let infoText = "";
+
     if (antragstellerIdentischPflegeHM === 'nein' && asNamePflegeHM.trim() !== "") {
         absenderName = asNamePflegeHM;
-        // Keine separate Adresse für Antragsteller im Formular, daher vpAdresse verwenden
+        infoText = `(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line));
-    if (vpTelefon.trim() !== "" && antragstellerIdentischPflegeHM === 'ja') writeLine("Tel.: " + vpTelefon);
-    // Ggf. Telefon des Antragstellers, wenn vorhanden und Feld existiert. Für jetzt vpTelefon.
-    if (antragstellerIdentischPflegeHM === 'nein' && asNamePflegeHM.trim() !== ""){
-         writeParagraph(`(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger, Datum (Standard)
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    // Telefonnummer laut Original-Logik nur einblenden, wenn Antragsteller identisch ist
+    if (vpTelefon.trim() !== "" && antragstellerIdentischPflegeHM === 'ja') {
+        doc.text("Tel.: " + vpTelefon, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // Zusatz-Info rechts drunter setzen, falls ein abweichender Antragsteller aktiv ist
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach Adresse/Telefon
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        
+        // Bricht den Text automatisch um, falls er für die rechte Spalte (60mm) zu lang wird
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für den Info-Text
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Krankenkasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz: Berücksichtigt die Spalte, die weiter nach unten reicht
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Antrag auf Kostenübernahme von Pflegehilfsmitteln gemäß § 40 SGB XI`;
@@ -306,9 +377,9 @@ function generatePflegehilfsmittelAntragPDF() {
     else if (antragArtTechnisch) antragsTeile.push("ein technisches Pflegehilfsmittel (Details siehe unten)");
 
     if (antragsTeile.length > 0) {
-        writeParagraph(`hiermit beantrage ich/beantragen wir für Herrn/Frau ${vpName} die Kostenübernahme für ${antragsTeile.join(antragsTeile.length > 1 ? ' sowie ' : '')}.`);
+        writeParagraph(`hiermit beantrage ich für ${vpName} die Kostenübernahme für ${antragsTeile.join(antragsTeile.length > 1 ? ' sowie ' : '')}.`);
     } else {
-         writeParagraph(`hiermit beantrage ich/beantragen wir für Herrn/Frau ${vpName} Leistungen für Pflegehilfsmittel.`); // Fallback
+         writeParagraph(`hiermit beantrage ich für ${vpName} Leistungen für Pflegehilfsmittel.`); // Fallback
     }
      if (antragstellerIdentischPflegeHM === 'nein' && asNamePflegeHM.trim() !== "") {
         writeParagraph(`Ich, ${asNamePflegeHM}, stelle diesen Antrag als ${asVerhaeltnisPflegeHM || 'bevollmächtigte Person'}.`);
@@ -319,9 +390,9 @@ function generatePflegehilfsmittelAntragPDF() {
     if (antragArtPauschale) {
         writeLine("Antrag auf Pauschale für zum Verbrauch bestimmte Pflegehilfsmittel:", defaultLineHeight, true);
         y += spaceAfterParagraph/2;
-        writeParagraph("Ich/Wir beantragen die monatliche Kostenpauschale für zum Verbrauch bestimmte Pflegehilfsmittel gemäß § 40 Abs. 2 SGB XI.");
+        writeParagraph("Ich beantrage die monatliche Kostenpauschale für zum Verbrauch bestimmte Pflegehilfsmittel gemäß § 40 Abs. 2 SGB XI.");
         if (lieferantPauschale.trim() !== "") {
-            writeParagraph(`Bezüglich der Versorgung/des Lieferanten habe ich/haben wir folgenden Wunsch/Hinweis: ${lieferantPauschale}`);
+            writeParagraph(`Bezüglich der Versorgung/des Lieferanten habe ich folgenden Wunsch/Hinweis: ${lieferantPauschale}`);
         }
         writeParagraph("Die Pflege erfolgt im häuslichen Umfeld und es besteht ein anerkannter Pflegegrad.", defaultLineHeight, 10, {fontStyle:"italic"});
     }
@@ -358,8 +429,8 @@ function generatePflegehilfsmittelAntragPDF() {
     }
     
     // Abschluss
-    writeParagraph("Ich/Wir bitten um eine wohlwollende Prüfung und zeitnahe Genehmigung der beantragten Pflegehilfsmittel.", defaultLineHeight, 11);
-    writeParagraph("Für Rückfragen stehe ich/stehen wir Ihnen gerne zur Verfügung.", defaultLineHeight, 11);
+    writeParagraph("Ich bitte um eine wohlwollende Prüfung und zeitnahe Genehmigung der beantragten Pflegehilfsmittel.", defaultLineHeight, 11);
+    writeParagraph("Für Rückfragen stehe ich Ihnen gerne zur Verfügung.", defaultLineHeight, 11);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

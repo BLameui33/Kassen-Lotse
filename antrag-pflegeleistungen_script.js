@@ -251,33 +251,98 @@ function generatePflegeleistungenAntragPDF() {
 
 
     // --- PDF-Inhalt erstellen ---
-    doc.setFontSize(11);
+    // Absender-Logik vorbereiten
+    let absenderName = vpName;
+    let absenderAdresse = vpAdresse;
+    let absenderTelefon = vpTelefon;
+    let infoText = "";
 
-    // Absender (Antragsteller oder Versicherter)
     if (antragstellerIdentisch === 'nein' && asName.trim() !== "") {
-        writeLine(asName);
-        asAdresse.split("\n").forEach(line => writeLine(line));
-        if (asTelefon.trim() !== "") writeLine("Tel.: " + asTelefon);
-        writeParagraph(`(handelnd für ${vpName})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    } else {
-        writeLine(vpName);
-        vpAdresse.split("\n").forEach(line => writeLine(line));
-        if (vpTelefon.trim() !== "") writeLine("Tel.: " + vpTelefon);
+        absenderName = asName;
+        absenderAdresse = asAdresse;
+        absenderTelefon = asTelefon;
+        infoText = `(handelnd für ${vpName})`;
     }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
-    // Datum rechtsbündig
+    if (absenderTelefon && absenderTelefon.trim() !== "") {
+        doc.text("Tel.: " + absenderTelefon, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // Falls infoText vorhanden ist (handelnd für...), kompakt rechts drunter setzen
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; 
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Dynamische Berechnung der Höhe gegen Überschneidungen
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Setzt die globale Y-Koordinate für den nachfolgenden Text (z.B. den Betreff)
+    y = datumY + 12;
+
+   
 
     // Betreff
     let betreffText = `Antrag auf Leistungen der Pflegeversicherung gemäß SGB XI für ${vpName}`;
@@ -315,7 +380,7 @@ function generatePflegeleistungenAntragPDF() {
     if (wunschleistungenText.trim() !== "") {
         writeLine("2. Vorerst gewünschte Leistungen/Unterstützung:", defaultLineHeight, true);
         y += spaceAfterParagraph/2;
-        writeParagraph(`Wir streben zunächst folgende Unterstützungsleistungen an: ${wunschleistungenText}. Wir bitten um eine entsprechende Beratung nach Feststellung des Pflegegrades.`);
+        writeParagraph(`Ich strebe zunächst folgende Unterstützungsleistungen an: ${wunschleistungenText}. Ich bitte um eine entsprechende Beratung nach Feststellung des Pflegegrades.`);
     }
 
     // Behandelnde Ärzte
@@ -329,7 +394,7 @@ function generatePflegeleistungenAntragPDF() {
     // Einverständniserklärung
     writeLine("4. Einverständniserklärung zur Begutachtung:", defaultLineHeight, true);
     y += spaceAfterParagraph/2;
-    writeParagraph("Ich/Wir bin/sind damit einverstanden, dass zur Feststellung der Pflegebedürftigkeit eine Begutachtung durch den Medizinischen Dienst (MD) bzw. Medicproof durchgeführt wird und hierfür ggf. medizinische Unterlagen bei den behandelnden Ärzten angefordert werden dürfen.");
+    writeParagraph("Ich bin damit einverstanden, dass zur Feststellung der Pflegebedürftigkeit eine Begutachtung durch den Medizinischen Dienst (MD) bzw. Medicproof durchgeführt wird und hierfür ggf. medizinische Unterlagen bei den behandelnden Ärzten angefordert werden dürfen.");
 
     // Anlagen
     if (anlagen.length > 0) {
@@ -341,7 +406,7 @@ function generatePflegeleistungenAntragPDF() {
     }
     
     // Abschluss
-    writeParagraph("Ich/Wir bitten um eine zeitnahe Bearbeitung dieses Antrags, die Vereinbarung eines Termins für die Begutachtung sowie um Zusendung weiterer Informationen zum Verfahren.", defaultLineHeight, 11);
+    writeParagraph("Ich bitte um eine zeitnahe Bearbeitung dieses Antrags, die Vereinbarung eines Termins für die Begutachtung sowie um Zusendung weiterer Informationen zum Verfahren.", defaultLineHeight, 11);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel

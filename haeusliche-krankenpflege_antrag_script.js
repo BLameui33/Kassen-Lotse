@@ -201,34 +201,88 @@ function generateHkpBegleitschreibenPDF() {
     if (anlageSonstigesHkp.trim() !== "") { anlagen.push("Sonstige Anlagen: " + anlageSonstigesHkp); }
 
     // --- PDF-Inhalt erstellen ---
-    doc.setFontSize(11);
+   doc.setFontSize(11);
 
-    // Absender (Verfasser oder Versicherter)
+    // Absender (Verfasser oder Versicherter) ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
     let absenderTelefon = vpTelefon;
     if (verfasserIdentischHkp === 'nein' && verfasserNameHkp.trim() !== "") {
         absenderName = verfasserNameHkp;
-        // Für das Begleitschreiben nehmen wir die Adresse der versicherten Person als Hauptkontakt,
-        // es sei denn, der Verfasser hat eine eigene Adresse, die relevanter ist (nicht im Formular vorgesehen)
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line));
-    if (absenderTelefon.trim() !== "") writeLine("Tel.: " + absenderTelefon);
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
-    // Datum rechtsbündig
+    if (absenderTelefon && absenderTelefon.trim() !== "") {
+        doc.text("Tel.: " + absenderTelefon, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Krankenkasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Dynamischer Kollisionsschutz
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Antrag auf Leistungen der häuslichen Krankenpflege gemäß § 37 SGB V`;
@@ -242,9 +296,9 @@ function generateHkpBegleitschreibenPDF() {
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, 11, {extraSpacingAfter: defaultLineHeight * 0.5});
 
     // Einleitung
-    writeParagraph(`hiermit reiche ich die ärztliche Verordnung für häusliche Krankenpflege vom ${datumVerordnungHkp}, ausgestellt von Herrn/Frau Dr. ${arztNameHkp}, für ${vpName} (Versichertennummer: ${vpNummer}) ein und beantrage die Kostenübernahme für die verordneten Maßnahmen.`);
+    writeParagraph(`hiermit reiche ich die ärztliche Verordnung für häusliche Krankenpflege vom ${datumVerordnungHkp}, ausgestellt von Dr. ${arztNameHkp}, für ${vpName} (Versichertennummer: ${vpNummer}) ein und beantrage die Kostenübernahme für die verordneten Maßnahmen.`);
     if (verfasserIdentischHkp === 'nein' && verfasserNameHkp.trim() !== "") {
-        writeParagraph(`Dieses Schreiben verfasse ich als ${verfasserVerhaeltnisHkp || 'bevollmächtigte Person'} für Herrn/Frau ${vpName}.`, defaultLineHeight, 10, {fontStyle:"italic"});
+        writeParagraph(`Dieses Schreiben verfasse ich als ${verfasserVerhaeltnisHkp || 'bevollmächtigte Person'} für ${vpName}.`, defaultLineHeight, 10, {fontStyle:"italic"});
     }
     
     // Details zur Verordnung
@@ -265,7 +319,7 @@ function generateHkpBegleitschreibenPDF() {
             writeParagraph(`Die Versorgung durch diesen Dienst ist geplant ab: ${pflegedienstVersorgtAbHkp}.`);
         }
     } else if (pflegedienstBekanntHkp === 'nein') {
-        writeParagraph("Ich/Wir bitten um Mitteilung von Vertragspartnern Ihrer Krankenkasse, die die verordnete häusliche Krankenpflege in unserem Bereich durchführen können, oder um Bestätigung, dass wir einen geeigneten, zugelassenen Dienst selbst wählen können.");
+        writeParagraph("Ich bitte um Mitteilung von Vertragspartnern Ihrer Krankenkasse, die die verordnete häusliche Krankenpflege in meinem Bereich durchführen können, oder um Bestätigung, dass ich einen geeigneten, zugelassenen Dienst selbst wählen können.");
     }
 
     // Persönliche Anmerkung
@@ -285,8 +339,8 @@ function generateHkpBegleitschreibenPDF() {
     }
     
     // Abschluss
-    writeParagraph("Ich/Wir bitten um eine zeitnahe Prüfung und Genehmigung der verordneten häuslichen Krankenpflege und um eine baldige schriftliche Bestätigung.", defaultLineHeight, 11);
-    writeParagraph("Für Rückfragen stehe ich/stehen wir Ihnen gerne zur Verfügung.", defaultLineHeight, 11);
+    writeParagraph("Ich bitte um eine zeitnahe Prüfung und Genehmigung der verordneten häuslichen Krankenpflege und um eine baldige schriftliche Bestätigung.", defaultLineHeight, 11);
+    writeParagraph("Für Rückfragen stehe ich Ihnen gerne zur Verfügung.", defaultLineHeight, 11);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

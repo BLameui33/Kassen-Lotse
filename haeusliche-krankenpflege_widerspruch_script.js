@@ -211,32 +211,100 @@ function generateHkpWiderspruchPDF() {
     if (anlageSonstigesHkpWiderspruch.trim() !== "") { anlagen.push("Sonstige Anlagen: " + anlageSonstigesHkpWiderspruch); }
 
     // --- PDF-Inhalt erstellen ---
-    doc.setFontSize(11);
+   doc.setFontSize(11);
 
-    // Absender
+    // Absender-Logik (Verfasser/Widerspruchsführer oder Versicherter) ermitteln
     let absenderName = vpName;
     let absenderAdresse = vpAdresse;
+    let infoText = "";
+
     if (widerspruchfuehrerIdentischHkp === 'nein' && wfNameHkp.trim() !== "") {
         absenderName = wfNameHkp;
         absenderAdresse = wfAdresseHkp;
+        infoText = `(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line));
-    if (widerspruchfuehrerIdentischHkp === 'nein' && wfNameHkp.trim() !== ""){
-         writeParagraph(`(handelnd für ${vpName}, geb. ${vpGeburtFormatiert}, Vers.-Nr.: ${vpNummer})`, defaultLineHeight, 9, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
-    }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger, Datum (Standard)
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    // Zusatz-Info rechts drunter setzen, falls ein abweichender Widerspruchsführer aktiv ist
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach der Adresse
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(9);
+        
+        // Bricht den Text automatisch um, falls die Zeile für die rechte Spalte (60mm) zu lang wird
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für den Info-Text
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile aus den ermittelten Absenderdaten generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Schickes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Krankenkasse) platzieren
+    leftY += 6; 
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Dynamischer Kollisionsschutz: Nimmt die Spalte, die tiefer reicht
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Widerspruch gegen Ihren Ablehnungsbescheid vom ${datumAblehnungsbescheidHkp} betreffend häusliche Krankenpflege`;
@@ -252,19 +320,19 @@ function generateHkpWiderspruchPDF() {
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, 11, {extraSpacingAfter: defaultLineHeight * 0.5});
 
     // Einleitung Widerspruch
-    writeParagraph(`hiermit lege ich/legen wir fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumAblehnungsbescheidHkp} ein. Mit diesem Bescheid haben Sie die ärztlich verordnete häusliche Krankenpflege für ${vpName} (ursprünglich verordnet am ${datumVerordnungHkpAbgelehnt} für ${beantragteLeistungenHkp || 'die beantragten Leistungen'}) ganz oder teilweise abgelehnt.`);
+    writeParagraph(`hiermit lege ich fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumAblehnungsbescheidHkp} ein. Mit diesem Bescheid haben Sie die ärztlich verordnete häusliche Krankenpflege für ${vpName} (ursprünglich verordnet am ${datumVerordnungHkpAbgelehnt} für ${beantragteLeistungenHkp || 'die beantragten Leistungen'}) ganz oder teilweise abgelehnt.`);
     if (widerspruchfuehrerIdentischHkp === 'nein' && wfNameHkp.trim() !== "") {
         writeParagraph(`Ich, ${wfNameHkp}, lege diesen Widerspruch als ${wfVerhaeltnisHkp || 'bevollmächtigte Person'} ein.`);
         if (wfVollmachtHkp) writeParagraph("Eine entsprechende Vollmacht/Bestallungsurkunde liegt bei bzw. wird kurzfristig nachgereicht.", defaultLineHeight, 10, {fontStyle: "italic"});
     }
-    writeParagraph(`Ihre Entscheidung ist für uns nicht nachvollziehbar und gefährdet die medizinisch notwendige Versorgung und den Gesundheitszustand von Herrn/Frau ${vpName}.`);
+    writeParagraph(`Ihre Entscheidung ist für mich nicht nachvollziehbar und gefährdet die medizinisch notwendige Versorgung und den Gesundheitszustand von ${vpName}.`);
     
     // Begründung des Widerspruchs
-    writeLine("Ausführliche Begründung meines/unseres Widerspruchs:", defaultLineHeight, true);
+    writeLine("Ausführliche Begründung meines Widerspruchs:", defaultLineHeight, true);
     y += spaceAfterParagraph / 2; 
     
     if (hauptablehnungsgrundHkp.trim() !== "") {
-        writeParagraph(`Sie begründen Ihre Ablehnung im Wesentlichen mit: "${hauptablehnungsgrundHkp}". Dieser Begründung kann ich/können wir nicht folgen und nehmen hierzu wie folgt Stellung:`, defaultLineHeight, 11, {extraSpacingAfter: defaultLineHeight*0.5});
+        writeParagraph(`Sie begründen Ihre Ablehnung im Wesentlichen mit: "${hauptablehnungsgrundHkp}". Dieser Begründung kann ich nicht folgen und nehme hierzu wie folgt Stellung:`, defaultLineHeight, 11, {extraSpacingAfter: defaultLineHeight*0.5});
     }
 
     if (argumentMedizinischeNotwendigkeitHkp.trim() !== "") {
@@ -285,12 +353,12 @@ function generateHkpWiderspruchPDF() {
     writeParagraph(`Die Notwendigkeit der häuslichen Krankenpflege gemäß § 37 SGB V ist durch die beiliegende/Ihnen bereits vorliegende ärztliche Verordnung vom ${datumVerordnungHkpAbgelehnt} eindeutig belegt. Ohne diese Maßnahmen droht eine erhebliche Verschlechterung des Gesundheitszustandes und/oder die Notwendigkeit einer (erneuten) Krankenhausbehandlung, was höhere Kosten verursachen würde.`, defaultLineHeight, 11);
     
     // Forderung
-    writeLine("Meine/Unsere Forderung im Widerspruchsverfahren:", defaultLineHeight, true);
+    writeLine("Meine Forderung im Widerspruchsverfahren:", defaultLineHeight, true);
     y += spaceAfterParagraph / 2;
     if (forderungWiderspruchHkp.trim() !== "") {
         writeParagraph(forderungWiderspruchHkp);
     } else {
-        writeParagraph(`Ich/Wir fordern Sie daher nachdrücklich auf, Ihren Ablehnungsbescheid vom ${datumAblehnungsbescheidHkp} zu revidieren und die Kosten für die ärztlich verordnete häusliche Krankenpflege im vollen Umfang und ab dem ursprünglich beantragten Zeitpunkt zu übernehmen.`, defaultLineHeight, 11, {fontStyle:"bold"});
+        writeParagraph(`Ich fordere Sie daher nachdrücklich auf, Ihren Ablehnungsbescheid vom ${datumAblehnungsbescheidHkp} zu revidieren und die Kosten für die ärztlich verordnete häusliche Krankenpflege im vollen Umfang und ab dem ursprünglich beantragten Zeitpunkt zu übernehmen.`, defaultLineHeight, 11, {fontStyle:"bold"});
     }
     
     // Anlagen
@@ -304,8 +372,8 @@ function generateHkpWiderspruchPDF() {
 
     // Abschluss mit Fristsetzung
     const fristsetzungDatumText = new Date(Date.now() + 3 * 7 * 24 * 60 * 60 * 1000).toLocaleDateString("de-DE"); // Ca. 3 Wochen
-    writeParagraph(`Bitte bestätigen Sie uns den Eingang dieses Widerspruchs umgehend schriftlich. Wir erwarten Ihre rechtsmittelfähige Entscheidung über unseren Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, 11);
-    writeParagraph("Sollten Sie unserem Widerspruch nicht vollumfänglich abhelfen, behalten wir uns ausdrücklich vor, Klage vor dem Sozialgericht zu erheben.", defaultLineHeight, 11);
+    writeParagraph(`Bitte bestätigen Sie den Eingang dieses Widerspruchs umgehend schriftlich. Ich erwarte Ihre rechtsmittelfähige Entscheidung über diesen Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, 11);
+    writeParagraph("Sollten Sie diesem Widerspruch nicht vollumfänglich abhelfen, behalte ich mir ausdrücklich vor, Klage vor dem Sozialgericht zu erheben.", defaultLineHeight, 11);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

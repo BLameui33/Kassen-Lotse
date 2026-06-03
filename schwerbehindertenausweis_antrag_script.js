@@ -253,32 +253,106 @@ function generateSBAPDF() {
     // --- PDF-Inhalt erstellen ---
     doc.setFontSize(11);
 
+    // Absender-Logik (Verfasser/Vertreter oder Antragsteller) ermitteln
     let absenderName = personName;
     let absenderAdresse = personAdresse;
     let absenderTelefon = personTelefon;
+
     if (antragstellerIdentischSBA === 'nein' && asNameSBA.trim() !== "") {
         absenderName = asNameSBA;
         absenderAdresse = asAdresseSBA;
         absenderTelefon = asTelefonSBA;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line.trim()));
-    if (absenderTelefon && absenderTelefon.trim() !== "") writeLine("Tel.: " + absenderTelefon);
-    if (personEmail.trim() !== "" && antragstellerIdentischSBA === 'ja') writeLine("E-Mail: " + personEmail);
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    writeLine("An das", defaultLineHeight, false, 10);
-    writeLine("Zuständige Versorgungsamt / Landesamt für Soziales", defaultLineHeight, true, 11);
-    writeParagraph("[Bitte hier die genaue Anschrift des zuständigen Amtes eintragen]", defaultLineHeight, 10, {fontStyle: "italic"});
-    writeParagraph("[Ort und Postleitzahl des Amtes]", defaultLineHeight, 10, {fontStyle: "italic"});
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(11);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
+    if (absenderTelefon && absenderTelefon.trim() !== "") {
+        doc.text("Tel.: " + absenderTelefon.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    if (personEmail.trim() !== "" && antragstellerIdentischSBA === 'ja') {
+        doc.text("E-Mail: " + personEmail.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Versorgungsamt)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (Versorgungsamt-Platzhalter) platzieren
+    leftY += 6; 
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    
+    doc.setFontSize(10);
+    doc.text("An das", margin, leftY);
+    leftY += 4;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(11);
+    doc.text("Zuständige Versorgungsamt / Landesamt für Soziales", margin, leftY);
+    leftY += defaultLineHeight;
+    
+    doc.setFont(undefined, "italic");
+    doc.setFontSize(10);
+    doc.text("[Bitte hier die genaue Anschrift des zuständigen Amtes eintragen]", margin, leftY);
+    leftY += defaultLineHeight;
+    doc.text("[Ort und Postleitzahl des Amtes]", margin, leftY);
+    leftY += defaultLineHeight;
+
+    // Schriftstil wieder zurücksetzen für nachfolgende Elemente
+    doc.setFont(undefined, "normal");
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Kollisionsschutz (falls Telefon/E-Mail rechts oder Platzhalter links weit nach unten ragen)
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
+    
 
     let betreffText = `Antrag auf Feststellung einer Behinderung nach dem SGB IX`;
     betreffText += `\nund auf Ausstellung eines Schwerbehindertenausweises`;
@@ -292,7 +366,7 @@ function generateSBAPDF() {
 
     if (antragstellerIdentischSBA === 'nein' && asNameSBA.trim() !== "") {
         writeParagraph(`hiermit beantrage ich, ${asNameSBA}, als ${asVerhaeltnisSBA || 'bevollmächtigte Person'}, für`);
-        writeParagraph(`Herrn/Frau ${personName}, geboren am ${personGeburtFormatiert} in ${personGeburtsort}, wohnhaft ${personAdresse.replace(/\n/g, ', ')}, (Krankenkasse: ${personKrankenkasse}),`);
+        writeParagraph(`${personName}, geboren am ${personGeburtFormatiert} in ${personGeburtsort}, wohnhaft ${personAdresse.replace(/\n/g, ', ')}, (Krankenkasse: ${personKrankenkasse}),`);
         writeParagraph(`die Feststellung des Grades der Behinderung (GdB) sowie die Feststellung von Merkzeichen und die Ausstellung eines Schwerbehindertenausweises.`);
         if(asVollmachtSBA) writeParagraph("Eine entsprechende Vollmacht/Bestallungsurkunde liegt diesem Antrag bei.", defaultLineHeight, 10, {fontStyle: "italic"});
     } else {

@@ -664,51 +664,109 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             function writeLine(text, currentLineHeight = defaultLineHeight, isBold = false, fontSize = 11) {
-                ensurePageSpace(currentLineHeight);
-                doc.setFontSize(fontSize);
-                doc.setFont(undefined, isBold ? "bold" : "normal");
-                doc.text(text, margin, y);
-                y += currentLineHeight;
-            }
-            
-            function writeParagraph(text, paragraphLineHeight = defaultLineHeight, paragraphFontSize = 11, isBold = false) {
-                doc.setFontSize(paragraphFontSize);
-                doc.setFont(undefined, isBold ? "bold" : "normal");
-                const lines = doc.splitTextToSize(text, pageWidth - (2 * margin));
-            
-                for (let i = 0; i < lines.length; i++) {
-                  ensurePageSpace(paragraphLineHeight);
-                  doc.text(lines[i], margin, y);
-                  y += paragraphLineHeight;
-                }
-                if (lines.length > 0) {
-                    ensurePageSpace(spaceAfterParagraph); // Ensure space for the gap itself
-                    y += spaceAfterParagraph;
-                }
-            }
+    ensurePageSpace(currentLineHeight);
+    doc.setFontSize(fontSize);
+    doc.setFont(undefined, isBold ? "bold" : "normal");
+    doc.text(text, margin, y);
+    y += currentLineHeight;
+}
 
-            const formData = getAntragFormData(); 
+function writeParagraph(text, paragraphLineHeight = defaultLineHeight, paragraphFontSize = 11, isBold = false) {
+    doc.setFontSize(paragraphFontSize);
+    doc.setFont(undefined, isBold ? "bold" : "normal");
+    const lines = doc.splitTextToSize(text, pageWidth - (2 * margin));
 
-            writeLine(formData.name);
-            formData.adresse.split("\n").forEach(line => {
-                if (line.trim() !== "") writeLine(line);
-            });
-            ensurePageSpace(defaultLineHeight * 0.5); y += defaultLineHeight * 0.5;
+    for (let i = 0; i < lines.length; i++) {
+      ensurePageSpace(paragraphLineHeight);
+      doc.text(lines[i], margin, y);
+      y += paragraphLineHeight;
+    }
+    if (lines.length > 0) {
+        ensurePageSpace(spaceAfterParagraph); // Ensure space for the gap itself
+        y += spaceAfterParagraph;
+    }
+}
 
-            writeLine(formData.kasse);
-            formData.kassenAdresse.split("\n").forEach(line => {
-                if (line.trim() !== "") writeLine(line);
-            });
-            ensurePageSpace(defaultLineHeight * 1.5); y += defaultLineHeight * 1.5; 
+// Daten holen
+const formData = getAntragFormData(); 
 
-            const datumHeute = new Date().toLocaleDateString("de-DE");
-            const datumsFontSize = 11;
-            doc.setFontSize(datumsFontSize);
-            const datumsBreite = doc.getStringUnitWidth(datumHeute) * datumsFontSize / doc.internal.scaleFactor;
-            ensurePageSpace(defaultLineHeight); // Space for the date line itself
-            doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-            y += defaultLineHeight * 2; 
+doc.setFontSize(11);
 
+// Absender aus formData zuweisen
+let absenderName = formData.name;
+let absenderAdresse = formData.adresse;
+
+// ==========================================
+// --- UNIFORMER BRIEFKOPF START ---
+// ==========================================
+
+// 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+let rightY = margin;
+
+doc.setFont(undefined, "bold");
+doc.setFontSize(10);
+doc.text("Absender:", rightColumnX, rightY);
+rightY += 5;
+
+doc.setFont(undefined, "normal");
+doc.setFontSize(11);
+doc.text(absenderName, rightColumnX, rightY);
+rightY += defaultLineHeight;
+
+absenderAdresse.split("\n").forEach(line => {
+    if (line.trim() !== "") {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+});
+
+// 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Kasse)
+let leftY = margin + 15; 
+
+// Inline-Rücksendezeile generieren
+const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+
+doc.setFont(undefined, "normal");
+doc.setFontSize(8);
+doc.setTextColor(120, 120, 120); // Dezentes Grau
+doc.text(ruecksendeZeile, margin, leftY);
+
+// Die feine Trennlinie unter dem Mini-Absender
+doc.setDrawColor(180, 180, 180); 
+doc.setLineWidth(0.2);
+doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+
+// Empfänger (Kranken-/Pflegekasse) aus formData platzieren
+leftY += 6; 
+doc.setFontSize(11);
+doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+doc.text(formData.kasse, margin, leftY);
+leftY += defaultLineHeight;
+
+formData.kassenAdresse.split("\n").forEach(line => {
+    if (line.trim() !== "") {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    }
+});
+
+// 3. DATUM: Rechtsbündig unterhalb der Blöcke
+const datumHeute = new Date().toLocaleDateString("de-DE");
+doc.setFontSize(11);
+const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
+
+// Kollisionsschutz (gleicht asymmetrische Spaltenhöhen perfekt aus)
+let datumY = Math.max(leftY, rightY) + 5; 
+doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+// Übergabe an die globale Y-Koordinate für den nachfolgenden Inhalt
+y = datumY + 12;
+
+// ==========================================
+// --- UNIFORMER BRIEFKOPF ENDE ---
+// ==========================================
             writeParagraph("Antrag auf Kostenerstattung für ambulante Psychotherapie gemäß § 13 Abs. 3 SGB V", defaultLineHeight +1, 12, true);
             
             const geburtFormatted = formData.geburt ? new Date(formData.geburt).toLocaleDateString("de-DE") : 'N/A';

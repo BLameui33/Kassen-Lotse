@@ -81,18 +81,72 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const { personName, personAdresse, versicherungsnummer, geburtsdatum, kasseName, kasseAdresse, et, schutzfristBeginn, kontoinhaber, iban, bic } = data;
 
-        // KORREKTER Absender- und Empfängerblock
-        doc.setFontSize(9);
-        doc.text(`${personName} · ${personAdresse.replace(/\n/g, ', ')}`, margin, margin - 10);
-        doc.setFontSize(textFontSize);
-        y = margin + 15;
-        writeParagraph(kasseName);
-        kasseAdresse.split("\n").forEach(line => writeParagraph(line.trim(), { extraSpacingAfter: 0 }));
-        y += defaultLineHeight * 2;
+        // ==========================================
+        // --- UNIFORMER BRIEFKOPF START ---
+        // ==========================================
         
+        // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+        const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+        let rightY = margin;
+        
+        doc.setFont(undefined, "bold");
+        doc.setFontSize(10);
+        doc.text("Absender:", rightColumnX, rightY);
+        rightY += 5;
+        
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(textFontSize);
+        doc.text(personName, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+        
+        personAdresse.split("\n").forEach(line => {
+            doc.text(line.trim(), rightColumnX, rightY);
+            rightY += defaultLineHeight;
+        });
+
+        // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (Kasse)
+        let leftY = margin + 15; 
+        
+        // Inline-Rücksendezeile generieren
+        const cleanAddressInline = personAdresse.replace(/\r?\n/g, " · ");
+        const ruecksendeZeile = `${personName} · ${cleanAddressInline}`;
+        
+        doc.setFont(undefined, "normal");
+        doc.setFontSize(8);
+        doc.setTextColor(120, 120, 120); // Dezentes Grau
+        doc.text(ruecksendeZeile, margin, leftY);
+        
+        // Die feine Trennlinie unter dem Mini-Absender
+        doc.setDrawColor(180, 180, 180); 
+        doc.setLineWidth(0.2);
+        doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+        
+        // Kassen-Empfängeradresse platzieren
+        leftY += 6; 
+        doc.setFontSize(textFontSize);
+        doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+        doc.text(kasseName, margin, leftY);
+        leftY += defaultLineHeight;
+        
+        kasseAdresse.split("\n").forEach(line => {
+            doc.text(line.trim(), margin, leftY);
+            leftY += defaultLineHeight;
+        });
+
+        // 3. DATUM: Rechtsbündig unterhalb der Blöcke platziert
         const datumHeute = new Date().toLocaleDateString("de-DE");
-        doc.text(datumHeute, pageWidth - margin - doc.getStringUnitWidth(datumHeute) * textFontSize / doc.internal.scaleFactor, y);
-        y += defaultLineHeight * 2;
+        doc.setFontSize(textFontSize);
+        const datumsBreite = doc.getStringUnitWidth(datumHeute) * textFontSize / doc.internal.scaleFactor;
+        
+        let datumY = Math.max(leftY, rightY) + 5; 
+        doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+        // Dynamischer Startwert für den nachfolgenden Haupttext
+        y = datumY + 12;
+
+        // ==========================================
+        // --- UNIFORMER BRIEFKOPF ENDE ---
+        // ==========================================
 
         writeParagraph(`Antrag auf Mutterschaftsgeld gemäß § 24i SGB V`, { fontSize: 13, fontStyle: "bold", extraSpacingAfter: 2 });
         writeParagraph(`Versicherte: ${personName}, geb. am ${new Date(geburtsdatum).toLocaleDateString('de-DE')}`);

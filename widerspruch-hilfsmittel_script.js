@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const saveBtn = document.getElementById('saveBtnWiderspruchHilfsmittel');
     const loadBtn = document.getElementById('loadBtnWiderspruchHilfsmittel');
     const closePopupBtn = document.getElementById('closePopupBtnWiderspruchHilfsmittel');
-    const spendenPopup = document.getElementById('spendenPopupWiderspruch'); // Angepasste ID
-    const storageKey = 'widerspruchHilfsmittelFormData'; // Eigener Key
+    const spendenPopup = document.getElementById('spendenPopupWiderspruch'); 
+    const storageKey = 'widerspruchHilfsmittelFormData'; 
 
     // --- Speichern & Laden Logik ---
     const formElementIds = [
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
           generateWiderspruchHilfsmittelPDF();
         });
     }
-}); // Ende DOMContentLoaded
+}); 
 
 function generateWiderspruchHilfsmittelPDF() {
     const { jsPDF } = window.jspdf;
@@ -123,26 +123,70 @@ function generateWiderspruchHilfsmittelPDF() {
     const aktenzeichen = document.getElementById("aktenzeichen").value;
     const widerspruchBegruendung = document.getElementById("widerspruchBegruendung").value;
 
-    // --- PDF-Inhalt erstellen ---
+    // ==========================================
+    // --- BRIEFKOPF START (Überall wiederverwendbar) ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock in der Ecke
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFontSize(10);
+    doc.setFont(undefined, "bold");
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.text(name, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    adresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger
+    let leftY = margin + 15; // Typische Fenster-Höhe ab 35mm
+    
+    // Inline-Rücksendezeile erzeugen (Ersetzt Zeilenumbrüche durch Punkte)
+    const cleanAddressInline = adresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${name} · ${cleanAddressInline}`;
+    
+    doc.setFontSize(8);
+    doc.setFont(undefined, "normal");
+    doc.setTextColor(120, 120, 120); // Schickes Grau für die Zeile
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    //  dezente Unterstreichung
+    doc.setDrawColor(180, 180, 180); // Helles Grau für die Linie
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); // 85mm Breite deckt das Brieffenster ab
+    
+    // Empfänger-Adresse platzieren
+    leftY += 6; 
     doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(kasseName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    kasseAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
 
-    // Absender
-    writeLine(name);
-    adresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight;
-
-    // Empfänger
-    writeLine(kasseName);
-    kasseAdresse.split("\n").forEach(line => writeLine(line));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
-
-    // Datum rechtsbündig
+    // 3. DATUM: Rechtsbündig unterhalb der Adressblöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(11);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * 11 / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else { doc.addPage(); y = margin; }
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Dynamic Safe-Start für den Haupttext (Setzt 'y' sauber auf die nächste freie Zeile)
+    y = datumY + 12;
+
+    // ==========================================
+    // --- BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Widerspruch gegen Ihren Ablehnungsbescheid vom ${ablehnungsbescheidDatum}`;
@@ -166,7 +210,7 @@ function generateWiderspruchHilfsmittelPDF() {
     
     // Begründung des Widerspruchs
     writeLine("Begründung:", defaultLineHeight, true);
-    y += spaceAfterParagraph / 2; // Weniger Abstand direkt nach Überschrift
+    y += spaceAfterParagraph / 2; 
     if (widerspruchBegruendung.trim() !== "") {
         writeParagraph(widerspruchBegruendung);
     } else {
@@ -182,7 +226,7 @@ function generateWiderspruchHilfsmittelPDF() {
 
     // Grußformel und Unterschrift
     writeParagraph("Mit freundlichen Grüßen");
-    
+    y += 10; // Kleiner Platzhalter für die echte Unterschrift
     writeParagraph(name);
 
     doc.save("widerspruch_hilfsmittel.pdf");

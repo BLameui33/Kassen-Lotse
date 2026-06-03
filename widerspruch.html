@@ -362,25 +362,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 1. Kleiner Absender über dem Adressfeld (für Fensterbriefumschlag)
         doc.setFontSize(7);
-        doc.setTextColor(80);
-        // Adresse einzeilig machen für die kleine Zeile
-        const absenderEinzeilig = (name + ", " + adresse).replace(/\n/g, ", ");
+        doc.setTextColor(80); // Dunkelgrau für den Absender
+        
+        // Adresse einzeilig machen und mit Punkten trennen für eine edlere Optik
+        const absenderEinzeilig = (name + " • " + adresse).replace(/\n/g, " • ");
         doc.text(absenderEinzeilig, leftMargin, 45);
+        
+        // Feine Linie unter dem Absender (85mm Länge für das Sichtfenster)
+        doc.setDrawColor(80);
+        doc.setLineWidth(0.15);
+        doc.line(leftMargin, 46.5, leftMargin + 85, 46.5);
         
         // 2. Empfängerfeld (Position für DIN 5008 Form A/B)
         doc.setFontSize(11);
-        doc.setTextColor(0);
-        doc.text(kasseName, leftMargin, 50);
+        doc.setTextColor(0); // Wieder Schwarz
+        doc.text(kasseName, leftMargin, 52);
         
         // Adresse splitten für Zeilenumbruch
         const kasseAdresseLines = doc.splitTextToSize(kasseAdresse, 85);
-        doc.text(kasseAdresseLines, leftMargin, 55);
+        doc.text(kasseAdresseLines, leftMargin, 57);
 
         // 3. Datum und Absenderblock rechts
-        doc.text(heute, 210 - rightMargin, 50, { align: "right" });
+        doc.text(heute, 210 - rightMargin, 52, { align: "right" });
         
         // Block rechts mit Absenderdetails
-        let senderY = 60;
+        let senderY = 65;
         doc.setFontSize(10);
         doc.text("Von:", 210 - rightMargin - 40, senderY);
         doc.text(name, 210 - rightMargin, senderY, { align: "right" });
@@ -394,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.text(versichertennr, 210 - rightMargin, senderY + 5, { align: "right" });
 
         // 4. Betreff (Fett)
-        currentY = 100; // Standardposition nach DIN
+        currentY = 105; // Standardposition nach DIN
         doc.setFont(undefined, 'bold');
         doc.setFontSize(12);
         let betreff = `Widerspruch gegen Ihren Bescheid vom ${bescheidDatum}`;
@@ -403,19 +409,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         doc.text(betreff, leftMargin, currentY);
         
-        // Höhe anpassen je nach Betrefflänge
         currentY += (aktenzeichen ? 15 : 10);
 
-        // 5. Anrede und Einleitung
+        // 5. Anrede und Einleitung (Deutlich bestimmter formuliert)
         doc.setFont(undefined, 'normal');
         doc.setFontSize(11);
         doc.text("Sehr geehrte Damen und Herren,", leftMargin, currentY);
         currentY += 10;
 
-        const einleitung = `hiermit lege ich fristgerecht Widerspruch gegen den oben genannten Bescheid ein, mit dem Sie meinen Antrag auf Kostenerstattung abgelehnt haben.`;
+        const einleitung = `hiermit lege ich frist- und formgerecht Widerspruch gegen Ihren oben genannten Bescheid ein. Die Ablehnung meines Antrags auf außervertragliche Kostenerstattung nach § 13 Abs. 3 SGB V ist in Anbetracht der akuten Dringlichkeit und des vorliegenden Systemversagens (unzumutbare Wartezeiten bei Vertragsbehandlern) nicht hinnehmbar.`;
         const einleitungLines = doc.splitTextToSize(einleitung, contentWidth);
         doc.text(einleitungLines, leftMargin, currentY);
-        currentY += (einleitungLines.length * 6) + 6;
+        currentY += (einleitungLines.length * 5.5) + 8;
 
         // 6. Begründung
         doc.setFont(undefined, 'bold');
@@ -425,46 +430,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const begruendungLines = doc.splitTextToSize(begruendung, contentWidth);
         
-        // Check auf Seitenumbruch für Begründung
-        if (currentY + (begruendungLines.length * 6) > 270) {
-            // Wenn es nicht passt, Text aufteilen oder neue Seite (einfacher: neue Seite wenn zu voll)
-            // Hier simple Logik:
-            doc.text(begruendungLines, leftMargin, currentY);
-            // Hinweis: In einer perfekten Welt würde man hier Zeile für Zeile prüfen
-            // Da jsPDF splitTextToSize Array liefert, könnte man iterieren.
-            // Für dieses Snippet lassen wir es "fließen" und hoffen, dass es passt oder user nicht 5 Seiten schreibt.
-            // Bessere Lösung für lange Texte:
-            let lineY = currentY;
-            begruendungLines.forEach(line => {
-                if (lineY > 280) {
-                    doc.addPage();
-                    lineY = 20;
-                }
-                doc.text(line, leftMargin, lineY);
-                lineY += 6;
-            });
-            currentY = lineY;
-        } else {
-            doc.text(begruendungLines, leftMargin, currentY);
-            currentY += (begruendungLines.length * 6);
-        }
+        // Verbesserte Seitenumbruch-Logik für die Begründung
+        let lineY = currentY;
+        begruendungLines.forEach(line => {
+            if (lineY > 270) {
+                doc.addPage();
+                lineY = 20;
+            }
+            doc.text(line, leftMargin, lineY);
+            lineY += 5.5;
+        });
+        currentY = lineY;
 
-        // 7. Forderung / Abschluss
+        // 7. Forderung / Abschluss (Druck aufbauen mit "Sozialgericht")
         currentY += 10;
-        // Page break check
-        if (currentY > 250) { doc.addPage(); currentY = 20; }
+        if (currentY > 240) { doc.addPage(); currentY = 20; }
         
-        const abschluss = "Ich bitte Sie daher, Ihre Entscheidung zu überprüfen und die beantragten Kosten zu übernehmen. Sollten Sie an Ihrer Auffassung festhalten, bitte ich um einen rechtsmittelfähigen Widerspruchsbescheid.";
+        const abschluss = "Ich fordere Sie nachdrücklich auf, Ihre Entscheidung zu revidieren und die beantragten Kosten zu übernehmen. Sollten Sie meinem Widerspruch nicht in vollem Umfang abhelfen, erwarte ich einen ausführlich begründeten und rechtsmittelfähigen Widerspruchsbescheid zur Vorlage beim zuständigen Sozialgericht.";
         const abschlussLines = doc.splitTextToSize(abschluss, contentWidth);
         doc.text(abschlussLines, leftMargin, currentY);
-        currentY += (abschlussLines.length * 6) + 10;
+        currentY += (abschlussLines.length * 5.5) + 12;
 
         // 8. Grußformel
         if (currentY > 260) { doc.addPage(); currentY = 20; }
         doc.text("Mit freundlichen Grüßen", leftMargin, currentY);
         currentY += 15; // Platz für Unterschrift
         doc.text(name, leftMargin, currentY);
-        currentY += 10;
+        currentY += 12;
 
         // 9. Anlagen auflisten
         const checkedAnlagen = Array.from(document.querySelectorAll('input[name="anlagenKost"]:checked')).map(cb => cb.value);
@@ -478,11 +470,11 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.setFontSize(10);
             doc.text("Anlagen:", leftMargin, currentY);
             doc.setFont(undefined, 'normal');
-            currentY += 5;
+            currentY += 6;
             
             checkedAnlagen.forEach(anlage => {
-                doc.text("- " + anlage, leftMargin, currentY);
-                currentY += 5;
+                doc.text("– " + anlage, leftMargin, currentY);
+                currentY += 5.5;
             });
         }
 

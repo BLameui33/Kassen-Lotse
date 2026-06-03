@@ -245,35 +245,102 @@ function generateRehaRvWiderspruchPDF() {
 
     // --- PDF-Inhalt erstellen ---
     doc.setFont("times", "normal");
+    doc.setFontSize(textFontSize);
 
-    // Absender
+    // Absender-Logik (Widerspruchsführer oder Versicherter) & Info-Text ermitteln
     let absenderName = personName;
     let absenderAdresse = personAdresse;
+    let infoText = "";
+
     if (widerspruchfuehrerIdentischRehaRv === 'nein' && wfNameRehaRv.trim() !== "") {
         absenderName = wfNameRehaRv;
         absenderAdresse = wfAdresseRehaRv;
-    }
-    writeLine(absenderName, defaultLineHeight, "normal", textFontSize);
-    absenderAdresse.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (widerspruchfuehrerIdentischRehaRv === 'nein' && wfNameRehaRv.trim() !== ""){
-         writeParagraph(`(handelnd für ${personName}, geb. ${personGeburtsFormatiert}, RV-Nr.: ${personRvNummer})`, defaultLineHeight, smallTextFontSize, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
+        infoText = `(handelnd für ${personName}, geb. ${personGeburtsFormatiert}, RV-Nr.: ${personRvNummer})`;
     } else {
-         writeParagraph(`(RV-Nr.: ${personRvNummer})`, defaultLineHeight, smallTextFontSize, {fontStyle: "italic", extraSpacingAfter: defaultLineHeight*0.5});
+        infoText = `(RV-Nr.: ${personRvNummer})`;
     }
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger
-    writeLine(rvTraegerNameWiderspruch, defaultLineHeight, "normal", textFontSize);
-    rvTraegerAdresseWiderspruch.split("\n").forEach(line => writeLine(line.trim(), defaultLineHeight, "normal", textFontSize));
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts (ca. 130mm)
+    let rightY = margin;
+    
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(textFontSize);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
 
-    // Datum rechtsbündig
+    // Info-Text (RV-Nummer / Vertretung) rechts drunter setzen
+    if (infoText !== "") {
+        rightY += 2; // Kleiner Abstand nach der Adresse
+        doc.setFont(undefined, "italic");
+        doc.setFontSize(smallTextFontSize);
+        
+        // Bricht den Text automatisch um, falls er für die rechte Spalte (60mm) zu lang wird
+        let infoLines = doc.splitTextToSize(infoText, 60);
+        infoLines.forEach(line => {
+            doc.text(line, rightColumnX, rightY);
+            rightY += 4; // Kompakter Zeilenabstand für den Info-Text
+        });
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (RV-Träger)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie unter dem Mini-Absender
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger (RV-Träger) platzieren
+    leftY += 6; 
+    doc.setFontSize(textFontSize);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text(rvTraegerNameWiderspruch, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    rvTraegerAdresseWiderspruch.split("\n").forEach(line => {
+        doc.text(line.trim(), margin, leftY);
+        leftY += defaultLineHeight;
+    });
+
+    // 3. DATUM: Rechtsbündig unterhalb der Blöcke
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(textFontSize);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * textFontSize / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    // Dynamischer Kollisionsschutz (berechnet aus der tiefsten Spalte)
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für das nachfolgende "Widerspruch gegen..."
+    y = datumY + 12;
+
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF ENDE ---
+    // ==========================================
 
     // Betreff
     let betreffText = `Widerspruch gegen Ihren Ablehnungsbescheid vom ${datumAblehnungsbescheidRehaRv}`;
@@ -289,15 +356,15 @@ function generateRehaRvWiderspruchPDF() {
     writeParagraph("Sehr geehrte Damen und Herren,", defaultLineHeight, textFontSize, {extraSpacingAfter: defaultLineHeight * 0.5});
 
     // Einleitung Widerspruch
-    writeParagraph(`hiermit lege ich/legen wir fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumAblehnungsbescheidRehaRv} ein. Mit diesem Bescheid haben Sie den Antrag auf ${rehaArtAbgelehnt || 'Rehabilitationsleistungen'} für Herrn/Frau ${personName} (Antrag vom ${datumUrsprAntragRehaRv}) ${rehaZielortAbgelehnt.trim() !== "" ? 'in der Einrichtung ' + rehaZielortAbgelehnt + ' ' : ''}abgelehnt oder nur unzureichend bewilligt.`);
+    writeParagraph(`hiermit lege ich fristgerecht und mit allem Nachdruck Widerspruch gegen Ihren oben genannten Bescheid vom ${datumAblehnungsbescheidRehaRv} ein. Mit diesem Bescheid haben Sie den Antrag auf ${rehaArtAbgelehnt || 'Rehabilitationsleistungen'} für ${personName} (Antrag vom ${datumUrsprAntragRehaRv}) ${rehaZielortAbgelehnt.trim() !== "" ? 'in der Einrichtung ' + rehaZielortAbgelehnt + ' ' : ''}abgelehnt oder nur unzureichend bewilligt.`);
     if (widerspruchfuehrerIdentischRehaRv === 'nein' && wfNameRehaRv.trim() !== "") {
         writeParagraph(`Ich, ${wfNameRehaRv}, lege diesen Widerspruch als ${wfVerhaeltnisRehaRv || 'bevollmächtigte Person'} ein.`);
         if (wfVollmachtRehaRv) writeParagraph("Eine entsprechende Vollmacht ist beigefügt.", defaultLineHeight, smallTextFontSize, {fontStyle: "italic"});
     }
-    writeParagraph(`Ihre Entscheidung ist für mich/uns nicht nachvollziehbar und wird der dringenden medizinischen Notwendigkeit sowie den Auswirkungen der Gesundheitsstörungen auf die Erwerbsfähigkeit von Herrn/Frau ${personName} nicht gerecht.`);
+    writeParagraph(`Ihre Entscheidung ist für mich nicht nachvollziehbar und wird der dringenden medizinischen Notwendigkeit sowie den Auswirkungen der Gesundheitsstörungen auf die Erwerbsfähigkeit von ${personName} nicht gerecht.`);
     
     // Begründung des Widerspruchs
-    writeLine("Ausführliche Begründung meines/unseres Widerspruchs:", defaultLineHeight, "bold", subHeadingFontSize);
+    writeLine("Ausführliche Begründung meines Widerspruchs:", defaultLineHeight, "bold", subHeadingFontSize);
     y += spaceAfterParagraph / 2; 
     
     if (hauptablehnungsgrundRehaRv.trim() !== "") {
@@ -324,15 +391,15 @@ function generateRehaRvWiderspruchPDF() {
         writeParagraph(ergaenzendeArgumenteRehaRvWiderspruch, defaultLineHeight, textFontSize);
     }
     
-    writeParagraph("Die beantragte Rehabilitationsmaßnahme ist zwingend erforderlich, um die Erwerbsfähigkeit von Herrn/Frau ${personName} zu erhalten, wesentlich zu bessern oder wiederherzustellen und somit einen möglichen dauerhaften Leistungsbezug (z.B. Erwerbsminderungsrente) abzuwenden. Dies entspricht dem Grundsatz 'Reha vor Rente'. Die beigefügten ärztlichen Unterlagen stützen diese Einschätzung nachdrücklich.", defaultLineHeight, textFontSize);
+    writeParagraph("Die beantragte Rehabilitationsmaßnahme ist zwingend erforderlich, um die Erwerbsfähigkeit von ${personName} zu erhalten, wesentlich zu bessern oder wiederherzustellen und somit einen möglichen dauerhaften Leistungsbezug (z.B. Erwerbsminderungsrente) abzuwenden. Dies entspricht dem Grundsatz 'Reha vor Rente'. Die beigefügten ärztlichen Unterlagen stützen diese Einschätzung nachdrücklich.", defaultLineHeight, textFontSize);
     
     // Forderung
-    writeLine("Meine/Unsere Forderung im Widerspruchsverfahren:", defaultLineHeight, "bold", subHeadingFontSize);
+    writeLine("Meine Forderung im Widerspruchsverfahren:", defaultLineHeight, "bold", subHeadingFontSize);
     y += spaceAfterParagraph / 2;
     if (forderungWiderspruchRehaRv.trim() !== "") {
         writeParagraph(forderungWiderspruchRehaRv, defaultLineHeight, textFontSize, {fontStyle:"bold"});
     } else {
-        writeParagraph(`Ich/Wir fordern Sie daher nachdrücklich auf, Ihren Bescheid vom ${datumAblehnungsbescheidRehaRv} aufzuheben und die beantragte Rehabilitationsmaßnahme (${rehaArtAbgelehnt || 'siehe Antrag'}) ${rehaZielortAbgelehnt.trim() !== "" ? 'in der Einrichtung ' + rehaZielortAbgelehnt + ' ' : ''}umgehend zu genehmigen.`, defaultLineHeight, textFontSize, {fontStyle:"bold"});
+        writeParagraph(`Ich fordere Sie daher nachdrücklich auf, Ihren Bescheid vom ${datumAblehnungsbescheidRehaRv} aufzuheben und die beantragte Rehabilitationsmaßnahme (${rehaArtAbgelehnt || 'siehe Antrag'}) ${rehaZielortAbgelehnt.trim() !== "" ? 'in der Einrichtung ' + rehaZielortAbgelehnt + ' ' : ''}umgehend zu genehmigen.`, defaultLineHeight, textFontSize, {fontStyle:"bold"});
     }
     
     // Anlagen
@@ -346,8 +413,8 @@ function generateRehaRvWiderspruchPDF() {
 
     // Abschluss mit Fristsetzung
     const fristsetzungDatumText = new Date(Date.now() + 4 * 7 * 24 * 60 * 60 * 1000).toLocaleDateString("de-DE"); 
-    writeParagraph(`Bitte bestätigen Sie uns den Eingang dieses Widerspruchs umgehend schriftlich. Wir erwarten Ihre rechtsmittelfähige Entscheidung über unseren Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, textFontSize);
-    writeParagraph("Sollten Sie unserem Widerspruch nicht vollumfänglich abhelfen, behalten wir uns ausdrücklich vor, Klage vor dem Sozialgericht zu erheben.", defaultLineHeight, textFontSize);
+    writeParagraph(`Bitte bestätigen Sie den Eingang dieses Widerspruchs umgehend schriftlich. Ich erwarte Ihre rechtsmittelfähige Entscheidung über unseren Widerspruch bis spätestens zum ${fristsetzungDatumText}.`, defaultLineHeight, textFontSize);
+    writeParagraph("Sollten Sie diesem Widerspruch nicht vollumfänglich abhelfen, behalte ich mir ausdrücklich vor, Klage vor dem Sozialgericht zu erheben.", defaultLineHeight, textFontSize);
     if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else { doc.addPage(); y = margin; }
 
     // Grußformel und Unterschrift

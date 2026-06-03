@@ -272,6 +272,7 @@ function generateEmRenteAntragPDF() {
     // --- PDF-Inhalt erstellen ---
     doc.setFont("times", "normal");
 
+    // Absender-Logik ermitteln
     let absenderName = personName;
     let absenderAdresse = personAdresse;
     let absenderTelefon = personTelefon;
@@ -280,33 +281,109 @@ function generateEmRenteAntragPDF() {
         absenderAdresse = asAdresseEMR;
         absenderTelefon = asTelefonEMR;
     }
-    writeLine(absenderName);
-    absenderAdresse.split("\n").forEach(line => writeLine(line.trim()));
-    if (absenderTelefon && absenderTelefon.trim() !== "") writeLine("Tel.: " + absenderTelefon);
-    if (personEmail.trim() !== "" && antragstellerIdentischEMR === 'ja') writeLine("E-Mail: " + personEmail);
-    if (y + defaultLineHeight <= usableHeight) y += defaultLineHeight; else {doc.addPage(); y = margin;}
 
-    // Empfänger - jetzt mit den neuen Feldern
-    writeLine("An die", defaultLineHeight, false, textFontSize);
-    writeLine(rvTraegerName, defaultLineHeight, "bold", subHeadingFontSize);
+    // ==========================================
+    // --- UNIFORMER BRIEFKOPF START ---
+    // ==========================================
+    
+    // 1. RECHTER BLOCK: Haupt-Absenderblock (Oben rechts)
+    const rightColumnX = pageWidth - margin - 60; // Startpunkt rechts
+    let rightY = margin;
+    
+    doc.setFont("times", "bold");
+    doc.setFontSize(10);
+    doc.text("Absender:", rightColumnX, rightY);
+    rightY += 5;
+    
+    doc.setFont("times", "normal");
+    doc.setFontSize(textFontSize);
+    doc.text(absenderName, rightColumnX, rightY);
+    rightY += defaultLineHeight;
+    
+    absenderAdresse.split("\n").forEach(line => {
+        doc.text(line.trim(), rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    });
+
+    if (absenderTelefon && absenderTelefon.trim() !== "") {
+        doc.text("Tel.: " + absenderTelefon, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // E-Mail-Logik (nur wenn Antragsteller identisch ist)
+    if (personEmail.trim() !== "" && antragstellerIdentischEMR === 'ja') {
+        doc.text("E-Mail: " + personEmail, rightColumnX, rightY);
+        rightY += defaultLineHeight;
+    }
+
+    // 2. LINKER BLOCK: Kleine Rücksendezeile + Empfänger (RV-Träger)
+    let leftY = margin + 15; 
+    
+    // Inline-Rücksendezeile generieren
+    const cleanAddressInline = absenderAdresse.replace(/\r?\n/g, " · ");
+    const ruecksendeZeile = `${absenderName} · ${cleanAddressInline}`;
+    
+    doc.setFont("times", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120); // Dezentes Grau
+    doc.text(ruecksendeZeile, margin, leftY);
+    
+    // Die feine Trennlinie
+    doc.setDrawColor(180, 180, 180); 
+    doc.setLineWidth(0.2);
+    doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
+    
+    // Empfänger platzieren
+    leftY += 6; 
+    doc.setFontSize(textFontSize);
+    doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
+    doc.text("An die", margin, leftY);
+    leftY += defaultLineHeight;
+    
+    // RV-Träger Name (Fett gedruckt laut deinem Original)
+    doc.setFont("times", "bold");
+    doc.setFontSize(subHeadingFontSize);
+    doc.text(rvTraegerName, margin, leftY);
+    leftY += defaultLineHeight;
+    
+    // Zurück zum Standard-Textstil für die Adresse
+    doc.setFont("times", "normal");
+    doc.setFontSize(textFontSize);
+    
+    // Straße mit Fallback-Prüfung
     if (rvTraegerStrasse.trim() !== "") {
-        rvTraegerStrasse.split("\n").forEach(line => writeLine(line.trim()));
+        rvTraegerStrasse.split("\n").forEach(line => {
+            doc.text(line.trim(), margin, leftY);
+            leftY += defaultLineHeight;
+        });
     } else {
-        writeLine("[Straße des RV-Trägers eintragen]", defaultLineHeight, false, textFontSize, {fontStyle: "italic"});
+        doc.setFont("times", "italic");
+        doc.text("[Straße des RV-Trägers eintragen]", margin, leftY);
+        doc.setFont("times", "normal");
+        leftY += defaultLineHeight;
     }
+    
+    // PLZ/Ort mit Fallback-Prüfung
     if (rvTraegerPlzOrt.trim() !== "") {
-        writeLine(rvTraegerPlzOrt);
+        doc.text(rvTraegerPlzOrt.trim(), margin, leftY);
+        leftY += defaultLineHeight;
     } else {
-        writeLine("[PLZ und Ort des RV-Trägers eintragen]", defaultLineHeight, false, textFontSize, {fontStyle: "italic"});
+        doc.setFont("times", "italic");
+        doc.text("[PLZ und Ort des RV-Trägers eintragen]", margin, leftY);
+        doc.setFont("times", "normal");
+        leftY += defaultLineHeight;
     }
-    if (y + defaultLineHeight * 2 <= usableHeight) y += defaultLineHeight * 2; else {doc.addPage(); y = margin;}
 
+    // 3. DATUM: Rechtsbündig unterhalb beider Blöcke platziert
     const datumHeute = new Date().toLocaleDateString("de-DE");
     doc.setFontSize(textFontSize);
     const datumsBreite = doc.getStringUnitWidth(datumHeute) * textFontSize / doc.internal.scaleFactor;
-    if (y + defaultLineHeight > usableHeight) { doc.addPage(); y = margin; }
-    doc.text(datumHeute, pageWidth - margin - datumsBreite, y);
-    y += defaultLineHeight * 2; 
+    
+    let datumY = Math.max(leftY, rightY) + 5; 
+    doc.text(datumHeute, pageWidth - margin - datumsBreite, datumY);
+
+    // Übergabe an die globale Y-Koordinate für den nachfolgenden Text
+    y = datumY + 12;
 
     let betreffText = `Antrag auf Leistungen bei Erwerbsminderung (Erwerbsminderungsrente)`;
     betreffText += `\nVersicherte Person: ${personName}, geb. am ${personGeburtFormatiert}`;
