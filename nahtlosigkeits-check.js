@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <li><strong>Aussteuerungsdatum:</strong> ${aussteuerungDatum}</li>
                     <li><strong>Reha-/Rentenantrag:</strong> ${rehaAntragGestellt ? 'Bereits gestellt.' : 'Muss voraussichtlich noch gestellt werden.'}</li>
                 </ul>
-                <p style="margin-bottom: 0; color: #d32f2f;"><strong>📄 Ihr rechtssicheres PDF wird jetzt heruntergeladen!</strong></p>
+                <p style="margin-bottom: 0; color: #d32f2f;"><strong>📄 Ihr  PDF wird jetzt heruntergeladen!</strong></p>
             </div>
         `;
         ergebnisContainer.innerHTML = htmlErgebnis;
