@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <title>Stufenplan-Rechner 2026: Wiedereingliederung (Hamburger Modell)</title>
-<meta name="description" content="Stufenplan-Rechner (2026): Hamburger Modell kostenlos berechnen. Plane deine Wiedereingliederung (Stufen & Wochen) und drucke den Entwurf für deinen Arzt.">
+  <meta name="description" content="Stufenplan-Rechner (2026): Hamburger Modell kostenlos berechnen. Plane deine Wiedereingliederung (Stufen & Wochen) und drucke den Entwurf für deinen Arzt.">
   <meta name="keywords" content="Stufenplan Wiedereingliederung, Hamburger Modell Rechner, BEM Stufenplan erstellen, Krankengeld Wiedereingliederung, Burnout Rückkehr Job, § 74 SGB V">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://kassen-lotse.de/stufenplan-wiedereingliederung.html" />
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
   <style>
-    /* SPEZIELLES LAYOUT FÜR DEN GENERIERTEN STUFENPLAN */
+    /* SPEZIELLES LAYOUT FÜR DEN GENERIERTEN STUFENPLAN (BROWSER-VORSCHAU) */
     #plan-output {
-      display: none; 
       background: #fff;
       padding: 40px;
       margin-top: 30px;
@@ -50,61 +51,45 @@
       background-color: #f0f0f0;
       font-weight: bold;
     }
-        .signatures {
+    .signatures {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       margin-top: 40px;
-      page-break-inside: avoid; /* Verhindert das Auseinanderreißen beim Drucken */
-      break-inside: avoid;      /* Verhindert das Auseinanderreißen beim Drucken */
     }
     .sig-box {
       width: 45%;
-      margin-top: 60px; /* Der eigentliche Platz für die Unterschrift */
+      margin-top: 60px;
       border-top: 1px solid #000;
       padding-top: 5px;
       text-align: center;
       font-size: 0.9em;
-      page-break-inside: avoid;
-      break-inside: avoid;
     }
 
-    /* DRUCK-CSS: Blendet alles außer dem Plan aus, wenn gedruckt oder als PDF gespeichert wird */
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #plan-output, #plan-output * {
-        visibility: visible;
-      }
-      #plan-output {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        border: none;
-        box-shadow: none;
-      }
+    /* Fix für den Wizard: Verhindert das gleichzeitige Anzeigen beider Schritte */
+    .pflegegrad-fieldset {
+      display: none !important;
+    }
+    .pflegegrad-fieldset.active {
+      display: block !important;
     }
   </style>
 
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Stufenplan-Rechner (Hamburger Modell)",
-  "operatingSystem": "Web",
-  "applicationCategory": "BusinessApplication",
-  "description": "Ein interaktiver Rechner zur Erstellung eines Entwurfs für die stufenweise Wiedereingliederung nach § 74 SGB V. Berechnet automatisch Laufzeiten und Enddaten der einzelnen Stufen.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Stufenplan-Rechner (Hamburger Modell)",
+    "operatingSystem": "Web",
+    "applicationCategory": "BusinessApplication",
+    "description": "Ein interaktiver Rechner zur Erstellung eines Entwurfs für die stufenweise Wiedereingliederung nach § 74 SGB V. Berechnet automatisch Laufzeiten und Enddaten der einzelnen Stufen.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
   }
-}
-</script>
+  </script>
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -170,7 +155,7 @@
     </p>
   </div>
 
-  <div class="info-box warning" style="border-left: 4px solid #e53935; padding: 15px; margin-top: 20px;">
+  <div class="info-box warning" style="padding: 15px; margin-top: 20px;">
     <h2>WICHTIG: Die rechtliche Situation beim Hamburger Modell (§ 74 SGB V)</h2>
     <p>
       Viele Arbeitnehmer haben falsche Vorstellungen von der Wiedereingliederung. Beachten Sie zwingend diese Fakten:
@@ -182,19 +167,19 @@
     </ul>
   </div>
 
-  <div class="info-box" style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 10px; margin-top: 15px;">
-    <strong>Strategie-Tipp: Planen Sie Puffer ein!</strong> Starten Sie lieber mit sehr wenigen Stunden (z. B. 2 bis 3 Stunden täglich) und dehnen Sie diese Phase auf zwei oder drei Wochen aus. Oft wird die Erschöpfung in der Praxis unterschätzt. Der Plan ist nicht in Stein gemeißelt: Wenn Sie merken, dass die nächste Stufe noch zu viel ist, kann Ihr Arzt den Plan jederzeit anpassen, verlängern oder abbrechen, ohne dass Sie arbeitsrechtliche Konsequenzen befürchten müssen.
+  <div class="info-box" style="background-color: #e3f2fd; padding: 10px; margin-top: 15px;">
+    <strong>Strategie-Tipp: Planen Sie Puffer ein!</strong> Starten Sie lieber mit sehr wenigen Stunden (z. B. 2 bis 3 Stunden täglich) und dehnen Sie diese Phase auf zwei oder drei Wochen aus. Oft wird die Erschöpfung in der Praxis unterschätzt. Der Plan ist nicht in Stein gemeißelt: Wenn Sie merken, dass die nächste Stufe noch zu viel is, kann Ihr Arzt den Plan jederzeit anpassen, verlängern oder abbrechen, ohne dass Sie arbeitsrechtliche Konsequenzen befürchten müssen.
   </div>
 
-  <div class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 15px;">
+  <div class="info-box" style="background-color: #fff8e1; padding: 10px; margin-top: 15px;">
     <strong>Wichtiger Hinweis:</strong> Dieses Tool stellt keine medizinische Begutachtung oder arbeitsrechtliche Beratung dar. Es generiert lediglich einen Rechen- und Zeitplan als Entwurf. Ihr behandelnder Arzt muss diesen Plan medizinisch verantworten, abstempeln und unterschreiben, bevor er bei Arbeitgeber und Kasse eingereicht wird.
   </div>
 
-  <div class="info-box" style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 10px; margin-top: 15px;">
+  <div class="info-box" style="background-color: #e3f2fd; padding: 10px; margin-top: 15px;">
     <strong>Hinweis zur Datenspeicherung:</strong> Ihre Gesundheits- und Plandaten sind hochsensibel. Das Tool arbeitet zu 100 % lokal in Ihrem Browser (localStorage). Eine Übermittlung Ihrer Eingaben an unsere Server findet nicht statt.
   </div>
 
-  <div class="info-box" style="background-color: #fff3f3; border-left: 4px solid #e53935; padding: 10px; margin-top: 15px;">
+  <div class="info-box" style="background-color: #fff3f3; padding: 10px; margin-top: 15px;">
     <strong>Technischer Hinweis:</strong> Um das fertige PDF für Ihren Arzt erfolgreich herunterzuladen, nutzen Sie bitte Browser wie <strong>Chrome, Firefox oder Safari</strong>. In der Google-App funktioniert der Download oft nicht zuverlässig.
   </div>
 
@@ -204,7 +189,6 @@
 
     <form id="stufen-form" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
       
-      <!-- SCHRITT 1: Grunddaten -->
       <fieldset class="pflegegrad-fieldset">
         <legend>Schritt 1 – Grunddaten & Start</legend>
 
@@ -229,13 +213,11 @@
         </label>
       </fieldset>
 
-      <!-- SCHRITT 2: Die Stufen definieren -->
       <fieldset class="pflegegrad-fieldset">
         <legend>Schritt 2 – Den Stufenplan aufbauen</legend>
         <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Tipp bei Psyche/Burnout: Starten Sie schonend (z.B. mit 2 oder 3 Stunden) und belassen Sie eine Stufe ruhig für 2 bis 3 Wochen, bevor Sie steigern. Sie müssen nicht alle 4 Stufen ausfüllen.</p>
 
-        <!-- Stufe 1 -->
-        <div style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border-radius: 5px; border-left: 3px solid #4CAF50;">
+        <div style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
             <strong style="display: block; margin-bottom: 10px;">Stufe 1 (Der Einstieg)</strong>
             <label class="pflegegrad-label">Dauer in Wochen:
               <input type="number" id="s1-wochen" class="pflegegrad-frage" min="1" max="6" value="2">
@@ -249,8 +231,7 @@
             </label>
         </div>
 
-        <!-- Stufe 2 -->
-        <div style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border-radius: 5px; border-left: 3px solid #2196F3;">
+        <div style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
             <strong style="display: block; margin-bottom: 10px;">Stufe 2</strong>
             <label class="pflegegrad-label">Dauer in Wochen (0 = wird übersprungen):
               <input type="number" id="s2-wochen" class="pflegegrad-frage" min="0" max="6" value="2">
@@ -264,8 +245,7 @@
             </label>
         </div>
 
-        <!-- Stufe 3 -->
-        <div style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border-radius: 5px; border-left: 3px solid #FF9800;">
+        <div style="background: #f9f9f9; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
             <strong style="display: block; margin-bottom: 10px;">Stufe 3 (Optional)</strong>
             <label class="pflegegrad-label">Dauer in Wochen (0 = wird übersprungen):
               <input type="number" id="s3-wochen" class="pflegegrad-frage" min="0" max="6" value="2">
@@ -289,8 +269,7 @@
       </div>
     </form>
 
-    <!-- HIER ERSCHEINT DER GENERIERTE PLAN -->
-    <div id="plan-output">
+    <div id="plan-output" style="display:none;">
       <div class="plan-header">
         <h2>Entwurf: Stufenweise Wiedereingliederung (Hamburger Modell)</h2>
         <p>Gemäß § 74 SGB V / § 44 SGB IX</p>
@@ -303,20 +282,20 @@
         <p><em>Hinweis: Der Arbeitnehmer ist während der gesamten Maßnahme weiterhin arbeitsunfähig erkrankt. Es besteht kein Anspruch auf Arbeitsentgelt, der Lebensunterhalt wird durch Krankengeld/Übergangsgeld gesichert.</em></p>
       </div>
 
-      <table class="plan-table" id="out-table">
-        <thead>
-          <tr>
-            <th>Stufe</th>
-            <th>Von (Datum)</th>
-            <th>Bis (Datum)</th>
-            <th>Dauer</th>
-            <th>Tägliche Arbeitszeit</th>
-          </tr>
-        </thead>
-        <tbody id="out-table-body">
-          <!-- Zeilen werden per JS generiert -->
-        </tbody>
-      </table>
+      <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 40px;">
+        <table class="plan-table" id="out-table" style="min-width: 600px;">
+          <thead>
+            <tr>
+              <th>Stufe</th>
+              <th>Von (Datum)</th>
+              <th>Bis (Datum)</th>
+              <th>Dauer</th>
+              <th>Tägliche Arbeitszeit</th>
+            </tr>
+          </thead>
+          <tbody id="out-table-body"></tbody>
+        </table>
+      </div>
 
       <div style="margin-bottom: 30px;">
         <p><strong>Besondere Einschränkungen / Ärztliche Hinweise:</strong></p>
@@ -340,10 +319,9 @@
       </div>
     </div>
 
-    <!-- Buttons zum Drucken / PDF speichern (erst nach Generierung sichtbar) -->
     <div id="print-actions" class="button-container" style="display: none; margin-top: 20px;">
-        <button class="button button-primary" onclick="window.print()">🖨️ Als PDF speichern / Drucken</button>
-        <p style="font-size: 0.85em; color: #555; margin-top: 10px;">Hinweis: Beim Drucken / Speichern wird automatisch nur der saubere Plan übernommen. Nehmen Sie diesen Entwurf mit zu Ihrem Arzt.</p>
+        <button class="button button-primary" onclick="generatePDF()">🖨️ Als PDF herunterladen</button>
+        <p style="font-size: 0.85em; color: #555; margin-top: 10px;">Hinweis: Das Dokument wird nun komplett unabhängig über Vektordaten generiert, um weiße Seiten und Unschärfen zu verhindern.</p>
     </div>
 
   <section class="promo-teaser" aria-labelledby="promo-headline" role="region" style="margin-top: 50px;">
@@ -415,10 +393,10 @@
     
     <h3 style="font-size: 1.1em; color: #333; margin-top: 0; margin-bottom: 8px;">Wer hat diese Inhalte erstellt?</h3>
     <p style="font-size: 0.9em; color: #555; max-width: 700px; margin: 0 auto 12px auto; line-height: 1.5;">
-        Unsere Ratgeber und Generatoren basieren auf der strikten Auswertung aktueller Gesetzestexte. Sie werden von <strong>Jan (Projektleitung) & Team</strong> entwickelt und durch unser Netzwerk aus Fachberatern regelmäßig auf fachliche Korrektheit geprüft. 
+        Unsere Ratgeber und Generatoren basieren auf der strikten Auswertung aktueller Gesetzestexte. Sie werden von <strong>Jan (Projektleitung) & Team</strong> entwickelt und durch unser Netzwerk aus Fachberatern regelmäßig auf fachliche Korrektheit geprüft. 
         <br><br>
         <em>Wichtiger Hinweis: Unser Tool generiert Standarddokumente zur Selbsthilfe und ersetzt keine anwaltliche Einzelfallprüfung.</em>
-    </p>
+    </p>
     
     <div style="margin-bottom: 25px;">
         <a href="über.html" style="display: inline-block; font-size: 0.9em; color: #0056b3; text-decoration: underline; font-weight: bold;">
@@ -442,6 +420,140 @@
   </footer>
 
   <script>
+    // Globale Datenstruktur zur Übergabe an die jsPDF-Engine
+    let calculatedSteps = [];
+
+    // Vollkommen unabhängige PDF-Generierung mittels nativer jsPDF Befehle
+    function generatePDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const patientName = document.getElementById('patient-name').value || "[Name des Patienten]";
+      const agName = document.getElementById('arbeitgeber-name').value || "[Arbeitgeber]";
+      const zielSel = document.getElementById('ziel-stunden');
+      const zielStunden = zielSel.options[zielSel.selectedIndex].text;
+
+      // Header-Strukturierung
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(16);
+      doc.text("Entwurf: Stufenweise Wiedereingliederung", 105, 20, { align: "center" });
+      doc.text("(Hamburger Modell)", 105, 27, { align: "center" });
+      
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(11);
+      doc.text("Gemäß § 74 SGB V / § 44 SGB IX", 105, 34, { align: "center" });
+
+      // Horizontale Trennlinie oben
+      doc.setLineWidth(0.5);
+      doc.line(15, 40, 195, 40);
+
+      // Stammdaten-Bereich
+      doc.setFont("helvetica", "bold");
+      doc.text("Patient / Arbeitnehmer:", 15, 52);
+      doc.setFont("helvetica", "normal");
+      doc.text(patientName, 65, 52);
+
+      doc.setFont("helvetica", "bold");
+      doc.text("Arbeitgeber:", 15, 59);
+      doc.setFont("helvetica", "normal");
+      doc.text(agName, 65, 59);
+
+      doc.setFont("helvetica", "bold");
+      doc.text("Reguläre Ziel-Arbeitszeit:", 15, 66);
+      doc.setFont("helvetica", "normal");
+      doc.text(zielStunden, 65, 66);
+
+      // Gesetzlicher Infotext
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "italic");
+      const infoText = "Hinweis: Der Arbeitnehmer ist während der gesamten Maßnahme weiterhin arbeitsunfähig erkrankt. Es besteht kein Anspruch auf Arbeitsentgelt, der Lebensunterhalt wird durch Krankengeld/Übergangsgeld gesichert.";
+      const splitInfo = doc.splitTextToSize(infoText, 180);
+      doc.text(splitInfo, 15, 74);
+
+      // Tabelle zeichnen (Manuell für höchste Stabilität und Vektorschärfe)
+      let currentY = 92;
+      
+      // Tabellen-Header Hintergrund
+      doc.setFillColor(240, 240, 240);
+      doc.rect(15, currentY, 180, 8, "F");
+      
+      // Tabellen-Header Rahmen & Text
+      doc.setLineWidth(0.2);
+      doc.rect(15, currentY, 180, 8);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.text("Stufe", 20, currentY + 6);
+      doc.text("Von (Datum)", 50, currentY + 6);
+      doc.text("Bis (Datum)", 85, currentY + 6);
+      doc.text("Dauer", 125, currentY + 6);
+      doc.text("Tägliche Arbeitszeit", 155, currentY + 6);
+
+      currentY += 8;
+      doc.setFont("helvetica", "normal");
+
+      // Tabellen-Zeilen befüllen
+      calculatedSteps.forEach((step) => {
+        doc.rect(15, currentY, 180, 8);
+        doc.text(step.name, 20, currentY + 6);
+        doc.text(step.von, 50, currentY + 6);
+        doc.text(step.bis, 85, currentY + 6);
+        doc.text(step.dauer, 125, currentY + 6);
+        doc.text(step.stunden, 155, currentY + 6);
+        currentY += 8;
+      });
+
+      // Abschluss-Satz unter der Tabelle
+      currentY += 5;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      if(calculatedSteps.length > 0) {
+        const lastStep = calculatedSteps[calculatedSteps.length - 1];
+        doc.text(`Voraussichtliches Ende der Maßnahme: ${lastStep.bis}`, 15, currentY);
+      }
+
+      // Ärztliche Bemerkungen Linien
+      currentY += 15;
+      doc.setFont("helvetica", "bold");
+      doc.text("Besondere Einschränkungen / Ärztliche Hinweise:", 15, currentY);
+      doc.setLineWidth(0.1);
+      doc.line(15, currentY + 8, 195, currentY + 8);
+      doc.line(15, currentY + 16, 195, currentY + 16);
+
+      // Unterschriften-Felder (Page-Break Absicherung)
+      if (currentY > 210) {
+        doc.addPage();
+        currentY = 20;
+      } else {
+        currentY += 25;
+      }
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+
+      // Box Links Oben
+      doc.line(15, currentY, 95, currentY);
+      doc.text("Unterschrift & Stempel des Arztes (Ärztliche Befürwortung)", 15, currentY + 4);
+
+      // Box Rechts Oben
+      doc.line(115, currentY, 195, currentY);
+      doc.text("Unterschrift des Patienten (Einverständnis)", 115, currentY + 4);
+
+      // Box Links Unten
+      doc.line(15, currentY + 25, 95, currentY + 25);
+      doc.text("Unterschrift des Arbeitgebers (Zustimmung)", 15, currentY + 29);
+
+      // Box Rechts Unten
+      doc.line(115, currentY + 25, 195, currentY + 25);
+      doc.text("Unterschrift der Krankenkasse / Kostenträger", 115, currentY + 29);
+
+      // Datei-Download anstoßen
+      doc.save('stufenplan-wiedereingliederung.pdf');
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
       const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
       const prevBtn = document.getElementById('prev-step');
@@ -456,11 +568,14 @@
 
       function updateWizard() {
         fieldsets.forEach((fs, index) => {
-          fs.style.display = (index === currentStep) ? 'block' : 'none';
+          if (index === currentStep) {
+            fs.classList.add('active');
+          } else {
+            fs.classList.remove('active');
+          }
         });
 
         progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
-
         prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
         
         if (currentStep === fieldsets.length - 1) {
@@ -472,28 +587,15 @@
         }
       }
 
-      nextBtn.addEventListener('click', () => {
-        if (currentStep < fieldsets.length - 1) {
-          currentStep++;
-          updateWizard();
-        }
-      });
+      nextBtn.addEventListener('click', () => { if (currentStep < fieldsets.length - 1) { currentStep++; updateWizard(); } });
+      prevBtn.addEventListener('click', () => { if (currentStep > 0) { currentStep--; updateWizard(); } });
 
-      prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) {
-          currentStep--;
-          updateWizard();
-        }
-      });
-
-      // Hilfsfunktion zum Addieren von Wochen zu einem Datum
       function addWeeks(date, weeks) {
         let result = new Date(date);
-        result.setDate(result.getDate() + (weeks * 7) - 1); // -1, damit die Woche Sonntags endet, wenn Montag gestartet wird
+        result.setDate(result.getDate() + (weeks * 7) - 1);
         return result;
       }
       
-      // Hilfsfunktion für nächstes Startdatum (1 Tag nach Enddatum)
       function nextDay(date) {
         let result = new Date(date);
         result.setDate(result.getDate() + 1);
@@ -517,8 +619,8 @@
         const zielSel = document.getElementById('ziel-stunden');
         document.getElementById('out-ziel').textContent = zielSel.options[zielSel.selectedIndex].text;
 
-        // Tabelle leeren
         tableBody.innerHTML = "";
+        calculatedSteps = []; 
 
         let currentStartDate = new Date(startInput);
 
@@ -527,13 +629,7 @@
         let std1 = document.getElementById('s1-stunden').value;
         if(w1 > 0) {
             let endDate = addWeeks(currentStartDate, w1);
-            tableBody.innerHTML += `<tr>
-                <td><strong>Stufe 1</strong></td>
-                <td>${formatDate(currentStartDate)}</td>
-                <td>${formatDate(endDate)}</td>
-                <td>${w1} Woche(n)</td>
-                <td><strong>${std1}</strong></td>
-            </tr>`;
+            calculatedSteps.push({ name: "Stufe 1", von: formatDate(currentStartDate), bis: formatDate(endDate), dauer: `${w1} Woche(n)`, stunden: std1 });
             currentStartDate = nextDay(endDate);
         }
 
@@ -542,13 +638,7 @@
         let std2 = document.getElementById('s2-stunden').value;
         if(w2 > 0) {
             let endDate = addWeeks(currentStartDate, w2);
-            tableBody.innerHTML += `<tr>
-                <td><strong>Stufe 2</strong></td>
-                <td>${formatDate(currentStartDate)}</td>
-                <td>${formatDate(endDate)}</td>
-                <td>${w2} Woche(n)</td>
-                <td><strong>${std2}</strong></td>
-            </tr>`;
+            calculatedSteps.push({ name: "Stufe 2", von: formatDate(currentStartDate), bis: formatDate(endDate), dauer: `${w2} Woche(n)`, stunden: std2 });
             currentStartDate = nextDay(endDate);
         }
 
@@ -557,28 +647,32 @@
         let std3 = document.getElementById('s3-stunden').value;
         if(w3 > 0) {
             let endDate = addWeeks(currentStartDate, w3);
-            tableBody.innerHTML += `<tr>
-                <td><strong>Stufe 3</strong></td>
-                <td>${formatDate(currentStartDate)}</td>
-                <td>${formatDate(endDate)}</td>
-                <td>${w3} Woche(n)</td>
-                <td><strong>${std3}</strong></td>
-            </tr>`;
-            currentStartDate = nextDay(endDate); // Für eine evtl. weitere Stufe oder das Ende
+            calculatedSteps.push({ name: "Stufe 3", von: formatDate(currentStartDate), bis: formatDate(endDate), dauer: `${w3} Woche(n)`, stunden: std3 });
+            currentStartDate = nextDay(endDate);
         }
 
-        // Abschlusszeile
-        tableBody.innerHTML += `<tr style="background-color: #e8f5e9;">
-            <td colspan="5"><strong>Voraussichtliches Ende der Maßnahme: ${formatDate(new Date(currentStartDate.getTime() - 86400000))}. Ab ${formatDate(currentStartDate)} voraussichtlich wieder voll arbeitsfähig.</strong></td>
-        </tr>`;
+        // HTML-Vorschau generieren
+        calculatedSteps.forEach(step => {
+          tableBody.innerHTML += `<tr>
+              <td><strong>${step.name}</strong></td>
+              <td>${step.von}</td>
+              <td>${step.bis}</td>
+              <td>${step.dauer}</td>
+              <td><strong>${step.stunden}</strong></td>
+          </tr>`;
+        });
 
-        // Output anzeigen
+        if(calculatedSteps.length > 0) {
+          tableBody.innerHTML += `<tr style="background-color: #e8f5e9;">
+              <td colspan="5"><strong>Voraussichtliches Ende der Maßnahme: ${calculatedSteps[calculatedSteps.length - 1].bis}. Ab ${formatDate(currentStartDate)} voraussichtlich wieder voll arbeitsfähig.</strong></td>
+          </tr>`;
+        }
+
         planOutput.style.display = 'block';
         printActions.style.display = 'block';
         planOutput.scrollIntoView({ behavior: 'smooth' });
       });
 
-      // Init
       updateWizard();
     });
   </script>
