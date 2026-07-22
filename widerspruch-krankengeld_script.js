@@ -301,7 +301,7 @@ function generateWiderspruchKrankengeldPDF() {
         writeParagraph(ergaenzendeBegruendungKG, defaultLineHeight, 11);
     }
     
-    // **** KORRIGIERTE ZEILE HIER: ****
+    
     writeParagraph(`Ich weise darauf hin, dass meine Arbeitsunfähigkeit seit dem ${beginnArbeitsunfaehigkeitKG} aufgrund der Diagnose(n) "${diagnoseHauptKG || '(Diagnose bitte im Formular eintragen)'}" lückenlos ärztlich attestiert ist. Die entsprechenden Nachweise liegen Ihnen vor bzw. werden mit diesem Schreiben (erneut) eingereicht.`, defaultLineHeight, 11);
     
     writeParagraph("Das Krankengeld stellt für mich eine unverzichtbare Lohnersatzleistung dar, auf die ich zur Sicherung meines Lebensunterhalts dringend angewiesen bin. Ihre Entscheidung hat daher erhebliche finanzielle und persönliche Konsequenzen für mich.", defaultLineHeight, 11);
