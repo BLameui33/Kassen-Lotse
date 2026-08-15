@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF-Bündler & Bild-Komprimierer für Versicherungen & Krankenkassen</title>
+  
+  <meta name="description" content="Mehrere Fotos (Kontoauszüge, Bescheide) verkleinern und in ein einziges PDF unter 5 MB zusammenfügen. Perfekt für den Upload bei Krankenkassen und Pflegekassen. 100% Offline-Datenschutz.">
+  <meta name="keywords" content="Dateien für Jobcenter Upload verkleinern, Mehrere Bilder in ein PDF, Bilder für E-Mail verkleinern, PDF komprimieren Amt">
+  <meta name="robots" content="index, follow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kassen-Lotse Redaktion">
+  <link rel="canonical" href="https://kassen-lotse.de/pdf-buendler.html">
+  <link rel="icon" href="/logo-lotse-fav.png">
+  
+  <!-- jsPDF für die PDF-Erstellung -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Browser Image Compression für das starke Verkleinern der Handyfotos -->
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+  <!-- Dein zukünftiges Skript -->
+  <script defer src="pdf_buendler_script.js"></script>
+  <link rel="stylesheet" href="/css/generator.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PDF-Bündler & Bild-Komprimierer für Krankenkassen & Pflegekassen",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "description": "Fügt mehrere große Handyfotos zu einer einzigen PDF-Datei zusammen und komprimiert diese garantiert unter 5 MB für Krankenkassen- und Pflegekassen-Uploads.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+  <style>
+    /* --- Drag & Drop Zone Design --- */
+    .drop-zone {
+        max-width: 100%;
+        height: 200px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        font-weight: 500;
+        font-size: 20px;
+        cursor: pointer;
+        color: #cccccc;
+        border: 4px dashed #009578;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+    }
+    .drop-zone--over {
+        border-style: solid;
+        background-color: #e8f5e9;
+        color: #2e7d32;
+    }
+    .drop-zone__input {
+        display: none;
+    }
+    .image-preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        border-radius: 6px;
+        object-fit: cover;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .preview-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    .remove-btn {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #e53935;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .progress-bar {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        margin-top: 15px;
+        display: none;
+    }
+    .progress-bar-fill {
+        height: 20px;
+        background-color: #2e7d32;
+        border-radius: 4px;
+        width: 0%;
+        transition: width 0.3s;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+    <a href="index.html" class="site-logo">Kassen-Lotse</a>
+</header>
+
+<div class="page-container">
+
+  <!-- OBERER BEREICH: Fokus auf kassenrecht -->
+<h1>Bilder bündeln & verkleinern (Krankenkassen-App & Pflegekasse)</h1>
+
+  <div class="usp-bar">
+    <div class="usp-item"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg> Garantiert unter 5 MB</div>
+    <div class="usp-item"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg> Aus 10 Fotos wird 1 PDF</div>
+    <div class="usp-item"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg> 100% Offline (Datenschutz)</div>
+    <div class="usp-item"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg> Text bleibt lesbar</div>
+  </div>
+
+  <a href="#toolArea" class="button jump-button" style="margin-bottom: 20px; display: inline-block;">Direkt zum PDF-Bündler springen</a>
+
+ <div class="info-box">
+  <p>
+    <strong>Das typische Problem bei der TK-App, AOK-Online oder privaten Krankenversicherungen:</strong> Sie möchten Rechnungen für den Zahnarzt, ein mehrseitiges Rezept oder Heil- und Kostenpläne bei Ihrer Kasse einreichen. Sie fotografieren die 8 Seiten mit dem Smartphone ab. Die Bilder sind riesig (über 30 MB) – aber die App oder das Online-Portal der Krankenkasse streikt und bricht den Upload ab, da das Limit überschritten wurde.
+  </p>
+  <p>
+    Mit unserem Tool ziehen Sie Ihre abfotografierten Arztunterlagen einfach hier hinein. Unser System verkleinert die Bilder stark, ohne dass die Diagnosen oder Beträge unleserlich werden, und <strong>heftet sie zu einer einzigen, kompakten PDF-Datei zusammen</strong>. Perfekt für den Upload bei gesetzlichen und privaten Kassen!
+  </p>
+  </div>
+
+  <div class="info-box" style="background-color: #fff8e1; border-left: 4px solid #ff9800; padding: 10px; margin-top: 15px;">
+    <strong>Wichtiger Datenschutz-Hinweis:</strong> Sozialdaten sind extrem sensibel. Im Gegensatz zu anderen Online-Konvertern werden Ihre Dokumente hier <strong>nicht ins Internet hochgeladen</strong>. Die Komprimierung und PDF-Erstellung passiert zu 100% lokal in Ihrem Browser auf Ihrem eigenen Gerät.
+  </div>
+
+  <!-- DAS TOOL FORMULAR -->
+  <form id="toolArea" onsubmit="event.preventDefault();">
+    <fieldset>
+      <legend>1. Dokumente (Fotos/Bilder) hinzufügen</legend>
+      <p class="instruction-text" style="font-size:0.9em; color:#555; margin-top:0;">
+          Wählen Sie Ihre abfotografierten Dokumente aus (JPG, PNG). Sie können auch mehrere Bilder gleichzeitig auswählen.
+      </p>
+      
+      <!-- Drag & Drop Zone -->
+      <div class="drop-zone" id="dropZone">
+        <span class="drop-zone__prompt">Bilder hierher ziehen oder klicken zum Auswählen</span>
+        <input type="file" name="myFile" id="fileInput" class="drop-zone__input" multiple accept="image/jpeg, image/png, image/jpg">
+      </div>
+
+      <!-- Vorschau der hochgeladenen Bilder -->
+      <div id="imagePreviewContainer" class="image-preview-container">
+          <!-- Bilder werden hier per JS als .preview-wrapper eingefügt -->
+      </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>2. PDF-Einstellungen</legend>
+        <label for="compressionLevel">Qualitäts-Stufe (Größe des PDFs):</label>
+        <select id="compressionLevel" style="padding: 10px; font-size: 1em; width: 100%; margin-bottom: 15px;">
+            <option value="max_compress" selected>Behörden-Upload (Max. 5 MB) - Starke Komprimierung (Text bleibt lesbar)</option>
+            <option value="medium_compress">Standard (Max. 10 MB) - Gute Qualität für detaillierte Grafiken</option>
+        </select>
+        
+        <label for="pdfFileName">Name der PDF-Datei (Optional):</label>
+        <input type="text" id="pdfFileName" placeholder="z.B. Kontoauszuege_Mai_Mueller">
+    </fieldset>
+
+    <div class="progress-bar" id="progressBarContainer">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <div id="statusText" style="text-align: center; margin-top: 5px; font-size: 0.9em; color: #555;"></div>
+
+    <div class="button-group" style="margin-top: 20px;">
+      <button type="button" id="generatePdfBtn" class="button-primary" style="background-color: #d35400; color: white; padding: 15px 30px; font-size: 1.1em; width: 100%;">Alle Bilder zu 1 PDF zusammenfügen</button>
+    </div>
+  </form>
+  
+  <hr style="margin-top:50px; border: 1px solid #eee;">
+
+ <div class="info-box" style="background-color: #f8f9fa; border: none; padding: 25px;">
+  <h2 style="margin-top: 0;">Warum ein kompaktes PDF für die Krankenkasse besser ist</h2>
+  <p>
+    Die Digitalisierung im Gesundheitswesen (E-Rezept, E-Akte) schreitet voran. Dennoch müssen Patienten oft händisch Papiernachweise erbringen – sei es für die Erstattung von Osteopathie-Rechnungen, Zuzahlungsbefreiungen oder Anträge bei der Pflegekasse. 
+  </p>
+  
+  <h3 style="font-size: 1.2em; color: #2e7d32;">Ihre Vorteile bei der Einreichung als PDF:</h3>
+  <ul style="line-height: 1.6; margin-bottom: 20px;">
+    <li><strong>Sichere Zuordnung:</strong> Wenn Sie eine 5-seitige Arztrechnung plus Rezept einreichen, stellen Sie durch ein gebündeltes PDF sicher, dass die Sachbearbeiter in der Kasse die Seiten in der korrekten Reihenfolge erhalten und nichts verloren geht.</li>
+    <li><strong>Problemloser Upload:</strong> Die Apps vieler Krankenkassen (z.B. Barmer, TK, DAK) haben strikte Upload-Limits, um ihre Server zu schonen. Eine komprimierte PDF unter 5 MB geht reibungslos durch.</li>
+    <li><strong>E-Mail-Tauglich:</strong> Wenn Sie Unterlagen per sicherer E-Mail an Ihren Sachbearbeiter senden, blockieren viele Kassen-Server E-Mails, die größer als 10 MB sind. Unser Tool verhindert das.</li>
+  </ul>
+</div>
+
+<h2>Häufige Fragen zum PDF-Bündler (Kassen- und Pflegerecht)</h2>
+<details>
+  <summary>Ist das Tool sicher für meine Gesundheitsdaten (Diagnosen/Rechnungen)?</summary>
+  <p>Das ist der wichtigste Punkt: Ja! Gesundheitsdaten (nach Art. 9 DSGVO) dürfen auf keinen Fall auf fremde Server geladen werden. Unser Komprimierer arbeitet zu 100 % in Ihrem eigenen Browser. Ihre Arztrechnungen verlassen Ihr Gerät zu keinem Zeitpunkt in Richtung Internet.</p>
+</details>
+<details>
+  <summary>Kann der Sachbearbeiter die Beträge und ICD-Codes noch lesen?</summary>
+  <p>Ja. Die starke Komprimierung entfernt unnötige Farbtiefen und Hintergrundstrukturen des Papiers, erhält aber die harten Kontraste von schwarzer Schrift. Rechnungsbeträge, Unterschriften des Arztes und Stempel bleiben für die Prüfung gut erkennbar.</p>
+</details>
+<details>
+  <summary>Ist das Tool auch für Anträge auf Pflegegrad geeignet?</summary>
+  <p>Definitiv. Wer ein Pflegetagebuch, Arztberichte und Vollmachten beim Medizinischen Dienst (MD) oder der Pflegekasse digital einreichen möchte, hat oft Dutzende Seiten. Das Bündeln in ein PDF erleichtert dem Gutachter die Übersicht enorm.</p>
+</details>
+</div> 
+
+<div style="background-color: #f8f9fa; border-top: 2px solid #e0e0e0; padding: 25px 15px; margin-top: 40px; text-align: center; font-family: sans-serif;">
+    <h3 style="font-size: 1.1em; color: #333; margin-top: 0; margin-bottom: 8px;">Wer hat diese Inhalte erstellt?</h3>
+    <p style="font-size: 0.9em; color: #555; max-width: 700px; margin: 0 auto 12px auto; line-height: 1.5;">
+        Unsere Ratgeber und Generatoren basieren auf der strikten Auswertung aktueller Gesetzestexte. Sie werden von <strong>Jan (Projektleitung) & Team</strong> entwickelt und durch unser Netzwerk aus Fachberatern regelmäßig auf fachliche Korrektheit geprüft. 
+        <br><br>
+        <em>Wichtiger Hinweis: Unser Tool generiert Standardvorlagen zur Selbsthilfe und ersetzt keine anwaltliche Einzelfallprüfung.</em>
+    </p>
+    
+    <div style="margin-bottom: 25px;">
+        <a href="über.html" style="display: inline-block; font-size: 0.9em; color: #0056b3; text-decoration: underline; font-weight: bold;">
+            Mehr über unsere Redaktion & Arbeitsweise erfahren
+        </a>
+    </div>
+
+    <div style="margin: 0 auto 20px auto; max-width: 600px; background-color: #ffffff; border: 1px solid #d1d5db; border-radius: 8px; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <p style="margin: 0; font-size: 0.95em; color: #333; line-height: 1.4;">
+             <strong>Sie wissen nicht genau, wo Sie anfangen sollen?</strong><br>
+            Nutzen Sie unseren <a href="index.html" style="color: #0056b3; font-weight: bold; text-decoration: none; border-bottom: 2px solid #0056b3;">Digitalen Lotsen</a>. Er führt Sie in wenigen Klicks zielsicher zum passenden Ratgeber, Rechner oder Generator für Ihr Anliegen.
+        </p>
+    </div>
+    <p style="font-size: 0.85em; color: #777; margin: 0 auto; max-width: 600px; border-top: 1px solid #eaeaea; padding-top: 15px;">
+        💡 <strong>Fehler entdeckt oder ein technisches Problem?</strong> Helfen Sie uns, die Tools aktuell zu halten. <a href="mailto:info@mieter-lotse.de" style="color: #555; text-decoration: underline;">Schreiben Sie uns gerne eine kurze Nachricht</a>.
+    </p>
+</div>
+
+<footer>
+  <div class="mini-footer-hint">
+  <p><strong>Das Lotsen-Netzwerk:</strong></p>
+<p>
+  <a href="https://www.kassen-lotse.de" class="mini-footer-link">Kassen-Lotse</a> • 
+  <a href="https://www.sozialrecht-lotse.de" class="mini-footer-link">Sozial-Lotse</a> • 
+  <a href="https://www.mieter-lotse.de" class="mini-footer-link">Mieter-Lotse</a>
+</p>
+  </div>
+  <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Redaktion & Expertise</a> | <a href="datenschutz.html">Datenschutz</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+</body>
+</html>

@@ -24,7 +24,8 @@
 </script>
 	
   <style>
-    :root {
+/* === CSS VARIABLEN === */
+:root {
   --primary: #0070f3;
   --primary-dark: #0059c9;
   --primary-light: #e6f0ff;
@@ -38,7 +39,7 @@
   --transition: all 0.25s ease;
 }
 
-/* --- Grundlayout --- */
+/* === GRUNDLAYOUT === */
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.8;
@@ -49,34 +50,63 @@ body {
   font-size: 1.05rem;
 }
 
-/* --- Header --- */
+/* === HEADER & LOGO (Schmal & Kompakt) === */
 .site-header {
-  background-color: var(--white);
-  padding: 1.2rem 2rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid var(--border);
+  background-color: #ffffff;
+  padding: 0.6rem 1rem; /* Halbiert (vorher 1.2rem) für eine deutlich schmalere Höhe */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid #e6ebf1;
   text-align: center;
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 10;
 }
 
+/* Dezente Glanzlinie am oberen Rand */
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px; /* Feiner gemacht (vorher 4px) */
+  background: linear-gradient(90deg, #004e92, #0070f3);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+@supports (position: sticky) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(6px);
+  }
+}
+
 .site-logo {
-  color: var(--accent);
-  font-size: 1.6rem;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.35rem; /* Vorher 1.8rem – wirkt dadurch dezent und spart Höhe */
   font-weight: 700;
+  color: var(--accent);
   text-decoration: none;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #004e92, #0070f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: var(--transition);
+  display: inline-block;
 }
 
 .site-logo:hover {
-  color: var(--primary);
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, #0054a6, #339af0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 6px rgba(0, 112, 243, 0.15);
 }
 
-/* --- Hauptcontainer --- */
+/* === HAUPTCONTAINER === */
 .page-container {
-  max-width: 880px;
+  max-width: 1100px;
   margin: 3rem auto;
   background: var(--white);
   padding: 3rem 2.8rem;
@@ -89,7 +119,7 @@ body {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 14px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Überschriften --- */
+/* === ÜBERSCHRIFTEN === */
 h1 {
   font-size: 2.6rem;
   margin-bottom: 1.8rem;
@@ -111,12 +141,37 @@ h1 .logo-part {
 
 h2 {
   font-size: 1.8rem;
-  margin-top: 2.5rem;
+  margin-top: 0;
   margin-bottom: 1.2rem;
   color: var(--accent);
-  border-left: 4px solid var(--primary);
-  padding-left: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+/* Edler, spitz zulaufender Unterstrich mit Farbverlauf */
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100px; /* Längere Startlänge */
+  height: 3px;  /* 3px Höhe gibt der Spitze perfekte Präzision */
+  
+  /* Farbverlauf von kräftigem Blau bis leicht transparent an der Spitze */
+  background: linear-gradient(90deg, #004e92 0%, var(--primary) 60%, rgba(0, 112, 243, 0.2) 100%);
+  
+  /* Schneidet die Linie nach rechts spitz zu (Dreieck/Pfeil-Optik) */
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Seidenweiches Ausfahren der Spitze nach rechts bei Hover */
+.category-section:hover h2::after,
+h2:hover::after {
+  width: 180px; /* Reicht edel & weit nach rechts */
 }
 
 h3 {
@@ -126,16 +181,17 @@ h3 {
   color: var(--primary-dark);
 }
 
-/* --- Intro & Mission Boxen --- */
+/* === INFO & MISSION BOXEN === */
 .intro-text,
 .project-mission,
+.model-info,
 .privacy-short-info {
   font-size: 1.05rem;
   line-height: 1.75;
   margin-bottom: 2rem;
   padding: 1.4rem 1.7rem;
-  background-color: #eef9ff;
-  border-left: 5px solid var(--primary);
+  background-color: var(--primary-light);
+  border-left: 6px solid var(--primary);
   border-radius: var(--radius);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
@@ -143,6 +199,7 @@ h3 {
 
 .intro-text:hover,
 .project-mission:hover,
+.model-info:hover,
 .privacy-short-info:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
@@ -153,12 +210,149 @@ h3 {
   color: var(--accent);
 }
 
-/* --- Kategorien --- */
-.category-section {
-  margin-bottom: 2.8rem;
+/* === USP BAR === */
+.usp-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 15px 0 25px 0;
+  font-family: sans-serif;
 }
 
+.usp-item {
+  display: flex;
+  align-items: center;
+  background: #f0f7ff;
+  color: #0056b3;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #d0e3ff;
+}
+
+.usp-item svg {
+  margin-right: 6px;
+  width: 16px;
+  height: 16px;
+  fill: #2e7d32;
+}
+
+   /* ==========================================================================
+   TOPIC NAVIGATOR – Modernes Schwebendes Bottom-Widget
+   ========================================================================== */
+
+/* Der schwebende Container unten */
+.topic-navigator {
+  position: fixed;
+  bottom: 20px; /* Schwebt 20px über dem unteren Rand */
+  left: 50%;
+  transform: translateX(-50%); /* Perfekt zentriert */
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: calc(100% - 32px); /* Passt sich flexibel der Bildschirmbreite an */
+  max-width: 440px; /* Verhindert, dass es auf dem Desktop zu breit wird */
+  padding: 8px 12px 8px 16px;
+
+  /* Edles Frosted-Glass mit starkem Schwebe-Schatten */
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 50px; /* Pillen-Form */
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15),
+              0 4px 12px -2px rgba(0, 0, 0, 0.08);
+
+  box-sizing: border-box;
+}
+
+/* Dezent beschriftet */
+.topic-navigator label {
+  font-size: 0.725rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Das Select-Feld in Pillen-Optik */
+.topic-navigator select {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+
+  padding: 8px 34px 8px 12px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 30px;
+  
+  background-image: url("data:image/svg+xml;utf8,<svg fill='none' stroke='%230070f3' stroke-width='2.2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 15px;
+
+  cursor: pointer;
+  outline: none;
+  text-overflow: ellipsis;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Scroll-Abstand für Ziel-Kategorien (auf den Header oben abgestimmt) */
+.category-section {
+  scroll-margin-top: 70px;
+}
+
+/* Platz am Seitenende, damit das Footer-Ende nicht verdeckt wird */
+footer {
+  padding-bottom: 90px !important;
+}
+
+@media (max-width: 600px) {
+  .topic-navigator {
+    bottom: 14px; /* Noch etwas näher am unteren Rand auf Mobilgeräten */
+    width: calc(100% - 24px);
+    padding: 6px 10px 6px 14px;
+  }
+
+  .topic-navigator label {
+    font-size: 0.675rem;
+  }
+
+  .topic-navigator select {
+    padding: 8px 30px 8px 10px;
+    font-size: 0.825rem;
+  }
+}
+
+/* === KATEGORIEN & TOOL LISTE (2-SPALTEN GRID) === */
+.category-section {
+  margin: 60px auto;
+  max-width: 1100px;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+/* Die Tool-Liste als 2-Spalten-Grid */
 .tool-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 Spalten nebeneinander */
+  gap: 18px; /* Abstand zwischen den Cards */
   list-style: none;
   padding-left: 0;
   margin: 0;
@@ -168,39 +362,156 @@ h3 {
   background-color: var(--white);
   border: 1px solid #dee2e6;
   border-radius: 8px;
-  margin-bottom: 0.9rem;
-  padding: 1rem 1.2rem;
+  margin-bottom: 0; /* Abstand wird über Grid gap geregelt */
+  padding: 14px 16px;
   transition: var(--transition);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .tool-list li:hover {
+  background: #f5f9f6;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
   border-color: var(--primary);
 }
 
-.tool-list li a {
+.tool-list a {
   text-decoration: none;
-  color: var(--primary);
-  font-weight: 500;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 16px;
   display: block;
   transition: color 0.25s ease;
 }
 
-.tool-list li a:hover {
-  color: var(--primary-dark);
+.tool-list a:hover {
+  color: #0070f3;
   text-decoration: underline;
 }
 
-.tool-list li small {
+.tool-list small {
   display: block;
-  font-size: 0.9em;
-  color: #555;
-  margin-top: 0.3rem;
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
 }
 
-/* --- Spendenbox --- */
+/* === LOTSE === */
+.lotse-wrapper {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  border-top: 6px solid #0056b3; 
+}
+
+.lotse-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.lotse-header h2 {
+  color: #0056b3;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.lotse-header p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+}
+
+#lotse-frage {
+  font-size: 22px;
+  color: #222;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+#lotse-antworten {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+#lotse-antworten.is-start-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.lotse-btn {
+  padding: 16px 24px;
+  background-color: #f8f9fa;
+  color: #333;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lotse-btn:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 86, 179, 0.2);
+}
+
+.is-start-grid .lotse-btn {
+  flex-direction: column;
+  padding: 30px 20px;
+  text-align: center;
+  height: 100%;
+}
+
+.lotse-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.lotse-footer {
+  text-align: center;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+#lotse-zurueck {
+  background: transparent;
+  color: #666;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+#lotse-zurueck:hover {
+  background: #f1f1f1;
+  color: #222;
+}
+
+/* === SPENDENBOX === */
 .spendenhinweis {
   background: #fff9e6;
   border: 1px solid #ffeeba;
@@ -243,7 +554,7 @@ h3 {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Footer --- */
+/* === FOOTER === */
 footer {
   text-align: center;
   padding: 3rem 0 2rem 0;
@@ -265,8 +576,16 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* --- Responsiv --- */
+/* === RESPONSIVE ANPASSUNGEN === */
 @media (max-width: 700px) {
+   .site-header {
+    padding: 0.4rem 0.8rem; 
+  }
+  
+  .site-logo {
+    font-size: 1.15rem; 
+  }
+
   .page-container {
     padding: 1.5rem;
     margin: 1.2rem auto;
@@ -288,9 +607,16 @@ footer a:hover {
 
   .intro-text,
   .project-mission,
+  .model-info,
   .privacy-short-info {
     font-size: 0.95rem;
     padding: 1.2rem;
+  }
+
+  /* Auf Mobilgeräten Tool-Liste wieder 1-spaltig machen */
+  .tool-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .tool-list li {
@@ -298,346 +624,27 @@ footer a:hover {
   }
 }
 
-.site-header {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e6ebf1;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
-  padding: 1.2rem 1rem;
-  text-align: center;
-  position: relative;
-  z-index: 10;
-}
 
-.intro-text,
-.model-info,
-.privacy-short-info {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  margin-bottom: 2rem;
-  padding: 1.4rem 1.7rem;
-  background-color: var(--primary-light);
-  border-left: 6px solid var(--primary);
-  border-radius: var(--radius);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-
-.intro-text:hover,
-.model-info:hover,
-.privacy-short-info:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
-}
-
-.intro-text,
-  .model-info,
-  .privacy-short-info {
-    font-size: 0.95rem;
-    padding: 1.2rem;
+  .usp-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 10px;
   }
 
-/* dezente Glanzlinie am oberen Rand */
-.site-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #004e92, #0070f3);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
-/* Schriftzug / Logo */
-.site-logo {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #1a5276;
-  text-decoration: none;
-  letter-spacing: -0.02em;
-  background: linear-gradient(90deg, #004e92, #0070f3);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: all 0.25s ease;
-}
-
-/* Hover-Effekt: heller Farbverlauf + leichtes Anheben */
-.site-logo:hover {
-  transform: translateY(-1px);
-  background: linear-gradient(90deg, #0054a6, #339af0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 1px 6px rgba(0, 112, 243, 0.15);
-}
-
-/* Optional: leichtes Unterstatement beim Scrollen (keine JS nötig) */
-@supports (position: sticky) {
-  .site-header {
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(6px);
-  }
-}
-
-/* Mobile Anpassung */
-@media (max-width: 700px) {
-  .site-header {
-    padding: 1.2rem 1rem;
-  }
-  .site-logo {
-    font-size: 1.7rem;
-  }
-}
-
-/* Dropdown Styling */
-.category-jump {
-  max-width: 600px;
-  margin: 30px auto;
-  text-align: center;
-}
-
-.category-jump label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 8px;
-  font-size: 16px;
-}
-
-.category-jump select {
-  width: 100%;
-  padding: 12px 15px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background: #fff;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.category-jump select:focus {
-  outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 0 3px rgba(76,175,80,0.15);
-}
-
-/* Sanfte Section-Abstände */
-.category-section {
-  margin: 60px auto;
-  max-width: 1100px;
-  padding: 25px;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-}
-
-/* Tool Liste moderner */
-.tool-list li {
-  margin-bottom: 18px;
-  padding: 12px;
-  border-radius: 8px;
-  transition: background 0.2s ease;
-}
-
-.tool-list li:hover {
-  background: #f5f9f6;
-}
-
-.tool-list a {
-  font-weight: 600;
-  font-size: 16px;
-  text-decoration: none;
-  color: #2c3e50;
-}
-
-.tool-list a:hover {
-  color: #4CAF50;
-}
-
-.tool-list small {
-  display: block;
-  margin-top: 5px;
-  color: #666;
-  font-size: 14px;
-}
-
-/* === GRUND-DESIGN LOTSE === */
-        .lotse-wrapper {
-            max-width: 800px; /* Etwas breiter für die 3 Boxen */
-            margin: 40px auto;
-            padding: 40px;
-            background-color: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            border-top: 6px solid #0056b3; 
-        }
-
-        /* === KOPFZEILE & ERKLÄRUNG === */
-        .lotse-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .lotse-header h2 {
-            color: #0056b3;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        .lotse-header p {
-            color: #555;
-            font-size: 16px;
-            line-height: 1.5;
-            max-width: 600px;
-            margin: 0 auto 20px auto;
-        }
-
-        #lotse-frage {
-            font-size: 22px;
-            color: #222;
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: 600;
-        }
-
-        /* === ANTWORT-CONTAINER === */
-        #lotse-antworten {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
-
-        /* === LAYOUT FÜR DIE STARTSEITE (3 BOXEN) === */
-        #lotse-antworten.is-start-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        /* === STANDARD BUTTON-DESIGN === */
-        .lotse-btn {
-            padding: 16px 24px;
-            background-color: #f8f9fa;
-            color: #333;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .lotse-btn:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-            color: #ffffff;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 86, 179, 0.2);
-        }
-
-        /* === SPEZIELLES DESIGN FÜR START-BOXEN === */
-        .is-start-grid .lotse-btn {
-            flex-direction: column;
-            padding: 30px 20px;
-            text-align: center;
-            height: 100%;
-        }
-        
-        .lotse-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        /* === ZURÜCK-BUTTON === */
-        .lotse-footer {
-            text-align: center;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
-        }
-
-        #lotse-zurueck {
-            background: transparent;
-            color: #666;
-            border: none;
-            font-size: 15px;
-            cursor: pointer;
-            padding: 8px 15px;
-            border-radius: 5px;
-            transition: background 0.2s;
-        }
-        
-        #lotse-zurueck:hover {
-            background: #f1f1f1;
-            color: #222;
-        }
-
-        .usp-bar {
-    display: flex;
+  .usp-item {
     justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin: 15px 0 25px 0;
-    font-family: sans-serif;
-}
+    font-size: 0.75rem;
+    padding: 8px 4px;
+    text-align: center;
+  }
 
-.usp-item {
-    display: flex;
-    align-items: center;
-    background: #f0f7ff; /* Sehr helles Blau passend zum Design */
-    color: #0056b3;      /* Dein Logo-Blau */
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border: 1px solid #d0e3ff;
-}
+  .usp-item svg {
+    width: 14px;
+    height: 14px;
+  }
 
-.usp-item svg {
-    margin-right: 6px;
-    width: 16px;
-    height: 16px;
-    fill: #2e7d32; /* Ein dezentes Grün für die Haken */
-}
-
-/* Desktop-Standard (hast du schon) */
-.usp-bar {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin: 15px 0 25px 0;
-}
-
-/* Mobile Optimierung (Neu hinzufügen) */
-@media (max-width: 600px) {
-    .usp-bar {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Zwei gleich breite Spalten */
-        gap: 8px;
-        padding: 0 10px;
-    }
-
-    .usp-item {
-        justify-content: center; /* Zentriert Inhalt in der Kachel */
-        font-size: 0.75rem;      /* Etwas kleiner auf dem Handy */
-        padding: 8px 4px;
-        text-align: center;
-    }
-    
-    .usp-item svg {
-        width: 14px;
-        height: 14px;
-    }
-}
-
-  </style>
+</style>
 </head>
 <body>
 
@@ -704,34 +711,27 @@ footer a:hover {
 
 	  
 
-<div class="category-jump">
-  <label for="categorySelect">Direkt zur Kategorie:</label>
-  <select id="categorySelect" onchange="jumpToCategory()">
-    <option value="">Bitte wählen...</option>
-    <option value="krankenkasse">Krankenversicherung</option>
-    <option value="pflegekasse">Pflegeversicherung</option>
-    <option value="rentenversicherung">Rentenversicherung</option>
-    <option value="schwerbehindertenrecht">Schwerbehindertenrecht</option>
-    <option value="familie-kind">Familie & Kind</option>
-    <option value="unfallversicherung">Unfallversicherung</option>
-    <option value="allgemein-verfahren">Allgemeines & Verfahrensrecht</option>
-    <option value="demenz-alltagshilfen">Demenz & Alltagshilfen</option>
-    <option value="psychische-erkrankungen">Psychische Erkrankungen</option>
-    <option value="angehoerige-betreuung">Angehörige & Betreuung</option>
+<div class="topic-navigator">
+  <label for="topic-select">Schnellauswahl:</label>
+  <div class="select-wrapper">
+    <select id="topic-select" onchange="location.href=this.value">
+      <option value="" selected disabled>Bitte Thema wählen...</option>
+    <option value="#krankenkasse">Krankenversicherung</option>
+    <option value="#pflegekasse">Pflegeversicherung</option>
+    <option value="#rentenversicherung">Rentenversicherung</option>
+    <option value="#schwerbehindertenrecht">Schwerbehindertenrecht</option>
+    <option value="#familie-kind">Familie & Kind</option>
+    <option value="#unfallversicherung">Unfallversicherung</option>
+    <option value="#allgemein-verfahren">Allgemeines & Verfahrensrecht</option>
+    <option value="#demenz-alltagshilfen">Demenz & Alltagshilfen</option>
+    <option value="#psychische-erkrankungen">Psychische Erkrankungen</option>
+    <option value="#angehoerige-betreuung">Angehörige & Betreuung</option>
+    <option value="#allgemeine-tools">Allgemeine Tools</option>
   </select>
+  </div>
 </div>
 
-<script>
-function jumpToCategory() {
-  const select = document.getElementById("categorySelect");
-  const targetId = select.value;
-  if (targetId) {
-    document.getElementById(targetId).scrollIntoView({
-      behavior: "smooth"
-    });
-  }
-}
-</script>
+
 
     <section id="krankenkasse" class="category-section">
       <h2>Krankenversicherung</h2>
@@ -1235,6 +1235,32 @@ function jumpToCategory() {
       </ul>
     </section>
 
+    <section id="allgemeine-tools" class="category-section">
+  <h2><span aria-hidden="true"></span>Tools & Dokumenten-Helfer</h2>
+  <ul class="tool-list">
+    <li>
+        <a href="generator-blanko-behoerdenbrief.html"><span class="highlight-word">Blanko-Brief</span> Generator</a>
+        <small>Formlose Schreiben, Anträge oder Mitteilungen schnell und korrekt aufsetzen – passend für Versicherungen, Krankenkassen oder Pflegekassen.</small>
+    </li>
+    <li>
+        <a href="generator-vollmacht.html"><span class="highlight-word">Vollmachtsgenerator</span> für Vertretungen</a>
+        <small>Erstelle Vollmachten zur Vertretung bei Behörden, Krankenkassen oder Pflegekassen.</small>
+    </li>
+    <li>
+        <a href="generator-quittung.html"><span class="highlight-word">Quittungsgenerator</span> & Abgabenachweis</a>
+        <small>Bestätigungen über abgegebene Unterlagen, Anträge oder Zahlungen einfach erstellen und nachweisen.</small>
+    </li>
+    <li>
+        <a href="daten-schwaerzer.html"><span class="highlight-word">PDF-Datenschwärzer</span> (Anonymisierungs-Tool)</a>
+        <small>Sensible persönliche Daten auf Kontoauszügen oder Nachweisen vor der Weitergabe sicher schwärzen.</small>
+    </li>
+    <li>
+        <a href="pdf-buendler.html"><span class="highlight-word">PDF-Bündler</span> (Dateien zusammenfügen)</a>
+        <small>Mehrere Dokumente, Scans und Nachweise übersichtlich in einer einzigen PDF-Datei zusammenfassen.</small>
+    </li>
+  </ul>
+</section>
+
     <div class="intro-text"> <h3>Datenschutz – Ihre Daten bleiben bei Ihnen!</h3>
         <p>Der Schutz Ihrer persönlichen Daten ist uns extrem wichtig. Kassen-Lotse ist so konzipiert, dass <strong>alle von Ihnen eingegebenen Informationen ausschließlich in Ihrem eigenen Webbrowser verarbeitet werden</strong>. Das bedeutet:</p>
         <ul>
@@ -1281,6 +1307,70 @@ function jumpToCategory() {
 
     
 <script src="lotse.js"></script>
-<script src="paypal-buttons.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const select = document.querySelector(".topic-navigator select");
+  const sections = document.querySelectorAll(".category-section");
+
+  if (!select || !sections.length) return;
+
+  // 1. Klick-Aktion: Schneidet ein eventuelles '#' automatisch ab
+  select.addEventListener("change", (e) => {
+    const rawValue = e.target.value;
+    const cleanId = rawValue.replace(/^#/, ""); // Entfernt das '#' am Anfang
+    const targetElement = document.getElementById(cleanId);
+    
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+
+  // 2. Scrollspy: Findet die passende Option, egal ob mit oder ohne '#' im value
+  function updateDropdownOnScroll() {
+    const scrollPosition = window.scrollY || window.pageYOffset;
+    let currentSectionId = "";
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 120;
+      const sectionHeight = section.offsetHeight;
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        currentSectionId = section.id;
+      }
+    });
+
+    // Sonderfall: Ganz unten auf der Seite
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+      if (sections.length > 0) {
+        currentSectionId = sections[sections.length - 1].id;
+      }
+    }
+
+    // Passende Option suchen (prüft "alg1" UND "#alg1")
+    if (currentSectionId) {
+      const matchingOption = Array.from(select.options).find(
+        (opt) => opt.value === currentSectionId || opt.value === `#${currentSectionId}`
+      );
+
+      if (matchingOption && select.value !== matchingOption.value) {
+        select.value = matchingOption.value;
+      }
+    }
+  }
+
+  let isTick = false;
+  window.addEventListener("scroll", () => {
+    if (!isTick) {
+      window.requestAnimationFrame(() => {
+        updateDropdownOnScroll();
+        isTick = false;
+      });
+      isTick = true;
+    }
+  });
+
+  updateDropdownOnScroll();
+});
+</script>
 </body>
 </html>
