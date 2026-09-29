@@ -101,7 +101,6 @@
     Zur Übersicht: Unfallversicherung
   </a>
 
-  <p><em>Fachlich geprüft | Stand: 11.08.2026</em></p>
 
   <a href="#vg-form" class="button jump-button" style="margin-bottom: 20px; display: inline-block;">Direkt zur kostenlosen Berechnung springen</a>
 
@@ -143,50 +142,78 @@
   </div>
 
   <div class="highlight-box pruefdatum-box" role="note" aria-label="Redaktionell geprüft" style="margin-top: 15px; margin-bottom: 30px;">
-    <p><strong>Redaktionell geprüft am:</strong> <span id="pruefdatum">11.08.2026</span></p>
+    <p><strong>Redaktionell & fachlich geprüft am:</strong> <span id="pruefdatum">11.08.2026</span></p>
   </div>
 
     <form id="vg-form" class="pflegegrad-form" onsubmit="return false;" aria-describedby="vg_ergebnis">
-      <fieldset class="pflegegrad-fieldset active-step">
-        <legend>1) Dein Einkommen (vor dem Unfall)</legend>
+  <fieldset class="pflegegrad-fieldset active-step">
+    <legend>1) Dein Verdienst vor dem Unfall</legend>
 
-        <p class="hinweis">
-          Nutze die letzte vollständige Lohn-/Gehaltsabrechnung vor dem Unfall. Wenn nur Wochen- oder Stundenlohn vorhanden ist,
-          aufs Monatsäquivalent hochrechnen.
-        </p>
+    <p class="hinweis">
+      Nimm am besten deine letzte vollständige Gehaltsabrechnung vor dem Unfall.
+      Hast du nur einen Wochen- oder Stundenlohn, rechne ihn grob auf einen Monat hoch.
+    </p>
 
-        <label class="pflegegrad-label" for="vg_brutto">
-          Brutto-Arbeitsentgelt (Monat) €
-          <input type="number" id="vg_brutto" min="0" step="0.01" placeholder="z. B. 3.500,00" />
-        </label>
+    <label class="pflegegrad-label" for="vg_brutto">
+      Bruttogehalt pro Monat (€)
+      <input type="number" id="vg_brutto" min="0" step="0.01" placeholder="z. B. 3500" />
+    </label>
 
-        <label class="pflegegrad-label" for="vg_netto">
-          Netto-Arbeitsentgelt (Monat) € (zur Deckelprüfung)
-          <input type="number" id="vg_netto" min="0" step="0.01" placeholder="z. B. 2.400,00" />
-        </label>
-      </fieldset>
+    <label class="pflegegrad-label" for="vg_netto">
+      Nettogehalt pro Monat (€)
+      <input type="number" id="vg_netto" min="0" step="0.01" placeholder="z. B. 2400" />
+    </label>
 
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2) Zeitraum</legend>
+    <p class="hinweis">
+      Das Netto brauchen wir, weil das Verletztengeld nie höher sein darf als das,
+      was du vorher netto bekommen hast.
+    </p>
 
-        <label class="pflegegrad-label" for="vg_tage">
-          Voraussichtliche Dauer der Zahlung (Tage)
-          <input type="number" id="vg_tage" min="1" step="1" value="30" />
-        </label>
+    <details class="pflegegrad-details" style="margin-top:0.75rem;">
+      <summary>Du verdienst sehr gut? Dann hier aufklappen (optional)</summary>
 
-        <p class="hinweis">
-          Hinweis: Verletztengeld beginnt meist, nachdem Lohnfortzahlung durch den Arbeitgeber endet (z. B. ab Woche 7).
-          Viele BGs rechnen tagesgenau; hier wird ein Monatsäquivalent verwendet.
-        </p>
-      </fieldset>
+      <p class="hinweis">
+        Bei hohem Einkommen zählt nur ein Teil deines Gehalts. Es gibt eine Obergrenze,
+        den sogenannten „Höchstjahresarbeitsverdienst“. Sie legt jede Berufsgenossenschaft (BG) selbst fest.
+        Mindestens sind es 94.920 € pro Jahr, das entspricht etwa 7.900 € brutto im Monat.
+        Manche BGs setzen sie höher an, z. B. 120.000 €.
+      </p>
 
-      <div class="button-container" role="group" aria-label="Aktionen">
-        <button type="button" id="vg_berechnen" class="button">Verletztengeld berechnen</button>
-        <button type="reset" id="vg_reset" class="button button-secondary">Zurücksetzen</button>
-      </div>
-    </form>
+      <label class="pflegegrad-label" for="vg_hjav">
+        Obergrenze deiner BG pro Jahr (€)
+        <input type="number" id="vg_hjav" min="0" step="1" placeholder="Leer lassen = 94.920" />
+      </label>
 
-    <section id="vg_ergebnis" aria-live="polite" style="margin-top:1rem;"></section>
+      <p class="hinweis">
+        Du kennst den Wert nicht? Einfach leer lassen. Dann rechnen wir mit dem gesetzlichen Mindestwert.
+        Den genauen Betrag findest du auf der Internetseite deiner BG unter „Höchstjahresarbeitsverdienst“.
+      </p>
+    </details>
+  </fieldset>
+
+  <fieldset class="pflegegrad-fieldset">
+    <legend>2) Wie lange bekommst du Verletztengeld?</legend>
+
+    <label class="pflegegrad-label" for="vg_tage">
+      Anzahl der Tage
+      <input type="number" id="vg_tage" min="1" step="1" value="30" />
+    </label>
+
+    <p class="hinweis">
+      Gut zu wissen: In den ersten 6 Wochen zahlt in der Regel dein Arbeitgeber dein Gehalt weiter.
+      Das Verletztengeld beginnt meist danach, also ab Woche 7.
+      Wir rechnen hier mit einem Monat = 30 Tage. Die BG rechnet später tagesgenau, deshalb kann
+      der echte Betrag etwas abweichen.
+    </p>
+  </fieldset>
+
+  <div class="button-container" role="group" aria-label="Aktionen">
+    <button type="button" id="vg_berechnen" class="button">Verletztengeld berechnen</button>
+    <button type="reset" id="vg_reset" class="button button-secondary">Zurücksetzen</button>
+  </div>
+</form>
+
+<section id="vg_ergebnis" aria-live="polite" style="margin-top:1rem;"></section>
 
     <!-- Erläuterung / Formel / Beispiel -->
     <section aria-label="Erklärung Verletztengeld" class="explain-box" style="margin-top:1rem;">

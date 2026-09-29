@@ -116,13 +116,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch(typ) {
             case 'success':
-                bgColor = '#e8f5e9'; borderColor = '#4caf50'; icon = '✅'; break;
+                bgColor = '#e8f5e9'; borderColor = '#4caf50'; icon = ''; break;
             case 'warning':
-                bgColor = '#fff8e1'; borderColor = '#ffb300'; icon = '💡'; break;
+                bgColor = '#fff8e1'; borderColor = '#ffb300'; icon = ''; break;
             case 'danger':
-                bgColor = '#ffebee'; borderColor = '#f44336'; icon = '❌'; break;
+                bgColor = '#ffebee'; borderColor = '#f44336'; icon = ''; break;
             default:
-                bgColor = '#e3f2fd'; borderColor = '#2196f3'; icon = 'ℹ️'; break;
+                bgColor = '#e3f2fd'; borderColor = '#2196f3'; icon = ''; break;
         }
 
         const html = `

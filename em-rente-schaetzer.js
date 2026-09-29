@@ -1,8 +1,21 @@
 // em-rente-schaetzer.js
 
+// ============================================================
+// PFLEGE-BEREICH: Werte, die regelmäßig aktualisiert werden müssen
+// ============================================================
+const RENTENWERT = 42.52;                 // € je Entgeltpunkt, gültig 01.07.2026 – 30.06.2027
+const RENTENWERT_STAND = "01.07.2026";    // wird im Ergebnis angezeigt
+const MAX_ABSCHLAG_PROZENT = 10.8;        // EM-Rente: 0,3 % je Monat, max. 36 Monate
+const DEFAULT_REGELALTER = 67;
+const MIN_ALTER = 16;
+const MAX_KVPV_PROZENT = 20;
+// ============================================================
+
 function num(el) {
   if (!el) return 0;
-  const raw = (el.value || "").toString().replace(",", ".");
+  let raw = (el.value || "").toString().trim().replace(/\s/g, "");
+  // "1.234,56" -> "1234.56" | "12,5" -> "12.5"
+  if (raw.includes(",")) raw = raw.replace(/\./g, "").replace(",", ".");
   const n = Number(raw);
   return Number.isFinite(n) ? n : 0;
 }
@@ -13,13 +26,11 @@ function euro(v) {
 }
 
 function yearsUntil(ageNow, targetAge) {
-  const y = Math.max(0, (targetAge || 67) - Math.max(0, ageNow || 0));
-  return y;
+  return Math.max(0, (targetAge || DEFAULT_REGELALTER) - Math.max(0, ageNow || 0));
 }
 
 function estimateAgeFromBirthYear(birthYear) {
-  const today = new Date();
-  const year = today.getFullYear();
+  const year = new Date().getFullYear();
   if (!birthYear || birthYear <= 0) return 0;
   return Math.max(0, year - birthYear);
 }
@@ -53,7 +64,18 @@ function calcEmRente({
     age = estimateAgeFromBirthYear(geburtsjahr);
   }
 
-  const targetAge = Math.max(60, regelalter || 67);
+  const targetAge = Math.max(60, regelalter || DEFAULT_REGELALTER);
+
+  // Im Auto-Modus wird das Alter zwingend gebraucht
+  if (zrzModus === "auto" && (age < MIN_ALTER || age >= targetAge)) {
+    return {
+      error:
+        "Bitte Alter bei Eintritt der Erwerbsminderung (oder Geburtsjahr) angeben – " +
+        `es muss zwischen ${MIN_ALTER} und unter dem Regelalters-Ziel (${targetAge}) liegen. ` +
+        "Alternativ Zurechnungszeit „keine“ oder „manuell“ wählen."
+    };
+  }
+
   const restJahre = yearsUntil(age, targetAge);
 
   // Zurechnungszeit als EP schätzen
@@ -65,8 +87,8 @@ function calcEmRente({
   // Rentenartfaktor: voll = 1.0, teilweise = 0.5
   const rentenartFaktor = art === "teilweise" ? 0.5 : 1.0;
 
-  // Zugangsfaktor / Abschlag (z. B. 10,8 % -> Faktor 0,892)
-  const abschlag = Math.min(Math.max(0, abschlagProzent || 0), 15) / 100;
+  // Zugangsfaktor / Abschlag (max. 10,8 % -> Faktor 0,892)
+  const abschlag = Math.min(Math.max(0, abschlagProzent || 0), MAX_ABSCHLAG_PROZENT) / 100;
   const zugangsfaktor = Math.max(0, 1 - abschlag);
 
   // Brutto-Rente (monatlich)
@@ -74,7 +96,7 @@ function calcEmRente({
   const brutto = epGesamt * (rentenwert || 0) * rentenartFaktor * zugangsfaktor;
 
   // Nettoschätzung (nur KV/PV pauschal)
-  const kvpv = Math.min(Math.max(0, abzugKvPvProzent || 0), 20) / 100;
+  const kvpv = Math.min(Math.max(0, abzugKvPvProzent || 0), MAX_KVPV_PROZENT) / 100;
   const kvpvAbzug = brutto * kvpv;
   const netto = Math.max(0, brutto - kvpvAbzug);
 
@@ -85,10 +107,19 @@ function calcEmRente({
     epGesamt,
     rentenartFaktor,
     zugangsfaktor,
+    abschlagEffektiv: abschlag * 100,
     brutto,
     kvpvAbzug,
     netto
   };
+}
+
+function renderError(container, message) {
+  container.innerHTML = `
+    <div class="pflegegrad-result-card">
+      <p class="hinweis"><strong>Hinweis:</strong> ${message}</p>
+    </div>
+  `;
 }
 
 function renderResult(container, input, out) {
@@ -100,9 +131,7 @@ function renderResult(container, input, out) {
     epBisher,
     epProJahr,
     zrzModus,
-    zrzEPmanuell,
     rentenwert,
-    abschlagProzent,
     abzugKvPvProzent
   } = input;
 
@@ -111,8 +140,8 @@ function renderResult(container, input, out) {
     restJahre,
     epZrz,
     epGesamt,
-    rentenartFaktor,
     zugangsfaktor,
+    abschlagEffektiv,
     brutto,
     kvpvAbzug,
     netto
@@ -121,8 +150,13 @@ function renderResult(container, input, out) {
   const artText = art === "teilweise" ? "Rente wegen teilweiser Erwerbsminderung" : "Rente wegen voller Erwerbsminderung";
   const zrzText =
     zrzModus === "keine" ? "ohne Zurechnungszeit (konservativ)" :
-    zrzModus === "manuell" ? `manuell: ${epZrz.toFixed(2)} EP` :
-    `automatisch: ${epZrz.toFixed(2)} EP (aus ca. ${restJahre.toFixed(1)} Restjahren × ${epProJahr.toFixed(2)} EP/Jahr)`;
+    zrzModus === "manuell" ? "manuell eingegeben" :
+    `automatisch (ca. ${restJahre.toFixed(1)} Restjahre × ${epProJahr.toFixed(2)} EP/Jahr)`;
+
+  const rentenwertHinweis =
+    Math.abs(rentenwert - RENTENWERT) > 0.001
+      ? ` <small>(abweichend vom aktuellen Wert ${RENTENWERT.toFixed(2).replace(".", ",")} € seit ${RENTENWERT_STAND})</small>`
+      : ` <small>(Stand ${RENTENWERT_STAND})</small>`;
 
   container.innerHTML = `
     <h2>Ergebnis: EM-Rente (vereinfachte Schätzung)</h2>
@@ -132,8 +166,8 @@ function renderResult(container, input, out) {
         <strong>Rentenart:</strong> ${artText}<br>
         <strong>Geburtsjahr/Alter:</strong> ${geburtsjahr ? geburtsjahr : (alter ? (new Date().getFullYear() - alter) : "–")} / ${age ? age + " Jahre" : "–"}<br>
         <strong>Regelalters-Ziel:</strong> ${regelalter} Jahre<br>
-        <strong>Rentenwert:</strong> ${rentenwert.toFixed(2).replace(".", ",")} € je EP<br>
-        <strong>Abschlag:</strong> ${abschlagProzent.toFixed(1)} % (Zugangsfaktor ${zugangsfaktor.toFixed(3)})
+        <strong>Rentenwert:</strong> ${rentenwert.toFixed(2).replace(".", ",")} € je EP${rentenwertHinweis}<br>
+        <strong>Abschlag:</strong> ${abschlagEffektiv.toFixed(1).replace(".", ",")} % (Zugangsfaktor ${zugangsfaktor.toFixed(3).replace(".", ",")})
       </p>
 
       <h3>Entgeltpunkte</h3>
@@ -150,7 +184,7 @@ function renderResult(container, input, out) {
             <td>${epBisher.toFixed(2)}</td>
           </tr>
           <tr>
-            <td>Zurechnungszeit (Modus: ${zrzText})</td>
+            <td>Zurechnungszeit (${zrzText})</td>
             <td>${epZrz.toFixed(2)}</td>
           </tr>
           <tr>
@@ -174,7 +208,7 @@ function renderResult(container, input, out) {
             <td><strong>${euro(brutto)}</strong></td>
           </tr>
           <tr>
-            <td>Abzug KV/PV (pauschal: ${abzugKvPvProzent.toFixed(1)} %)</td>
+            <td>Abzug KV/PV (pauschal: ${abzugKvPvProzent.toFixed(1).replace(".", ",")} %)</td>
             <td>− ${euro(kvpvAbzug)}</td>
           </tr>
           <tr>
@@ -185,8 +219,11 @@ function renderResult(container, input, out) {
       </table>
 
       <p class="hinweis">
-        Diese Schätzung berücksichtigt keine Steuer, keine Zusatz-/Sonderzuschläge der Krankenkasse
-        und keine individuellen Besonderheiten. Für eine verbindliche Auskunft bitte an die
+        Diese Schätzung ist stark vereinfacht: Die Zurechnungszeit endet tatsächlich an einer eigenen
+        Altersgrenze und wird nach dem Durchschnitt der bisherigen Belegung bewertet (mit Günstigerprüfung).
+        Nicht geprüft werden die versicherungsrechtlichen Voraussetzungen (Wartezeit 5 Jahre,
+        3 Jahre Pflichtbeiträge in den letzten 5 Jahren) sowie Steuer, Hinzuverdienst und individuelle
+        Besonderheiten. Für eine verbindliche Auskunft bitte an die
         <strong>Deutsche Rentenversicherung</strong> wenden (Renten-/Versicherungsverlauf prüfen).
       </p>
     </div>
@@ -216,12 +253,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateZrzUI() {
     const modus = zrzModusSel ? zrzModusSel.value : "auto";
-    if (modus === "manuell") {
-      zrzManuellWrap.style.display = "block";
-    } else {
-      zrzManuellWrap.style.display = "none";
+    if (zrzManuellWrap) {
+      zrzManuellWrap.style.display = modus === "manuell" ? "block" : "none";
     }
-    out.innerHTML = "";
+    if (out) out.innerHTML = "";
   }
 
   if (zrzModusSel) {
@@ -235,18 +270,22 @@ document.addEventListener("DOMContentLoaded", () => {
         art: artSel ? artSel.value : "voll",
         geburtsjahr: num(geburtsjahrInput),
         alter: num(alterInput),
-        regelalter: num(regelalterInput) || 67,
+        regelalter: num(regelalterInput) || DEFAULT_REGELALTER,
         epBisher: num(epBisherInput),
         epProJahr: num(epProJahrInput),
         zrzModus: zrzModusSel ? zrzModusSel.value : "auto",
         zrzEPmanuell: num(zrzEPmanuellInput),
-        rentenwert: num(rentenwertInput) || 39.32,
+        rentenwert: num(rentenwertInput) || RENTENWERT,
         abschlagProzent: num(abschlagInput),
         abzugKvPvProzent: num(kvpvInput)
       };
 
       const outVals = calcEmRente(input);
-      renderResult(out, input, outVals);
+      if (outVals.error) {
+        renderError(out, outVals.error);
+      } else {
+        renderResult(out, input, outVals);
+      }
       out.scrollIntoView({ behavior: "smooth" });
     });
   }

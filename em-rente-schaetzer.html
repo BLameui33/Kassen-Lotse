@@ -2,9 +2,8 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>EM-Rente berechnen 2026 | Erwerbsminderungsrente schätzen</title>
-  <meta name="description" content="Berechne deine voraussichtliche Erwerbsminderungsrente (EM-Rente) 2026: Entgeltpunkte, Zurechnungszeit, Abschlag, Rentenwert und Nettoschätzung.">
-  <meta name="keywords" content="EM-Rente berechnen, Erwerbsminderungsrente Rechner, Rente wegen Erwerbsminderung, Rentenschätzung, Zurechnungszeit, Entgeltpunkte, Rentenwert, Abschlag, Rentenrechner, Kassen-Lotse">
+  <title>EM-Rente 2026: Wie viel bekomme ich? Jetzt berechnen</title>
+  <meta name="description" content="EM-Rente schätzen mit dem aktuellen Rentenwert 2026 (42,52 €): Brutto und Netto in wenigen Schritten berechnen, einfach erklärt.">  <meta name="keywords" content="EM-Rente berechnen, Erwerbsminderungsrente Rechner, Rente wegen Erwerbsminderung, Rentenschätzung, Zurechnungszeit, Entgeltpunkte, Rentenwert, Abschlag, Rentenrechner, Kassen-Lotse">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="canonical" href="https://kassen-lotse.de/em-rente-schaetzer.html">
   <link rel="icon" href="/logo-lotse-fav.png">
@@ -58,6 +57,68 @@
   ]
 }
 </script>
+
+<style>/* Nur für den EM-Renten-Rechner */
+#em-form .pflegegrad-label {
+  display: block;
+  font-weight: 600;
+  margin-top: 1.1em;
+}
+
+#em-form .pflegegrad-label .optional {
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+/* Eingabefelder deutlich sichtbar */
+#em-form input[type="number"],
+#em-form select {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 28em;
+  margin-top: 0.4em;
+  padding: 0.55em 0.7em;
+  font-size: 1rem;
+  font-weight: 400;
+  background: Canvas;
+  color: CanvasText;
+  border: 2px solid #6b7280;
+  border-radius: 6px;
+}
+
+#em-form input[type="number"]:focus,
+#em-form select:focus {
+  outline: 3px solid rgba(37, 99, 235, 0.45);
+  outline-offset: 1px;
+  border-color: #2563eb;
+}
+
+/* Info-Texte: kleiner, abgesetzt, klar als Erklärung erkennbar */
+#em-form .em-info {
+  box-sizing: border-box;
+  max-width: 40em;
+  margin: 0.5em 0 0;
+  padding: 0.5em 0.8em;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.45;
+  background: rgba(0, 0, 0, 0.045);
+  border-left: 3px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Einleitung oben etwas größer als die Feld-Infos */
+#em-form .em-info.em-intro {
+  font-size: 0.95rem;
+  margin-bottom: 0.5em;
+}
+
+/* Erklärung innerhalb des manuellen Felds */
+#em-form #em_zrz_manuell_wrap {
+  font-weight: 600;
+}
+</style>
 
 </head>
 
@@ -117,103 +178,111 @@
     </p>
 
     <div class="highlight-box pruefdatum-box" role="note" aria-label="Zuletzt geprüft">
-      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">11.08.2026</span></p>
+      <p><strong>Zuletzt geprüft:</strong> <span id="pruefdatum">29.09.2026</span></p>
     </div>
 
 
     <form id="em-form" class="pflegegrad-form" aria-describedby="intro-info" novalidate>
+      <p class="hinweis em-info em-intro" id="intro-info">
+        Mit diesem Rechner kannst du grob abschätzen, wie hoch deine Rente wegen Erwerbsminderung (EM-Rente) ungefähr sein könnte.
+        Am besten hast du deine <strong>Renteninformation</strong> oder <strong>Rentenauskunft</strong> der Deutschen Rentenversicherung zur Hand.
+        Die meisten Felder sind bereits sinnvoll vorausgefüllt. Das Ergebnis ist eine Schätzung und kein Rentenbescheid.
+      </p>
+
       <!-- 1. Basis-Angaben -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>1. Basis-Angaben</legend>
+        <legend>1. Über dich</legend>
 
         <label class="pflegegrad-label" for="em_art">
-          Rente wegen ...
+          Welche Rente möchtest du berechnen?
           <select id="em_art">
-            <option value="voll" selected>voller Erwerbsminderung</option>
-            <option value="teilweise">teilweiser Erwerbsminderung</option>
+            <option value="voll" selected>Rente wegen voller Erwerbsminderung</option>
+            <option value="teilweise">Rente wegen teilweiser Erwerbsminderung</option>
           </select>
         </label>
-        <p class="hinweis">Für volle EM gilt Rentenartfaktor 1,0 – für teilweise 0,5 (wird automatisch berücksichtigt).</p>
+        <p class="hinweis em-info">Voll erwerbsgemindert ist, wer weniger als 3 Stunden täglich arbeiten kann. Bei teilweiser Erwerbsminderung (3 bis unter 6 Stunden täglich) beträgt die Rente nur die Hälfte. Das wird automatisch berücksichtigt.</p>
 
         <label class="pflegegrad-label" for="em_geburtsjahr">
-          Geburtsjahr <span class="optional">(alternativ Alter)</span>
+          Dein Geburtsjahr <span class="optional">(oder stattdessen das Alter unten)</span>
           <input type="number" id="em_geburtsjahr" min="1940" max="2010" step="1" placeholder="z. B. 1972" />
         </label>
 
         <label class="pflegegrad-label" for="em_alter">
-          Heutiges Alter
+          Dein Alter bei Beginn der Erwerbsminderung
           <input type="number" id="em_alter" min="18" max="67" step="1" placeholder="z. B. 53" />
         </label>
-        <p class="hinweis">Bitte <em>nur eines</em> angeben. Der Rechner nutzt diese Angabe zur Schätzung der Restjahre bis zur Regelaltersgrenze.</p>
+        <p class="hinweis em-info">Es reicht <em>eine</em> der beiden Angaben. Wenn du schon erwerbsgemindert bist, trag dein heutiges Alter ein. Wenn du nur das Geburtsjahr einträgst, wird damit dein heutiges Alter berechnet. Das Alter wird gebraucht, um die sogenannte Zurechnungszeit zu schätzen (siehe Abschnitt 2).</p>
       </fieldset>
 
       <!-- 2. Entgeltpunkte & Zurechnungszeit -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>2. Entgeltpunkte & Zurechnungszeit</legend>
+        <legend>2. Deine bisherigen Rentenansprüche</legend>
 
         <label class="pflegegrad-label" for="em_ep_bisher">
-          Entgeltpunkte bisher <span class="optional">(laut Renteninformation)</span>
+          Bisher erworbene Entgeltpunkte <span class="optional">(aus Renteninformation oder Rentenauskunft)</span>
           <input type="number" id="em_ep_bisher" min="0" step="0.01" placeholder="z. B. 32,50" />
         </label>
+        <p class="hinweis em-info">Entgeltpunkte (EP) sind die „Rentenpunkte“, die du durch deine Beiträge sammelst. Ein Jahr mit Durchschnittsverdienst ergibt etwa 1,0 Punkte. Den Wert findest du in deinem Schreiben der Rentenversicherung oder im Online-Konto der DRV.</p>
 
         <label class="pflegegrad-label" for="em_ep_pro_jahr">
-          Durchschnittliche Entgeltpunkte pro Jahr
+          Durchschnittliche Punkte pro Jahr
           <input type="number" id="em_ep_pro_jahr" min="0" step="0.01" placeholder="z. B. 0,9" />
         </label>
-        <p class="hinweis">Tipp: bisherige EP ÷ Versicherungsjahre ≈ durchschnittliche EP pro Jahr.</p>
+        <p class="hinweis em-info">Rechenhilfe: Deine bisherigen Entgeltpunkte geteilt durch die Zahl deiner Versicherungsjahre. Beispiel: 32,5 Punkte ÷ 35 Jahre ≈ 0,93. Ein Wert unter 1,0 bedeutet, dass du im Schnitt weniger als der Durchschnitt verdient hast. Dieses Feld wird nur für die automatische Schätzung unten gebraucht.</p>
 
         <label class="pflegegrad-label" for="em_zrz_modus">
-          Zurechnungszeit-Modus
+          Wie soll die Zurechnungszeit berücksichtigt werden?
           <select id="em_zrz_modus">
-            <option value="auto" selected>Automatisch aus Restjahren schätzen</option>
-            <option value="manuell">Manuell Entgeltpunkte angeben</option>
-            <option value="keine">Ohne Zurechnungszeit (konservativ)</option>
+            <option value="auto" selected>Automatisch schätzen (empfohlen)</option>
+            <option value="manuell">Ich gebe die Punkte selbst ein</option>
+            <option value="keine">Nicht berücksichtigen (vorsichtige Schätzung)</option>
           </select>
         </label>
+        <p class="hinweis em-info">Bei Erwerbsminderung wird deine Rente so berechnet, als hättest du noch einige Jahre weitergearbeitet. Diese Zeit heißt Zurechnungszeit. Sie erhöht deine Rente deutlich. „Automatisch“ schätzt sie aus deinem Alter und deinen Punkten pro Jahr.</p>
 
         <div id="em_zrz_manuell_wrap" class="pflegegrad-label" style="display:none;">
-          Entgeltpunkte aus Zurechnungszeit (manuell)
+          Punkte aus der Zurechnungszeit (selbst eingegeben)
           <input type="number" id="em_ep_zrz_manuell" min="0" step="0.01" value="0" />
-          <p class="hinweis">Nur wenn dir der Wert z. B. aus einem DRV-Bescheid bekannt ist.</p>
+          <p class="hinweis em-info">Nur ausfüllen, wenn du den Wert kennst, zum Beispiel aus einem Bescheid oder einer Berechnung der Rentenversicherung.</p>
         </div>
 
         <label class="pflegegrad-label" for="em_regelalter">
-          Regelaltersgrenze (Zielalter)
+          Bis zu welchem Alter wird weitergerechnet? <span class="optional">(meist die Regelaltersgrenze)</span>
           <input type="number" id="em_regelalter" min="65" max="68" step="1" value="67" />
         </label>
-        <p class="hinweis">Standardmäßig wird 67 Jahre angenommen.</p>
+        <p class="hinweis em-info">Für alle ab Jahrgang 1964 liegt die Regelaltersgrenze bei 67 Jahren. Für ältere Jahrgänge liegt sie zwischen 65 und 67. Im Zweifel lass 67 stehen.</p>
       </fieldset>
 
       <!-- 3. Rentenwert & Abschläge -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>3. Rentenwert & Abschläge</legend>
+        <legend>3. Rentenwert und Abschlag</legend>
 
         <label class="pflegegrad-label" for="em_rentenwert">
-          Aktueller Rentenwert (€/EP)
-          <input type="number" id="em_rentenwert" min="20" max="60" step="0.01" value="39.32" />
+          Aktueller Rentenwert (Euro pro Entgeltpunkt)
+          <input type="number" id="em_rentenwert" min="20" max="60" step="0.01" value="42.52" />
         </label>
-        <p class="hinweis">Aktueller Rentenwert West (Stand 07/2025). Quelle: DRV Bund.</p>
+        <p class="hinweis em-info">Der Rentenwert sagt, wie viel Euro monatlich ein Entgeltpunkt wert ist. Er gilt für ganz Deutschland. Quelle: Deutsche Rentenversicherung. Diesen Wert musst du normalerweise nicht ändern.</p>
 
         <label class="pflegegrad-label" for="em_abschlag">
-          Abschlag (in %), z. B. bis max. 10,8 %
-          <input type="number" id="em_abschlag" min="0" max="15" step="0.1" value="10.8" />
+          Rentenabschlag in Prozent
+          <input type="number" id="em_abschlag" min="0" max="10.8" step="0.1" value="10.8" />
         </label>
-        <p class="hinweis">Je nach Eintrittsalter: maximal 10,8 %. Der Rechner zieht den Wert automatisch ab.</p>
+        <p class="hinweis em-info">Beginnt die EM-Rente vor dem 65. Geburtstag, wird die Rente gekürzt: 0,3 % für jeden Monat, höchstens aber 10,8 %. Bei einer Erwerbsminderung in jüngeren oder mittleren Jahren trifft meist der Höchstwert von 10,8 % zu, deshalb ist er vorausgefüllt. In Ausnahmefällen, etwa bei sehr langer Versicherungszeit, kann der Abschlag entfallen oder geringer sein. Dann trägst du 0 oder den passenden Wert ein.</p>
       </fieldset>
 
       <!-- 4. Nettoschätzung -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>4. Nettoschätzung (optional)</legend>
+        <legend>4. Abzüge für Kranken- und Pflegeversicherung (optional)</legend>
 
         <label class="pflegegrad-label" for="em_abzug_kv_pv">
-          Pauschaler Abzug für KV/PV (in %)
+          Pauschaler Abzug in Prozent
           <input type="number" id="em_abzug_kv_pv" min="0" max="20" step="0.1" value="11.0" />
         </label>
-        <p class="hinweis">Typischer Abzug: 10–12 % für Kranken- und Pflegeversicherung.</p>
+        <p class="hinweis em-info">Von der Bruttorente gehen Beiträge zur Kranken- und Pflegeversicherung ab, meist etwa 10 bis 12 %. Daraus wird deine geschätzte Nettorente berechnet. Steuern sind darin nicht enthalten.</p>
       </fieldset>
 
       <div class="button-container">
-        <button type="button" id="em_berechnen" class="button">Jetzt Rente schätzen</button>
+        <button type="button" id="em_berechnen" class="button">Rente jetzt schätzen</button>
         <button type="reset" id="em_reset" class="button button-secondary">Eingaben zurücksetzen</button>
       </div>
     </form>
