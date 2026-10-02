@@ -23,24 +23,52 @@
       color: #333;
       line-height: 1.6;
     }
-    .copy-btn {
-      margin-top: 15px;
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .copy-btn, .pdf-btn {
       background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 10px 15px;
+      padding: 12px 20px;
       cursor: pointer;
       border-radius: 4px;
       font-weight: bold;
+      font-size: 0.95em;
+    }
+    .pdf-btn {
+      background-color: #1976d2;
     }
     .copy-btn:hover {
       background-color: #45a049;
     }
+    .pdf-btn:hover {
+      background-color: #1565c0;
+    }
+    .textarea-custom {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-family: inherit;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
     h1 {
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    .pflegegrad-fieldset {
+      margin-bottom: 25px;
+    }
   </style>
+
+  <!-- PDFMake Bibliothek für hochwertige PDF-Generierung -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
   <script type="application/ld+json">
 {
@@ -173,9 +201,9 @@
 
     <form id="form-generator" class="pflegegrad-form" aria-describedby="ergebnis" novalidate>
       
-      <!-- SCHRITT 1: Kognitiv & Beruf -->
+      <!-- BEREICH 1: Kognitiv & Beruf -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>Schritt 1 – Kognition & Arbeitsalltag</legend>
+        <legend>Bereich 1 – Kognition & Arbeitsalltag</legend>
         <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Was ist Ihr größtes Problem bei der Ausführung von Aufgaben?</p>
 
         <label class="pflegegrad-label">Wählen Sie Ihre stärkste kognitive Einschränkung:
@@ -188,9 +216,9 @@
         </label>
       </fieldset>
 
-      <!-- SCHRITT 2: Antrieb & Körper -->
+      <!-- BEREICH 2: Antrieb & Körper -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>Schritt 2 – Antrieb, Erschöpfung & Schlaf</legend>
+        <legend>Bereich 2 – Antrieb, Erschöpfung & Schlaf</legend>
 
         <label class="pflegegrad-label">Wählen Sie Ihre stärkste körperliche/energetische Einschränkung:
           <select id="antrieb" class="pflegegrad-frage">
@@ -202,9 +230,9 @@
         </label>
       </fieldset>
 
-      <!-- SCHRITT 3: Soziales -->
+      <!-- BEREICH 3: Soziales -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>Schritt 3 – Soziales & Kollegen/Kunden</legend>
+        <legend>Bereich 3 – Soziales & Kollegen/Kunden</legend>
 
         <label class="pflegegrad-label">Wie wirken sich Ihre Beschwerden auf den Umgang mit anderen aus?
           <select id="soziales" class="pflegegrad-frage">
@@ -216,9 +244,9 @@
         </label>
       </fieldset>
 
-      <!-- SCHRITT 4: Reha-Ziel -->
+      <!-- BEREICH 4: Reha-Ziel -->
       <fieldset class="pflegegrad-fieldset">
-        <legend>Schritt 4 – Ihr Rehabilitations-Ziel</legend>
+        <legend>Bereich 4 – Ihr Rehabilitations-Ziel</legend>
         <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Was wollen Sie mit der Reha erreichen? (Gutachter achten extrem auf eine "positive Leistungsmotivation")</p>
 
         <label class="pflegegrad-label">Wählen Sie Ihr Hauptziel für die Reha:
@@ -230,26 +258,33 @@
         </label>
       </fieldset>
 
-      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 4</div>
+      <!-- BEREICH 5: Ergänzungen -->
+      <fieldset class="pflegegrad-fieldset">
+        <legend>Bereich 5 – Eigene Ergänzungen (Optional)</legend>
+        <label class="pflegegrad-label">Gibt es weitere wesentliche Einschränkungen oder Diagnosen, die erwähnt werden sollen?
+          <textarea id="zusatztext" class="textarea-custom" rows="4" placeholder="Z.B. starke Nebenwirkungen der Medikation, körperliche Begleiterkrankungen (Rückenbeschwerden etc.), familiäre Ausnahmesituationen..."></textarea>
+        </label>
+      </fieldset>
 
-      <div class="button-container wizard-buttons">
-        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
-        <button type="button" id="next-step" class="button">Weiter</button>
-        <button type="button" id="berechnen-btn" class="button" style="display:none;">Textbausteine generieren</button>
+      <div class="button-container">
+        <button type="button" id="berechnen-btn" class="button">Textbausteine erstellen</button>
       </div>
     </form>
 
     <!-- HIER ERSCHEINT DER GENERIERTE TEXT -->
     <div id="text-output">
       <h3 style="margin-top:0;">Ihre formulierten Textbausteine:</h3>
-      <p style="font-size:0.85em; color:#555;"><em>Kopieren Sie diesen Text und fügen Sie ihn in den Bereich "Ergänzende Angaben / Selbsteinschätzung" Ihres Antrags ein. Passen Sie ihn bei Bedarf leicht an Ihre Situation an.</em></p>
+      <p style="font-size:0.85em; color:#555;"><em>Nutzen Sie diese Formulierung als Vorlage für den Bereich "Ergänzende Angaben / Selbsteinschätzung" in Ihrem Antrag. Sie können den Text in die Zwischenablage kopieren oder sich ein hochwertiges PDF-Dokument erstellen lassen, welches Sie direkt ausdrucken oder dem Antrag als Anlage beifügen können.</em></p>
       
-      <div id="final-text" style="font-size: 1.1em; margin-top: 20px;">
+      <div id="final-text" style="font-size: 1.1em; margin-top: 20px; margin-bottom: 25px;">
         <!-- JS füllt diesen Bereich -->
       </div>
       
-      <button class="copy-btn" onclick="copyText()">Text in die Zwischenablage kopieren</button>
-      <span id="copy-success" style="color: green; margin-left: 10px; display: none;">✓ Erfolgreich kopiert!</span>
+      <div class="action-buttons">
+        <button class="copy-btn" onclick="copyText()">Text kopieren</button>
+        <button class="pdf-btn" id="generate-pdf-btn">Als PDF herunterladen</button>
+        <span id="copy-success" style="color: green; display: none; align-self: center;">Erfolgreich kopiert!</span>
+      </div>
     </div>
 
   <section class="promo-teaser" aria-labelledby="promo-headline" role="region">
@@ -333,10 +368,10 @@
     
     <h3 style="font-size: 1.1em; color: #333; margin-top: 0; margin-bottom: 8px;">Wer hat diese Inhalte erstellt?</h3>
     <p style="font-size: 0.9em; color: #555; max-width: 700px; margin: 0 auto 12px auto; line-height: 1.5;">
-        Unsere Ratgeber und Generatoren basieren auf der strikten Auswertung aktueller Gesetzestexte. Sie werden von <strong>Jan (Projektleitung) & Team</strong> entwickelt und durch unser Netzwerk aus Fachberatern regelmäßig auf fachliche Korrektheit geprüft. 
+        Unsere Ratgeber und Generatoren basieren auf der strikten Auswertung aktueller Gesetzestexte. Sie werden von <strong>Jan (Projektleitung) & Team</strong> entwickelt und durch unser Netzwerk aus Fachberatern regelmäßig auf fachliche Korrektheit geprüft. 
         <br><br>
         <em>Wichtiger Hinweis: Unser Tool generiert Standarddokumente zur Selbsthilfe und ersetzt keine anwaltliche Einzelfallprüfung.</em>
-    </p>
+    </p>
     
     <div style="margin-bottom: 25px;">
         <a href="über.html" style="display: inline-block; font-size: 0.9em; color: #0056b3; text-decoration: underline; font-weight: bold;">
@@ -361,100 +396,121 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
-      const prevBtn = document.getElementById('prev-step');
-      const nextBtn = document.getElementById('next-step');
       const calcBtn = document.getElementById('berechnen-btn');
-      const progressDiv = document.getElementById('wizard-progress');
       const textOutput = document.getElementById('text-output');
       const finalText = document.getElementById('final-text');
+      const pdfBtn = document.getElementById('generate-pdf-btn');
       
-      let currentStep = 0;
-
-      function updateWizard() {
-        fieldsets.forEach((fs, index) => {
-          fs.style.display = (index === currentStep) ? 'block' : 'none';
-        });
-
-        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
-
-        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
-        
-        if (currentStep === fieldsets.length - 1) {
-          nextBtn.style.display = 'none';
-          calcBtn.style.display = 'inline-block';
-        } else {
-          nextBtn.style.display = 'inline-block';
-          calcBtn.style.display = 'none';
-        }
-      }
-
-      nextBtn.addEventListener('click', () => {
-        if (currentStep < fieldsets.length - 1) {
-          currentStep++;
-          updateWizard();
-        }
-      });
-
-      prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) {
-          currentStep--;
-          updateWizard();
-        }
-      });
+      // Globales Objekt, um die Daten für den PDF-Export sauber zwischenzuspeichern
+      let pdfData = {
+        kognition: '',
+        antrieb: '',
+        soziales: '',
+        zusatz: '',
+        ziel: ''
+      };
 
       calcBtn.addEventListener('click', () => {
         const kognition = document.getElementById('kognition').value;
         const antrieb = document.getElementById('antrieb').value;
         const soziales = document.getElementById('soziales').value;
         const ziel = document.getElementById('ziel').value;
+        const zusatz = document.getElementById('zusatztext').value.trim();
 
-        let generatedText = "<strong>Darstellung der aktuellen gesundheitlichen Einschränkungen in Bezug auf die Erwerbsfähigkeit:</strong><br><br>";
+        let generatedTextHTML = "<strong>Darstellung der aktuellen gesundheitlichen Einschränkungen in Bezug auf die Erwerbsfähigkeit:</strong><br><br>";
 
         // Kognition
+        pdfData.kognition = '';
         if (kognition === 'konzentration') {
-            generatedText += "Im beruflichen und privaten Alltag bin ich maßgeblich durch starke Konzentrations- und Aufmerksamkeitsabbrüche eingeschränkt. Die Bewältigung komplexer oder längerer Aufgaben ist mir kaum noch möglich, was zu einer erhöhten Fehlerquote und einer drastisch reduzierten Leistungsfähigkeit führt. ";
+            pdfData.kognition = "Im beruflichen und privaten Alltag bin ich maßgeblich durch starke Konzentrations- und Aufmerksamkeitsabbrüche eingeschränkt. Die Bewältigung komplexer oder längerer Aufgaben ist mir kaum noch möglich, was zu einer erhöhten Fehlerquote und einer drastisch reduzierten Leistungsfähigkeit führt.";
         } else if (kognition === 'reizueberflutung') {
-            generatedText += "Ich leide unter einer extremen Reizoffenheit. Multitasking, Lärm oder die Arbeit in unruhigen Umgebungen führen bei mir zu einer raschen kognitiven Überforderung und Blockaden, wodurch meine Arbeitsfähigkeit massiv herabgesetzt ist. ";
+            pdfData.kognition = "Ich leide unter einer extremen Reizoffenheit. Multitasking, Lärm oder die Arbeit in unruhigen Umgebungen führen bei mir zu einer raschen kognitiven Überforderung und Blockaden, wodurch meine Arbeitsfähigkeit massiv herabgesetzt ist.";
         } else if (kognition === 'entscheidungen') {
-            generatedText += "Kognitiv bin ich durch starke Blockaden eingeschränkt. Selbst alltägliche Entscheidungsfindungen im Berufsleben überfordern mich derzeit, was ein eigenverantwortliches Arbeiten nahezu unmöglich macht. ";
+            pdfData.kognition = "Kognitiv bin ich durch starke Blockaden eingeschränkt. Selbst alltägliche Entscheidungsfindungen im Berufsleben überfordern mich derzeit, was ein eigenverantwortliches Arbeiten nahezu unmöglich macht.";
         }
+        if (pdfData.kognition !== '') generatedTextHTML += pdfData.kognition + " ";
 
         // Antrieb
+        pdfData.antrieb = '';
         if (antrieb === 'erschöpfung') {
-            generatedText += "<br><br>Hinzu kommt ein Zustand chronischer, tiefgreifender Erschöpfung. Meine körperlichen und psychischen Energiereserven sind nach kurzer Zeit aufgebraucht, sodass ich unverhältnismäßig lange Regenerationszeiten benötige. Ein normaler 8-Stunden-Arbeitstag ist unter diesen Voraussetzungen nicht durchzustehen. ";
+            pdfData.antrieb = "Hinzu kommt ein Zustand chronischer, tiefgreifender Erschöpfung. Meine körperlichen und psychischen Energiereserven sind nach kurzer Zeit aufgebraucht, sodass ich unverhältnismäßig lange Regenerationszeiten benötige. Ein normaler 8-Stunden-Arbeitstag ist unter diesen Voraussetzungen nicht durchzustehen.";
         } else if (antrieb === 'schlaf') {
-            generatedText += "<br><br>Zudem entziehen mir gravierende Schlafstörungen die Grundlage für jegliche Tagesenergie. Durch die fehlende Erholung in der Nacht bin ich tagsüber chronisch erschöpft und nicht belastbar, was unweigerlich zu hohen Fehlzeiten führt. ";
+            pdfData.antrieb = "Zudem entziehen mir gravierende Schlafstörungen die Grundlage für jegliche Tagesenergie. Durch die fehlende Erholung in der Nacht bin ich tagsüber chronisch erschöpft und nicht belastbar, was unweigerlich zu hohen Fehlzeiten führt.";
         } else if (antrieb === 'panik') {
-            generatedText += "<br><br>Begleitet wird dies durch wiederkehrende, teils starke körperliche Panik- und Erregungszustände. Diese unvorhersehbaren Attacken (Herzrasen, Atemnot) zwingen mich häufig zum abrupten Abbruch von Tätigkeiten und verhindern einen strukturierten Arbeitsablauf. ";
+            pdfData.antrieb = "Begleitet wird dies durch wiederkehrende, teils starke körperliche Panik- und Erregungszustände. Diese unvorhersehbaren Attacken (Herzrasen, Atemnot) zwingen mich häufig zum abrupten Abbruch von Tätigkeiten und verhindern einen strukturierten Arbeitsablauf.";
         }
+        if (pdfData.antrieb !== '') generatedTextHTML += "<br><br>" + pdfData.antrieb + " ";
 
         // Soziales
+        pdfData.soziales = '';
         if (soziales === 'rueckzug') {
-            generatedText += "<br><br>Auf sozialer Ebene zwingt mich die Erkrankung in einen massiven Rückzug. Die Kommunikation und Interaktion mit Kollegen, Vorgesetzten oder Kunden lösen starke Überforderung aus. Teamarbeit ist aktuell ausgeschlossen. ";
+            pdfData.soziales = "Auf sozialer Ebene zwingt mich die Erkrankung in einen massiven Rückzug. Die Kommunikation und Interaktion mit Kollegen, Vorgesetzten oder Kunden lösen starke Überforderung aus. Teamarbeit ist aktuell ausgeschlossen.";
         } else if (soziales === 'konflikt') {
-            generatedText += "<br><br>Die fehlende innere Stabilität äußert sich bei mir zudem in einer starken Reizbarkeit und stark herabgesetzten Frustrationstoleranz. Dies führt im Arbeitsumfeld rasch zu Konflikten, die das berufliche Miteinander stark belasten. ";
+            pdfData.soziales = "Die fehlende innere Stabilität äußert sich bei mir zudem in einer starke Reizbarkeit und stark herabgesetzten Frustrationstoleranz. Dies führt im Arbeitsumfeld rasch zu Konflikten, die das berufliche Miteinander stark belasten.";
         } else if (soziales === 'angst') {
-            generatedText += "<br><br>Darüber hinaus hat sich ein massives Vermeidungsverhalten manifestiert. Das Aufsuchen des Arbeitsplatzes (Wegeunfähigkeit) oder das Betreten von Menschenmengen ist aufgrund starker Ängste derzeit ohne Hilfe kaum realisierbar. ";
+            pdfData.soziales = "Darüber hinaus hat sich ein massives Vermeidungsverhalten manifestiert. Das Aufsuchen des Arbeitsplatzes (Wegeunfähigkeit) oder das Betreten von Menschenmengen ist aufgrund starker Ängste derzeit ohne Hilfe kaum realisierbar.";
+        }
+        if (pdfData.soziales !== '') generatedTextHTML += "<br><br>" + pdfData.soziales + " ";
+
+        // Zusatztext
+        pdfData.zusatz = '';
+        if (zusatz !== '') {
+            pdfData.zusatz = "Ergänzende Anmerkungen:\n" + zusatz;
+            generatedTextHTML += "<br><br><strong>Ergänzende Anmerkungen:</strong><br>" + zusatz.replace(/\n/g, '<br>') + " ";
         }
 
         // Ziel
-        generatedText += "<br><br><strong>Rehabilitationsziel:</strong><br>";
+        pdfData.ziel = '';
         if (ziel === 'erhalt') {
-            generatedText += "Mein primäres Ziel für die beantragte medizinische Rehabilitation ist es, den drohenden dauerhaften Verlust meiner Erwerbsfähigkeit abzuwenden. Ich möchte durch die intensivtherapeutischen Maßnahmen meine Leistungsfähigkeit wiederherstellen, um dauerhaft an meinen Arbeitsplatz zurückkehren zu können.";
+            pdfData.ziel = "Mein primäres Ziel für die beantragte medizinische Rehabilitation ist es, den drohenden dauerhaften Verlust meiner Erwerbsfähigkeit abzuwenden. Ich möchte durch die intensivtherapeutischen Maßnahmen meine Leistungsfähigkeit wiederherstellen, um dauerhaft an meinen Arbeitsplatz zurückkehren zu können.";
         } else if (ziel === 'strategien') {
-            generatedText += "Mein primäres Ziel ist das Erlernen nachhaltiger Stressbewältigungs- und Emotionsregulationsstrategien im Rahmen eines stationären Settings. Dies ist zwingend erforderlich, um meine Arbeitsfähigkeit langfristig zu stabilisieren und einen chronischen Verlauf (Drohende Erwerbsminderung) zu verhindern.";
+            pdfData.ziel = "Mein primäres Ziel ist das Erlernen nachhaltiger Stressbewältigungs- und Emotionsregulationsstrategien im Rahmen eines stationären Settings. Dies ist zwingend erforderlich, um meine Arbeitsfähigkeit langfristig zu stabilisieren und einen chronischen Verlauf (Drohende Erwerbsminderung) zu verhindern.";
         } else if (ziel === 'alltag') {
-            generatedText += "Mein vorrangiges Ziel ist die Rückgewinnung einer belastbaren Tagesstruktur und die grundlegende psychische Stabilisierung. Die stationäre Maßnahme ist der notwendige erste Schritt, um mich überhaupt erst wieder an die Anforderungen des allgemeinen Arbeitsmarktes heranzuführen.";
+            pdfData.ziel = "Mein vorrangiges Ziel ist die Rückgewinnung einer belastbaren Tagesstruktur und die grundlegende psychische Stabilisierung. Die stationäre Maßnahme ist der notwendige erste Schritt, um mich überhaupt erst wieder an die Anforderungen des allgemeinen Arbeitsmarktes heranzuführen.";
         }
+        generatedTextHTML += "<br><br><strong>Rehabilitationsziel:</strong><br>" + pdfData.ziel;
 
-        finalText.innerHTML = generatedText;
+        finalText.innerHTML = generatedTextHTML;
         textOutput.style.display = 'block';
         textOutput.scrollIntoView({ behavior: 'smooth' });
       });
 
-      // Init
-      updateWizard();
+      // PDF Erstellung über PDFMake
+      pdfBtn.addEventListener('click', () => {
+        // PDF Definition zusammenstellen
+        let contentArray = [
+            { text: 'Selbsteinschätzung', style: 'header' },
+            { text: 'Anlage zum Antrag auf Leistungen zur Rehabilitation / Feststellung GdB', style: 'subheader' },
+            { canvas: [ { type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 1, lineColor: '#cccccc' } ], margin: [0, 10, 0, 20] },
+            { text: 'Darstellung der aktuellen gesundheitlichen Einschränkungen in Bezug auf die Erwerbsfähigkeit:', style: 'subheading' }
+        ];
+
+        if (pdfData.kognition !== '') contentArray.push({ text: pdfData.kognition, style: 'textBlock' });
+        if (pdfData.antrieb !== '') contentArray.push({ text: pdfData.antrieb, style: 'textBlock' });
+        if (pdfData.soziales !== '') contentArray.push({ text: pdfData.soziales, style: 'textBlock' });
+        if (pdfData.zusatz !== '') contentArray.push({ text: pdfData.zusatz, style: 'textBlock' });
+        
+        contentArray.push({ text: 'Rehabilitationsziel:', style: 'subheading', margin: [0, 15, 0, 5] });
+        contentArray.push({ text: pdfData.ziel, style: 'textBlock' });
+
+        const docDefinition = {
+            pageSize: 'A4',
+            pageMargins: [ 40, 60, 40, 60 ],
+            content: contentArray,
+            styles: {
+                header: { fontSize: 22, bold: true, color: '#2e7d32' },
+                subheader: { fontSize: 14, color: '#555555', margin: [0, 5, 0, 0] },
+                subheading: { fontSize: 12, bold: true, margin: [0, 10, 0, 8] },
+                textBlock: { fontSize: 11, lineHeight: 1.5, margin: [0, 0, 0, 10], alignment: 'justify' }
+            },
+            defaultStyle: {
+                font: 'Roboto'
+            }
+        };
+
+        // Generiere und Lade das PDF herunter
+        pdfMake.createPdf(docDefinition).download('Selbsteinschaetzung_Anlage.pdf');
+      });
     });
 
     // Funktion zum Kopieren des Textes

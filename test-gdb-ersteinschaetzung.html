@@ -108,7 +108,7 @@
       <p style="font-weight: bold; margin-bottom: 15px;">Bitte beantworten Sie die folgenden Fragen ehrlich im Hinblick auf Ihren aktuellen Alltag, nicht nur an besonders schlechten Tagen:</p>
 
       <!-- SCHRITT 1: Chronifizierung & Behandlung -->
-      <fieldset class="pflegegrad-fieldset">
+      <fieldset class="pflegegrad-fieldset" style="margin-bottom: 25px;">
         <legend>Schritt 1 – Dauer & Therapie (Chronifizierung)</legend>
         <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Das Versorgungsamt bewertet nur Zustände, die dauerhaft (über 6 Monate) anhalten und nicht durch einfache Therapien geheilt werden können.</p>
 
@@ -144,7 +144,7 @@
       </fieldset>
 
       <!-- SCHRITT 2: Berufliche & Soziale Teilhabe -->
-      <fieldset class="pflegegrad-fieldset">
+      <fieldset class="pflegegrad-fieldset" style="margin-bottom: 25px;">
         <legend>Schritt 2 – Arbeit & Soziales Leben</legend>
 
         <label class="pflegegrad-label">
@@ -169,7 +169,7 @@
       </fieldset>
 
       <!-- SCHRITT 3: Alltag & Selbstversorgung -->
-      <fieldset class="pflegegrad-fieldset">
+      <fieldset class="pflegegrad-fieldset" style="margin-bottom: 25px;">
         <legend>Schritt 3 – Alltag & Selbstorganisation</legend>
         <p style="font-size: 0.9em; margin-bottom: 15px; color: #555;">Können Sie Ihr Leben abseits der Arbeit noch selbst organisieren?</p>
 
@@ -194,19 +194,15 @@
         </label>
       </fieldset>
 
-      <div class="wizard-progress" id="wizard-progress">Schritt 1 von 3</div>
-
-      <div class="button-container wizard-buttons">
-        <button type="button" id="prev-step" class="button button-secondary">Zurück</button>
-        <button type="button" id="next-step" class="button">Weiter</button>
-        <button type="button" id="berechnen-btn" class="button" style="display:none;">Ersteinschätzung anzeigen</button>
+      <div class="button-container" style="margin-top: 25px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <button type="button" id="berechnen-btn" class="button">Ersteinschätzung anzeigen</button>
         <button type="reset" class="button button-secondary" id="reset-form">Eingaben zurücksetzen</button>
       </div>
     </form>
 
-    <section id="ergebnis" aria-live="polite" style="margin-top: 20px;"></section>
+    <section id="ergebnis" aria-live="polite" style="margin-top: 25px;"></section>
 
-    <div class="warning-box">
+    <div class="warning-box" style="margin-top: 30px;">
       <p>
         <strong>Achtung (Haftungsausschluss):</strong> Dieses Tool liefert eine unverbindliche Orientierung und kann die Begutachtung durch das Versorgungsamt nicht ersetzen. Die Zuerkennung eines GdB hängt maßgeblich davon ab, wie ausführlich und präzise Ihre behandelnden Ärzte (Psychiater, Hausarzt, Klinikberichte) Ihre Einschränkungen in den ärztlichen Befundberichten dokumentieren.
       </p>
@@ -293,10 +289,10 @@
     
     <h3 style="font-size: 1.1em; color: #333; margin-top: 0; margin-bottom: 8px;">Wer hat diese Inhalte erstellt?</h3>
     <p style="font-size: 0.9em; color: #555; max-width: 700px; margin: 0 auto 12px auto; line-height: 1.5;">
-        Unsere Ratgeber und Generatoren basieren auf der strikten Auswertung aktueller Gesetzestexte. Sie werden von <strong>Jan (Projektleitung) & Team</strong> entwickelt und durch unser Netzwerk aus Fachberatern regelmäßig auf fachliche Korrektheit geprüft. 
+        Unsere Ratgeber und Generatoren basieren auf der strikten Auswertung aktueller Gesetzestexte. Sie werden von <strong>Jan (Projektleitung) & Team</strong> entwickelt und durch unser Netzwerk aus Fachberatern regelmäßig auf fachliche Korrektheit geprüft. 
         <br><br>
         <em>Wichtiger Hinweis: Unser Tool generiert Standarddokumente zur Selbsthilfe und ersetzt keine anwaltliche Einzelfallprüfung.</em>
-    </p>
+    </p>
     
     <div style="margin-bottom: 25px;">
         <a href="über.html" style="display: inline-block; font-size: 0.9em; color: #0056b3; text-decoration: underline; font-weight: bold;">
@@ -311,7 +307,7 @@
         </p>
     </div>
     <p style="font-size: 0.85em; color: #777; margin: 0 auto; max-width: 600px; border-top: 1px solid #eaeaea; padding-top: 15px;">
-        💡 <strong>Fehler entdeckt oder ein technisches Problem?</strong> Helfen Sie uns, die Tools aktuell zu halten. <a href="mailto:info@kassen-lotse.de" style="color: #555; text-decoration: underline;">Schreiben Sie uns gerne eine kurze Nachricht</a>.
+        <strong>Fehler entdeckt oder ein technisches Problem?</strong> Helfen Sie uns, die Tools aktuell zu halten. <a href="mailto:info@kassen-lotse.de" style="color: #555; text-decoration: underline;">Schreiben Sie uns gerne eine kurze Nachricht</a>.
     </p>
     
 </div>
@@ -319,51 +315,20 @@
     <p>&copy; 2026 Kassen-Lotse | <a href="über.html">Über uns & Redaktionsrichtlinien</a> | <a href="index.html">Zurück zur Startseite</a> | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
   </footer>
 
-  <!-- DAS JAVASCRIPT FÜR DIE AUSWERTUNG -->
+  <!-- JAVASCRIPT FÜR DIE DIREKTE AUSWERTUNG -->
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const fieldsets = document.querySelectorAll('.pflegegrad-fieldset');
-      const prevBtn = document.getElementById('prev-step');
-      const nextBtn = document.getElementById('next-step');
       const calcBtn = document.getElementById('berechnen-btn');
-      const progressDiv = document.getElementById('wizard-progress');
+      const resetBtn = document.getElementById('reset-form');
       const resultSection = document.getElementById('ergebnis');
-      
-      let currentStep = 0;
 
-      function updateWizard() {
-        fieldsets.forEach((fs, index) => {
-          fs.style.display = (index === currentStep) ? 'block' : 'none';
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+          resultSection.innerHTML = '';
         });
-
-        progressDiv.textContent = `Schritt ${currentStep + 1} von ${fieldsets.length}`;
-
-        prevBtn.style.display = (currentStep === 0) ? 'none' : 'inline-block';
-        
-        if (currentStep === fieldsets.length - 1) {
-          nextBtn.style.display = 'none';
-          calcBtn.style.display = 'inline-block';
-        } else {
-          nextBtn.style.display = 'inline-block';
-          calcBtn.style.display = 'none';
-        }
       }
 
-      nextBtn.addEventListener('click', () => {
-        if (currentStep < fieldsets.length - 1) {
-          currentStep++;
-          updateWizard();
-        }
-      });
-
-      prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) {
-          currentStep--;
-          updateWizard();
-        }
-      });
-
-      calcBtn.addEventListener('click', () => {
+      calcBtn.addEventListener('click', function() {
         let totalScore = 0;
         let dauerWert = parseInt(document.getElementById('dauer-frage').value);
         
@@ -373,46 +338,64 @@
           totalScore += parseInt(select.value);
         });
 
-        let auswertung = "";
+        let auswertungTitel = "";
+        let auswertungBadge = "";
         let hinweis = "";
         let aktion = "";
 
         // HÄRTEFALL: Wenn Erkrankung kürzer als 6 Monate ist, lehnt das Amt fast immer ab.
         if (dauerWert === 0) {
-           auswertung = "<h3 style='color: #F44336;'>Einschätzung: Ein Antrag ist aktuell sehr wahrscheinlich erfolglos</h3>";
-           hinweis = "Im deutschen Schwerbehindertenrecht (SGB IX) gilt ein Zustand nur dann als Behinderung, wenn er <strong>länger als 6 Monate</strong> andauert oder mit hoher Wahrscheinlichkeit andauern wird. Akute Krisen werden vom Versorgungsamt nicht bewertet.";
-           aktion = "Warten Sie mit einem Antrag ab, bis sich abzeichnet, dass Ihr Zustand chronisch wird, oder lassen Sie sich von Ihrem Arzt explizit bescheinigen, dass die Heilungsaussichten über 6 Monate hinaus extrem schlecht sind.";
+          auswertungTitel = "Ein Antrag ist aktuell sehr wahrscheinlich erfolglos";
+          auswertungBadge = "Unter 6 Monate Dauer";
+          hinweis = "Im deutschen Schwerbehindertenrecht (SGB IX) gilt ein Zustand nur dann als Behinderung, wenn er <strong>länger als 6 Monate</strong> andauert oder mit hoher Wahrscheinlichkeit andauern wird. Akute Krisen werden vom Versorgungsamt nicht bewertet.";
+          aktion = "Warten Sie mit einem Antrag ab, bis sich abzeichnet, dass Ihr Zustand chronisch wird, oder lassen Sie sich von Ihrem Arzt explizit bescheinigen, dass die Heilungsaussichten über 6 Monate hinaus extrem schlecht sind.";
         } 
         else if (totalScore <= 6) {
-          auswertung = "<h3 style='color: #4CAF50;'>Einschätzung: GdB 0 bis 20 (Keine gravierenden Nachteilsausgleiche zu erwarten)</h3>";
+          auswertungTitel = "GdB 0 bis 20 (Keine gravierenden Nachteilsausgleiche zu erwarten)";
+          auswertungBadge = "GdB 0 – 20";
           hinweis = "Ihre Einschränkungen im Alltag und Beruf sind – aus Sicht des Versorgungsamtes – als leicht bis mäßig einzustufen. Sie arbeiten voraussichtlich noch und können sich selbst organisieren.";
           aktion = "<strong>Unser Rat:</strong> Ein Antrag beim Versorgungsamt kostet viel Energie, bringt bei einem zu erwartenden GdB unter 30 aber keine arbeitsrechtlichen oder steuerlichen Vorteile. Konzentrieren Sie sich lieber auf Ihre Genesung durch Psychotherapie und medizinische Rehabilitation.";
         } 
         else if (totalScore >= 7 && totalScore <= 13) {
-          auswertung = "<h3 style='color: #FF9800;'>Einschätzung: GdB 30 bis 40 (Gleichstellung möglich)</h3>";
+          auswertungTitel = "GdB 30 bis 40 (Gleichstellung möglich)";
+          auswertungBadge = "GdB 30 – 40";
           hinweis = "Ihre Angaben deuten auf eine 'stärker behindernde Störung' hin. Es gibt deutliche Einschränkungen in der sozialen Teilhabe oder längere Krankheitsausfälle im Beruf. Ein GdB von 50 (Schwerbehinderung) wird damit oft noch nicht erreicht, aber ein GdB von 30 oder 40 ist realistisch.";
           aktion = "<strong>Unser Rat:</strong> Ein Antrag lohnt sich! Mit einem GdB von 30 können Sie bei der Agentur für Arbeit einen <em>Antrag auf Gleichstellung</em> stellen. Wird dieser bewilligt, genießen Sie denselben besonderen Kündigungsschutz wie ein schwerbehinderter Mensch.";
         } 
         else {
-          auswertung = "<h3 style='color: #2196F3;'>Einschätzung: GdB 50 oder höher (Schwerbehinderung realistisch)</h3>";
+          auswertungTitel = "GdB 50 oder höher (Schwerbehinderung realistisch)";
+          auswertungBadge = "GdB 50+";
           hinweis = "Ihre Angaben deuten auf 'mittelgradige bis schwere soziale Anpassungsschwierigkeiten' hin. Längere Arbeitsunfähigkeit, soziale Isolation, wiederkehrende Klinikaufenthalte und Hilflosigkeit im Alltag sind starke Argumente für das Versorgungsamt, einen GdB von 50 oder mehr zu vergeben.";
           aktion = "<strong>Unser Rat:</strong> Stellen Sie den Antrag beim zuständigen Versorgungsamt! Wichtig: Legen Sie dem Antrag unbedingt <em>ausführliche Arzt- und Klinikberichte</em> bei. Ihr Facharzt muss dem Amt bestätigen, wie stark Ihr Alltag eingeschränkt ist. Ein GdB ab 50 bringt Ihnen den Schwerbehindertenausweis, 5 Tage Zusatzurlaub, besonderen Kündigungsschutz und Steuerfreibeträge.";
         }
 
         resultSection.innerHTML = `
-          <div class="highlight-box" style="border-left: 5px solid #2196F3;">
-            ${auswertung}
-            <p>${hinweis}</p>
-            <hr style="border: 0; border-top: 1px solid #ccc; margin: 15px 0;">
-            <p>${aktion}</p>
+          <div style="background-color: #ffffff; border: 1px solid #dbebe6; border-radius: 12px; padding: 32px 28px; margin-top: 35px; box-shadow: 0 4px 20px rgba(0, 86, 179, 0.07); font-family: inherit;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+              <span style="font-size: 0.85em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #1a73e8; background-color: #eff6ff; padding: 6px 14px; border-radius: 20px; border: 1px solid #bfdbfe;">
+                ${auswertungBadge}
+              </span>
+              <span style="font-size: 0.85em; color: #64748b; font-weight: 500;">Ergebnis Ihrer Ersteinschätzung</span>
+            </div>
+            
+            <h3 style="color: #0f172a; font-size: 1.35em; font-weight: 700; margin: 0 0 16px 0; line-height: 1.4;">
+              ${auswertungTitel}
+            </h3>
+            
+            <p style="color: #334155; font-size: 1em; line-height: 1.65; margin: 0 0 24px 0;">
+              ${hinweis}
+            </p>
+            
+            <div style="background-color: #f0f7ff; border-radius: 8px; padding: 20px 22px; margin-top: 20px;">
+              <p style="color: #1e293b; font-size: 0.98em; line-height: 1.65; margin: 0;">
+                ${aktion}
+              </p>
+            </div>
           </div>
         `;
         
         resultSection.scrollIntoView({ behavior: 'smooth' });
       });
-
-      // Init
-      updateWizard();
     });
   </script>
 <script src="paypal-buttons.js"></script>
