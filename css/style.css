@@ -1638,10 +1638,9 @@ h2:hover::after {
 
 /* 1. Den berüchtigten Fieldset-Bug im Browser beheben */
 .pflegegrad-fieldset {
-  display: block !important;
   width: 100% !important;
   max-width: 100% !important;
-  min-width: 0 !important; 
+  min-width: 0 !important;
   box-sizing: border-box !important;
 }
 
@@ -1737,4 +1736,9 @@ html, body {
   flex: 1 !important;
   width: auto !important;
   display: inline-block !important;
+}
+
+/* Wizard-Initialisierung: Erster Schritt sichtbar beim Laden */
+.pflegegrad-form .pflegegrad-fieldset:first-of-type {
+  display: block;
 }
