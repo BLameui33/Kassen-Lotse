@@ -13,18 +13,257 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Rentenabschlags-Rechner Altersrente",
-  "operatingSystem": "Web",
+  "name": "Rentenabschlag-Rechner 2026: Abschlag und Zuschlag bei der Altersrente berechnen",
+  "description": "Kostenloser Rechner für Rentenabschlag (0,3 % pro Monat) und Rentenzuschlag (0,5 % pro Monat): zeigt die Rente je nach Rentenbeginn, die Wirkung fehlender Beitragsjahre, das Break-even-Alter und den Vergleich aller Möglichkeiten.",
   "applicationCategory": "FinanceApplication",
-  "description": "Online-Rechner zur unverbindlichen Berechnung von Rentenabschlägen und Rentenzuschlägen bei früherem oder späterem Rentenbeginn auf Basis der Altersrente zum Regelalter.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
-  }
+  "applicationSubCategory": "Altersrente und vorzeitiger Rentenbeginn",
+  "operatingSystem": "Alle (Webbrowser)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "de-DE",
+  "isAccessibleForFree": true,
+  "url": "https://kassen-lotse.de/rentenabschlag-rechner/",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "featureList": [
+    "Rentenabschlag bei vorzeitigem Rentenbeginn (0,3 % pro Monat)",
+    "Rentenzuschlag bei späterem Rentenbeginn (0,5 % pro Monat)",
+    "Frühester und abschlagsfreier Rentenbeginn je Rentenart und Jahrgang",
+    "Wirkung fehlender Beitragsjahre auf die Rente",
+    "Break-even-Alter: ab wann sich Warten lohnt",
+    "Vergleich aller Rentenbeginn-Varianten",
+    "PDF-Export des Ergebnisses"
+  ],
+  "publisher": { "@type": "Organization", "name": "Kassen-Lotse", "url": "https://kassen-lotse.de/" }
 }
 </script>
+<style>
+  /* Heimkosten-Rechner: Zusatz-Styles (Formular-Grunddesign bleibt unverändert) */
+:root {
+  --hc-blau: #1f5aa6;
+  --hc-blau-dunkel: #12305f;
+  --hc-blau-hell: #f3f7fc;
+  --hc-blau-linie: #dbe6f5;
+  --hc-text: #1c2a3f;
+  --hc-text-leise: #5a6a82;
+  --hc-linie: #e8edf4;
+}
 
+[hidden] { display: none !important; }
+
+/* ---------- Erklärtexte im Formular ---------- */
+.hc-erklaerung {
+  background: var(--hc-blau-hell);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 4px 0 24px;
+  color: #34445e;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.hc-erklaerung p { margin: 0; }
+.hc-erklaerung__titel {
+  margin-bottom: 6px !important;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+
+.hc-glossar {
+  margin: -6px 0 20px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--hc-text-leise);
+}
+.hc-glossar summary {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  list-style: none !important;
+  cursor: pointer;
+  color: var(--hc-blau);
+  font-weight: 500;
+  padding: 2px 0 !important;
+  background: none !important;       /* Theme-Pfeil als Hintergrundbild */
+  position: static !important;
+}
+.hc-glossar summary::-webkit-details-marker { display: none; }
+.hc-glossar summary::marker { content: ""; }
+.hc-glossar summary::before { content: none !important; }
+/* Eigener Pfeil: sitzt im Textfluss und kann das Fragezeichen nicht mehr überdecken */
+.hc-glossar summary::after {
+  content: "" !important;
+  position: static !important;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 2px !important;
+  background: none !important;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.hc-glossar[open] summary::after { transform: rotate(-135deg); margin-top: 3px !important; }
+.hc-glossar summary:hover { text-decoration: underline; }
+.hc-glossar summary:focus-visible,
+.hc-res button:focus-visible {
+  outline: 2px solid var(--hc-blau);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.hc-glossar p {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+}
+.hc-leerhinweis {
+  margin: 0;
+  color: var(--hc-text-leise);
+  font-size: 0.92rem;
+}
+
+/* ---------- Fehlermeldungen ---------- */
+.hc-fehler {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--hc-blau-dunkel);
+}
+#hc-form [aria-invalid="true"] {
+  border-color: var(--hc-blau) !important;
+  box-shadow: 0 0 0 3px rgba(31, 90, 166, 0.18);
+}
+
+/* ---------- Ergebnis ---------- */
+#hc_ergebnis { color: var(--hc-text); }
+
+.hc-res {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 56px 0 0;
+  border-top: 1px solid var(--hc-linie);
+  line-height: 1.7;
+}
+.hc-res:focus { outline: none; }
+
+.hc-res__aussage {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__text { margin: 0 0 40px; color: var(--hc-text-leise); font-size: 1.05rem; }
+
+.hc-res h3 {
+  margin: 56px 0 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__intro { margin: 0 0 16px; color: var(--hc-text-leise); font-size: 0.95rem; }
+
+/* Skala */
+.hc-gauge { margin: 0 0 8px; }
+.hc-gauge__spur {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hc-blau-linie);
+  overflow: visible;
+}
+.hc-gauge__fuell,
+.hc-gauge__ueber {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 0;
+  transition: width 0.9s cubic-bezier(.2,.7,.2,1);
+}
+.hc-gauge__fuell { left: 0; background: var(--hc-blau); border-radius: 999px 0 0 999px; }
+.hc-gauge__ueber { background: var(--hc-blau-dunkel); border-radius: 0 999px 999px 0; }
+.hc-gauge__fuell.is-voll { border-radius: 999px 0 0 999px; }
+.hc-gauge__marke {
+  position: absolute;
+  top: -6px; bottom: -6px;
+  width: 2px;
+  background: var(--hc-text);
+}
+.hc-gauge__skala {
+  position: relative;
+  height: 28px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--hc-text-leise);
+}
+.hc-gauge__skala span { position: absolute; top: 0; white-space: nowrap; }
+.hc-gauge__skala span:first-child { left: 0; }
+.hc-gauge__skala .hc-gauge__grenze { transform: translateX(-50%); color: var(--hc-text); font-weight: 500; }
+
+/* Rechenweg */
+.hc-tabelle { margin: 0; padding: 0; }
+.hc-tabelle__zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hc-linie);
+}
+.hc-tabelle dt { margin: 0; color: var(--hc-text-leise); }
+.hc-tabelle dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hc-tabelle__zeile.is-summe dt,
+.hc-tabelle__zeile.is-summe dd { color: var(--hc-blau-dunkel); font-weight: 600; }
+
+/* Orientierungswert */
+.hc-wert {
+  margin: 28px 0 0;
+  padding: 28px 28px 26px;
+  background: var(--hc-blau-hell);
+  border-radius: 14px;
+}
+.hc-wert__zahl {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+  line-height: 1.2;
+}
+.hc-wert__text { margin: 8px 0 0; font-size: 0.93rem; color: var(--hc-text-leise); }
+
+/* Schritte */
+.hc-schritte { margin: 16px 0 0; padding-left: 1.3em; }
+.hc-schritte li { margin-bottom: 14px; padding-left: 6px; }
+.hc-schritte li::marker { color: var(--hc-blau); font-weight: 600; }
+
+.hc-res__aktionen { margin: 48px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.hc-res__hinweis {
+  margin: 40px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--hc-text-leise);
+}
+
+@media (max-width: 520px) {
+  .hc-res { margin-top: 48px; padding-top: 40px; }
+  .hc-wert { padding: 22px 20px; }
+  .hc-tabelle__zeile { flex-direction: column; gap: 2px; }
+  .hc-tabelle dd { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-gauge__fuell, .hc-gauge__ueber { transition: none; }
+}
+
+/* ---------- Live-Hinweis unter Feldern (z. B. aktueller Zuschlag) ---------- */
+.hc-live {
+  margin: -6px 0 22px;
+  padding: 10px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+  color: var(--hc-blau-dunkel);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -103,107 +342,107 @@
   </div>
 
     <form id="ra-form" class="pflegegrad-form" aria-describedby="ra_ergebnis" novalidate>
-      <fieldset class="pflegegrad-fieldset active-step">
-        <legend>1. Basis-Angaben</legend>
-
-        <label class="pflegegrad-label">
-          Geburtsjahr (optional, nur zur Info im Ergebnis)
-          <input type="number" id="ra_geburtsjahr" min="1940" max="2010" step="1" placeholder="z. B. 1962" />
-        </label>
-
-        <label class="pflegegrad-label">
-          Reguläres Renteneintrittsalter
-          <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
-            <input type="number" id="ra_reg_jahre" min="60" max="68" step="1" value="67" />
-            <span>Jahre</span>
-            <input type="number" id="ra_reg_monate" min="0" max="11" step="1" value="0" />
-            <span>Monate</span>
-          </div>
-        </label>
-        <p class="hinweis">
-          Je nach Jahrgang liegt das Regelalter zwischen <strong>65 und 67</strong> (mit Monats-Zwischenstufen).
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2. Gewünschter Rentenbeginn (Alter)</legend>
-
-        <label class="pflegegrad-label">
-          Gewünschtes Rentenbeginn-Alter
-          <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
-            <input type="number" id="ra_wunsch_jahre" min="60" max="70" step="1" value="64" />
-            <span>Jahre</span>
-            <input type="number" id="ra_wunsch_monate" min="0" max="11" step="1" value="0" />
-            <span>Monate</span>
-          </div>
-        </label>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>3. Rentenbetrag zum Regelalter</legend>
-
-        <label class="pflegegrad-label">
-          Erwartete Monatsrente <em>zum regulären Rentenbeginn</em> (Brutto)
-          <input type="number" id="ra_regelrente" min="0" step="1" placeholder="z. B. 1.600" />
-        </label>
-        <p class="hinweis">
-          Wert lt. <strong>Renteninformation/Rentenauskunft</strong>. Es werden nur Zu-/Abschläge darauf angewandt
-          (keine Steuern/KV/PV in dieser vereinfachten Darstellung).
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>4. Vergleich „später gehen“ (optional)</legend>
-
-        <label class="pflegegrad-label">
-          Alternative: wie viele Monate <em>später</em> als dein gewünschter Beginn?
-          <input type="number" id="ra_spaeter_monate" min="0" max="60" step="1" value="12" />
-        </label>
-        <p class="hinweis">
-          Beispiel: +12 Monate → Zuschlag <strong>+0,5&nbsp;% je Monat</strong> (vereinfacht).
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>5. Feineinstellungen</legend>
-
-        <label class="pflegegrad-label">
-          Abschlag pro Monat (vorziehen) in %
-          <input type="number" id="ra_abschlag_pm" min="0" max="1" step="0.01" value="0.3" />
-        </label>
-
-        <label class="pflegegrad-label">
-          Zuschlag pro Monat (später) in %
-          <input type="number" id="ra_zuschlag_pm" min="0" max="2" step="0.01" value="0.5" />
-        </label>
-
-        <label class="pflegegrad-label">
-          Maximaler Abschlag in %
-          <input type="number" id="ra_abschlag_max" min="0" max="20" step="0.1" value="14.4" />
-        </label>
-        <p class="hinweis" style="margin-top: 5px;">
-          <em>Hinweis:</em> Für die klassische Altersrente liegt der maximale Abschlag bei 14,4 %. 
-          Bei der <strong>Altersrente für schwerbehinderte Menschen</strong> beträgt er maximal 10,8 %.
-        </p>
-      </fieldset>
-
-      <div class="button-container">
-        <button type="button" id="ra_berechnen" class="button">Abschlag berechnen</button>
-        <button type="reset" id="ra_reset" class="button button-secondary">Eingaben zurücksetzen</button>
-      </div>
-    </form>
-
-    <section id="ra_ergebnis" aria-live="polite"></section>
-
-        <div class="warning-box">
-      <p>
-        <strong>Wichtig:</strong> Dies ist eine vereinfachte Modellrechnung auf Basis der Bruttorente. 
-        <strong>Kranken- und Pflegeversicherungsbeiträge (KV/PV)</strong> sowie die 
-        <strong>nachgelagerte Besteuerung</strong> sind hier nicht abgezogen. 
-        Zudem werden Entgeltpunkt-Effekte durch fehlende Beitragsjahre beim Vorziehen nicht berechnet. 
-        Maßgeblich ist deine <strong>DRV-Auskunft</strong>. Stand: 11.08.2026.
-      </p>
+ 
+  <!-- 1. Jahrgang und Rentenart -->
+  <fieldset class="pflegegrad-fieldset active-step">
+    <legend>1. Jahrgang und Rentenart</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Wie entsteht ein Rentenabschlag?</p>
+      <p>Wer früher in Rente geht, als es die jeweilige Altersgrenze vorsieht, bekommt für jeden Monat 0,3 % weniger Rente, und zwar lebenslang. Wer nach der Regelaltersgrenze weiterarbeitet und die Rente später beantragt, bekommt dafür 0,5 % pro Monat mehr. Welche Altersgrenzen gelten, hängt von Ihrem Geburtsjahr und der Rentenart ab.</p>
     </div>
+ 
+    <label class="pflegegrad-label" for="ra_geburtsjahr">
+      Ihr Geburtsjahr
+      <input type="number" id="ra_geburtsjahr" min="1958" max="2008" step="1" inputmode="numeric" placeholder="z. B. 1964" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Warum erst ab Jahrgang 1958?</summary>
+      <p>Für ältere Jahrgänge gelten andere Übergangsregeln. Sie sind meist schon in Rente. Dieser Rechner ist für alle gedacht, die ab 1958 geboren sind und ihren Rentenbeginn noch planen.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="ra_rentenart">
+      Welche Rentenart kommt für Sie infrage?
+      <select id="ra_rentenart">
+        <option value="langjaehrig" selected>Altersrente für langjährig Versicherte (35 Versicherungsjahre)</option>
+        <option value="schwer">Altersrente für schwerbehinderte Menschen (Grad der Behinderung ab 50, 35 Jahre)</option>
+        <option value="besonders">Altersrente für besonders langjährig Versicherte (45 Versicherungsjahre)</option>
+      </select>
+    </label>
+    <p class="hc-live" id="ra_grenzen_live" aria-live="polite" hidden></p>
+    <details class="hc-glossar">
+      <summary>Was unterscheidet die Rentenarten?</summary>
+      <p>Die Rente für langjährig Versicherte ist ab 63 möglich, aber nur mit Abschlägen bis zur Regelaltersgrenze. Die Rente für schwerbehinderte Menschen ist zwei Jahre vor der Regelaltersgrenze abschlagsfrei und bis zu drei Jahre früher mit Abschlägen möglich. Die Rente für besonders langjährig Versicherte ist nach 45 Versicherungsjahren zwei Jahre vor der Regelaltersgrenze abschlagsfrei, ein früherer Beginn ist nicht möglich. Ob Sie die Voraussetzungen erfüllen, klärt die Rentenversicherung bei der Kontenklärung.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 2. Gewünschter Rentenbeginn -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>2. Gewünschter Rentenbeginn</legend>
+ 
+    <div class="pflegegrad-label" role="group" aria-labelledby="ra_wunsch_label">
+      <span id="ra_wunsch_label">In welchem Alter möchten Sie in Rente gehen?</span>
+      <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
+        <input type="number" id="ra_wunsch_jahre" aria-label="Jahre" min="60" max="70" step="1" inputmode="numeric" value="64" />
+        <span>Jahre</span>
+        <input type="number" id="ra_wunsch_monate" aria-label="Monate" min="0" max="11" step="1" inputmode="numeric" value="0" />
+        <span>Monate</span>
+      </div>
+    </div>
+    <p class="hc-live" id="ra_wunsch_live" aria-live="polite" hidden></p>
+    <details class="hc-glossar">
+      <summary>Kann ich mir einen beliebigen Zeitpunkt aussuchen?</summary>
+      <p>Innerhalb der Grenzen Ihrer Rentenart ja, auf den Monat genau. Je früher, desto höher der Abschlag. Nach der Regelaltersgrenze steigt die Rente mit jedem Monat Aufschub.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 3. Rentenbetrag -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>3. Ihre Rente laut Renteninformation</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Wo finde ich meine Zahl?</p>
+      <p>In Ihrer jährlichen Renteninformation der Deutschen Rentenversicherung, in der Zeile „Regelaltersrente“. Der Betrag gilt für einen Rentenbeginn zur Regelaltersgrenze und geht davon aus, dass Sie bis dahin weiter Beiträge zahlen.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="ra_regelrente">
+      Erwartete Monatsrente zur Regelaltersgrenze, brutto (€)
+      <input type="number" id="ra_regelrente" min="0" step="1" inputmode="decimal" placeholder="z. B. 1600" />
+    </label>
+ 
+    <label class="pflegegrad-label" for="ra_gehalt">
+      Ihr Brutto-Jahresgehalt (€, optional)
+      <input type="number" id="ra_gehalt" min="0" step="500" inputmode="decimal" placeholder="z. B. 48000" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Warum wird das Gehalt abgefragt?</summary>
+      <p>Wer früher in Rente geht, zahlt weniger Jahre Beiträge ein. Das kostet zusätzlich Rente, unabhängig vom Abschlag. Mit Ihrem Gehalt schätzen wir, wie viel das ausmacht. Lassen Sie das Feld leer, wenn Sie nur den Abschlag sehen möchten.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 4. Vergleich -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>4. Vergleich: noch länger warten (optional)</legend>
+ 
+    <label class="pflegegrad-label" for="ra_spaeter_monate">
+      Um wie viele Monate später als Ihr Wunschtermin möchten Sie vergleichen?
+      <input type="number" id="ra_spaeter_monate" min="0" max="60" step="1" inputmode="numeric" value="12" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Wofür ist der Vergleich gut?</summary>
+      <p>So sehen Sie, wie viel Rente Sie durch jeden weiteren Monat Arbeit gewinnen. Bei 12 Monaten sind es bis zur Regelaltersgrenze rund 3,6 % Abschlag weniger, danach 6 % Zuschlag pro Jahr.</p>
+    </details>
+  </fieldset>
+ 
+  <div class="button-container">
+    <button type="button" id="ra_berechnen" class="button">Rentenabschlag berechnen</button>
+    <button type="reset" id="ra_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+  </div>
+</form>
+ 
+<section id="ra_ergebnis" aria-live="polite"></section>
+
+      <br>
   
 
   <section class="promo-teaser" aria-labelledby="promo-headline" role="region">

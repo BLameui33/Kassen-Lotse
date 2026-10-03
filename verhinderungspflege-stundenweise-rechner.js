@@ -42,14 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (stundenProTag >= 8) {
             htmlErgebnis += `
                 <div class="info-box ergebnis-animation" style="background-color: #ffebee; border-left: 4px solid #f44336; padding: 15px; margin-top: 15px;">
-                    <h2 style="margin-top: 0; color: #c62828; font-size: 1.3rem;">⚠️ Achtung: Pflegegeld-Kürzung!</h2>
+                    <h2 style="margin-top: 0; color: #c62828; font-size: 1.3rem;">Achtung: Pflegegeld-Kürzung!</h2>
                     <p style="margin-bottom: 0;">Da die Ersatzpflege <strong>8 Stunden oder länger</strong> an einem Tag stattfindet, greift die rettende stundenweise Regelung nicht mehr. Die Pflegekasse wird Ihnen für jeden dieser Einsatztage das reguläre Pflegegeld <strong>um 50 % kürzen</strong>. Außerdem werden diese Tage von der maximalen Jahresdauer abgezogen.</p>
                 </div>
             `;
         } else {
             htmlErgebnis += `
                 <div class="info-box ergebnis-animation" style="background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin-top: 15px;">
-                    <h2 style="margin-top: 0; color: #2e7d32; font-size: 1.3rem;">✅ 100 % Pflegegeld gesichert!</h2>
+                    <h2 style="margin-top: 0; color: #2e7d32; font-size: 1.3rem;">100 % Pflegegeld gesichert!</h2>
                     <p style="margin-bottom: 0;">Perfekt geplant! Da der Einsatz unter 8 Stunden bleibt (${stundenProTag} Std.), wird Ihr reguläres Pflegegeld für diese Tage <strong>nicht gekürzt</strong>. Es wird zu 100 % weitergezahlt und die Tage zählen nicht zur maximalen Jahresbegrenzung.</p>
                 </div>
             `;
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         htmlErgebnis += `
             <div class="info-box ergebnis-animation" style="background-color: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin-top: 15px;">
                 <h3 style="margin-top: 0; color: #1565c0; display: flex; align-items: center; gap: 8px;">
-                    <span>📊</span> Budget-Auswertung
+                     Budget-Auswertung
                 </h3>
                 <ul style="margin-bottom: 10px; padding-left: 20px;">
                     <li><strong>Kosten pro Einsatztag:</strong> ${kostenProEinsatz.toFixed(2).replace('.', ',')} €</li>

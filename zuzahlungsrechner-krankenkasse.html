@@ -10,6 +10,225 @@
   
   <link rel="icon" href="/logo-lotse-fav.png">
   <link rel="stylesheet" href="/css/style.css">
+
+  <style>
+  /* Heimkosten-Rechner: Zusatz-Styles (Formular-Grunddesign bleibt unverändert) */
+:root {
+  --hc-blau: #1f5aa6;
+  --hc-blau-dunkel: #12305f;
+  --hc-blau-hell: #f3f7fc;
+  --hc-blau-linie: #dbe6f5;
+  --hc-text: #1c2a3f;
+  --hc-text-leise: #5a6a82;
+  --hc-linie: #e8edf4;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Erklärtexte im Formular ---------- */
+.hc-erklaerung {
+  background: var(--hc-blau-hell);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 4px 0 24px;
+  color: #34445e;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.hc-erklaerung p { margin: 0; }
+.hc-erklaerung__titel {
+  margin-bottom: 6px !important;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+
+.hc-glossar {
+  margin: -6px 0 20px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--hc-text-leise);
+}
+.hc-glossar summary {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  list-style: none !important;
+  cursor: pointer;
+  color: var(--hc-blau);
+  font-weight: 500;
+  padding: 2px 0 !important;
+  background: none !important;       /* Theme-Pfeil als Hintergrundbild */
+  position: static !important;
+}
+.hc-glossar summary::-webkit-details-marker { display: none; }
+.hc-glossar summary::marker { content: ""; }
+.hc-glossar summary::before { content: none !important; }
+/* Eigener Pfeil: sitzt im Textfluss und kann das Fragezeichen nicht mehr überdecken */
+.hc-glossar summary::after {
+  content: "" !important;
+  position: static !important;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 2px !important;
+  background: none !important;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.hc-glossar[open] summary::after { transform: rotate(-135deg); margin-top: 3px !important; }
+.hc-glossar summary:hover { text-decoration: underline; }
+.hc-glossar summary:focus-visible,
+.hc-res button:focus-visible {
+  outline: 2px solid var(--hc-blau);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.hc-glossar p {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+}
+.hc-leerhinweis {
+  margin: 0;
+  color: var(--hc-text-leise);
+  font-size: 0.92rem;
+}
+
+/* ---------- Fehlermeldungen ---------- */
+.hc-fehler {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--hc-blau-dunkel);
+}
+#hc-form [aria-invalid="true"] {
+  border-color: var(--hc-blau) !important;
+  box-shadow: 0 0 0 3px rgba(31, 90, 166, 0.18);
+}
+
+/* ---------- Ergebnis ---------- */
+#hc_ergebnis { color: var(--hc-text); }
+
+.hc-res {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 56px 0 0;
+  border-top: 1px solid var(--hc-linie);
+  line-height: 1.7;
+}
+.hc-res:focus { outline: none; }
+
+.hc-res__aussage {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__text { margin: 0 0 40px; color: var(--hc-text-leise); font-size: 1.05rem; }
+
+.hc-res h3 {
+  margin: 56px 0 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__intro { margin: 0 0 16px; color: var(--hc-text-leise); font-size: 0.95rem; }
+
+/* Skala */
+.hc-gauge { margin: 0 0 8px; }
+.hc-gauge__spur {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hc-blau-linie);
+  overflow: visible;
+}
+.hc-gauge__fuell,
+.hc-gauge__ueber {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 0;
+  transition: width 0.9s cubic-bezier(.2,.7,.2,1);
+}
+.hc-gauge__fuell { left: 0; background: var(--hc-blau); border-radius: 999px 0 0 999px; }
+.hc-gauge__ueber { background: var(--hc-blau-dunkel); border-radius: 0 999px 999px 0; }
+.hc-gauge__fuell.is-voll { border-radius: 999px 0 0 999px; }
+.hc-gauge__marke {
+  position: absolute;
+  top: -6px; bottom: -6px;
+  width: 2px;
+  background: var(--hc-text);
+}
+.hc-gauge__skala {
+  position: relative;
+  height: 28px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--hc-text-leise);
+}
+.hc-gauge__skala span { position: absolute; top: 0; white-space: nowrap; }
+.hc-gauge__skala span:first-child { left: 0; }
+.hc-gauge__skala .hc-gauge__grenze { transform: translateX(-50%); color: var(--hc-text); font-weight: 500; }
+
+/* Rechenweg */
+.hc-tabelle { margin: 0; padding: 0; }
+.hc-tabelle__zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hc-linie);
+}
+.hc-tabelle dt { margin: 0; color: var(--hc-text-leise); }
+.hc-tabelle dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hc-tabelle__zeile.is-summe dt,
+.hc-tabelle__zeile.is-summe dd { color: var(--hc-blau-dunkel); font-weight: 600; }
+
+/* Orientierungswert */
+.hc-wert {
+  margin: 28px 0 0;
+  padding: 28px 28px 26px;
+  background: var(--hc-blau-hell);
+  border-radius: 14px;
+}
+.hc-wert__zahl {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+  line-height: 1.2;
+}
+.hc-wert__text { margin: 8px 0 0; font-size: 0.93rem; color: var(--hc-text-leise); }
+
+/* Schritte */
+.hc-schritte { margin: 16px 0 0; padding-left: 1.3em; }
+.hc-schritte li { margin-bottom: 14px; padding-left: 6px; }
+.hc-schritte li::marker { color: var(--hc-blau); font-weight: 600; }
+
+.hc-res__aktionen { margin: 48px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.hc-res__hinweis {
+  margin: 40px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--hc-text-leise);
+}
+
+@media (max-width: 520px) {
+  .hc-res { margin-top: 48px; padding-top: 40px; }
+  .hc-wert { padding: 22px 20px; }
+  .hc-tabelle__zeile { flex-direction: column; gap: 2px; }
+  .hc-tabelle dd { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-gauge__fuell, .hc-gauge__ueber { transition: none; }
+}
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -88,80 +307,145 @@
   </div>
 
     <form id="zuz_form" class="pflegegrad-form" aria-describedby="zuz_ergebnis" novalidate>
-      <fieldset class="pflegegrad-fieldset">
-        <legend>1. Angaben zum Haushalt und Einkommen</legend>
-
-        <label class="pflegegrad-label" for="zuz_einkommen">
-          Jährliches Bruttoeinkommen des Haushalts (geschätzt)
-          <input type="number" id="zuz_einkommen" min="0" step="100" placeholder="z. B. 30.000" />
-        </label>
-
-        <p class="hinweis">
-          Summe der <strong>jährlichen Bruttoeinnahmen zum Lebensunterhalt</strong> der
-          mitberücksichtigten Personen (z. B. Löhne, Renten).
-        </p>
-        <p class="hinweis" style="color: #d9534f; margin-top: 8px;">
-          <em>Wichtig:</em> Gesetzliche <strong>Freibeträge für Ehepartner und Kinder</strong> werden in diesem vereinfachten Rechner <strong>nicht</strong> von den Einnahmen abgezogen. Da diese Freibeträge das anrechenbare Familieneinkommen massiv senken, liegt die tatsächliche Belastungsgrenze bei Familien oft deutlich <strong>niedriger</strong> als hier berechnet!
-        </p>
-                
-
-        <label class="pflegegrad-label" for="zuz_versicherungsart">
-          Versicherungsart
-          <select id="zuz_versicherungsart">
-            <option value="gkv" selected>Gesetzliche Krankenversicherung (GKV)</option>
-            <option value="privat">Private Krankenversicherung / Beihilfe</option>
-          </select>
-        </label>
-        <p class="hinweis">
-          Die 1 %/2 %-Grenze gilt für die <strong>GKV</strong>. In der PKV/Beihilfe
-          weichen die Regelungen ab – hier ist das Ergebnis nur grob.
-        </p>
-
-        <label class="pflegegrad-label" for="zuz_chronisch">
-          <input type="checkbox" id="zuz_chronisch" />
-          Ich bin / eine mitversicherte Person ist <strong>schwerwiegend chronisch krank</strong>
-          (ärztliche Bescheinigung – z.&nbsp;B. Muster&nbsp;55)
-        </label>
-        <p class="hinweis">
-          Bei Anerkennung als <strong>schwerwiegend chronisch krank</strong> liegt die Grenze bei <strong>1&nbsp;%</strong>
-          (statt 2&nbsp;%) der jährlichen Bruttoeinnahmen.
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2. Bereits gezahlte Zuzahlungen (laufendes Jahr)</legend>
-
-        <label class="pflegegrad-label" for="zuz_bisher">
-          Bisherige Zuzahlungen (geschätzt, in Euro)
-          <input type="number" id="zuz_bisher" min="0" step="5" placeholder="z. B. 120" />
-        </label>
-
-        <p class="hinweis">
-          Summe aller Eigenanteile in diesem Jahr (z. B. Rezeptgebühren, Krankenhaus 10 €/Tag,
-          Heil-/Hilfsmittel, Fahrkosten, häusliche Krankenpflege …).
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>3. Voraussichtliche weitere Zuzahlungen (optional)</legend>
-
-        <label class="pflegegrad-label" for="zuz_geplant">
-          Noch anfallende Zuzahlungen bis Jahresende (in Euro)
-          <input type="number" id="zuz_geplant" min="0" step="5" placeholder="z. B. 80" />
-        </label>
-
-        <p class="hinweis">
-          Optional: So siehst du, ob du die Grenze mit den geplanten Zuzahlungen voraussichtlich erreichst.
-        </p>
-      </fieldset>
-
-      <div class="button-container">
-        <button type="button" id="zuz_berechnen" class="button">Belastungsgrenze berechnen</button>
-        <button type="reset" id="zuz_reset" class="button button-secondary">Eingaben zurücksetzen</button>
-      </div>
-    </form>
-
-    <section id="zuz_ergebnis" aria-live="polite"></section>
+ 
+  <!-- 1. Versicherung und Einkommen -->
+  <fieldset class="pflegegrad-fieldset active-step">
+    <legend>1. Versicherung und Einkommen</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Wozu gibt es die Belastungsgrenze?</p>
+      <p>Wer Medikamente, Krankenhaustage oder Fahrten zum Arzt mitzahlt, muss das nicht unbegrenzt tun. Pro Kalenderjahr zahlen Sie höchstens 2 % Ihrer Bruttoeinnahmen zum Lebensunterhalt dazu. Ist die Grenze erreicht, sind Sie für den Rest des Jahres befreit. Was Sie darüber hinaus gezahlt haben, bekommen Sie von der Krankenkasse zurück.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="zuz_versicherungsart">
+      Wie sind Sie versichert?
+      <select id="zuz_versicherungsart">
+        <option value="gkv" selected>Gesetzlich versichert (GKV)</option>
+        <option value="privat">Privat versichert oder Beihilfe</option>
+      </select>
+    </label>
+    <details class="hc-glossar">
+      <summary>Warum frage ich das?</summary>
+      <p>Die Belastungsgrenze gilt für gesetzlich Versicherte. In der privaten Krankenversicherung gibt es keine gesetzlichen Zuzahlungen, dort entscheidet der Tarif über Selbstbehalte. Bei der Beihilfe regeln die Dienstherren eigene Belastungsgrenzen.</p>
+    </details>
+ 
+    <div data-zuz-nur="normal">
+      <label class="pflegegrad-label" for="zuz_sozial" style="display:flex; align-items:center; gap:.6rem;">
+        <input type="checkbox" id="zuz_sozial" />
+        <span>Ich beziehe Bürgergeld, Grundsicherung oder Hilfe zum Lebensunterhalt</span>
+      </label>
+      <details class="hc-glossar">
+        <summary>Was ändert sich dann?</summary>
+        <p>Bei diesen Leistungen wird nicht Ihr Einkommen angesetzt, sondern pauschal der Regelsatz für eine alleinstehende Person (563 € im Monat, 6.756 € im Jahr). Freibeträge gibt es dann nicht. Die Grenze liegt dadurch bei 135,12 € im Jahr, mit Chroniker-Status bei 67,56 €.</p>
+      </details>
+    </div>
+ 
+    <div data-zuz-nur="einkommen">
+      <label class="pflegegrad-label" for="zuz_einkommen">
+        Jährliche Bruttoeinnahmen des Haushalts (€)
+        <input type="number" id="zuz_einkommen" min="0" step="100" inputmode="decimal" placeholder="z. B. 30000" />
+      </label>
+      <details class="hc-glossar">
+        <summary>Was zählt zu den Bruttoeinnahmen?</summary>
+        <p>Alle Einnahmen zum Lebensunterhalt vor Abzug von Steuern und Beiträgen, und zwar von Ihnen und den Angehörigen, die im Haushalt leben und mitversichert sind. Dazu gehören Löhne und Gehälter, Renten (brutto), Pensionen, Arbeitslosengeld, Krankengeld sowie Miet- und Kapitaleinnahmen. Verwenden Sie das Jahr, für das Sie die Grenze prüfen wollen.</p>
+      </details>
+    </div>
+  </fieldset>
+ 
+  <!-- 2. Haushalt -->
+  <fieldset class="pflegegrad-fieldset" data-zuz-nur="einkommen">
+    <legend>2. Wer lebt im Haushalt?</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Freibeträge senken das anrechenbare Einkommen</p>
+      <p>Für den Ehepartner und jedes Kind wird ein fester Betrag von Ihren Einnahmen abgezogen, bevor die 2 % berechnet werden. Dadurch liegt die Belastungsgrenze von Familien deutlich niedriger als bei Alleinstehenden mit dem gleichen Einkommen. Der Rechner berücksichtigt diese Freibeträge für 2026.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="zuz_partner">
+      Lebt ein Ehepartner oder Lebenspartner mit im Haushalt?
+      <select id="zuz_partner">
+        <option value="nein" selected>Nein</option>
+        <option value="ja">Ja</option>
+      </select>
+    </label>
+    <details class="hc-glossar">
+      <summary>Was gilt für Partner mit eigenem Einkommen?</summary>
+      <p>Der Freibetrag gilt auch dann, wenn der Partner selbst Einkommen hat. Dessen Einnahmen müssen Sie dann aber oben in den Bruttoeinnahmen mitzählen. Voraussetzung ist, dass er im gemeinsamen Haushalt lebt und gesetzlich versichert ist.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="zuz_kinder">
+      Anzahl der Kinder, die zählen
+      <input type="number" id="zuz_kinder" min="0" max="10" step="1" inputmode="numeric" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Welche Kinder zählen?</summary>
+      <p>Kinder bis zu dem Kalenderjahr, in dem sie 18 werden, sowie ältere familienversicherte Kinder ab dem Jahr, in dem sie 19 werden. Der Freibetrag gilt auch für Alleinerziehende.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="zuz_weitere">
+      Weitere Angehörige, die Sie unterhalten (optional)
+      <input type="number" id="zuz_weitere" min="0" max="5" step="1" inputmode="numeric" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Wer ist damit gemeint?</summary>
+      <p>Zum Beispiel pflegebedürftige Eltern im Haushalt, die ihren Lebensunterhalt überwiegend von Ihnen beziehen. Hier entscheidet die Krankenkasse im Einzelfall. Tragen Sie die Zahl ein, wenn Sie eine Anerkennung erwarten.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 3. Chronisch krank -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>3. Chronische Erkrankung</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">1 % statt 2 %</p>
+      <p>Für schwerwiegend chronisch Kranke halbiert sich die Belastungsgrenze auf 1 % der Bruttoeinnahmen. Das gilt auch, wenn die chronisch kranke Person im Haushalt mitversichert ist.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="zuz_chronisch" style="display:flex; align-items:center; gap:.6rem;">
+      <input type="checkbox" id="zuz_chronisch" />
+      <span>Ich oder eine mitversicherte Person im Haushalt ist schwerwiegend chronisch krank</span>
+    </label>
+    <details class="hc-glossar">
+      <summary>Wann gilt man als schwerwiegend chronisch krank?</summary>
+      <p>Wenn Sie wegen derselben Krankheit seit mindestens einem Jahr mindestens einmal pro Quartal in ärztlicher Behandlung sind. Außerdem muss eines davon zutreffen: Pflegegrad 3, 4 oder 5, ein Grad der Behinderung von mindestens 60 oder eine dauerhafte Behandlung, ohne die sich der Zustand lebensbedrohlich verschlimmern würde. Ihr Arzt bestätigt das mit dem Muster 55, das Sie bei der Krankenkasse einreichen.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 4. Zuzahlungen -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>4. Ihre Zuzahlungen in diesem Jahr</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Nicht jede Ausgabe zählt</p>
+      <p>Angerechnet werden nur gesetzliche Zuzahlungen. Das sind Zuzahlungen zu Medikamenten auf Rezept, Krankenhaus und Reha (10 € pro Tag), Heil- und Hilfsmitteln, Fahrtkosten und häuslicher Krankenpflege. Nicht angerechnet werden Eigenanteile bei Zahnersatz, Mehrkosten über dem Festbetrag, Brillen, rezeptfreie Mittel und Selbstzahlerleistungen. Kinder unter 18 haben ohnehin keine Zuzahlungen.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="zuz_bisher">
+      Bisher gezahlte gesetzliche Zuzahlungen (€)
+      <input type="number" id="zuz_bisher" min="0" step="5" inputmode="decimal" placeholder="z. B. 120" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Wie finde ich diese Summe?</summary>
+      <p>Addieren Sie die Zuzahlungen auf Ihren Quittungen und Apothekenbelegen. Apotheken drucken die Zuzahlung auf den Kassenbon, und viele Krankenkassen zeigen sie in der App oder im Online-Konto an. Bewahren Sie die Belege auf.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="zuz_geplant">
+      Noch erwartete Zuzahlungen bis Jahresende (€, optional)
+      <input type="number" id="zuz_geplant" min="0" step="5" inputmode="decimal" placeholder="z. B. 80" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Wofür brauche ich diese Angabe?</summary>
+      <p>Damit sehen Sie, ob Sie die Grenze bis Jahresende voraussichtlich erreichen und ob sich eine Vorauszahlung lohnt. Denken Sie an regelmäßige Medikamente, geplante Krankenhausaufenthalte oder Physiotherapie.</p>
+    </details>
+  </fieldset>
+ 
+  <div class="button-container">
+    <button type="button" id="zuz_berechnen" class="button">Belastungsgrenze berechnen</button>
+    <button type="reset" id="zuz_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+  </div>
+</form>
+ 
+<section id="zuz_ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
@@ -299,15 +583,25 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Zuzahlungsrechner Krankenkasse",
-  "operatingSystem": "Web",
-  "applicationCategory": "HealthApplication",
-  "description": "Online-Rechner zur unverbindlichen Berechnung der jährlichen Zuzahlungs-Belastungsgrenze in der gesetzlichen Krankenversicherung (1 % bzw. 2 % Regelung).",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
-  }
+  "name": "Zuzahlungsrechner 2026: Belastungsgrenze der Krankenkasse",
+  "description": "Kostenloser Rechner für die Belastungsgrenze bei gesetzlichen Zuzahlungen nach § 62 SGB V: mit Freibeträgen für Ehepartner und Kinder, Chroniker-Regel, Sonderfall Bürgergeld und Prognose bis Jahresende.",
+  "applicationCategory": "FinanceApplication",
+  "applicationSubCategory": "Krankenversicherung und Zuzahlungsbefreiung",
+  "operatingSystem": "Alle (Webbrowser)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "de-DE",
+  "isAccessibleForFree": true,
+  "url": "https://kassen-lotse.de/zuzahlungsrechner-krankenkasse/",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "featureList": [
+    "Belastungsgrenze nach 2-Prozent- und 1-Prozent-Regel (Chroniker)",
+    "Freibeträge 2026 für Ehepartner, Kinder und weitere Angehörige",
+    "Sonderregelung bei Bürgergeld und Grundsicherung",
+    "Prognose bis Jahresende und mögliche Erstattung",
+    "Hinweis zur Vorauszahlung und zum Befreiungsausweis",
+    "PDF-Export des Ergebnisses"
+  ],
+  "publisher": { "@type": "Organization", "name": "Kassen-Lotse", "url": "https://kassen-lotse.de/" }
 }
 </script>
 

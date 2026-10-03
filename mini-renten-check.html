@@ -16,15 +16,25 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Mini-Renten-Check 2026",
-  "operatingSystem": "Web",
+  "name": "Einfacher Renten-Rechner: Gesamtrente und Rentenlücke berechnen",
+  "description": "Kostenloser Mini-Renten-Check: Zeigt aus Renteninformation, Betriebsrente und privatem Sparplan die voraussichtliche Gesamtrente in heutiger Kaufkraft, die Rentenlücke zum Wunsch-Netto und die Sparrate, die zum Schließen der Lücke nötig ist.",
   "applicationCategory": "FinanceApplication",
-  "description": "Online-Rechner zur unverbindlichen Schätzung der monatlichen Gesamtrente. Kombiniert gesetzliche Rente mit möglichem Zu- oder Abschlag und eine hochgerechnete private Altersvorsorge.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
-  }
+  "applicationSubCategory": "Altersvorsorge und Rentenlücke",
+  "operatingSystem": "Alle (Webbrowser)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "de-DE",
+  "isAccessibleForFree": true,
+  "url": "https://kassen-lotse.de/mini-renten-check/",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "featureList": [
+    "Gesamtrente aus gesetzlicher Rente, weiteren Bezügen und privater Vorsorge",
+    "Rentenlücke gegenüber dem Wunsch-Netto im Alter",
+    "Regelaltersgrenze automatisch nach Geburtsjahr",
+    "Benötigte Sparrate zum Schließen der Lücke",
+    "Szenarien bei niedrigerer und höherer Rendite",
+    "PDF-Export des Ergebnisses"
+  ],
+  "publisher": { "@type": "Organization", "name": "Kassen-Lotse", "url": "https://kassen-lotse.de/" }
 }
 </script>
 
@@ -68,6 +78,236 @@
   ]
 }
 </script>
+
+<style>
+  /* Heimkosten-Rechner: Zusatz-Styles (Formular-Grunddesign bleibt unverändert) */
+:root {
+  --hc-blau: #1f5aa6;
+  --hc-blau-dunkel: #12305f;
+  --hc-blau-hell: #f3f7fc;
+  --hc-blau-linie: #dbe6f5;
+  --hc-text: #1c2a3f;
+  --hc-text-leise: #5a6a82;
+  --hc-linie: #e8edf4;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Erklärtexte im Formular ---------- */
+.hc-erklaerung {
+  background: var(--hc-blau-hell);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 4px 0 24px;
+  color: #34445e;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.hc-erklaerung p { margin: 0; }
+.hc-erklaerung__titel {
+  margin-bottom: 6px !important;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+
+.hc-glossar {
+  margin: -6px 0 20px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--hc-text-leise);
+}
+.hc-glossar summary {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  list-style: none !important;
+  cursor: pointer;
+  color: var(--hc-blau);
+  font-weight: 500;
+  padding: 2px 0 !important;
+  background: none !important;       /* Theme-Pfeil als Hintergrundbild */
+  position: static !important;
+}
+.hc-glossar summary::-webkit-details-marker { display: none; }
+.hc-glossar summary::marker { content: ""; }
+.hc-glossar summary::before { content: none !important; }
+/* Eigener Pfeil: sitzt im Textfluss und kann das Fragezeichen nicht mehr überdecken */
+.hc-glossar summary::after {
+  content: "" !important;
+  position: static !important;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 2px !important;
+  background: none !important;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.hc-glossar[open] summary::after { transform: rotate(-135deg); margin-top: 3px !important; }
+.hc-glossar summary:hover { text-decoration: underline; }
+.hc-glossar summary:focus-visible,
+.hc-res button:focus-visible {
+  outline: 2px solid var(--hc-blau);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.hc-glossar p {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+}
+.hc-leerhinweis {
+  margin: 0;
+  color: var(--hc-text-leise);
+  font-size: 0.92rem;
+}
+
+/* ---------- Fehlermeldungen ---------- */
+.hc-fehler {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--hc-blau-dunkel);
+}
+#hc-form [aria-invalid="true"] {
+  border-color: var(--hc-blau) !important;
+  box-shadow: 0 0 0 3px rgba(31, 90, 166, 0.18);
+}
+
+/* ---------- Ergebnis ---------- */
+#hc_ergebnis { color: var(--hc-text); }
+
+.hc-res {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 56px 0 0;
+  border-top: 1px solid var(--hc-linie);
+  line-height: 1.7;
+}
+.hc-res:focus { outline: none; }
+
+.hc-res__aussage {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__text { margin: 0 0 40px; color: var(--hc-text-leise); font-size: 1.05rem; }
+
+.hc-res h3 {
+  margin: 56px 0 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__intro { margin: 0 0 16px; color: var(--hc-text-leise); font-size: 0.95rem; }
+
+/* Skala */
+.hc-gauge { margin: 0 0 8px; }
+.hc-gauge__spur {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hc-blau-linie);
+  overflow: visible;
+}
+.hc-gauge__fuell,
+.hc-gauge__ueber {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 0;
+  transition: width 0.9s cubic-bezier(.2,.7,.2,1);
+}
+.hc-gauge__fuell { left: 0; background: var(--hc-blau); border-radius: 999px 0 0 999px; }
+.hc-gauge__ueber { background: var(--hc-blau-dunkel); border-radius: 0 999px 999px 0; }
+.hc-gauge__fuell.is-voll { border-radius: 999px 0 0 999px; }
+.hc-gauge__marke {
+  position: absolute;
+  top: -6px; bottom: -6px;
+  width: 2px;
+  background: var(--hc-text);
+}
+.hc-gauge__skala {
+  position: relative;
+  height: 28px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--hc-text-leise);
+}
+.hc-gauge__skala span { position: absolute; top: 0; white-space: nowrap; }
+.hc-gauge__skala span:first-child { left: 0; }
+.hc-gauge__skala .hc-gauge__grenze { transform: translateX(-50%); color: var(--hc-text); font-weight: 500; }
+
+/* Rechenweg */
+.hc-tabelle { margin: 0; padding: 0; }
+.hc-tabelle__zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hc-linie);
+}
+.hc-tabelle dt { margin: 0; color: var(--hc-text-leise); }
+.hc-tabelle dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hc-tabelle__zeile.is-summe dt,
+.hc-tabelle__zeile.is-summe dd { color: var(--hc-blau-dunkel); font-weight: 600; }
+
+/* Orientierungswert */
+.hc-wert {
+  margin: 28px 0 0;
+  padding: 28px 28px 26px;
+  background: var(--hc-blau-hell);
+  border-radius: 14px;
+}
+.hc-wert__zahl {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+  line-height: 1.2;
+}
+.hc-wert__text { margin: 8px 0 0; font-size: 0.93rem; color: var(--hc-text-leise); }
+
+/* Schritte */
+.hc-schritte { margin: 16px 0 0; padding-left: 1.3em; }
+.hc-schritte li { margin-bottom: 14px; padding-left: 6px; }
+.hc-schritte li::marker { color: var(--hc-blau); font-weight: 600; }
+
+.hc-res__aktionen { margin: 48px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.hc-res__hinweis {
+  margin: 40px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--hc-text-leise);
+}
+
+@media (max-width: 520px) {
+  .hc-res { margin-top: 48px; padding-top: 40px; }
+  .hc-wert { padding: 22px 20px; }
+  .hc-tabelle__zeile { flex-direction: column; gap: 2px; }
+  .hc-tabelle dd { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-gauge__fuell, .hc-gauge__ueber { transition: none; }
+}
+
+/* ---------- Live-Hinweis unter Feldern (z. B. aktueller Zuschlag) ---------- */
+.hc-live {
+  margin: -6px 0 22px;
+  padding: 10px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+  color: var(--hc-blau-dunkel);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+</style>
 
 </head>
 <body>
@@ -146,123 +386,151 @@
     <p><strong>Redaktionell & fachlich geprüft am:</strong> <span id="pruefdatum">11.08.2026</span></p>
   </div>
 
-    <form id="mrc-form" class="pflegegrad-form" aria-describedby="mrc_ergebnis" novalidate>
-      <!-- 1. Gesetzliche Rente -->
-      <fieldset class="pflegegrad-fieldset active-step">
-        <legend>1. Gesetzliche Rente (Renteninformation)</legend>
-
-        <label class="pflegegrad-label" for="mrc_regelrente_monat">
-          Monatliche Rente zum <strong>Regelalter</strong> (Brutto, lt. Information)
-          <input type="number" id="mrc_regelrente_monat" min="0" step="1" placeholder="z. B. 1.600" />
-        </label>
-
-        <label class="pflegegrad-label" for="mrc_reg_jahre">
-          Reguläres Rentenalter
-          <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
-            <input type="number" id="mrc_reg_jahre" min="60" max="68" step="1" value="67" />
-            <span>Jahre</span>
-            <input type="number" id="mrc_reg_monate" min="0" max="11" step="1" value="0" />
-            <span>Monate</span>
-          </div>
-        </label>
-
-        <label class="pflegegrad-label" for="mrc_wunsch_jahre">
-          Gewünschter Rentenbeginn (Alter)
-          <div style="display:flex; gap:.6rem; align-items:center; max-width:360px;">
-            <input type="number" id="mrc_wunsch_jahre" min="60" max="70" step="1" value="65" />
-            <span>Jahre</span>
-            <input type="number" id="mrc_wunsch_monate" min="0" max="11" step="1" value="0" />
-            <span>Monate</span>
-          </div>
-        </label>
-
-        <div class="hinweis">
-          Abschlag (vorziehen): <strong>0,3&nbsp;% je Monat</strong> (max. 14,4&nbsp;%). Zuschlag (später):
-          <strong>0,5&nbsp;% je Monat</strong>. Du kannst die Sätze unten bei „Feineinstellungen“ anpassen.
-        </div>
-      </fieldset>
-
-      <!-- 2. Private Sparrate -->
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2. Private Sparrate bis Rentenbeginn</legend>
-
-        <label class="pflegegrad-label" for="mrc_alter_heute">
-          Heutiges Alter (Jahre)
-          <input type="number" id="mrc_alter_heute" min="18" max="70" step="1" placeholder="z. B. 40" />
-        </label>
-
-        <label class="pflegegrad-label" for="mrc_sparrate">
-          Monatliche Sparrate (privat)
-          <input type="number" id="mrc_sparrate" min="0" step="10" placeholder="z. B. 250" />
-        </label>
-
-        <label class="pflegegrad-label" for="mrc_rendite_nominal">
-          Erwartete <strong>nominale</strong> Rendite p. a. (in %)
-          <input type="number" id="mrc_rendite_nominal" min="0" max="20" step="0.1" value="5.0" />
-        </label>
-
-        <label class="pflegegrad-label" for="mrc_inflation">
-          Erwartete Inflation p. a. (in %)
-          <input type="number" id="mrc_inflation" min="0" max="15" step="0.1" value="2.0" />
-        </label>
-
-        <label class="pflegegrad-label" for="mrc_entnahmequote">
-          Entnahmequote (real, p. a.) ab Rentenbeginn (in %)
-          <input type="number" id="mrc_entnahmequote" min="1" max="8" step="0.1" value="3.5" />
-        </label>
-
-        <p class="hinweis">
-          Wir verzinsen die Sparrate <em>real</em> (nominal − Inflation) monatlich bis zum gewünschten Rentenstart.
-          Das Endvermögen wird über die Entnahmequote in eine <strong>monatliche Zusatzrente</strong> umgerechnet.
-        </p>
-      </fieldset>
-
-      <!-- 3. Vergleich -->
-      <fieldset class="pflegegrad-fieldset">
-        <legend>3. Vergleich mit heutigem Netto</legend>
-
-        <label class="pflegegrad-label" for="mrc_netto_heute">
-          Heutiges Netto (Monat, geschätzt)
-          <input type="number" id="mrc_netto_heute" min="0" step="50" placeholder="z. B. 2.200" />
-        </label>
-        <p class="hinweis">Nur für den Vergleich. Steuern sowie KV/PV im Rentenalter werden <strong>nicht</strong> berücksichtigt.</p>
-      </fieldset>
-
-      <!-- 4. Feineinstellungen -->
-      <fieldset class="pflegegrad-fieldset">
-        <legend>4. Feineinstellungen (optional)</legend>
-
-        <label class="pflegegrad-label" for="mrc_abschlag_pm">
-          Abschlag pro Monat (vorziehen) in %
-          <input type="number" id="mrc_abschlag_pm" min="0" max="1" step="0.01" value="0.3" />
-        </label>
-
-        <label class="pflegegrad-label" for="mrc_zuschlag_pm">
-          Zuschlag pro Monat (später) in %
-          <input type="number" id="mrc_zuschlag_pm" min="0" max="2" step="0.01" value="0.5" />
-        </label>
-
-        <label class="pflegegrad-label" for="mrc_abschlag_max">
-          Maximaler Abschlag in %
-          <input type="number" id="mrc_abschlag_max" min="0" max="20" step="0.1" value="14.4" />
-        </label>
-      </fieldset>
-
-      <div class="button-container">
-        <button type="button" id="mrc_berechnen" class="button">Mini-Renten-Check starten</button>
-        <button type="reset" id="mrc_reset" class="button button-secondary">Eingaben zurücksetzen</button>
-      </div>
-    </form>
-
-    <section id="mrc_ergebnis" aria-live="polite"></section>
-
-    <div class="warning-box">
-      <p>
-  <strong>Wichtig:</strong> Dies ist eine vereinfachte Brutto-Modellrechnung. 
-  Die <strong>nachgelagerte Besteuerung</strong> der Rente sowie Beiträge zur Kranken- und Pflegeversicherung (KV/PV) 
-  sind hier nicht abgezogen. Prüfe Details mit der DRV oder einer Steuerberatung. Stand: 11.08.2026.
-</p>
+   <form id="mrc-form" class="pflegegrad-form" aria-describedby="mrc_ergebnis" novalidate>
+ 
+  <!-- 1. Gesetzliche Rente -->
+  <fieldset class="pflegegrad-fieldset active-step">
+    <legend>1. Ihre gesetzliche Rente</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Wo finde ich meine Rentenzahl?</p>
+      <p>In Ihrer Renteninformation der Deutschen Rentenversicherung, die Sie jedes Jahr per Post oder online bekommen. Gesucht ist die Zeile „Regelaltersrente“ mit Ihrem voraussichtlichen Betrag. Der Betrag gilt ohne künftige Rentenanpassungen, entspricht also ungefähr der Kaufkraft von heute. Deshalb rechnet dieser Check ebenfalls in heutigen Euro.</p>
     </div>
+ 
+    <label class="pflegegrad-label" for="mrc_regelrente_monat">
+      Monatliche Regelaltersrente, brutto (€)
+      <input type="number" id="mrc_regelrente_monat" min="0" step="1" inputmode="decimal" placeholder="z. B. 1600" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was, wenn ich keine Renteninformation habe?</summary>
+      <p>Sie können sie online bei der Deutschen Rentenversicherung anfordern, die Rentenauskunft gibt es ab 55 Jahren. Als grobe Orientierung: Pro Jahr Beitragszahlung mit durchschnittlichem Verdienst erwerben Sie derzeit rund 40 € Monatsrente.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="mrc_geburtsjahr">
+      Ihr Geburtsjahr
+      <input type="number" id="mrc_geburtsjahr" min="1950" max="2008" step="1" inputmode="numeric" placeholder="z. B. 1985" />
+    </label>
+    <p class="hc-live" id="mrc_regelalter_live" aria-live="polite"></p>
+    <details class="hc-glossar">
+      <summary>Warum frage ich das?</summary>
+      <p>Das Geburtsjahr bestimmt Ihre Regelaltersgrenze und damit, wie viele Jahre Ihnen zum Sparen bleiben. Wer ab 1964 geboren ist, geht mit 67 in die Regelaltersrente, für ältere Jahrgänge liegt die Grenze etwas niedriger.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="mrc_rentenalter">
+      Anderes Rentenalter (optional, in Jahren)
+      <input type="number" id="mrc_rentenalter" min="60" max="70" step="1" inputmode="numeric" placeholder="z. B. 63" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was bewirkt das?</summary>
+      <p>Hier ändern Sie nur die Länge der Sparzeit. Wollen Sie früher oder später in Rente gehen, verändert sich auch Ihre gesetzliche Rente durch Abschläge oder Zuschläge. Berechnen Sie diese zuerst mit dem Rentenabschlag-Rechner und tragen Sie das Ergebnis oben als Monatsrente ein.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 2. Ziel -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>2. Ihr Ziel im Alter</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Was ist eine Rentenlücke?</p>
+      <p>Die Rentenlücke ist der Unterschied zwischen dem Geld, das Sie im Alter haben möchten, und dem, was Sie aus Rente und Vorsorge tatsächlich bekommen. Als Faustregel brauchen die meisten im Ruhestand etwa 70 bis 80 % ihres heutigen Nettos, weil Rentenbeiträge und oft auch Sparraten wegfallen.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="mrc_netto_heute">
+      Ihr heutiges Netto pro Monat (€)
+      <input type="number" id="mrc_netto_heute" min="0" step="50" inputmode="decimal" placeholder="z. B. 2200" />
+    </label>
+ 
+    <label class="pflegegrad-label" for="mrc_ziel">
+      Wie viel davon möchten Sie im Alter haben?
+      <select id="mrc_ziel">
+        <option value="0.6">60 % (bescheiden)</option>
+        <option value="0.7">70 %</option>
+        <option value="0.8" selected>80 % (üblich)</option>
+        <option value="0.9">90 %</option>
+        <option value="1">100 % (gleicher Lebensstandard)</option>
+      </select>
+    </label>
+ 
+    <label class="pflegegrad-label" for="mrc_weitere_rente">
+      Weitere Altersbezüge pro Monat, netto (€, optional)
+      <input type="number" id="mrc_weitere_rente" min="0" step="10" inputmode="decimal" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was gehört hier hinein?</summary>
+      <p>Alles, was Sie zusätzlich zur gesetzlichen Rente erwarten: Betriebsrente, Riester- oder Rürup-Rente, Versorgungswerk, Pension, Mieteinnahmen. Tragen Sie den Betrag nach Abzug von Steuern und Beiträgen ein, in heutiger Kaufkraft.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="mrc_abzug_prozent">
+      Abzüge auf die gesetzliche Rente (%)
+      <input type="number" id="mrc_abzug_prozent" min="0" max="40" step="0.5" inputmode="decimal" value="11" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Warum werden Abzüge berücksichtigt?</summary>
+      <p>Von der Brutto-Rente gehen Beiträge zur Kranken- und Pflegeversicherung ab, zusammen etwa 11 %. Steuern fallen bei kleinen und mittleren Renten oft kaum an. Bei hohen Renten oder weiteren Einkünften sollten Sie einen höheren Wert ansetzen, zum Beispiel 20 %.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 3. Private Vorsorge -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>3. Ihre private Vorsorge</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">So rechnet der Check</p>
+      <p>Wir lassen Ihr Erspartes bis zum Rentenbeginn wachsen, und zwar mit der Rendite abzüglich der Inflation. So bleibt das Ergebnis in heutigem Geld und Sie können es direkt mit Ihrem Netto vergleichen. Danach rechnen wir das Vermögen in eine monatliche Zusatzrente um.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="mrc_sparrate">
+      Monatliche Sparrate für die Rente (€)
+      <input type="number" id="mrc_sparrate" min="0" step="10" inputmode="decimal" placeholder="z. B. 250" />
+    </label>
+ 
+    <label class="pflegegrad-label" for="mrc_startkapital">
+      Bereits vorhandenes Vermögen für die Rente (€, optional)
+      <input type="number" id="mrc_startkapital" min="0" step="500" inputmode="decimal" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was zählt dazu?</summary>
+      <p>Depot, Sparbriefe, Fondssparpläne oder ein Rentenvertrag, den Sie schon besparen und nicht bereits oben unter weiteren Altersbezügen angegeben haben. Nicht dazu zählen Notgroschen und selbst genutzte Immobilien.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="mrc_rendite_nominal">
+      Erwartete Rendite pro Jahr (%)
+      <input type="number" id="mrc_rendite_nominal" min="0" max="20" step="0.1" inputmode="decimal" value="5" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Welche Rendite ist realistisch?</summary>
+      <p>Breit gestreute Aktien-ETFs erzielten langfristig im Schnitt etwa 5 bis 7 % pro Jahr vor Inflation, mit starken Schwankungen. Tagesgeld und Festgeld liegen meist darunter. Wer vorsichtig plant, nimmt 3 bis 4 %. Eine Garantie gibt es nicht.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="mrc_inflation">
+      Erwartete Inflation pro Jahr (%)
+      <input type="number" id="mrc_inflation" min="0" max="15" step="0.1" inputmode="decimal" value="2" />
+    </label>
+ 
+    <label class="pflegegrad-label" for="mrc_auszahlung">
+      Wie soll das Vermögen im Alter ausgezahlt werden?
+      <select id="mrc_auszahlung">
+        <option value="3">Vorsichtig: 3 % pro Jahr entnehmen, Vermögen bleibt erhalten</option>
+        <option value="3.5" selected>Ausgewogen: 3,5 % pro Jahr entnehmen</option>
+        <option value="4">Offensiv: 4 % pro Jahr entnehmen (4-Prozent-Regel)</option>
+        <option value="aufbrauchen">Bis Alter 90 vollständig aufbrauchen</option>
+      </select>
+    </label>
+    <details class="hc-glossar">
+      <summary>Was bedeutet das?</summary>
+      <p>Bei einer Entnahmequote zahlen Sie sich jedes Jahr einen festen Anteil des Vermögens aus. Das Geld arbeitet weiter, und das Vermögen reicht oft lange. Die Variante „aufbrauchen“ teilt das Vermögen gleichmäßig bis zum Alter 90 auf und ergibt eine höhere monatliche Rente, aber anschließend ist nichts mehr da.</p>
+    </details>
+  </fieldset>
+ 
+  <div class="button-container">
+    <button type="button" id="mrc_berechnen" class="button">Mini-Renten-Check starten</button>
+    <button type="reset" id="mrc_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+  </div>
+</form>
+ 
+<section id="mrc_ergebnis" aria-live="polite"></section>
+
+    
   
 
   <section class="promo-teaser" aria-labelledby="promo-headline" role="region">

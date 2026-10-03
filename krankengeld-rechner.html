@@ -17,14 +17,24 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Krankengeld-Rechner 2026",
-  "operatingSystem": "Web",
+  "description": "Kostenloser Rechner für das Krankengeld der gesetzlichen Krankenversicherung: Höhe pro Tag und Monat, Netto-Auszahlung nach Sozialabgaben, Verdienstlücke und Bezugsdauer.",
   "applicationCategory": "FinanceApplication",
-  "description": "Online-Rechner zur unverbindlichen Schätzung des gesetzlichen Krankengeldes 2026. Berechnet Krankengeld pro Tag, Monat und Zeitraum nach Ablauf der Lohnfortzahlung.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
-  }
+  "applicationSubCategory": "Krankengeld und Arbeitsunfähigkeit",
+  "operatingSystem": "Alle (Webbrowser)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "de-DE",
+  "isAccessibleForFree": true,
+  "url": "https://kassen-lotse.de/krankengeld-rechner/",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "featureList": [
+    "Krankengeld brutto und netto pro Tag und Monat",
+    "Berücksichtigung von 70 % Brutto, 90 % Netto und Höchstsatz 2026",
+    "Sozialabgaben nach Kinderzahl (Pflegeversicherung)",
+    "Verdienstlücke gegenüber dem bisherigen Netto",
+    "Hinweise zu Bezugsdauer und Ablauf bei Langzeiterkrankung",
+    "PDF-Export des Ergebnisses"
+  ],
+  "publisher": { "@type": "Organization", "name": "Kassen-Lotse", "url": "https://kassen-lotse.de/" }
 }
 </script>
 <script type="application/ld+json">
@@ -67,6 +77,225 @@
   ]
 }
 </script>
+
+<style>
+  /* Heimkosten-Rechner: Zusatz-Styles (Formular-Grunddesign bleibt unverändert) */
+:root {
+  --hc-blau: #1f5aa6;
+  --hc-blau-dunkel: #12305f;
+  --hc-blau-hell: #f3f7fc;
+  --hc-blau-linie: #dbe6f5;
+  --hc-text: #1c2a3f;
+  --hc-text-leise: #5a6a82;
+  --hc-linie: #e8edf4;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Erklärtexte im Formular ---------- */
+.hc-erklaerung {
+  background: var(--hc-blau-hell);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 4px 0 24px;
+  color: #34445e;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.hc-erklaerung p { margin: 0; }
+.hc-erklaerung__titel {
+  margin-bottom: 6px !important;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+
+.hc-glossar {
+  margin: -6px 0 20px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--hc-text-leise);
+}
+.hc-glossar summary {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  list-style: none !important;
+  cursor: pointer;
+  color: var(--hc-blau);
+  font-weight: 500;
+  padding: 2px 0 !important;
+  background: none !important;       /* Theme-Pfeil als Hintergrundbild */
+  position: static !important;
+}
+.hc-glossar summary::-webkit-details-marker { display: none; }
+.hc-glossar summary::marker { content: ""; }
+.hc-glossar summary::before { content: none !important; }
+/* Eigener Pfeil: sitzt im Textfluss und kann das Fragezeichen nicht mehr überdecken */
+.hc-glossar summary::after {
+  content: "" !important;
+  position: static !important;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 2px !important;
+  background: none !important;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.hc-glossar[open] summary::after { transform: rotate(-135deg); margin-top: 3px !important; }
+.hc-glossar summary:hover { text-decoration: underline; }
+.hc-glossar summary:focus-visible,
+.hc-res button:focus-visible {
+  outline: 2px solid var(--hc-blau);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.hc-glossar p {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+}
+.hc-leerhinweis {
+  margin: 0;
+  color: var(--hc-text-leise);
+  font-size: 0.92rem;
+}
+
+/* ---------- Fehlermeldungen ---------- */
+.hc-fehler {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--hc-blau-dunkel);
+}
+#hc-form [aria-invalid="true"] {
+  border-color: var(--hc-blau) !important;
+  box-shadow: 0 0 0 3px rgba(31, 90, 166, 0.18);
+}
+
+/* ---------- Ergebnis ---------- */
+#hc_ergebnis { color: var(--hc-text); }
+
+.hc-res {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 56px 0 0;
+  border-top: 1px solid var(--hc-linie);
+  line-height: 1.7;
+}
+.hc-res:focus { outline: none; }
+
+.hc-res__aussage {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__text { margin: 0 0 40px; color: var(--hc-text-leise); font-size: 1.05rem; }
+
+.hc-res h3 {
+  margin: 56px 0 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__intro { margin: 0 0 16px; color: var(--hc-text-leise); font-size: 0.95rem; }
+
+/* Skala */
+.hc-gauge { margin: 0 0 8px; }
+.hc-gauge__spur {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hc-blau-linie);
+  overflow: visible;
+}
+.hc-gauge__fuell,
+.hc-gauge__ueber {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 0;
+  transition: width 0.9s cubic-bezier(.2,.7,.2,1);
+}
+.hc-gauge__fuell { left: 0; background: var(--hc-blau); border-radius: 999px 0 0 999px; }
+.hc-gauge__ueber { background: var(--hc-blau-dunkel); border-radius: 0 999px 999px 0; }
+.hc-gauge__fuell.is-voll { border-radius: 999px 0 0 999px; }
+.hc-gauge__marke {
+  position: absolute;
+  top: -6px; bottom: -6px;
+  width: 2px;
+  background: var(--hc-text);
+}
+.hc-gauge__skala {
+  position: relative;
+  height: 28px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--hc-text-leise);
+}
+.hc-gauge__skala span { position: absolute; top: 0; white-space: nowrap; }
+.hc-gauge__skala span:first-child { left: 0; }
+.hc-gauge__skala .hc-gauge__grenze { transform: translateX(-50%); color: var(--hc-text); font-weight: 500; }
+
+/* Rechenweg */
+.hc-tabelle { margin: 0; padding: 0; }
+.hc-tabelle__zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hc-linie);
+}
+.hc-tabelle dt { margin: 0; color: var(--hc-text-leise); }
+.hc-tabelle dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hc-tabelle__zeile.is-summe dt,
+.hc-tabelle__zeile.is-summe dd { color: var(--hc-blau-dunkel); font-weight: 600; }
+
+/* Orientierungswert */
+.hc-wert {
+  margin: 28px 0 0;
+  padding: 28px 28px 26px;
+  background: var(--hc-blau-hell);
+  border-radius: 14px;
+}
+.hc-wert__zahl {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+  line-height: 1.2;
+}
+.hc-wert__text { margin: 8px 0 0; font-size: 0.93rem; color: var(--hc-text-leise); }
+
+/* Schritte */
+.hc-schritte { margin: 16px 0 0; padding-left: 1.3em; }
+.hc-schritte li { margin-bottom: 14px; padding-left: 6px; }
+.hc-schritte li::marker { color: var(--hc-blau); font-weight: 600; }
+
+.hc-res__aktionen { margin: 48px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.hc-res__hinweis {
+  margin: 40px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--hc-text-leise);
+}
+
+@media (max-width: 520px) {
+  .hc-res { margin-top: 48px; padding-top: 40px; }
+  .hc-wert { padding: 22px 20px; }
+  .hc-tabelle__zeile { flex-direction: column; gap: 2px; }
+  .hc-tabelle dd { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-gauge__fuell, .hc-gauge__ueber { transition: none; }
+}
+</style>
 
 </head>
 
@@ -145,91 +374,105 @@
     <p><strong>Redaktionell & fachlich geprüft am:</strong> <span id="pruefdatum">11.08.2026</span></p>
   </div>
 
-    <form id="kg-form" class="pflegegrad-form" aria-describedby="intro-text" novalidate>
-      <fieldset class="pflegegrad-fieldset">
-        <legend>1. Einkommen</legend>
-
-        <label class="pflegegrad-label" for="kg_brutto">
-          Monatliches Bruttogehalt
-          <input type="number" id="kg_brutto" min="0" step="50" placeholder="z. B. 3 000 €" />
-        </label>
-        <p class="hinweis">
-          Durchschnittliches <strong>Bruttogehalt pro Monat</strong> vor Beginn der Arbeitsunfähigkeit.
-          Einmalzahlungen werden hier nicht gesondert berücksichtigt.
-        </p>
-
-        <label class="pflegegrad-label" for="kg_netto">
-          Monatliches Nettogehalt
-          <input type="number" id="kg_netto" min="0" step="50" placeholder="z. B. 2 050 €" />
-        </label>
-        <p class="hinweis">
-          Wird benötigt, da das Krankengeld <strong>auf 90 % des Nettoeinkommens begrenzt</strong> ist.
-        </p>
-
-        <label class="pflegegrad-label" for="kg_status">
-          Versicherungsstatus
-          <select id="kg_status">
-            <option value="gkv" selected>Gesetzlich versichert – Arbeitnehmer</option>
-            <option value="selbst">Gesetzlich versichert – Selbstständig (mit Krankengeld-Option)</option>
-            <option value="privat">Privat versichert / andere Regelung</option>
-          </select>
-        </label>
-        <p class="hinweis">
-          Für Selbstständige oder Privatversicherte gelten ggf. andere Tarife – bitte nur als Orientierung nutzen.
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2. Zeitraum</legend>
-        <label class="pflegegrad-label" for="kg_tage">
-          Geplante Krankengeld-Tage (nach 6 Wochen Lohnfortzahlung)
-          <input type="number" id="kg_tage" min="1" max="365" step="1" placeholder="z. B. 30" />
-        </label>
-        <p class="hinweis">
-          Trage ein, für wie viele Tage du voraussichtlich <strong>Krankengeld</strong> erhältst – z. B. 30 oder 90 Tage.
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>3. Abzüge (Sozialversicherung)</legend>
-
-        <label class="pflegegrad-label" for="kg_kinderstatus">
-          Pflegeversicherung / Kinderstatus
-          <select id="kg_kinderstatus">
-            <option value="mitkind" selected>Mit Kindern (Standardbeitrag)</option>
-            <option value="ohnekind">Kinderlos (Zuschlag)</option>
-          </select>
-        </label>
-
-        <p class="hinweis">
-          Beiträge zur <strong>Renten-</strong>, <strong>Arbeitslosen-</strong> und
-          <strong>Pflegeversicherung</strong> werden abgezogen.
-          Richtwerte (2026): RV 9,3 %, AV 1,3 %, PV 1,8 % (2,4 % kinderlos).
-        </p>
-
-        <label class="pflegegrad-label" for="kg_abzug_prozent">
-          Gesamt-Abzug vom Krankengeld (in %)
-          <input type="number" id="kg_abzug_prozent" min="0" max="30" step="0.1" value="12.4" />
-        </label>
-        <p class="hinweis">
-          Standardwert für Eltern ≈ <strong>12,4 %</strong>; kinderlos ≈ <strong>13,0 %</strong>.
-        </p>
-      </fieldset>
-
-      <div class="button-container">
-        <button type="button" id="kg_berechnen" class="button">Jetzt Krankengeld berechnen</button>
-        <button type="reset" id="kg_reset" class="button button-secondary">Eingaben zurücksetzen</button>
-      </div>
-    </form>
-
-    <section id="kg_ergebnis" aria-live="polite"></section>
+    <form id="kg-form" class="pflegegrad-form" aria-describedby="kg_ergebnis" novalidate>
+ 
+  <!-- 1. Einkommen -->
+  <fieldset class="pflegegrad-fieldset active-step">
+    <legend>1. Ihr Einkommen</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">So berechnet die Krankenkasse das Krankengeld</p>
+      <p>Das Krankengeld beträgt 70 % Ihres Bruttogehalts, höchstens aber 90 % Ihres Nettogehalts. Außerdem gibt es einen Höchstsatz von 135,63 € pro Tag. Deshalb brauchen wir beide Werte. Das Krankengeld zahlt die Kasse ab der siebten Woche. Davor zahlt Ihr Arbeitgeber das Gehalt weiter.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="kg_brutto">
+      Monatliches Bruttogehalt (€)
+      <input type="number" id="kg_brutto" min="0" step="50" inputmode="decimal" placeholder="z. B. 3000" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Welches Brutto zählt?</summary>
+      <p>Der Durchschnitt der letzten abgerechneten Monate vor Beginn der Arbeitsunfähigkeit, also das Brutto aus Ihrer Gehaltsabrechnung. Zuschläge und vermögenswirksame Leistungen gehören dazu. Haben Sie Weihnachts- oder Urlaubsgeld bekommen, rechnen Sie ein Zwölftel der Jahressumme zum Brutto dazu.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="kg_netto">
+      Monatliches Nettogehalt (€)
+      <input type="number" id="kg_netto" min="0" step="50" inputmode="decimal" placeholder="z. B. 2050" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Welches Netto zählt?</summary>
+      <p>Der Auszahlungsbetrag aus Ihrer Gehaltsabrechnung vor Abzug von Vorschüssen oder Pfändungen. Auch hier können Sie ein Zwölftel von Einmalzahlungen (netto) zurechnen.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 2. Versicherung und Zeitraum -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>2. Versicherung und Zeitraum</legend>
+ 
+    <label class="pflegegrad-label" for="kg_status">
+      Wie sind Sie versichert?
+      <select id="kg_status">
+        <option value="gkv" selected>Gesetzlich versichert, angestellt</option>
+        <option value="selbst">Gesetzlich versichert, selbstständig (mit Krankengeld-Wahltarif)</option>
+        <option value="privat">Privat versichert</option>
+      </select>
+    </label>
+    <details class="hc-glossar">
+      <summary>Warum frage ich das?</summary>
+      <p>Die Berechnung gilt für angestellte Mitglieder der gesetzlichen Krankenkasse. Selbstständige bekommen nur mit Wahltarif Krankengeld, und die Höhe richtet sich nach dem Arbeitseinkommen. Privat Versicherte erhalten kein Krankengeld, sondern Krankentagegeld nach ihrem Tarif.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="kg_tage">
+      Wie viele Tage rechnen Sie mit Krankengeld?
+      <input type="number" id="kg_tage" min="1" max="504" step="1" inputmode="numeric" placeholder="z. B. 30" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Wie viele Tage sind möglich?</summary>
+      <p>Wegen derselben Krankheit zahlt die Kasse höchstens 78 Wochen innerhalb von drei Jahren. Die ersten sechs Wochen mit Gehaltsfortzahlung durch den Arbeitgeber werden mitgezählt. Es bleiben also höchstens 504 Tage Krankengeld. Gezählt werden Kalendertage, auch Wochenenden. Als Faustregel: 30 Tage entsprechen einem Monat, 90 Tage rund drei Monaten.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 3. Abzüge -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>3. Abzüge für die Sozialversicherung</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Was geht vom Krankengeld noch ab?</p>
+      <p>Vom Krankengeld werden Beiträge zur Renten-, Arbeitslosen- und Pflegeversicherung abgezogen. Für die Krankenversicherung zahlen Sie während des Krankengeldbezugs nichts. Der Pflegeversicherungsbeitrag hängt davon ab, ob und wie viele Kinder Sie haben.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="kg_kinderstatus">
+      Kinder (für die Pflegeversicherung)
+      <select id="kg_kinderstatus">
+        <option value="k1" selected>Mit Kind(ern), höchstens 1 Kind unter 25 Jahren</option>
+        <option value="k2">2 Kinder unter 25 Jahren</option>
+        <option value="k3">3 Kinder unter 25 Jahren</option>
+        <option value="k4">4 Kinder unter 25 Jahren</option>
+        <option value="k5">5 oder mehr Kinder unter 25 Jahren</option>
+        <option value="ohne">Keine Kinder (ab 23 Jahren)</option>
+        <option value="ohne23">Keine Kinder (unter 23 Jahren)</option>
+      </select>
+    </label>
+    <p class="hc-live" id="kg_abzug_live" aria-live="polite"></p>
+    <details class="hc-glossar">
+      <summary>Wie wird der Abzug ermittelt?</summary>
+      <p>Rentenversicherung 9,3 %, Arbeitslosenversicherung 1,3 % und Pflegeversicherung 1,8 % sind Ihr Anteil. Kinderlose ab 23 Jahren zahlen 0,6 Prozentpunkte mehr, Eltern mit mehreren Kindern unter 25 bekommen je Kind 0,25 Prozentpunkte Abschlag, bis zum fünften Kind. Berechnet wird auf 80 % des Gehalts, höchstens auf das Netto.</p>
+    </details>
+  </fieldset>
+ 
+  <div class="button-container">
+    <button type="button" id="kg_berechnen" class="button">Krankengeld berechnen</button>
+    <button type="reset" id="kg_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+  </div>
+</form>
+ 
+<section id="kg_ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
         <strong>Hinweis:</strong> Die Berechnung ist eine <strong>vereinfachte Schätzung</strong>.
         Sie ersetzt keine verbindliche Auskunft deiner Krankenkasse.
         Steuerliche Effekte, Einmalzahlungen oder Beitragsbemessungsgrenzen werden
-        nicht vollständig berücksichtigt. Stand: 14. 04. 2026.
+        nicht vollständig berücksichtigt.
       </p>
     </div>
   

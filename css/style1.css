@@ -1,0 +1,1753 @@
+/* =========================================
+   Mieter-Lotse – Premium Info-Seiten Design (2025)
+   ========================================= */
+
+:root {
+  --primary: #0070f3;
+  --primary-dark: #0059c9;
+  --primary-light: #e6f0ff;
+  --accent: #1a5276;
+  --text: #2f2f2f;
+  --bg: #f8f9fb;
+  --white: #fff;
+  --border: #e5e7eb;
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  --radius: 12px;
+  --transition: all 0.25s ease;
+}
+
+/* --- Grundlayout & Schrift --- */
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.8;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+}
+
+/* --- Container --- */
+.page-container {
+  max-width: 1000px;
+  width: 95% !important;
+  margin: 0 auto !important;
+  margin: 3.5rem auto;
+  background: var(--white);
+  padding: 3rem 2.5rem;
+  border-radius: var(--radius);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.03),
+    0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: var(--transition);
+}
+
+.page-container:hover {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 12px 36px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Header --- */
+.site-header {
+  background-color: var(--white);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-logo {
+  color: var(--accent);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition);
+  letter-spacing: -0.01em;
+}
+
+.site-logo:hover {
+  color: var(--primary);
+}
+
+/* --- Überschriften --- */
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  background: linear-gradient(90deg, #004e92, #0070f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
+  font-size: 1.7rem;
+  margin-top: 3rem;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+  color: #163b64;
+  /*border-left: 4px solid var(--primary);*/
+  padding-left: 0.8rem;
+  position: relative;
+}
+
+h2::before {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  margin-bottom: 0.6rem;
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-top: 1.8rem;
+  color: #2f4f4f;
+}
+
+/* --- Textstruktur --- */
+p {
+  margin-bottom: 1.2rem;
+  color: var(--text);
+}
+
+ul {
+  padding-left: 1.3rem;
+}
+
+ul li {
+  margin-bottom: 0.8rem;
+  padding-left: 0.2rem;
+}
+
+ul li::marker {
+  color: var(--primary);
+}
+
+strong {
+  color: black;
+}
+
+/* --- Hinweisboxen --- */
+.highlight-box {
+  background-color: var(--primary-light);
+ /* border-left: 6px solid var(--primary); */
+  padding: 1.3rem 1.6rem;
+  margin: 2rem 0;
+  border-radius: var(--radius);
+  font-size: 1.05rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.highlight-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+}
+
+.warning-box {
+  background-color: #fff9e6;
+  /*border-left: 6px solid #f0ad4e;*/
+  padding: 1.3rem 1.6rem;
+  margin: 2rem 0;
+  border-radius: var(--radius);
+  font-size: 0.96rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.warning-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* --- Buttons --- */
+.button-container {
+  text-align: center;
+  margin: 2.5rem 0;
+}
+
+.button {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff !important;
+  padding: 0.9rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 112, 243, 0.25);
+  isolation: isolate;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #0070f3, #00c6ff);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.button:hover::before {
+  opacity: 1;
+}
+
+.button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 112, 243, 0.3);
+}
+
+/* --- FAQ --- */
+.faq-section {
+  margin-top: 2.5rem;
+}
+
+.faq-section h3 {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+  position: relative;
+}
+
+.faq-section p {
+  margin-top: 0.3rem;
+  color: #444;
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 3rem 0 2rem 0;
+  margin-top: 4rem;
+  font-size: 0.95rem;
+  color: #555;
+  border-top: 1px solid var(--border);
+  background: #fdfdfd;
+}
+
+footer p {
+  margin: 0.4rem 0;
+}
+
+footer a {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+footer a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* --- Links allgemein --- */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* --- Responsive --- */
+@media (max-width: 700px) {
+  .page-container {
+    margin: 1.2rem;
+    padding: 1.8rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.45rem;
+  }
+
+  .button {
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+.site-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6ebf1;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+  padding: 1.2rem 1rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* dezente Glanzlinie am oberen Rand */
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #004e92, #0070f3);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+/* Schriftzug / Logo */
+.site-logo {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a5276;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #004e92, #0070f3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.25s ease;
+}
+
+/* Hover-Effekt: heller Farbverlauf + leichtes Anheben */
+.site-logo:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(90deg, #0054a6, #339af0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 6px rgba(0, 112, 243, 0.15);
+}
+
+/* Optional: leichtes Unterstatement beim Scrollen (keine JS nötig) */
+@supports (position: sticky) {
+  .site-header {
+    position: relative;
+    top: 0;
+    backdrop-filter: blur(6px);
+  }
+}
+
+/* Mobile Anpassung */
+@media (max-width: 700px) {
+  .site-header {
+    padding: 1.2rem 1rem;
+  }
+  .site-logo {
+    font-size: 1.7rem;
+  }
+}
+
+/* Pflegegrad-Rechner*/
+
+.pflegegrad-form {
+  margin-top: 2rem;
+}
+
+.pflegegrad-fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.7rem;
+  margin-bottom: 1.8rem;
+  background: #fafbff;
+}
+
+.pflegegrad-fieldset legend {
+  padding: 0 0.5rem;
+  font-weight: 600;
+  color: #163b64;
+}
+
+.pflegegrad-label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.98rem;
+}
+
+.pflegegrad-label select {
+  display: block;
+  margin-top: 0.3rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 0.95rem;
+  width: 100%;
+  max-width: 360px;
+}
+
+.pflegegrad-label select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.15);
+}
+
+/* Ergebniskarte / Tabelle */
+.pflegegrad-result-card {
+  margin-top: 1.8rem;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background: var(--primary-light);
+  border: 1px solid var(--primary);
+  box-shadow: var(--shadow);
+}
+
+.pflegegrad-tabelle {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.3rem 0;
+  font-size: 0.95rem;
+}
+
+.pflegegrad-tabelle th,
+.pflegegrad-tabelle td {
+  padding: 0.6rem 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.pflegegrad-tabelle th {
+  text-align: left;
+  font-weight: 600;
+  color: #163b64;
+}
+
+/* Sekundärer Button */
+.button-secondary {
+  background: #eef1f7;
+  color: var(--accent) !important;
+  box-shadow: none;
+  margin-left: 0.6rem;
+}
+
+.button-secondary:hover {
+  background: #dde3f0;
+}
+
+/* Hinweistext im Ergebnis */
+#ergebnis .hinweis {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+/* --- Pflegegrad-Wizard --- */
+.pflegegrad-fieldset {
+  display: none; /* standardmäßig ausblenden */
+}
+
+.pflegegrad-fieldset.active-step {
+  display: block; /* nur aktueller Schritt sichtbar */
+}
+
+.wizard-progress {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 0.8rem;
+}
+
+.wizard-buttons {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.wizard-buttons .button-secondary {
+  margin-left: 0;
+}
+
+.pflegegrad-label input[type="number"] {
+  max-width: 260px;
+}
+
+/* Wizard nur, wenn das Formular wizard-enabled hat */
+.pflegegrad-form.wizard-enabled .pflegegrad-fieldset { display: none; }
+.pflegegrad-form.wizard-enabled .pflegegrad-fieldset.active-step { display: block; }
+
+/* Alle anderen Formulare ohne Wizard sind immer sichtbar */
+.pflegegrad-form:not(.wizard-enabled) .pflegegrad-fieldset { display: block; }
+
+.pflegegrad-label input[type="number"] { max-width: 260px; }
+
+/*CLERION DESIGN*/
+
+.promo-teaser {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #eef7ff;
+      color: #1a5276;
+      border-radius: 12px;
+      padding: 20px 16px;
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .promo-teaser h2 {
+      font-size: 1.6rem;
+      margin: 0 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .promo-teaser h2 span.icon {
+      font-size: 1.8rem;
+    }
+    .promo-teaser p {
+      font-size: 1rem;
+      margin: 0 0 16px;
+      line-height: 1.5;
+    }
+    .promo-teaser .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 600;
+      margin: 4px 6px;
+      transition: background 0.2s, color 0.2s;
+      font-size: 0.95rem;
+    }
+    .promo-teaser .btn-primary {
+      background-color: #22c55e;
+      color: #052e16;
+    }
+    .promo-teaser .btn-primary:hover {
+      background-color: #16a34a;
+    }
+    .promo-teaser .btn-secondary {
+      background-color: #1a5276;
+      color: #eef7ff;
+    }
+    .promo-teaser .btn-secondary:hover {
+      background-color: #154360;
+    }
+
+    /* Kostenlose Hilfen: hellere Outline-Buttons */
+    .promo-teaser .free-help {
+      margin-top: 20px;
+      padding: 14px 12px;
+      background-color: #fff;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      color: #1a5276;
+      font-size: 0.95rem;
+    }
+    .promo-teaser .free-help p {
+      margin: 0 0 10px;
+    }
+    .promo-teaser .free-help .btn-outline {
+      background-color: transparent;
+      color: #1a5276;
+      border: 1px solid #1a5276;
+    }
+    .promo-teaser .free-help .btn-outline:hover {
+      background-color: #1a5276;
+      color: #eef7ff;
+    }
+
+    @media (max-width:600px){
+      .promo-teaser h2 { font-size: 1.4rem; }
+      .promo-teaser p { font-size: 0.95rem; }
+    }
+
+
+.kl-sources-box {
+  background-color: var(--primary-light);
+  /* border-left: 6px solid var(--primary); */
+  padding: 1.3rem 1.6rem;
+  margin: 2rem 0;
+  border-radius: var(--radius);
+  font-size: 1.05rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.kl-sources-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+}
+
+.kl-sources-box h3 { margin:0 0 6px; font-size:1rem; }
+.kl-sources-box ul { margin:6px 0 0 18px; padding:0; }
+.kl-sources-box li { margin:6px 0; }
+
+.kl-checklist { background:#fbfbfb; border:1px solid #eee; padding:12px; border-radius:8px; }
+.kl-checklist ul { list-style:none; padding:0; margin:0; }
+.kl-checklist li { margin:8px 0; font-size:0.97rem; }
+.kl-checklist input[type="checkbox"]{ transform:scale(1.05); margin-right:8px; }
+
+.kl-checklist-actions { margin-top:10px; display:flex; gap:8px; align-items:center; }
+.kl-btn{ border:1px solid #ccc; background:#fff; color:#222; padding:6px 10px; border-radius:6px; cursor:pointer; font-size:0.95rem; }
+.kl-btn:active{ transform:translateY(1px); }
+
+@media print {
+  .kl-checklist-actions, .kl-checklist input[type="checkbox"] { display:none; }
+  .kl-highlight { page-break-inside: avoid; }
+}
+
+.kl-fallbeispiele { margin:20px 0; padding:12px; border-radius:6px; background:#f6fbff; border:1px solid #e0eefb; }
+.kl-fallbeispiele h2 { margin-top:0; }
+.kl-fall-intro { color:#334; margin-bottom:10px; }
+.kl-fall { background:#fff; border:1px solid #e9f2fb; padding:12px; border-radius:6px; margin-bottom:12px; }
+.kl-fall h3 { margin:0 0 6px 0; font-size:1rem; }
+.kl-fall p { margin:6px 0; color:#222; font-size:0.95rem; }
+.kl-fall-note { font-size:0.9rem; color:#555; margin-top:8px; }
+
+.highlight-box.pruefdatum-box {
+  font-size: 0.75rem;        /* deutlich kleinerer Text */
+  padding: 0.4rem 0.6rem;    /* schmalere Box */
+  margin: 0.5rem 0;          /* weniger Außenabstand */
+  max-width: fit-content;   /* Box nur so breit wie der Inhalt */
+}
+
+.highlight-box.pruefdatum-box p {
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Kategorie-Banner für Unterseiten (Rücklink zur Hub-Seite) */
+.category-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(135deg, #eef6ff, #e3f2fd);
+    color: #1565c0;
+
+    padding: 4px 10px;
+    border-radius: 999px;
+
+    font-size: 0.75em;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+
+    text-decoration: none;
+
+    margin: 8px auto 18px auto;
+    display: flex;
+    width: fit-content;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border: 1px solid rgba(25,118,210,0.12);
+
+    transition: all 0.2s ease;
+}
+
+.category-badge:hover {
+    background: linear-gradient(135deg, #e3f2fd, #d6ecff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.category-badge .icon {
+    margin-right: 5px;
+    font-size: 0.95em;
+}
+
+.button.jump-button {
+  display: block !important;          
+  width: fit-content;
+  max-width: 90%;
+
+  margin: 20px auto !important;      
+  padding: 12px 20px;
+
+  background-color: #4da3ff;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover nur für Geräte mit Maus */
+@media (hover: hover) {
+  .button.jump-button:hover {
+    background-color: #3390ff;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Active (kein Wackeln) */
+.button.jump-button:active {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+
+
+@media (max-width: 600px) {
+  .button.jump-button {
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;   /* 🔥 DAS fixt das Rechts-Rutschen */
+
+    font-size: 15px;
+    padding: 14px;
+  }
+}
+details {
+  background: #f4f9ff;
+  border: 1px solid #d6e9ff;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  transition: all 0.2s ease;
+}
+
+details[open] {
+  background: #eaf4ff;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #2a6fb5;
+  position: relative;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Pfeil */
+summary::after {
+  content: "▾";
+  position: absolute;
+  right: 0;
+  transition: transform 0.2s ease;
+}
+
+details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+details p {
+  margin-top: 10px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.highlight-box {
+  background: #f4f9ff;
+  border: 1px solid #d6e9ff;
+  /*border-left: 4px solid #4da3ff;*/
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Buttons darin */
+.button.button-secondary {
+  display: inline-block;
+  margin: 6px 8px 6px 0;
+  padding: 10px 14px;
+
+  background: #eaf4ff;
+  color: #2a6fb5;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+
+  border-radius: 6px;
+  border: 1px solid #cfe4ff;
+
+  transition: all 0.2s ease;
+}
+
+.button.button-secondary:hover {
+  background: #d6e9ff;
+  color: #1d5c99;
+}
+
+.kl-sources-box {
+  background: #f4f9ff;
+  border: 1px solid #d6e9ff;
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.kl-sources-box ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.kl-sources-box li {
+  margin-bottom: 10px;
+}
+
+.kl-sources-box a {
+  color: #2a6fb5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.kl-sources-box a:hover {
+  text-decoration: underline;
+  color: #1d5c99;
+}
+.info-box.warning {
+  /*border-left: 4px solid #4da3ff !important;*/
+  background: #f4f9ff;
+  border-radius: 8px;
+}
+
+/* --- Info-/Warnboxen --- */
+.info-box,
+.highlight-box,
+.warning-box {
+  font-size: 0.96rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: var(--radius);
+  margin: 1.8rem 0;
+  line-height: 1.6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.info-box {
+  background-color: #eef9ff;
+  /*border-left: 6px solid var(--primary);*/
+}
+
+@media (max-width: 600px) {
+  .button.button-secondary {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.usp-bar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 15px 0 25px 0;
+    font-family: sans-serif;
+}
+
+.usp-item {
+    display: flex;
+    align-items: center;
+    background: #f0f7ff; /* Sehr helles Blau passend zum Design */
+    color: #0056b3;      /* Dein Logo-Blau */
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #d0e3ff;
+}
+
+.usp-item svg {
+    margin-right: 6px;
+    width: 16px;
+    height: 16px;
+    fill: #2e7d32; /* Ein dezentes Grün für die Haken */
+}
+
+/* Desktop-Standard (hast du schon) */
+.usp-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 15px 0 25px 0;
+}
+
+/* Mobile Optimierung (Neu hinzufügen) */
+@media (max-width: 600px) {
+    .usp-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Zwei gleich breite Spalten */
+        gap: 8px;
+        padding: 0 10px;
+    }
+
+    .usp-item {
+        justify-content: center; /* Zentriert Inhalt in der Kachel */
+        font-size: 0.75rem;      /* Etwas kleiner auf dem Handy */
+        padding: 8px 4px;
+        text-align: center;
+    }
+    
+    .usp-item svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+
+/* =========================================
+  Lotse – Design-Erweiterung (Modern Upgrade)
+   
+   ========================================= */
+
+/* --- Neue CSS-Variablen (ergänzend) --- */
+:root {
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.09), 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-blue: 0 8px 24px rgba(0, 112, 243, 0.22);
+  --shadow-blue-sm: 0 3px 10px rgba(0, 112, 243, 0.18);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --glass: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --primary-glow: rgba(0, 112, 243, 0.12);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Hintergrund mit lebendigem Verlauf --- */
+body {
+  background: linear-gradient(155deg, #eef5ff 0%, #f4f7fc 40%, #f8f9fb 100%);
+  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Page Container: Glasmorphism & Tiefe --- */
+.page-container {
+  background: var(--glass);
+ 
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.03),
+    0 4px 24px rgba(0, 0, 0, 0.07),
+    0 20px 48px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtile blaue Glanzlinie oben am Container */
+.page-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #003d80 0%, #0070f3 50%, #3b9eff 100%);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.page-container:hover {
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.09),
+    0 24px 56px rgba(0, 0, 0, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+  transition: all 0.4s var(--ease-smooth);
+}
+
+/* --- H1: lebendiger animierter Gradient --- */
+h1 {
+  background: linear-gradient(135deg, #003d80 0%, #0070f3 40%, #3b9eff 70%, #0059c9 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: h1-gradient 8s ease infinite;
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+@keyframes h1-gradient {
+  0%   { background-position: 0% center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* --- H2: moderneres Styling --- */
+h2 {
+  scroll-margin-top: 5rem;
+  text-wrap: balance;
+  letter-spacing: -0.015em;
+}
+
+/* Entfernt altes ::before, ersetzt mit eleganterem Akzent */
+h2::before {
+  display: none;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), rgba(0, 112, 243, 0));
+  border-radius: 99px;
+}
+
+/* --- H3: verfeinert --- */
+h3 {
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+/* --- Paragraphen: bessere Lesbarkeit --- */
+p {
+  text-wrap: pretty;
+}
+
+/* --- Focus-Stile (modern & zugänglich) --- */
+:focus-visible {
+  outline: 2.5px solid rgba(0, 112, 243, 0.5);
+  outline-offset: 3px;
+  border-radius: 5px;
+  transition: outline-offset 0.15s ease;
+}
+
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3.5px rgba(0, 112, 243, 0.18) !important;
+}
+
+/* --- Buttons: Glow & Präzision --- */
+.button {
+  border-radius: 10px;
+  letter-spacing: 0.01em;
+  font-size: 1rem;
+  position: relative;
+  will-change: transform;
+}
+
+.button:hover {
+  box-shadow: var(--shadow-blue);
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: var(--shadow-blue-sm);
+  transition: all 0.1s ease;
+}
+
+/* Shimmer-Effekt beim Hover */
+.button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 70%
+  );
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.button:hover::after {
+  opacity: 1;
+  animation: shimmer 0.6s ease forwards;
+}
+
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
+
+/* --- Jump Button: moderner --- */
+.button.jump-button {
+  border-radius: 12px;
+  letter-spacing: 0.01em;
+  background: linear-gradient(135deg, #2e8eff, #0070f3);
+  box-shadow: 0 4px 14px rgba(0, 112, 243, 0.3);
+}
+
+.button.jump-button:hover {
+  background: linear-gradient(135deg, #3b9eff, #0060d9);
+  box-shadow: 0 8px 20px rgba(0, 112, 243, 0.38);
+}
+
+/* --- Highlight Box: Tiefe & Glaseffekt --- */
+.highlight-box {
+  background: linear-gradient(135deg, rgba(230, 242, 255, 0.9), rgba(240, 248, 255, 0.95));
+  border: 1px solid rgba(0, 112, 243, 0.15);
+  /*border-left: 4px solid var(--primary);*/
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-md);
+  transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s ease;
+}
+
+.highlight-box:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* --- Warning Box: wärmer & moderner --- */
+.warning-box {
+  background: linear-gradient(135deg, #fffdf0, #fff9e3);
+  border: 1px solid rgba(240, 173, 78, 0.2);
+  /*border-left: 4px solid #f0ad4e;*/
+  box-shadow: 0 2px 8px rgba(240, 173, 78, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-md);
+}
+
+.warning-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(240, 173, 78, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* --- Details/Summary: sanfteres Öffnen --- */
+details {
+  background: linear-gradient(135deg, #f4f9ff, #eef5ff);
+  border: 1px solid rgba(100, 160, 255, 0.2);
+  border-radius: var(--radius-md);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+details[open] {
+  background: linear-gradient(135deg, #eaf4ff, #e3f0ff);
+  box-shadow: 0 4px 18px rgba(0, 100, 220, 0.1);
+}
+
+details p {
+  animation: detail-fade-in 0.28s var(--ease-smooth);
+}
+
+@keyframes detail-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+summary {
+  transition: color 0.2s ease;
+  padding-right: 1.5rem;
+}
+
+summary:hover {
+  color: var(--primary);
+}
+
+/* Pfeil: modernerer Stil */
+summary::after {
+  content: "›";
+  font-size: 1.3rem;
+  line-height: 1;
+  transform: rotate(90deg);
+  transition: transform 0.25s var(--ease-spring);
+  top: 50%;
+  translate: 0 -50%;
+}
+
+details[open] summary::after {
+  transform: rotate(270deg);
+}
+
+/* --- USP-Bar: polierter --- */
+.usp-item {
+  background: linear-gradient(135deg, #f0f7ff, #e5f1ff);
+  box-shadow: 0 1px 4px rgba(0, 80, 180, 0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+  border: 1px solid rgba(0, 112, 243, 0.12);
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+}
+
+.usp-item:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 14px rgba(0, 80, 180, 0.14);
+}
+
+/* --- Category Badge: verfeinert --- */
+.category-badge {
+  background: linear-gradient(135deg, #eef6ff, #deeeff);
+  box-shadow: 0 2px 8px rgba(0, 80, 200, 0.1), inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: all 0.25s var(--ease-spring);
+}
+
+.category-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 80, 200, 0.16);
+}
+
+/* --- Quellen-Box (kl-sources-box) --- */
+.kl-sources-box {
+  background: linear-gradient(135deg, #f4f9ff, #eef5ff);
+  border: 1px solid rgba(0, 112, 243, 0.12);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s ease;
+}
+
+.kl-sources-box:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Checklist moderner --- */
+.kl-checklist {
+  background: linear-gradient(135deg, #fafbff, #f4f8ff);
+  border: 1px solid rgba(0, 80, 200, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.kl-checklist li {
+  transition: background 0.15s ease;
+  border-radius: 6px;
+  padding: 2px 4px;
+}
+
+.kl-checklist li:hover {
+  background: rgba(0, 112, 243, 0.04);
+}
+
+/* Custom Checkbox-Styling */
+.kl-checklist input[type="checkbox"] {
+  accent-color: var(--primary);
+  transform: scale(1.2);
+}
+
+.kl-btn {
+  background: linear-gradient(135deg, #fff, #f4f8ff);
+  border: 1px solid rgba(0, 80, 200, 0.15);
+  border-radius: var(--radius-sm);
+  color: #2a6fb5;
+  font-weight: 500;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.kl-btn:hover {
+  background: linear-gradient(135deg, #eef5ff, #e0edff);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.kl-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* --- Pflegegrad Fieldset --- */
+.pflegegrad-fieldset {
+  background: linear-gradient(135deg, #fafbff, #f5f9ff);
+  border: 1px solid rgba(0, 80, 200, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
+}
+
+.pflegegrad-fieldset:focus-within {
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1), var(--shadow-sm);
+}
+
+.pflegegrad-label select,
+.pflegegrad-label input {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 0.5rem 0.7rem;
+  font-family: inherit;
+  color: var(--text);
+  appearance: auto;
+}
+
+.pflegegrad-label select:hover,
+.pflegegrad-label input:hover {
+  border-color: rgba(0, 112, 243, 0.4);
+}
+
+/* --- Ergebniskarte --- */
+.pflegegrad-result-card {
+  background: linear-gradient(135deg, rgba(230, 242, 255, 0.95), rgba(215, 235, 255, 0.9));
+  border: 1px solid rgba(0, 112, 243, 0.2);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.8);
+  border-radius: var(--radius-md);
+  animation: result-appear 0.4s var(--ease-spring);
+}
+
+@keyframes result-appear {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* --- Tabelle: moderner --- */
+.pflegegrad-tabelle {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.pflegegrad-tabelle th {
+  background: rgba(0, 112, 243, 0.05);
+}
+
+.pflegegrad-tabelle tr:hover td {
+  background: rgba(0, 112, 243, 0.03);
+}
+
+/* --- Promo Teaser: aufgewertet --- */
+.promo-teaser {
+  background: linear-gradient(135deg, #eef7ff 0%, #e5f2ff 100%);
+  border: 1px solid rgba(0, 112, 243, 0.12);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.8);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtiler Glanzfleck oben rechts */
+.promo-teaser::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(0, 112, 243, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+/* --- Fall-Beispiele --- */
+.kl-fall {
+  background: #fff;
+  border: 1px solid rgba(0, 80, 200, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s ease;
+}
+
+.kl-fall:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.kl-fallbeispiele {
+  background: linear-gradient(135deg, #f6fbff, #eef5ff);
+  border: 1px solid rgba(0, 112, 243, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- Footer: eleganter --- */
+footer {
+  background: linear-gradient(180deg, #fdfdff 0%, #f4f7fb 100%);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* --- Header: stärkere Glaswirkung --- */
+.site-header {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(14px) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.6) !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* --- Allgemeine Links: sanfterer Underline-Effekt --- */
+a:not(.button):not(.site-logo):not(.category-badge) {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+a:not(.button):not(.site-logo):not(.category-badge):hover {
+  text-decoration-thickness: 2px;
+}
+
+
+
+@keyframes page-fade-up {
+  from { opacity: 0.4; transform: translateY(16px); }
+  to   { opacity: 1;   transform: translateY(0); }
+}
+
+/* --- Selektion: markenkonform einfärben --- */
+::selection {
+  background: rgba(0, 112, 243, 0.15);
+  color: inherit;
+}
+
+/* --- Scrollbar: dezent & modern (Chromium) --- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 80, 200, 0.18);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 80, 200, 0.32);
+}
+
+
+
+/* =========================================
+   Kassen-Lotse – Upgrade v2
+   H2 + Header-Verbesserungen
+   Ans Ende der style.css hängen (nach der ersten Extension)
+   ========================================= */
+
+
+/* ─── H2: Eleganter Ersatz für border-left + ::before ─── */
+
+h2 {
+  border-left: none !important;       /* alten Balken entfernen */
+  padding-left: 0 !important;         /* altes Einrücken entfernen */
+  margin-bottom: 1.4rem;
+}
+
+h2::before {
+  display: none !important;           /* alten blauen Strich entfernen */
+}
+
+h2::after {
+  content: "";
+  display: block;
+  margin-top: 0.45rem;
+  width: 36px;
+  height: 2.5px;
+  background: linear-gradient(90deg, #0070f3 0%, rgba(0, 112, 243, 0) 100%);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+h2:hover::after {
+  width: 64px;
+}
+
+
+/* ─── HEADER: Von schlicht zu charakterstark ─── */
+
+.site-header {
+  padding: 0 !important;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Schmale Akzentlinie oben – bleibt, wird aber feiner */
+.site-header::before {
+  height: 3px !important;
+  background: linear-gradient(90deg, #003d80 0%, #0070f3 50%, #60b0ff 100%) !important;
+  opacity: 0.85;
+}
+
+/* Logo-Wrapper: gibt dem einfachen <a> mehr Charakter */
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.4rem 0.55rem 1rem;
+  font-size: 1.55rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+
+  /* Gradient-Text */
+  background: linear-gradient(135deg, #003d80 0%, #0070f3 55%, #3b9eff 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+
+  /* Subtile Kapsel im Hintergrund */
+  position: relative;
+  border-radius: 999px;
+  transition: all 0.3s ease !important;
+}
+
+/* Hintergrund-Kapsel beim Hover */
+.site-logo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 112, 243, 0.06);
+  border-radius: 999px;
+  border: 1px solid rgba(0, 112, 243, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.site-logo:hover::before {
+  opacity: 1;
+}
+
+/* Kleines Kompass/Lotse-Icon vor dem Namen */
+
+
+.site-logo:hover::after {
+  opacity: 0.9;
+  transform: rotate(-12deg);
+}
+
+.site-logo:hover {
+  letter-spacing: -0.025em !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Tagline unter dem Logo – optional, HTML nicht nötig */
+/* Falls du eine Tagline ergänzen möchtest, einfach ein <span class="header-tagline"> ins HTML */
+.header-tagline {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b8cba;
+  -webkit-text-fill-color: #6b8cba;
+  background: none;
+  margin-top: -2px;
+}
+
+
+/* ─── Responsive ─── */
+@media (max-width: 700px) {
+  .site-logo {
+    font-size: 1.35rem !important;
+    padding: 0.45rem 1rem 0.45rem 0.8rem;
+  }
+}
+
+h2::after {
+  content: "";
+  display: block;
+  margin-top: 0.5rem;
+  width: 80px;
+  height: 1.5px;
+  background: linear-gradient(90deg, #0070f3 0%, rgba(0, 112, 243, 0.15) 100%);
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.5s ease;
+  opacity: 0.85;
+}
+ 
+h2:hover::after {
+  width: 120px;
+  opacity: 1;
+}
+
+.wizard-buttons {
+  display: flex;
+  flex-wrap: wrap;        /* Buttons umbrechen statt quetschen */
+  gap: 8px;
+}
+
+.wizard-buttons .button {
+  flex: 1 1 auto;         /* wächst mit, schrumpft aber nicht unter min-content */
+  min-width: min-content; /* verhindert Text-Abschneiden */
+  white-space: normal;    /* erlaubt Zeilenumbruch im Button-Text */
+  word-break: break-word; /* Notfall-Umbruch bei sehr langen Wörtern */
+  text-align: center;
+}
+
+
+/* ==========================================
+   UNIVERSAL-RECHNER RESPONSIVE FIX
+   ========================================== */
+
+/* 1. Die äußere Ergebnis-Card absichern */
+.pflegegrad-result-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden; /* Verhindert, dass irgendwas die Card sprengt */
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 2. Der "Immer-Sicher-Sorglos-Fix" für die Tabelle */
+.pflegegrad-tabelle {
+  display: block !important;    
+  width: 100% !important;
+  overflow-x: auto !important;  
+  -webkit-overflow-scrolling: touch; 
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+/* 3. Spalten-Verhalten optimieren */
+.pflegegrad-tabelle th,
+.pflegegrad-tabelle td {
+  padding: 12px 10px;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 15px;
+  white-space: nowrap; /* Verhindert, dass Zahlen hässlich umbrechen */
+}
+
+/* Die erste Spalte (Leistungstext) darf und soll umbrechen */
+.pflegegrad-tabelle th:first-child,
+.pflegegrad-tabelle td:first-child {
+  white-space: normal !important;
+  min-width: 170px; /* Garantiert lesbaren Text links */
+}
+
+/* 4. Feinjustierung für Smartphones (Mobile First / Unter 600px) */
+@media (max-width: 600px) {
+  .pflegegrad-result-card {
+    padding: 15px 10px !important; /* Mehr Platz auf kleinen Screens */
+  }
+
+  .pflegegrad-tabelle th,
+  .pflegegrad-tabelle td {
+    padding: 10px 8px !important;
+    font-size: 13px !important; /* Leicht kleinere Schrift spart Platz */
+  }
+  
+  /* Optischer Hinweis für den Nutzer: "Hier kann man wischen" */
+  .pflegegrad-tabelle {
+    box-shadow: inset -10px 0 10px -10px rgba(0,0,0,0.15);
+  }
+}
+
+/* ==========================================
+   UNIVERSAL-FIX FÜR FIELDSET & TEXTUMBRÜCHE
+   ========================================== */
+
+/* 1. Den berüchtigten Fieldset-Bug im Browser beheben */
+.pflegegrad-fieldset {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 2. Legend (die Fieldset-Überschrift) absichern */
+.pflegegrad-fieldset legend {
+  display: block !important;
+  width: auto !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+/* 3. Labels, Spans und Hinweistexte bedingungslos zum Umbrechen zwingen */
+.pflegegrad-label,
+.pflegegrad-label span,
+.pflegegrad-fieldset p,
+.pflegegrad-fieldset .hinweis {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  white-space: normal !important;      
+  overflow-wrap: break-word !important; 
+  word-break: break-word !important;     
+  box-sizing: border-box !important;
+}
+
+/* 4. Select-Boxen und Inputs absichern, damit sie nicht herausragen */
+.pflegegrad-fieldset select,
+.pflegegrad-fieldset input {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Spezialfall: Der Prozent-Wrapper (Slider + Input nebeneinander) */
+.pflegegeld-prozent-wrapper {
+  display: flex !important;
+  flex-wrap: wrap !important; 
+  gap: 10px;
+  align-items: center;
+  max-width: 100% !important;
+}
+
+/* Ersetze die Klassennamen mit denen, die du im HTML für die Boxen nutzt */
+.info-box, 
+.warning-box, 
+.highlight-box {
+  border-left: none !important;
+}
+
+header, .site-header {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 15px !important;  /* Schützt Logos/Texte vor dem Bildschirmrand */
+  padding-right: 15px !important; /* Schützt Logos/Texte vor dem Bildschirmrand */
+  box-sizing: border-box !important;
+}
+
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important; /* Verhindert das seitliche Wischen komplett */
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit !important; /* Zwingt alle Elemente, Ränder richtig zu berechnen */
+}
+
+
+/* ==========================================
+   DER BUCHSTABEN-STAPEL-FIX (INPUT-REDUZIERUNG)
+   ========================================== */
+
+/* Zwingt Checkboxen und Radio-Buttons, klein und kompakt zu bleiben */
+.pflegegrad-form input[type="checkbox"],
+.pflegegrad-form input[type="radio"] {
+  width: 22px !important;       /* Verhindert, dass die Box 100% breit wird */
+  height: 22px !important;      /* Angenehme Touch-Größe für das Smartphone */
+  min-width: 22px !important;   /* Lässt die Box niemals zusammenschrumpfen */
+  min-height: 22px !important;
+  flex-shrink: 0 !important;    /* Verhindert, dass Flexbox die Box zerquetscht */
+  margin: 0 !important;         /* Setzt alte Abstände zurück */
+  margin-top: 2px !important;   /* Richtet den Punkt sauber zur ersten Textzeile aus */
+}
+
+/* Sorgt dafür, dass der Text den restlichen Platz komplett ausfüllt */
+.pflegegrad-form label span {
+  flex: 1 !important;
+  width: auto !important;
+  display: inline-block !important;
+}
+
+/* Wizard-Initialisierung: Erster Schritt sichtbar beim Laden */
+.pflegegrad-form .pflegegrad-fieldset:first-of-type {
+  display: block;
+}
+
+
+
+
+  .site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}

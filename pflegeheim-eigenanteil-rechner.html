@@ -14,17 +14,256 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Eigenanteil Pflegeheim Rechner",
-  "operatingSystem": "Web",
-  "applicationCategory": "HealthApplication",
-  "description": "Online-Rechner zur unverbindlichen Berechnung des monatlichen Eigenanteils im Pflegeheim unter Berücksichtigung von EEE, Unterkunft und Verpflegung, Investitionskosten und Leistungszuschlägen der Pflegekasse.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
-  }
+  "name": "Pflegeheim-Eigenanteil-Rechner 2026",
+  "description": "Kostenloser Rechner für den monatlichen Eigenanteil im Pflegeheim: mit Leistungszuschlag der Pflegekasse nach § 43c SGB XI, Entwicklung über die Aufenthaltsjahre und Prüfung, ob die eigenen Mittel reichen.",
+  "applicationCategory": "FinanceApplication",
+  "applicationSubCategory": "Pflegekosten und Pflegeheim",
+  "operatingSystem": "Alle (Webbrowser)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "de-DE",
+  "isAccessibleForFree": true,
+  "url": "https://kassen-lotse.de/pflegeheim-eigenanteil-rechner/",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "featureList": [
+    "Eigenanteil pro Monat nach Leistungszuschlag (15, 30, 50, 75 Prozent)",
+    "Entwicklung des Eigenanteils über die Aufenthaltsjahre",
+    "Kosten der nächsten 12 Monate",
+    "Prüfung der Deckungslücke durch eigene Mittel",
+    "Vergleich mit dem bundesweiten Durchschnitt",
+    "PDF-Export des Ergebnisses"
+  ],
+  "publisher": { "@type": "Organization", "name": "Kassen-Lotse", "url": "https://kassen-lotse.de/" }
 }
 </script>
+<style>
+  /* Heimkosten-Rechner: Zusatz-Styles (Formular-Grunddesign bleibt unverändert) */
+:root {
+  --hc-blau: #1f5aa6;
+  --hc-blau-dunkel: #12305f;
+  --hc-blau-hell: #f3f7fc;
+  --hc-blau-linie: #dbe6f5;
+  --hc-text: #1c2a3f;
+  --hc-text-leise: #5a6a82;
+  --hc-linie: #e8edf4;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Erklärtexte im Formular ---------- */
+.hc-erklaerung {
+  background: var(--hc-blau-hell);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 4px 0 24px;
+  color: #34445e;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.hc-erklaerung p { margin: 0; }
+.hc-erklaerung__titel {
+  margin-bottom: 6px !important;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+
+.hc-glossar {
+  margin: -6px 0 20px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--hc-text-leise);
+}
+.hc-glossar summary {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  list-style: none !important;
+  cursor: pointer;
+  color: var(--hc-blau);
+  font-weight: 500;
+  padding: 2px 0 !important;
+  background: none !important;       /* Theme-Pfeil als Hintergrundbild */
+  position: static !important;
+}
+.hc-glossar summary::-webkit-details-marker { display: none; }
+.hc-glossar summary::marker { content: ""; }
+.hc-glossar summary::before { content: none !important; }
+/* Eigener Pfeil: sitzt im Textfluss und kann das Fragezeichen nicht mehr überdecken */
+.hc-glossar summary::after {
+  content: "" !important;
+  position: static !important;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 2px !important;
+  background: none !important;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.hc-glossar[open] summary::after { transform: rotate(-135deg); margin-top: 3px !important; }
+.hc-glossar summary:hover { text-decoration: underline; }
+.hc-glossar summary:focus-visible,
+.hc-res button:focus-visible {
+  outline: 2px solid var(--hc-blau);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.hc-glossar p {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+}
+.hc-leerhinweis {
+  margin: 0;
+  color: var(--hc-text-leise);
+  font-size: 0.92rem;
+}
+
+/* ---------- Fehlermeldungen ---------- */
+.hc-fehler {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--hc-blau-dunkel);
+}
+#hc-form [aria-invalid="true"] {
+  border-color: var(--hc-blau) !important;
+  box-shadow: 0 0 0 3px rgba(31, 90, 166, 0.18);
+}
+
+/* ---------- Ergebnis ---------- */
+#hc_ergebnis { color: var(--hc-text); }
+
+.hc-res {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 56px 0 0;
+  border-top: 1px solid var(--hc-linie);
+  line-height: 1.7;
+}
+.hc-res:focus { outline: none; }
+
+.hc-res__aussage {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__text { margin: 0 0 40px; color: var(--hc-text-leise); font-size: 1.05rem; }
+
+.hc-res h3 {
+  margin: 56px 0 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__intro { margin: 0 0 16px; color: var(--hc-text-leise); font-size: 0.95rem; }
+
+/* Skala */
+.hc-gauge { margin: 0 0 8px; }
+.hc-gauge__spur {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hc-blau-linie);
+  overflow: visible;
+}
+.hc-gauge__fuell,
+.hc-gauge__ueber {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 0;
+  transition: width 0.9s cubic-bezier(.2,.7,.2,1);
+}
+.hc-gauge__fuell { left: 0; background: var(--hc-blau); border-radius: 999px 0 0 999px; }
+.hc-gauge__ueber { background: var(--hc-blau-dunkel); border-radius: 0 999px 999px 0; }
+.hc-gauge__fuell.is-voll { border-radius: 999px 0 0 999px; }
+.hc-gauge__marke {
+  position: absolute;
+  top: -6px; bottom: -6px;
+  width: 2px;
+  background: var(--hc-text);
+}
+.hc-gauge__skala {
+  position: relative;
+  height: 28px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--hc-text-leise);
+}
+.hc-gauge__skala span { position: absolute; top: 0; white-space: nowrap; }
+.hc-gauge__skala span:first-child { left: 0; }
+.hc-gauge__skala .hc-gauge__grenze { transform: translateX(-50%); color: var(--hc-text); font-weight: 500; }
+
+/* Rechenweg */
+.hc-tabelle { margin: 0; padding: 0; }
+.hc-tabelle__zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hc-linie);
+}
+.hc-tabelle dt { margin: 0; color: var(--hc-text-leise); }
+.hc-tabelle dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hc-tabelle__zeile.is-summe dt,
+.hc-tabelle__zeile.is-summe dd { color: var(--hc-blau-dunkel); font-weight: 600; }
+
+/* Orientierungswert */
+.hc-wert {
+  margin: 28px 0 0;
+  padding: 28px 28px 26px;
+  background: var(--hc-blau-hell);
+  border-radius: 14px;
+}
+.hc-wert__zahl {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+  line-height: 1.2;
+}
+.hc-wert__text { margin: 8px 0 0; font-size: 0.93rem; color: var(--hc-text-leise); }
+
+/* Schritte */
+.hc-schritte { margin: 16px 0 0; padding-left: 1.3em; }
+.hc-schritte li { margin-bottom: 14px; padding-left: 6px; }
+.hc-schritte li::marker { color: var(--hc-blau); font-weight: 600; }
+
+.hc-res__aktionen { margin: 48px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.hc-res__hinweis {
+  margin: 40px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--hc-text-leise);
+}
+
+@media (max-width: 520px) {
+  .hc-res { margin-top: 48px; padding-top: 40px; }
+  .hc-wert { padding: 22px 20px; }
+  .hc-tabelle__zeile { flex-direction: column; gap: 2px; }
+  .hc-tabelle dd { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-gauge__fuell, .hc-gauge__ueber { transition: none; }
+}
+
+/* ---------- Live-Hinweis unter Feldern (z. B. aktueller Zuschlag) ---------- */
+.hc-live {
+  margin: -6px 0 22px;
+  padding: 10px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+  color: var(--hc-blau-dunkel);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+</style>
 </head>
 <body>
   <header class="site-header">
@@ -103,124 +342,117 @@
   </div>
 
     <form id="heim-form" class="pflegegrad-form" aria-describedby="heim_ergebnis" novalidate>
-      <fieldset class="pflegegrad-fieldset">
-        <legend>1. Allgemeine Angaben</legend>
-
-        <label class="pflegegrad-label" for="heim_pflegegrad">
-          Pflegegrad
-          <select id="heim_pflegegrad">
-            <option value="2" selected>Pflegegrad 2</option>
-            <option value="3">Pflegegrad 3</option>
-            <option value="4">Pflegegrad 4</option>
-            <option value="5">Pflegegrad 5</option>
-          </select>
-        </label>
-        <p class="hinweis">
-          Der Pflegegrad ist für die Aufnahme relevant. Die Rechnung basiert im Wesentlichen auf den Kostenbausteinen unten
-          und dem Leistungszuschlag auf den EEE.
-        </p>
-
-        <label class="pflegegrad-label" for="heim_monate">
-          Aufenthaltsdauer im Heim <em>(bisher, in Monaten)</em>
-          <input type="number" id="heim_monate" min="0" step="1" value="0" />
-        </label>
-        <p class="hinweis">
-          Dient für die <strong>automatische</strong> Zuschlags-Ermittlung (siehe nächster Abschnitt).
-          Alternativ kannst du den Prozentsatz manuell setzen.
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2. Leistungszuschlag der Pflegekasse (auf den EEE)</legend>
-
-        <label class="pflegegrad-label" for="heim_zuschlag_modus">
-          Zuschlagsmodus
-          <select id="heim_zuschlag_modus">
-            <option value="auto" selected>Automatisch nach Aufenthaltsmonaten</option>
-            <option value="manuell">Manuell (Prozent selbst festlegen)</option>
-          </select>
-        </label>
-
-        <div id="heim_zuschlag_auto_wrap" class="pflegegrad-label">
-          <span>Vereinfachte Staffel (angenommene Richtwerte):</span>
-          <ul>
-            <li>Monat 0–11: 15&nbsp;% Zuschlag</li>
-            <li>Monat 12–23: 30&nbsp;% Zuschlag</li>
-            <li>Monat 24–35: 50&nbsp;% Zuschlag</li>
-            <li>ab Monat 36: 75&nbsp;% Zuschlag</li>
-          </ul>
-          <p class="hinweis">
-            Diese Staffel ist ein <strong>vereinfachtes Beispiel</strong>. Prüfe bitte deine Heim-/Kassenunterlagen und nutze ggf. „Manuell“.
-          </p>
-        </div>
-
-        <div id="heim_zuschlag_manuell_wrap" class="pflegegrad-label" style="display:none;">
-          Leistungszuschlag <em>(in % des EEE)</em>
-          <input type="number" id="heim_zuschlag_prozent" min="0" max="100" step="1" value="30" />
-          <p class="hinweis">Trage hier den gewährten Prozentsatz ein, wenn er bekannt ist.</p>
-        </div>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>3. Kostenbausteine (monatlich)</legend>
-
-        <label class="pflegegrad-label" for="heim_eee">
-          Einrichtungseinheitlicher Eigenanteil (EEE)
-          <input type="number" id="heim_eee" min="0" step="1" placeholder="z. B. 1.100" />
-        </label>
-        <p class="hinweis">
-          EEE = Eigenanteil für pflegebedingte Aufwendungen. Er ist innerhalb eines Heims für alle Pflegegrade gleich.
-        </p>
-
-        <label class="pflegegrad-label" for="heim_uv">
-          Unterkunft &amp; Verpflegung (U+V)
-          <input type="number" id="heim_uv" min="0" step="1" placeholder="z. B. 900" />
-        </label>
-
-        <label class="pflegegrad-label" for="heim_invest">
-          Investitionskosten
-          <input type="number" id="heim_invest" min="0" step="1" placeholder="z. B. 400" />
-        </label>
-
-        <label class="pflegegrad-label" for="heim_zusatz">
-          Zusatzleistungen (pauschal)
-          <input type="number" id="heim_zusatz" min="0" step="1" value="0" />
-        </label>
-
-        <label class="pflegegrad-label" for="heim_ausbildung">
-          Ausbildungsumlage (falls ausgewiesen)
-          <input type="number" id="heim_ausbildung" min="0" step="1" value="0" />
-        </label>
-
-        <label class="pflegegrad-label" for="heim_zuschuesse">
-          Sonstige Zuschüsse/Entlastungen <em>(negativ als Abzug)</em>
-          <input type="number" id="heim_zuschuesse" step="1" value="0" />
-        </label>
-        <p class="hinweis">
-          Z. B. Pflegewohngeld/Landeszuschüsse, Härtefallzuschüsse, kommunale Förderungen – wenn vorhanden, hier als <strong>Abzug</strong> eintragen.
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>4. Eigene Mittel (optional)</legend>
-
-        <label class="pflegegrad-label" for="heim_eigene_mittel">
-          Monatliche eigene Mittel (z. B. Rente, Pension, regelmäßige Einnahmen)
-          <input type="number" id="heim_eigene_mittel" min="0" step="50" placeholder="z. B. 1.800" />
-        </label>
-        <p class="hinweis">
-          Damit kann eine <strong>Deckungslücke</strong> ermittelt werden. Leistungen wie <em>Hilfe zur Pflege</em> (Sozialamt)
-          werden hier nicht automatisch berechnet.
-        </p>
-      </fieldset>
-
-      <div class="button-container">
-        <button type="button" id="heim_berechnen" class="button">Eigenanteil berechnen</button>
-        <button type="reset" id="heim_reset" class="button button-secondary">Eingaben zurücksetzen</button>
-      </div>
-    </form>
-
-    <section id="heim_ergebnis" aria-live="polite"></section>
+ 
+  <!-- 1. Aufenthaltsdauer -->
+  <fieldset class="pflegegrad-fieldset active-step">
+    <legend>1. Wie lange lebt die Person schon im Heim?</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Warum die Aufenthaltsdauer zählt</p>
+      <p>Die Pflegekasse zahlt für die Pflege einen festen Betrag direkt an das Heim. Was darüber hinausgeht, heißt <strong>einrichtungseinheitlicher Eigenanteil (EEE)</strong>. Darauf gibt es einen Zuschlag, der mit der Aufenthaltsdauer steigt: 15 % im ersten Jahr, 30 % im zweiten, 50 % im dritten und 75 % ab dem vierten Jahr. Der Zuschlag gilt nur für den EEE, nicht für Unterkunft, Verpflegung und Investitionskosten.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="heim_monate">
+      Bisherige Aufenthaltsdauer im Pflegeheim (in Monaten)
+      <input type="number" id="heim_monate" min="0" max="600" step="1" inputmode="numeric" value="0" />
+    </label>
+    <p class="hc-live" id="heim_zuschlag_live" aria-live="polite"></p>
+    <details class="hc-glossar">
+      <summary>Was zählt als Aufenthaltsdauer?</summary>
+      <p>Die Zeit, in der die Person vollstationäre Pflege bekommt. Zieht sie gerade erst ein, tragen Sie 0 ein. Zeiten in einem anderen Pflegeheim zählen in der Regel mit. Im Zweifel fragt Ihnen die Pflegekasse die genaue Dauer.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 2. Kosten -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>2. Kosten laut Heimvertrag (pro Monat)</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Wo finde ich die Zahlen?</p>
+      <p>Im Heimvertrag, in der letzten Entgelterhöhung oder in der aktuellen Heimrechnung. Dort stehen die Posten einzeln. Tragen Sie die Beträge <strong>vor</strong> dem Zuschlag ein, so wie sie im Vertrag ausgewiesen sind. Der Rechner zieht den Zuschlag selbst ab.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="heim_eee">
+      Einrichtungseinheitlicher Eigenanteil, EEE (€)
+      <input type="number" id="heim_eee" min="0" step="1" inputmode="decimal" placeholder="z. B. 1775" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was ist der EEE?</summary>
+      <p>Der Anteil der Pflegekosten, den die Pflegekasse nicht übernimmt. Er ist für alle Pflegegrade 2 bis 5 im selben Heim gleich hoch. Bundesweit liegt er im Schnitt bei rund 1.775 € im Monat (vdek, Juli 2026).</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="heim_ausbildung">
+      Ausbildungsumlage, falls separat ausgewiesen (€)
+      <input type="number" id="heim_ausbildung" min="0" step="1" inputmode="decimal" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Wann trage ich hier etwas ein?</summary>
+      <p>Die Umlage für die Ausbildung von Pflegekräften ist je nach Heim bereits im EEE enthalten oder steht als eigener Posten im Vertrag. Steht sie separat da, tragen Sie sie hier ein. Auch auf sie gilt der Zuschlag. Ist sie schon im EEE, lassen Sie das Feld bei 0.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="heim_uv">
+      Unterkunft und Verpflegung (€)
+      <input type="number" id="heim_uv" min="0" step="1" inputmode="decimal" placeholder="z. B. 1070" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was ist darin enthalten?</summary>
+      <p>Das Zimmer, die Mahlzeiten, Reinigung und Wäsche. Dieser Posten wird immer vollständig selbst bezahlt. Der Durchschnitt liegt bei rund 1.068 € im Monat.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="heim_invest">
+      Investitionskosten (€)
+      <input type="number" id="heim_invest" min="0" step="1" inputmode="decimal" placeholder="z. B. 520" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was sind Investitionskosten?</summary>
+      <p>Kosten für Bau, Instandhaltung und Ausstattung des Gebäudes. Auch sie zahlen die Bewohner selbst. In manchen Bundesländern gibt es dafür Zuschüsse (siehe Schritt 3). Der Durchschnitt liegt bei rund 521 € im Monat.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="heim_zusatz">
+      Zusatzleistungen (€)
+      <input type="number" id="heim_zusatz" min="0" step="1" inputmode="decimal" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was sind Zusatzleistungen?</summary>
+      <p>Freiwillige Extras, die Sie zusätzlich vereinbart haben, etwa ein Komfortzimmer, Friseur oder besondere Verpflegung. Ohne solche Vereinbarung lassen Sie 0 stehen.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 3. Entlastung und eigene Mittel -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>3. Weitere Zuschüsse und eigene Mittel (optional)</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Reicht das Einkommen?</p>
+      <p>Diese Angaben sind freiwillig. Wenn Sie die monatlichen Einkünfte der pflegebedürftigen Person eintragen, zeigt der Rechner, ob eine Lücke bleibt und wie groß sie ist.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="heim_zuschuesse">
+      Weitere monatliche Zuschüsse (€)
+      <input type="number" id="heim_zuschuesse" min="0" step="1" inputmode="decimal" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Welche Zuschüsse gibt es?</summary>
+      <p>Zum Beispiel Pflegewohngeld oder Landeszuschüsse zu den Investitionskosten, die es nur in einigen Bundesländern gibt. Tragen Sie den Betrag als positive Zahl ein, er wird abgezogen. Zuschüsse des Sozialamts (Hilfe zur Pflege) gehören nicht hierher.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="heim_eigene_mittel">
+      Monatliche Einkünfte der pflegebedürftigen Person (€)
+      <input type="number" id="heim_eigene_mittel" min="0" step="50" inputmode="decimal" placeholder="z. B. 1800" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was zählt als Einkünfte?</summary>
+      <p>Rente, Pension, Mieteinnahmen und andere regelmäßige Einnahmen, jeweils nach Abzug von Steuern und Beiträgen zur Kranken- und Pflegeversicherung. Ein Teil davon bleibt als Taschengeld frei, das rechnet der Rechner nicht ab.</p>
+    </details>
+  </fieldset>
+ 
+  <div class="button-container">
+    <button type="button" id="heim_berechnen" class="button">Eigenanteil berechnen</button>
+    <button type="reset" id="heim_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+  </div>
+</form>
+ 
+<section id="heim_ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>

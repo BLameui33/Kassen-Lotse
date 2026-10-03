@@ -22,16 +22,27 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Kinderkrankengeld-Rechner 2026",
-  "operatingSystem": "Web",
+  "description": "Kostenloser Rechner für das Netto-Kinderkrankengeld nach § 45 SGB V: Auszahlung pro Tag und insgesamt, verbleibende Kinderkrankentage und Verdienstlücke.",
   "applicationCategory": "FinanceApplication",
-  "description": "Online-Rechner zur unverbindlichen Schätzung des Kinderkrankengeldes. Berechnet die voraussichtliche Netto-Auszahlung pro Tag und für den Zeitraum bei Erkrankung eines Kindes.",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
-  }
+  "applicationSubCategory": "Krankengeld und Kinderkrankentage",
+  "operatingSystem": "Alle (Webbrowser)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "de-DE",
+  "isAccessibleForFree": true,
+  "url": "https://kassen-lotse.de/kinderkrankengeld/",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "featureList": [
+    "Netto-Auszahlung pro Tag und für den gesamten Zeitraum",
+    "Berücksichtigung von 90 % bzw. 100 % Netto, 70-%-Brutto-Grenze und Höchstsatz",
+    "Anspruchstage nach Familiensituation und Kinderzahl (15/30 Tage, max. 35/70)",
+    "Anzeige der verbleibenden Kinderkrankentage",
+    "PDF-Export des Ergebnisses"
+  ],
+  "publisher": { "@type": "Organization", "name": "Kassen-Lotse", "url": "https://kassen-lotse.de/" }
 }
 </script>
+
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -72,6 +83,225 @@
   ]
 }
 </script>
+
+<style>
+  /* Heimkosten-Rechner: Zusatz-Styles (Formular-Grunddesign bleibt unverändert) */
+:root {
+  --hc-blau: #1f5aa6;
+  --hc-blau-dunkel: #12305f;
+  --hc-blau-hell: #f3f7fc;
+  --hc-blau-linie: #dbe6f5;
+  --hc-text: #1c2a3f;
+  --hc-text-leise: #5a6a82;
+  --hc-linie: #e8edf4;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Erklärtexte im Formular ---------- */
+.hc-erklaerung {
+  background: var(--hc-blau-hell);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 4px 0 24px;
+  color: #34445e;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.hc-erklaerung p { margin: 0; }
+.hc-erklaerung__titel {
+  margin-bottom: 6px !important;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+
+.hc-glossar {
+  margin: -6px 0 20px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--hc-text-leise);
+}
+.hc-glossar summary {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  list-style: none !important;
+  cursor: pointer;
+  color: var(--hc-blau);
+  font-weight: 500;
+  padding: 2px 0 !important;
+  background: none !important;       /* Theme-Pfeil als Hintergrundbild */
+  position: static !important;
+}
+.hc-glossar summary::-webkit-details-marker { display: none; }
+.hc-glossar summary::marker { content: ""; }
+.hc-glossar summary::before { content: none !important; }
+/* Eigener Pfeil: sitzt im Textfluss und kann das Fragezeichen nicht mehr überdecken */
+.hc-glossar summary::after {
+  content: "" !important;
+  position: static !important;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 2px !important;
+  background: none !important;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.hc-glossar[open] summary::after { transform: rotate(-135deg); margin-top: 3px !important; }
+.hc-glossar summary:hover { text-decoration: underline; }
+.hc-glossar summary:focus-visible,
+.hc-res button:focus-visible {
+  outline: 2px solid var(--hc-blau);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.hc-glossar p {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+}
+.hc-leerhinweis {
+  margin: 0;
+  color: var(--hc-text-leise);
+  font-size: 0.92rem;
+}
+
+/* ---------- Fehlermeldungen ---------- */
+.hc-fehler {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--hc-blau-dunkel);
+}
+#hc-form [aria-invalid="true"] {
+  border-color: var(--hc-blau) !important;
+  box-shadow: 0 0 0 3px rgba(31, 90, 166, 0.18);
+}
+
+/* ---------- Ergebnis ---------- */
+#hc_ergebnis { color: var(--hc-text); }
+
+.hc-res {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 56px 0 0;
+  border-top: 1px solid var(--hc-linie);
+  line-height: 1.7;
+}
+.hc-res:focus { outline: none; }
+
+.hc-res__aussage {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__text { margin: 0 0 40px; color: var(--hc-text-leise); font-size: 1.05rem; }
+
+.hc-res h3 {
+  margin: 56px 0 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__intro { margin: 0 0 16px; color: var(--hc-text-leise); font-size: 0.95rem; }
+
+/* Skala */
+.hc-gauge { margin: 0 0 8px; }
+.hc-gauge__spur {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hc-blau-linie);
+  overflow: visible;
+}
+.hc-gauge__fuell,
+.hc-gauge__ueber {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 0;
+  transition: width 0.9s cubic-bezier(.2,.7,.2,1);
+}
+.hc-gauge__fuell { left: 0; background: var(--hc-blau); border-radius: 999px 0 0 999px; }
+.hc-gauge__ueber { background: var(--hc-blau-dunkel); border-radius: 0 999px 999px 0; }
+.hc-gauge__fuell.is-voll { border-radius: 999px 0 0 999px; }
+.hc-gauge__marke {
+  position: absolute;
+  top: -6px; bottom: -6px;
+  width: 2px;
+  background: var(--hc-text);
+}
+.hc-gauge__skala {
+  position: relative;
+  height: 28px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--hc-text-leise);
+}
+.hc-gauge__skala span { position: absolute; top: 0; white-space: nowrap; }
+.hc-gauge__skala span:first-child { left: 0; }
+.hc-gauge__skala .hc-gauge__grenze { transform: translateX(-50%); color: var(--hc-text); font-weight: 500; }
+
+/* Rechenweg */
+.hc-tabelle { margin: 0; padding: 0; }
+.hc-tabelle__zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hc-linie);
+}
+.hc-tabelle dt { margin: 0; color: var(--hc-text-leise); }
+.hc-tabelle dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hc-tabelle__zeile.is-summe dt,
+.hc-tabelle__zeile.is-summe dd { color: var(--hc-blau-dunkel); font-weight: 600; }
+
+/* Orientierungswert */
+.hc-wert {
+  margin: 28px 0 0;
+  padding: 28px 28px 26px;
+  background: var(--hc-blau-hell);
+  border-radius: 14px;
+}
+.hc-wert__zahl {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+  line-height: 1.2;
+}
+.hc-wert__text { margin: 8px 0 0; font-size: 0.93rem; color: var(--hc-text-leise); }
+
+/* Schritte */
+.hc-schritte { margin: 16px 0 0; padding-left: 1.3em; }
+.hc-schritte li { margin-bottom: 14px; padding-left: 6px; }
+.hc-schritte li::marker { color: var(--hc-blau); font-weight: 600; }
+
+.hc-res__aktionen { margin: 48px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.hc-res__hinweis {
+  margin: 40px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--hc-text-leise);
+}
+
+@media (max-width: 520px) {
+  .hc-res { margin-top: 48px; padding-top: 40px; }
+  .hc-wert { padding: 22px 20px; }
+  .hc-tabelle__zeile { flex-direction: column; gap: 2px; }
+  .hc-tabelle dd { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-gauge__fuell, .hc-gauge__ueber { transition: none; }
+}
+</style>
 
 </head>
 <body>
@@ -152,54 +382,107 @@
   </div>
 
 
-    <form id="kk-form" class="pflegegrad-form" onsubmit="return false;" aria-describedby="kk_ergebnis">
-      <fieldset class="pflegegrad-fieldset active-step">
-        <legend>1) Zeitraum & Situation</legend>
-
-        <label class="pflegegrad-label" for="kk_tage">
-          Anzahl der "Kind-krank"-Tage (laut Arbeitsunfähigkeitsbescheinigung)
-          <input type="number" id="kk_tage" min="1" max="30" step="1" value="5" />
-        </label>
-
-        <label class="pflegegrad-label" for="kk_elternstatus">
-          Deine Situation
-          <select id="kk_elternstatus">
-            <option value="paare" selected>Gemeinsam erziehend — 15 Tage Anspruch pro Elternteil/Kind</option>
-            <option value="allein">Alleinerziehend — 30 Tage Anspruch pro Elternteil/Kind</option>
-          </select>
-        </label>
-
-        <p class="hinweis">
-          Voraussetzungen (vereinfacht): gesetzlich versichert, Kind unter 12 Jahre (Ausnahmen möglich) und ärztliche Bescheinigung.
-        </p>
-      </fieldset>
-
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2) Dein Einkommen (Netto)</legend>
-
-        <label class="pflegegrad-label" for="kk_netto">
-          Dein durchschnittliches monatliches Netto-Einkommen (€)
-          <input type="number" id="kk_netto" min="0" step="0.01" placeholder="z. B. 2.400,00" />
-        </label>
-
-        <label class="pflegegrad-label" style="display:flex; align-items:center; gap:.6rem;">
-          <input type="checkbox" id="kk_einmalzahlung" />
-          <span for="kk_einmalzahlung">Ich hatte in den letzten 12 Monaten Einmalzahlungen (z. B. Weihnachts-/Urlaubsgeld)</span>
-        </label>
-
-        <p class="hinweis">
-          <strong>Warum das wichtig ist:</strong> Je nachdem, ob Einmalzahlungen berücksichtigt werden, kann die Krankenkasse
-          bei der Berechnung 90 % oder (vereinfacht) 100 % des ausgefallenen Nettos ansetzen. Die reale Regelung kann etwas komplexer sein.
-        </p>
-      </fieldset>
-
-      <div class="button-container" role="group" aria-label="Buttons">
-        <button type="button" id="kk_berechnen" class="button">Auszahlung berechnen</button>
-        <button type="reset" id="kk_reset" class="button button-secondary">Zurücksetzen</button>
-      </div>
-    </form>
-
-    <section id="kk_ergebnis" aria-live="polite" style="margin-top:1rem;"></section>
+    <form id="kk-form" class="pflegegrad-form" onsubmit="return false;" aria-describedby="kk_ergebnis" novalidate>
+ 
+  <!-- 1. Situation -->
+  <fieldset class="pflegegrad-fieldset active-step">
+    <legend>1. Ihre Situation</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Wer bekommt Kinderkrankengeld?</p>
+      <p>Anspruch haben gesetzlich versicherte Eltern, deren Kind unter 12 Jahre alt ist (bei Behinderung ohne Altersgrenze) und selbst gesetzlich versichert ist. Der Arzt muss bescheinigen, dass Sie das Kind betreuen müssen. Die Zahl der Tage hängt davon ab, ob Sie allein oder zu zweit erziehen, und wie viele Kinder Sie haben.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="kk_elternstatus">
+      Ihre Situation
+      <select id="kk_elternstatus">
+        <option value="paare" selected>Gemeinsam erziehend (15 Tage pro Kind)</option>
+        <option value="allein">Alleinerziehend (30 Tage pro Kind)</option>
+      </select>
+    </label>
+ 
+    <label class="pflegegrad-label" for="kk_kinder">
+      Anzahl Ihrer gesetzlich versicherten Kinder unter 12
+      <input type="number" id="kk_kinder" min="1" max="10" step="1" inputmode="numeric" value="1" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Warum frage ich nach der Kinderzahl?</summary>
+      <p>Bei mehreren Kindern gibt es mehr Tage, aber mit Obergrenze: höchstens 35 Tage im Jahr je Elternteil, bei Alleinerziehenden höchstens 70. Außerdem wirkt sich die Kinderzahl leicht auf den Pflegeversicherungsbeitrag aus.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="kk_bereits">
+      Bereits genommene Kinderkrankentage in diesem Jahr
+      <input type="number" id="kk_bereits" min="0" max="70" step="1" inputmode="numeric" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was zählt als „bereits genommen"?</summary>
+      <p>Alle Tage in diesem Kalenderjahr, für die Sie Kinderkrankengeld bekommen haben oder für die Ihr Arbeitgeber das Gehalt weitergezahlt hat und die auf Ihren Anspruch angerechnet wurden. Tage anderer Eltern zählen nicht. Haben Sie mehrere Kinder, geben Sie die Tage aller Kinder zusammen an.</p>
+    </details>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Wichtig für die Planung</p>
+      <p>Die erhöhten 15 bzw. 30 Tage gelten nur bis zum 31.12.2026. Ohne neues Gesetz sinkt der Anspruch ab 2027 auf 10 bzw. 20 Tage pro Kind. Der Bundesgesundheitsminister hat sich gegen eine Verlängerung ausgesprochen, entschieden ist das aber noch nicht (Stand Oktober 2026). Nicht genutzte Tage verfallen zum Jahreswechsel.</p>
+    </div>
+  </fieldset>
+ 
+  <!-- 2. Aktueller Fall -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>2. Der aktuelle Krankheitsfall</legend>
+ 
+    <label class="pflegegrad-label" for="kk_tage">
+      Anzahl der Kind-krank-Tage laut Bescheinigung
+      <input type="number" id="kk_tage" min="1" max="70" step="1" inputmode="numeric" value="5" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Wo finde ich diese Zahl?</summary>
+      <p>Auf der ärztlichen Bescheinigung für Ihre Krankenkasse steht, für welchen Zeitraum Sie das Kind betreuen müssen. Gezählt werden Ihre Arbeitstage. Müssen Sie nur an einzelnen Tagen zu Hause bleiben, zählen Sie nur diese.</p>
+    </details>
+  </fieldset>
+ 
+  <!-- 3. Einkommen -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>3. Ihr Einkommen</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">So berechnet die Krankenkasse</p>
+      <p>Kinderkrankengeld beträgt 90 % Ihres ausgefallenen Nettogehalts, höchstens aber 70 % des Bruttogehalts und höchstens 135,63 € pro Tag. Haben Sie in den letzten 12 Monaten Einmalzahlungen wie Weihnachts- oder Urlaubsgeld bekommen, sind es 100 % des Nettos. Vom Ergebnis gehen noch Beiträge zur Renten-, Arbeitslosen- und Pflegeversicherung ab.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="kk_netto">
+      Ihr durchschnittliches Netto-Einkommen pro Monat (€)
+      <input type="number" id="kk_netto" min="0" step="0.01" inputmode="decimal" placeholder="z. B. 2400" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Welches Netto ist gemeint?</summary>
+      <p>Das Netto aus Ihrer Gehaltsabrechnung, also nach Steuern und Sozialabgaben. Maßgeblich ist der Durchschnitt der letzten drei Monate vor dem Ausfall. Vermögenswirksame Leistungen und Zuschläge gehören dazu.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="kk_brutto">
+      Ihr durchschnittliches Brutto-Einkommen pro Monat (€, optional)
+      <input type="number" id="kk_brutto" min="0" step="0.01" inputmode="decimal" placeholder="z. B. 3500" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Warum wird das Brutto abgefragt?</summary>
+      <p>Mit dem Brutto kann die 70-%-Grenze geprüft werden. Zudem lassen sich die Sozialversicherungsabzüge genauer ermitteln. Ohne Angabe rechnen wir etwas vereinfacht.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="kk_einmalzahlung" style="display:flex; align-items:center; gap:.6rem;">
+      <input type="checkbox" id="kk_einmalzahlung" />
+      <span>Ich hatte in den letzten 12 Monaten Einmalzahlungen (z. B. Weihnachts- oder Urlaubsgeld)</span>
+    </label>
+    <details class="hc-glossar">
+      <summary>Was sind beitragspflichtige Einmalzahlungen?</summary>
+      <p>Zahlungen, die nicht jeden Monat anfallen, auf die aber Sozialabgaben gezahlt wurden: Weihnachtsgeld, Urlaubsgeld, Jahresbonus oder Prämien. Dann erhöht sich der Satz von 90 % auf 100 % des Nettos.</p>
+    </details>
+  </fieldset>
+ 
+  <div class="button-container" role="group" aria-label="Aktionen">
+    <button type="button" id="kk_berechnen" class="button">Auszahlung berechnen</button>
+    <button type="reset" id="kk_reset" class="button button-secondary">Zurücksetzen</button>
+  </div>
+</form>
+ 
+<section id="kk_ergebnis" aria-live="polite"></section>
 
     <section class="explain-box" aria-label="Erklärung und Beispiel" style="margin-top:1rem;">
       <h2>Wie die Berechnung hier funktioniert (vereinfachte Erklärung)</h2>

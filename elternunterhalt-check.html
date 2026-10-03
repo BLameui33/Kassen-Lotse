@@ -16,14 +16,30 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Heimkosten-Check 2026 (Elternunterhalt)",
-  "operatingSystem": "Web",
+  "name": "Heimkosten-Rechner: Elternunterhalt und 100.000-Euro-Grenze",
+  "description": "Kostenloser Online-Rechner, der prüft, ob Kinder nach dem Angehörigen-Entlastungsgesetz für die Pflegeheimkosten ihrer Eltern herangezogen werden können, und eine Orientierungsrechnung zum Selbstbehalt liefert.",
   "applicationCategory": "FinanceApplication",
-  "description": "Online-Rechner zur unverbindlichen Prüfung der Unterhaltspflicht von Kindern für pflegebedürftige Eltern unter Berücksichtigung des Angehörigen-Entlastungsgesetzes.",
+  "applicationSubCategory": "Elternunterhalt und Pflegekosten",
+  "operatingSystem": "Alle (Webbrowser)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "de-DE",
+  "isAccessibleForFree": true,
+  "url": "https://kassen-lotse.de/elternunterhalt-check/",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "EUR"
+  },
+  "featureList": [
+    "Prüfung der 100.000-Euro-Einkommensgrenze (§ 94 Abs. 1a SGB XII)",
+    "Berechnung des Gesamteinkommens aus Gehalt und sonstigen Einkünften",
+    "Orientierungsrechnung zum Selbstbehalt nach Düsseldorfer Tabelle 2026",
+    "Konkrete nächste Schritte je nach Ergebnis"
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Kassen-Lotse",
+    "url": "https://kassen-lotse.de/"
   }
 }
 </script>
@@ -68,6 +84,225 @@
   ]
 }
 </script>
+
+<style>
+  /* Heimkosten-Rechner: Zusatz-Styles (Formular-Grunddesign bleibt unverändert) */
+:root {
+  --hc-blau: #1f5aa6;
+  --hc-blau-dunkel: #12305f;
+  --hc-blau-hell: #f3f7fc;
+  --hc-blau-linie: #dbe6f5;
+  --hc-text: #1c2a3f;
+  --hc-text-leise: #5a6a82;
+  --hc-linie: #e8edf4;
+}
+
+[hidden] { display: none !important; }
+
+/* ---------- Erklärtexte im Formular ---------- */
+.hc-erklaerung {
+  background: var(--hc-blau-hell);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 4px 0 24px;
+  color: #34445e;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.hc-erklaerung p { margin: 0; }
+.hc-erklaerung__titel {
+  margin-bottom: 6px !important;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+
+.hc-glossar {
+  margin: -6px 0 20px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--hc-text-leise);
+}
+.hc-glossar summary {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  list-style: none !important;
+  cursor: pointer;
+  color: var(--hc-blau);
+  font-weight: 500;
+  padding: 2px 0 !important;
+  background: none !important;       /* Theme-Pfeil als Hintergrundbild */
+  position: static !important;
+}
+.hc-glossar summary::-webkit-details-marker { display: none; }
+.hc-glossar summary::marker { content: ""; }
+.hc-glossar summary::before { content: none !important; }
+/* Eigener Pfeil: sitzt im Textfluss und kann das Fragezeichen nicht mehr überdecken */
+.hc-glossar summary::after {
+  content: "" !important;
+  position: static !important;
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin: -3px 0 0 2px !important;
+  background: none !important;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.hc-glossar[open] summary::after { transform: rotate(-135deg); margin-top: 3px !important; }
+.hc-glossar summary:hover { text-decoration: underline; }
+.hc-glossar summary:focus-visible,
+.hc-res button:focus-visible {
+  outline: 2px solid var(--hc-blau);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.hc-glossar p {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  background: var(--hc-blau-hell);
+  border-radius: 10px;
+}
+.hc-leerhinweis {
+  margin: 0;
+  color: var(--hc-text-leise);
+  font-size: 0.92rem;
+}
+
+/* ---------- Fehlermeldungen ---------- */
+.hc-fehler {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.86rem;
+  font-weight: 400;
+  color: var(--hc-blau-dunkel);
+}
+#hc-form [aria-invalid="true"] {
+  border-color: var(--hc-blau) !important;
+  box-shadow: 0 0 0 3px rgba(31, 90, 166, 0.18);
+}
+
+/* ---------- Ergebnis ---------- */
+#hc_ergebnis { color: var(--hc-text); }
+
+.hc-res {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 56px 0 0;
+  border-top: 1px solid var(--hc-linie);
+  line-height: 1.7;
+}
+.hc-res:focus { outline: none; }
+
+.hc-res__aussage {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__text { margin: 0 0 40px; color: var(--hc-text-leise); font-size: 1.05rem; }
+
+.hc-res h3 {
+  margin: 56px 0 8px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+}
+.hc-res__intro { margin: 0 0 16px; color: var(--hc-text-leise); font-size: 0.95rem; }
+
+/* Skala */
+.hc-gauge { margin: 0 0 8px; }
+.hc-gauge__spur {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hc-blau-linie);
+  overflow: visible;
+}
+.hc-gauge__fuell,
+.hc-gauge__ueber {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 0;
+  transition: width 0.9s cubic-bezier(.2,.7,.2,1);
+}
+.hc-gauge__fuell { left: 0; background: var(--hc-blau); border-radius: 999px 0 0 999px; }
+.hc-gauge__ueber { background: var(--hc-blau-dunkel); border-radius: 0 999px 999px 0; }
+.hc-gauge__fuell.is-voll { border-radius: 999px 0 0 999px; }
+.hc-gauge__marke {
+  position: absolute;
+  top: -6px; bottom: -6px;
+  width: 2px;
+  background: var(--hc-text);
+}
+.hc-gauge__skala {
+  position: relative;
+  height: 28px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--hc-text-leise);
+}
+.hc-gauge__skala span { position: absolute; top: 0; white-space: nowrap; }
+.hc-gauge__skala span:first-child { left: 0; }
+.hc-gauge__skala .hc-gauge__grenze { transform: translateX(-50%); color: var(--hc-text); font-weight: 500; }
+
+/* Rechenweg */
+.hc-tabelle { margin: 0; padding: 0; }
+.hc-tabelle__zeile {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hc-linie);
+}
+.hc-tabelle dt { margin: 0; color: var(--hc-text-leise); }
+.hc-tabelle dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.hc-tabelle__zeile.is-summe dt,
+.hc-tabelle__zeile.is-summe dd { color: var(--hc-blau-dunkel); font-weight: 600; }
+
+/* Orientierungswert */
+.hc-wert {
+  margin: 28px 0 0;
+  padding: 28px 28px 26px;
+  background: var(--hc-blau-hell);
+  border-radius: 14px;
+}
+.hc-wert__zahl {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 600;
+  color: var(--hc-blau-dunkel);
+  line-height: 1.2;
+}
+.hc-wert__text { margin: 8px 0 0; font-size: 0.93rem; color: var(--hc-text-leise); }
+
+/* Schritte */
+.hc-schritte { margin: 16px 0 0; padding-left: 1.3em; }
+.hc-schritte li { margin-bottom: 14px; padding-left: 6px; }
+.hc-schritte li::marker { color: var(--hc-blau); font-weight: 600; }
+
+.hc-res__aktionen { margin: 48px 0 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.hc-res__hinweis {
+  margin: 40px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--hc-text-leise);
+}
+
+@media (max-width: 520px) {
+  .hc-res { margin-top: 48px; padding-top: 40px; }
+  .hc-wert { padding: 22px 20px; }
+  .hc-tabelle__zeile { flex-direction: column; gap: 2px; }
+  .hc-tabelle dd { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hc-gauge__fuell, .hc-gauge__ueber { transition: none; }
+}
+</style>
 
 </head>
 <body>
@@ -148,84 +383,175 @@
   </div>
 
     <form id="hc-form" class="pflegegrad-form" aria-describedby="hc_ergebnis" novalidate>
-      <!-- 1. Einkommen -->
-      <fieldset class="pflegegrad-fieldset active-step">
-        <legend>1. Ihr eigenes Einkommen (Kind)</legend>
-
-        <label class="pflegegrad-label" for="hc_brutto_jahr">
-          Brutto-Jahreseinkommen (Gehalt)
-          <input type="number" id="hc_brutto_jahr" min="0" step="1000" placeholder="z. B. 85000" />
-        </label>
-
-        <label class="pflegegrad-label" for="hc_zusatz_einkommen">
-          Sonstige jährliche Einkünfte (Miete, Kapital, Gewerbe)
-          <input type="number" id="hc_zusatz_einkommen" min="0" step="500" value="0" />
-        </label>
-
-        <div class="hinweis">
-          Geben Sie hier Ihr gesamtes, eigenes Brutto-Einkommen pro Jahr ein. Das Gehalt des Ehepartners bitte auslassen.
-        </div>
-      </fieldset>
-
-      <!-- 2. Abzüge -->
-      <fieldset class="pflegegrad-fieldset">
-        <legend>2. Abzugsfähige Posten</legend>
-
-        <label class="pflegegrad-label" for="hc_werbungskosten">
-          Werbungskosten / Betriebsausgaben (jährlich)
-          <input type="number" id="hc_werbungskosten" min="0" step="100" placeholder="z. B. 1230" />
-        </label>
-
-        <label class="pflegegrad-label" for="hc_sonderausgaben">
-          Absetzbare Sonderausgaben (z.B. Kinderbetreuung, jährlich)
-          <input type="number" id="hc_sonderausgaben" min="0" step="100" value="0" />
-        </label>
-
-        <p class="hinweis">
-          Diese Ausgaben mindern Ihr relevantes Einkommen und können Ihnen helfen, unter die 100.000-Euro-Marke zu fallen.
-        </p>
-      </fieldset>
-
-      <!-- 3. Heimkosten -->
-      <fieldset class="pflegegrad-fieldset">
-        <legend>3. Offene Heimkosten (Optional)</legend>
-
-        <label class="pflegegrad-label" for="hc_heimkosten_offen">
-          Offener Betrag im Pflegeheim (monatlich)
-          <input type="number" id="hc_heimkosten_offen" min="0" step="50" placeholder="z. B. 1500" />
-        </label>
-        <p class="hinweis">Der Betrag, der nach Abzug von Rente, Pflegekasse und Pflegewohngeld der Eltern noch offen ist (Einrichtungseinheitlicher Eigenanteil + Investitionskosten + Unterkunft/Verpflegung).</p>
-      </fieldset>
-
-      <!-- 4. Familienstand -->
-      <fieldset class="pflegegrad-fieldset">
-        <legend>4. Familienstand & Kinder (Für Selbstbehalt)</legend>
-
-        <label class="pflegegrad-label" for="hc_familienstand">
-          Sind Sie verheiratet / in einer Lebenspartnerschaft?
-          <select id="hc_familienstand">
-            <option value="nein">Nein (Alleinstehend)</option>
-            <option value="ja">Ja (Verheiratet/Verpartnert)</option>
-          </select>
-        </label>
-
-        <label class="pflegegrad-label" for="hc_anzahl_kinder">
-          Anzahl der eigenen, unterhaltspflichtigen Kinder
-          <input type="number" id="hc_anzahl_kinder" min="0" max="10" step="1" value="0" />
-        </label>
-
-        <p class="hinweis">
-          Falls Sie die 100.000-Euro-Grenze überschreiten, wird geprüft, wie viel vom Einkommen Sie für sich und Ihre eigene Familie behalten dürfen (Selbstbehalt nach Düsseldorfer Tabelle).
-        </p>
-      </fieldset>
-
-      <div class="button-container">
-        <button type="button" id="hc_berechnen" class="button">Heimkosten-Rechner starten</button>
-        <button type="reset" id="hc_reset" class="button button-secondary">Eingaben zurücksetzen</button>
-      </div>
-    </form>
-
-    <section id="hc_ergebnis" aria-live="polite"></section>
+ 
+  <!-- 1. Einkommen -->
+  <fieldset class="pflegegrad-fieldset active-step">
+    <legend>1. Ihr eigenes Einkommen</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Worum geht es hier?</p>
+      <p>Seit 2020 müssen Kinder nur dann für die Pflegekosten ihrer Eltern aufkommen, wenn ihr eigenes Gesamteinkommen über 100.000 € im Jahr liegt. Es zählt ausschließlich Ihr eigenes Einkommen, nicht das Ihres Ehepartners oder Ihrer Geschwister. Jedes Kind wird einzeln betrachtet.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="hc_einkommensart">
+      Wie möchten Sie Ihr Einkommen angeben?
+      <select id="hc_einkommensart">
+        <option value="schaetzung">Aus Gehalt und weiteren Einnahmen (Schätzung)</option>
+        <option value="steuerbescheid">Aus meinem Einkommensteuerbescheid (genauer)</option>
+      </select>
+    </label>
+ 
+    <div data-hc-gruppe="schaetzung">
+      <label class="pflegegrad-label" for="hc_brutto_jahr">
+        Brutto-Jahresgehalt (€)
+        <input type="number" id="hc_brutto_jahr" min="0" step="1000" inputmode="decimal" placeholder="z. B. 85000" />
+      </label>
+      <details class="hc-glossar">
+        <summary>Wo finde ich diese Zahl?</summary>
+        <p>Auf Ihrer Lohnsteuerbescheinigung unter „Bruttoarbeitslohn“ oder auf der Dezember-Abrechnung. Weihnachtsgeld, Boni und andere Einmalzahlungen gehören dazu.</p>
+      </details>
+ 
+      <label class="pflegegrad-label" for="hc_zusatz_einkommen">
+        Sonstige Einnahmen pro Jahr (€)
+        <input type="number" id="hc_zusatz_einkommen" min="0" step="500" inputmode="decimal" value="0" />
+      </label>
+      <details class="hc-glossar">
+        <summary>Was zählt dazu?</summary>
+        <p>Mieteinnahmen, Zinsen und Dividenden sowie Gewinne aus Selbstständigkeit oder Gewerbe. Tragen Sie hier die Einnahmen ein. Die zugehörigen Kosten geben Sie im nächsten Schritt an.</p>
+      </details>
+    </div>
+ 
+    <div data-hc-gruppe="steuerbescheid" hidden>
+      <label class="pflegegrad-label" for="hc_summe_einkuenfte">
+        Summe der Einkünfte laut Steuerbescheid (€)
+        <input type="number" id="hc_summe_einkuenfte" min="0" step="1000" inputmode="decimal" placeholder="z. B. 78500" />
+      </label>
+      <details class="hc-glossar">
+        <summary>Wo finde ich diese Zahl?</summary>
+        <p>Im Einkommensteuerbescheid unter „Summe der Einkünfte“. Bei Zusammenveranlagung steht dort die Summe beider Ehepartner. Dann nutzen Sie bitte die Schätzung, damit nur Ihr eigenes Einkommen zählt.</p>
+      </details>
+ 
+      <label class="pflegegrad-label" for="hc_kapital_zusatz">
+        Zusätzliche Kapitalerträge (€)
+        <input type="number" id="hc_kapital_zusatz" min="0" step="100" inputmode="decimal" value="0" />
+      </label>
+      <details class="hc-glossar">
+        <summary>Warum frage ich das extra?</summary>
+        <p>Kapitalerträge, die Ihre Bank bereits mit Abgeltungsteuer versteuert hat, stehen oft nicht im Steuerbescheid. Für die 100.000-Euro-Grenze zählen sie trotzdem mit.</p>
+      </details>
+    </div>
+  </fieldset>
+ 
+  <!-- 2. Abzüge -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>2. Kosten, die Ihr Einkommen mindern</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Was zählt, was nicht?</p>
+      <p>Für die Grenze zählt die „Summe der Einkünfte“. Dabei werden Werbungskosten und Betriebsausgaben abgezogen. Sonderausgaben wie Kinderbetreuung, Krankenversicherung, Spenden oder Riester-Beiträge werden dagegen <strong>nicht</strong> abgezogen. Deshalb fragen wir sie hier nicht ab.</p>
+    </div>
+ 
+    <div data-hc-gruppe="schaetzung">
+      <label class="pflegegrad-label" for="hc_werbungskosten">
+        Werbungskosten aus Ihrem Gehalt pro Jahr (€)
+        <input type="number" id="hc_werbungskosten" min="0" step="100" inputmode="decimal" placeholder="Leer lassen für Pauschale (1.230 €)" />
+      </label>
+      <details class="hc-glossar">
+        <summary>Was sind Werbungskosten?</summary>
+        <p>Kosten, die durch Ihren Job entstehen, zum Beispiel Fahrtkosten zur Arbeit, Arbeitsmittel oder Fortbildungen. Das Finanzamt rechnet mindestens 1.230 € pauschal an. Wir tun das auch, wenn Sie das Feld leer lassen oder weniger eintragen.</p>
+      </details>
+ 
+      <label class="pflegegrad-label" for="hc_kosten_sonstige">
+        Kosten für Ihre sonstigen Einnahmen pro Jahr (€)
+        <input type="number" id="hc_kosten_sonstige" min="0" step="100" inputmode="decimal" value="0" />
+      </label>
+      <details class="hc-glossar">
+        <summary>Welche Kosten sind gemeint?</summary>
+        <p>Bei Vermietung zum Beispiel Schuldzinsen, Instandhaltung und Abschreibung. Bei Selbstständigkeit die Betriebsausgaben. Bei Kapitalerträgen können Sie den Sparer-Pauschbetrag von 1.000 € ansetzen.</p>
+      </details>
+    </div>
+ 
+    <p data-hc-gruppe="steuerbescheid" hidden class="hc-leerhinweis">Im Steuerbescheid sind diese Kosten bereits abgezogen. Hier müssen Sie nichts eintragen.</p>
+  </fieldset>
+ 
+  <!-- 3. Familie -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>3. Familienstand und Kinder</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Warum ist das wichtig?</p>
+      <p>Falls Sie die Grenze überschreiten, wird geprüft, wie viel Geld Ihnen für Ihre eigene Familie bleiben muss. Dieser Selbstbehalt ist höher, wenn Sie verheiratet sind, und Unterhalt für Ihre eigenen Kinder wird vorab berücksichtigt.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="hc_familienstand">
+      Sind Sie verheiratet oder verpartnert?
+      <select id="hc_familienstand">
+        <option value="nein">Nein (alleinstehend)</option>
+        <option value="ja">Ja (verheiratet oder verpartnert)</option>
+      </select>
+    </label>
+ 
+    <label class="pflegegrad-label" for="hc_anzahl_kinder">
+      Anzahl Ihrer unterhaltsberechtigten Kinder
+      <input type="number" id="hc_anzahl_kinder" min="0" max="10" step="1" inputmode="numeric" value="0" />
+    </label>
+  </fieldset>
+ 
+  <!-- 4. Heimkosten und Netto -->
+  <fieldset class="pflegegrad-fieldset">
+    <legend>4. Heimkosten und Nettoeinkommen (optional)</legend>
+ 
+    <div class="hc-erklaerung">
+      <p class="hc-erklaerung__titel">Nur für die Orientierungsrechnung</p>
+      <p>Diese Angaben sind freiwillig. Sie werden nur gebraucht, wenn Ihr Einkommen über 100.000 € liegt. Dann schätzen wir, mit welchem monatlichen Betrag das Sozialamt rechnen könnte. Das Ergebnis ist ein Richtwert, keine Forderung.</p>
+    </div>
+ 
+    <label class="pflegegrad-label" for="hc_heimkosten_offen">
+      Ungedeckte Heimkosten pro Monat (€)
+      <input type="number" id="hc_heimkosten_offen" min="0" step="50" inputmode="decimal" placeholder="z. B. 1500" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was ist der offene Betrag?</summary>
+      <p>Der Teil der Heimrechnung, den weder die Pflegekasse noch die Rente und das Vermögen Ihrer Eltern decken. Er besteht aus dem einrichtungseinheitlichen Eigenanteil, den Investitionskosten sowie Unterkunft und Verpflegung. Den Betrag nennt Ihnen das Heim oder das Sozialamt.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="hc_netto_monat">
+      Ihr bereinigtes Nettoeinkommen pro Monat (€)
+      <input type="number" id="hc_netto_monat" min="0" step="100" inputmode="decimal" placeholder="z. B. 4800" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Was heißt bereinigt?</summary>
+      <p>Ihr durchschnittliches Netto im Monat, abzüglich fester Belastungen wie Krediten und Beiträgen zur privaten Altersvorsorge. Wenn Sie unsicher sind, nehmen Sie Ihr normales Netto und gehen Sie davon aus, dass der echte Wert etwas niedriger liegt.</p>
+    </details>
+ 
+    <label class="pflegegrad-label" for="hc_kindesunterhalt">
+      Unterhalt für eigene Kinder pro Monat (€)
+      <input type="number" id="hc_kindesunterhalt" min="0" step="50" inputmode="decimal" value="0" />
+    </label>
+    <details class="hc-glossar">
+      <summary>Welcher Betrag gehört hierhin?</summary>
+      <p>Der Betrag, den Sie monatlich für Ihre Kinder aufwenden oder zahlen müssen (Barunterhalt nach Düsseldorfer Tabelle). Er wird vom Netto abgezogen, bevor der Selbstbehalt geprüft wird.</p>
+    </details>
+ 
+    <div data-hc-nur="verheiratet" hidden>
+      <label class="pflegegrad-label" for="hc_netto_partner">
+        Nettoeinkommen Ihres Ehepartners pro Monat (€)
+        <input type="number" id="hc_netto_partner" min="0" step="100" inputmode="decimal" value="0" />
+      </label>
+      <details class="hc-glossar">
+        <summary>Warum wird das Einkommen des Partners hier abgefragt?</summary>
+        <p>Für die 100.000-Euro-Grenze zählt es nicht. Bei der Berechnung des Selbstbehalts wird aber das gemeinsame Familieneinkommen betrachtet, und Sie haften nur anteilig.</p>
+      </details>
+    </div>
+  </fieldset>
+ 
+  <div class="button-container">
+    <button type="button" id="hc_berechnen" class="button">Heimkosten-Rechner starten</button>
+    <button type="reset" id="hc_reset" class="button button-secondary">Eingaben zurücksetzen</button>
+  </div>
+</form>
+ 
+<section id="hc_ergebnis" aria-live="polite"></section>
 
     <div class="warning-box">
       <p>
