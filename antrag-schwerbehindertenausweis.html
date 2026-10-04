@@ -124,6 +124,31 @@
   </div>
 
   <form id="schwerbehindertenAntragForm" autocomplete="on">
+
+        <fieldset>
+      <legend>0. Zuständiges Versorgungsamt (Empfänger)</legend>
+      <p class="info-box">Bitte trage hier das für dich zuständige Versorgungsamt oder Landesamt für Soziales ein. Die genaue Anschrift findest du auf der Website deiner Stadt oder deines Landkreises.</p>
+      
+      <label for="empfaengerName">Name der Behörde:</label>
+      <input type="text" id="empfaengerName" name="empfaengerName" required placeholder="z.B. Versorgungsamt Musterstadt" autocomplete="organization">
+
+      <label>Anschrift der Behörde:</label>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <div style="flex: 2; min-width: 200px;">
+          <label for="empfaengerStrasse">Straße und Hausnummer:</label>
+          <input type="text" id="empfaengerStrasse" name="empfaengerStrasse" required autocomplete="address-line1">
+        </div>
+        <div style="flex: 1; min-width: 80px;">
+          <label for="empfaengerPLZ">PLZ:</label>
+          <input type="text" id="empfaengerPLZ" name="empfaengerPLZ" required pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code" inputmode="numeric">
+        </div>
+        <div style="flex: 2; min-width: 150px;">
+          <label for="empfaengerOrt">Ort:</label>
+          <input type="text" id="empfaengerOrt" name="empfaengerOrt" required autocomplete="address-level2">
+        </div>
+      </div>
+    </fieldset>
+    
     <fieldset>
       <legend>1. Angaben zur Person, für die der Antrag gestellt wird</legend>
 

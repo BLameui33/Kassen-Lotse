@@ -41,8 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
         updateDynamicFieldVisibility(fruehererAntragSBASelect, fruehererAntragDetailsSBADiv, 'ja', ['fruehererAntragAktenzeichen', 'fruehererAntragBehoerde']);
     }
 
-    const formElementIds = [
-        "personName", "personGeburtsname", "personGeburt", "personGeburtsort", "personGeschlecht", 
+        const formElementIds = [
+        "empfaengerName", "empfaengerStrasse", "empfaengerPLZ", "empfaengerOrt",
+        "personName", "personGeburtsname", "personGeburt", "personGeburtsort", "personGeschlecht",  
         "personStaatsangehoerigkeit", "personAdresse", "personTelefon", "personEmail", "personKrankenkasse",
         "antragstellerIdentischSBA", "asNameSBA", "asAdresseSBA", "asVerhaeltnisSBA", "asTelefonSBA",
         "gesundheitsstoerung1_bezeichnung", "gesundheitsstoerung1_beginn",
@@ -314,7 +315,7 @@ function generateSBAPDF() {
     doc.setLineWidth(0.2);
     doc.line(margin, leftY + 1.5, margin + 85, leftY + 1.5); 
     
-    // Empfänger (Versorgungsamt-Platzhalter) platzieren
+        // Empfänger (Versorgungsamt) dynamisch aus den Formulardaten platzieren
     leftY += 6; 
     doc.setTextColor(0, 0, 0); // Zurück zu Schwarz
     
@@ -322,17 +323,29 @@ function generateSBAPDF() {
     doc.text("An das", margin, leftY);
     leftY += 4;
     
+    const empName = document.getElementById("empfaengerName").value || "Zuständiges Versorgungsamt / Landesamt für Soziales";
+    const empStr = document.getElementById("empfaengerStrasse").value || "";
+    const empPLZ = document.getElementById("empfaengerPLZ").value || "";
+    const empOrt = document.getElementById("empfaengerOrt").value || "";
+    const empAdresse = [empStr, (empPLZ + " " + empOrt).trim()].filter(Boolean).join("\n");
+
     doc.setFont(undefined, "bold");
     doc.setFontSize(11);
-    doc.text("Zuständige Versorgungsamt / Landesamt für Soziales", margin, leftY);
+    doc.text(empName, margin, leftY);
     leftY += defaultLineHeight;
     
-    doc.setFont(undefined, "italic");
+    doc.setFont(undefined, "normal");
     doc.setFontSize(10);
-    doc.text("[Bitte hier die genaue Anschrift des zuständigen Amtes eintragen]", margin, leftY);
-    leftY += defaultLineHeight;
-    doc.text("[Ort und Postleitzahl des Amtes]", margin, leftY);
-    leftY += defaultLineHeight;
+    if (empAdresse) {
+        empAdresse.split("\n").forEach(line => {
+            doc.text(line, margin, leftY);
+            leftY += defaultLineHeight;
+        });
+    } else {
+        doc.setFont(undefined, "italic");
+        doc.text("[Bitte Adresse des Versorgungsamtes im Formular eintragen]", margin, leftY);
+        leftY += defaultLineHeight;
+    }
 
     // Schriftstil wieder zurücksetzen für nachfolgende Elemente
     doc.setFont(undefined, "normal");
