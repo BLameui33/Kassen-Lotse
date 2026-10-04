@@ -40,6 +40,50 @@
     "reviewedBy": { "@type": "Organization", "name": "Kassen-Lotse Redaktion" }
   }
   </script>
+
+  <style>
+    /* ==========================================================
+   Sonderfall: Checkbox-Gruppe klebt mobil rechts
+   ========================================================== */
+
+fieldset,
+.info-box,
+.checkbox-group,
+.checkbox-group label {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.checkbox-group {
+  width: 100% !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+.checkbox-group label {
+  display: block !important;
+  position: relative !important;
+  width: 100% !important;
+  margin: 0 0 0.4rem 0 !important;
+  padding: 0.75rem 1rem 0.75rem 2.7rem !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  border-radius: 8px !important;
+}
+
+.checkbox-group input[type="checkbox"] {
+  position: absolute !important;
+  left: 0.8rem !important;
+  top: 0.95rem !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  margin: 0 !important;
+}
+  </style>
 </head>
 <body>
 
@@ -197,7 +241,7 @@
       <legend>3. Umfang der Vollmacht</legend>
       <p class="info-box">
         Kreuzen Sie an, für welche Bereiche die Vollmacht gelten soll.
-        <strong>Hinweis:</strong> Für besonders einschneidende Maßnahmen (z.B. Zwangsmaßnahmen/freiheitsentziehende Maßnahmen) müssen Befugnisse ausdrücklich und schriftlich benannt sein; Standardformulierungen aus amtlichen Mustern sind hier oft hilfreich.
+        <strong>Hinweis:</strong> Für besonders einschneidende Maßnahmen müssen Befugnisse ausdrücklich und schriftlich benannt sein; Standardformulierungen aus amtlichen Mustern sind hier oft hilfreich.
       </p>
 
       <div class="checkbox-group">
