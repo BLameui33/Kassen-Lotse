@@ -165,15 +165,15 @@
       <label for="unfallZeit">Uhrzeit des Unfalls:</label>
       <input type="time" id="unfallZeit" name="unfallZeit" required autocomplete="off">
 
-      <label for="unfallOrt">Genauer Ort des Unfalls:
+            <label for="unfallOrt">Genauer Ort des Unfalls:
           <small>z.B. „Betriebsgelände, Halle 3, an der Maschine …“ / „Auf dem Heimweg in …, Höhe Hausnummer …“</small>
       </label>
-      <textarea id="unfallOrt" name="unfallOrt" rows="2" required autocomplete="off"></textarea>
+      <textarea id="unfallOrt" name="unfallOrt" rows="2" required autocomplete="off" placeholder="Beispiel: 'Betriebsgelände der Muster GmbH, Halle 3, direkt an der CNC-Fräsmaschine.' oder 'Auf dem direkten Heimweg in der Hauptstraße, Höhe Hausnummer 12, auf dem Gehweg.'"></textarea>
 
       <label for="unfallhergang">Detaillierte Schilderung des Unfallhergangs:
         <small>Was wurde getan? Was ist genau passiert? Wie kam es zur Verletzung?</small>
       </label>
-      <textarea id="unfallhergang" name="unfallhergang" required autocomplete="off"></textarea>
+      <textarea id="unfallhergang" name="unfallhergang" required autocomplete="off" placeholder="Beispiel: 'Ich war gerade dabei, das schwere Werkstück auf die Maschine zu heben. Dabei rutschte mir das Teil aus den Händen und fiel auf meinen linken Fuß. Durch den Aufprall und das Umknicken kam es zur Verletzung.'"></textarea>
 
       <label for="verletzungArt">Art der Verletzung(en):</label>
       <input type="text" id="verletzungArt" name="verletzungArt" required placeholder="z.B. Schnittwunde am linken Unterarm, Bruch des rechten Sprunggelenks" autocomplete="off">
@@ -183,12 +183,12 @@
         <legend>5. Zeugen und Erstbehandlung</legend>
 
         <label for="zeugen">Zeugen (Name, Anschrift, falls bekannt):</label>
-        <textarea id="zeugen" name="zeugen" rows="2" placeholder="Max Mustermann, Kollege aus der Abteilung" autocomplete="off"></textarea>
+        <textarea id="zeugen" name="zeugen" rows="2" placeholder="Tragen Sie hier die Namen und Adressen von Personen ein, die den Unfall beobachtet haben. Beispiel: 'Max Mustermann, Kollege aus der Abteilung, Musterstraße 1, 12345 Musterstadt.'" autocomplete="off"></textarea>
 
         <label for="erstarzt">Erstbehandelnder Arzt / Krankenhaus (Name, Anschrift):
             <small>Hier geben Sie den Durchgangsarzt (D-Arzt) oder das Krankenhaus an, wo Sie zuerst behandelt wurden.</small>
         </label>
-        <textarea id="erstarzt" name="erstarzt" rows="2" required autocomplete="off"></textarea>
+        <textarea id="erstarzt" name="erstarzt" rows="2" required autocomplete="off" placeholder="Beispiel: 'Dr. med. Anna Schmidt, Durchgangsarzt, Praxis für Unfallchirurgie, Gesundheitsweg 5, 10115 Berlin.' oder 'Unfallkrankenhaus Berlin, Warener Straße 7, 12683 Berlin.'"></textarea>
     </fieldset>
 
     <div class="button-group">

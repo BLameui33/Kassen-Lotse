@@ -171,11 +171,11 @@
       <legend>4. Medizinische Angaben und Begründung</legend>
       <!-- YMYL: Diagnose laut Arzt -->
       <label for="diagnose">Genaue Diagnose(n) laut ärztlichem Befund:</label>
-      <textarea id="diagnose" rows="2" required></textarea>
+      <textarea id="diagnose" rows="2" required placeholder="Übernehmen Sie hier exakt die Diagnose(n) aus dem ärztlichen Befund inklusive ICD-Codes, falls vorhanden. Beispiel: 'Chronisch lymphatische Leukämie (ICD-10: C91.1), Stadium Binet B, refraktär nach Erstlinientherapie.'"></textarea>
       
       <!-- YMYL: Subjektive Beschreibung vs. medizinische Einordnung -->
       <label for="schweregradErkrankung">Beschreibung der Erkrankungsschwere: <small>(Schildern Sie die Auswirkungen auf Ihre Lebensqualität. Der medizinische Schweregrad muss im Arztbrief stehen.)</small></label>
-      <textarea id="schweregradErkrankung" rows="3" required></textarea>
+      <textarea id="schweregradErkrankung" rows="3" required placeholder="Schildern Sie hier Ihre persönliche Wahrnehmung der Erkrankungsschwere und die konkreten Auswirkungen auf Ihren Alltag und Ihre Lebensqualität. Der medizinische Schweregrad selbst wird über den Arztbrief belegt. Beispiel: 'Aufgrund der ständigen Erschöpfung und wiederkehrenden Infekte kann ich meinen Beruf seit drei Monaten nicht mehr ausüben und bin im Haushalt vollständig auf fremde Hilfe angewiesen.'"></textarea>
 
       <label for="arztName">Name des/der behandelnden Arztes/Ärztin (der/die die Notwendigkeit begründet):</label>
       <input type="text" id="arztName" required placeholder="Dr. Med...">
@@ -184,18 +184,18 @@
       <input type="text" id="arztFachrichtung" required>
       
       <label for="arztAnschrift">Anschrift der Arztpraxis:</label>
-      <textarea id="arztAnschrift" rows="2" required></textarea>
+      <textarea id="arztAnschrift" rows="2" required placeholder="Beispiel: 'Dr. med. Anna Schmidt, Onkologische Schwerpunktpraxis, Gesundheitsstraße 12, 10115 Berlin'"></textarea>
       
       <label for="datumAerztlicheStellungnahme">Datum der beigefügten (oder nachzureichenden) ausführlichen ärztlichen Stellungnahme:</label>
       <input type="date" id="datumAerztlicheStellungnahme" required>
       
       <!-- YMYL: Fokus auf "Ausschöpfung der Standards" -->
       <label for="bisherigeTherapien">Angaben zu bisherigen Standardtherapien: <small>(Warum stehen allgemein anerkannte Behandlungen laut Ihrem Arzt nicht (mehr) zur Verfügung? z.B. Unverträglichkeit, Therapieversagen)</small></label>
-      <textarea id="bisherigeTherapien" rows="5" required placeholder="Auflistung der bisherigen Therapien, warum diese nicht erfolgreich waren, nicht vertragen wurden oder nicht geeignet sind."></textarea>
+      <textarea id="bisherigeTherapien" rows="5" required placeholder="Listen Sie alle bisherigen Standardtherapien auf und erläutern Sie, warum diese nicht erfolgreich waren, nicht vertragen wurden oder nicht geeignet sind. Beispiel: '1. Rituximab-Chemotherapie (03/2023–08/2023): Therapieversagen, kein Ansprechen nach 6 Zyklen. 2. Ibrutinib (seit 09/2023): Abbruch wegen schwerer Unverträglichkeit (Vorhofflimmern). Laut ärztlicher Stellungnahme vom [Datum] stehen keine weiteren zugelassenen Standardtherapien zur Verfügung.'"></textarea>
       
       <!-- YMYL: Verweis auf ärztliche Prognose -->
       <label for="begruendeteAussicht">Begründung der Erfolgsaussicht durch den Arzt: <small>(Zusammenfassung der ärztlichen Einschätzung: Gibt es Studien, Einzelfallberichte oder Forschungsergebnisse, auf die sich Ihr Arzt stützt?)</small></label>
-      <textarea id="begruendeteAussicht" rows="5" required placeholder="Zusammenfassung der erwarteten positiven Effekte, basierend auf ärztlicher Einschätzung."></textarea>
+      <textarea id="begruendeteAussicht" rows="5" required placeholder="Beispiel: 'Laut ärztlicher Stellungnahme besteht eine begründete Aussicht auf Therapieerfolg. Mein Arzt verweist auf die Phase-II-Studie [Name/Quelle, Jahr] sowie auf publizierte Einzelfallberichte, die bei vergleichbarer Diagnose und Vorbehandlung eine Remissionsrate von ca. 40 % belegen.'"></textarea>
     </fieldset>
     
     <fieldset>
