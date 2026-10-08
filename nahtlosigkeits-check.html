@@ -97,7 +97,7 @@
     </div>
     <div class="usp-item" style="display: flex; align-items: center; gap: 5px;">
       <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
-      Rechtssichere Formulierungen
+      Formell korrekte Formulierungen
     </div>
     <div class="usp-item" style="display: flex; align-items: center; gap: 5px;">
       <svg viewBox="0 0 24 24" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#2e7d32"/></svg>
@@ -141,7 +141,7 @@
     <p><strong>Redaktionell & fachlich geprüft am:</strong> <span id="pruefdatum">11.08.2026</span></p>
   </div>
 
-    <!-- HIER BEGINNT DAS FORMULAR -->
+    <!--  FORMULAR -->
     <form id="nl-form" class="pflegegrad-form" onsubmit="return false;" aria-describedby="nl_ergebnis">
       
       <fieldset class="pflegegrad-fieldset active-step">
@@ -194,6 +194,28 @@
           <input type="text" id="nl_kundennummer" placeholder="z. B. 123A456789" />
         </label>
       </fieldset>
+
+      <!-- Empfänger-Daten (Agentur für Arbeit) -->
+  <h3 style="font-size: 1em; margin-top: 20px; margin-bottom: 10px;">Zuständige Agentur für Arbeit (Empfänger)</h3>
+  <label class="pflegegrad-label" for="nl_aa_name">
+    Bezeichnung der Agentur für Arbeit
+    <input type="text" id="nl_aa_name" placeholder="z. B. Agentur für Arbeit Musterstadt" />
+  </label>
+
+  <label class="pflegegrad-label" for="nl_aa_strasse">
+    Straße & Hausnummer / Postfach
+    <input type="text" id="nl_aa_strasse" placeholder="z. B. Esplanade 29" />
+  </label>
+
+  <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px;">
+      <label class="pflegegrad-label" for="nl_aa_plz">PLZ
+        <input type="text" id="nl_aa_plz" placeholder="12345" />
+      </label>
+      <label class="pflegegrad-label" for="nl_aa_ort">Ort
+        <input type="text" id="nl_aa_ort" placeholder="Musterstadt" />
+      </label>
+  </div>
+</fieldset>
 
       <div class="button-container" role="group" aria-label="Buttons">
         <button type="button" id="nl_berechnen" class="button">Anspruch prüfen & PDF erstellen</button>
