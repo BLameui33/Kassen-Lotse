@@ -43,41 +43,22 @@
   <script defer src="widerspruch-medikamente_script.js"></script>
   <link rel="stylesheet" href="/css/generator.css">
 
-  <style>/* Mobilgeräte: alle Fieldsets, Textareas und Listen auf volle Breite */
+ <style>/* 1. Verhindert das Ausbrechen von Fieldsets auf Mobilgeräten */
+fieldset {
+  min-width: 0;
+}
+
 @media (max-width: 600px) {
-  /* Fieldsets auf volle Breite */
-  fieldset {
-    width: 100%;
-    margin: 0;
-    padding: 0 10px; /* innenliegender Abstand */
+  .info-box, 
+  .highlight-box, 
+  .kl-sources-box {
+    padding: 1rem !important; 
+    
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    
     box-sizing: border-box;
-  }
-
-  /* Info-Boxen */
-  .info-box {
-    padding-left: 10px;
-    padding-right: 10px;
-    box-sizing: border-box;
-  }
-
-  /* Listen innerhalb Fieldsets */
-  fieldset ul {
-    padding-left: 15px;
-    margin-left: 0;
-  }
-
-  /* Textareas */
-  textarea {
-    width: 100%;
     max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Buttons bleiben wie sie sind, da eigene Klasse */
-  .button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
   }
 }</style>
 </head>
